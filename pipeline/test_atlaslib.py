@@ -46,3 +46,10 @@ def test_draft_map_matches_sides():
     site = [{"key": "kidney_left", "names": {"en": "Left kidney"}}]
     atlas = [{"key": "kidney_left", "en": "Kidney (left)"}, {"key": "kidney_right", "en": "Kidney (right)"}]
     assert draft_map(site, atlas) == {"kidney_left": ["kidney_left"]}
+
+
+def test_case_centroids_voxel_centres():
+    from atlaslib import case_centroids
+    lab = np.zeros((4, 4, 4), np.uint8)
+    lab[1, 2, 3] = 7
+    assert case_centroids(lab, (2, 2, 2), [7, 9]) == {7: (3.0, 5.0, 7.0)}

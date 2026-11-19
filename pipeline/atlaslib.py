@@ -68,3 +68,11 @@ def draft_map(site, atlas):
         if hit:
             out[s["key"]] = hit
     return out
+
+
+def case_centroids(labels, spacing, ids):
+    """Centroid in mm of each label id present in an [x,y,z] label map (voxel centre = (i + 0.5) * spacing)."""
+    from scipy import ndimage
+    present = [i for i in ids if (labels == i).any()]
+    cents = ndimage.center_of_mass(np.ones_like(labels), labels, present)
+    return {i: tuple(float((c + 0.5) * s) for c, s in zip(cent, spacing)) for i, cent in zip(present, cents)}

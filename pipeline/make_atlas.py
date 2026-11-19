@@ -4,13 +4,18 @@
   make_atlas.py map      draft site->atlas links into data/zanatomy/atlas_map.draft.json (review by hand
                          into pipeline/atlas_map.json)
   make_atlas.py link     validate pipeline/atlas_map.json and copy it into site/atlas/index.json
+  make_atlas.py fit site/cases/<id> ...   per-case CT->atlas plane fit -> atlaslink.json
 """
 import json
 import os
 import subprocess
 import sys
 
-from atlaslib import draft_map, validate_map
+import gzip
+
+import numpy as np
+
+from atlaslib import case_centroids, draft_map, fit_axes, validate_map
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HERE = os.path.join(ROOT, "pipeline")
@@ -119,5 +124,57 @@ def link():
     print(f"{len(m)} links")
 
 
+def landmarks(meta, index):
+    """([all], [bones]) as (site key, ct structure id, atlas point) for linked structures.
+
+    Skips unsided site structures whose atlas parts lie on both sides of the body (a limb case may show one
+    leg), since their atlas mean sits on the midline.
+    """
+    atlas = {s["key"]: s for s in index["structures"]}
+    out, bones = [], []
+    for s in meta["structures"]:
+        parts = [atlas[k] for k in index["links"].get(s["key"], [])]
+        if not parts:
+            continue
+        xs = [p["centroid"][0] for p in parts]
+        if max(xs) - min(xs) > 100:
+            continue
+        lm = (s["key"], s["id"], np.mean([p["centroid"] for p in parts], 0))
+        out.append(lm)
+        if all(p["system"] == "skeleton" for p in parts):
+            bones.append(lm)
+    return out, bones
+
+
+def fit(case_dirs):
+    index = load_index()
+    for d in case_dirs:
+        meta = json.load(open(os.path.join(d, "meta.json"), encoding="utf-8"))
+        X, Y, Z = meta["dims"]
+        with gzip.open(os.path.join(d, "labels.bin.gz")) as f:
+            labels = np.frombuffer(f.read(), np.uint8).reshape(Z, Y, X).transpose(2, 1, 0)
+        from scipy import ndimage
+        boxes = ndimage.find_objects(labels)
+        cut = {i + 1 for i, b in enumerate(boxes)  # cut off by the scan edge: centroid is not the organ's
+               if b and any(sl.start == 0 or sl.stop == n for sl, n in zip(b, labels.shape))}
+        every, bones = landmarks(meta, index)
+        cents = case_centroids(labels, meta["spacing"], [i for _, i, _ in every if i not in cut])
+
+        def fit_of(lms):
+            used = [(k, cents[i], a) for k, i, a in lms if i in cents]
+            return fit_axes([c for _, c, _ in used] or np.zeros((0, 3)), [a for _, _, a in used] or np.zeros((0, 3))), used
+
+        # Bones are the steadiest landmarks; an axis they don't span falls back to every linked structure.
+        result, used = fit_of(bones)
+        if None in result.values():
+            more, used_all = fit_of(every)
+            result = {k: result[k] or more[k] for k in "xyz"}
+            used = used_all
+        result["landmarks"] = [k for k, _, _ in used]
+        json.dump(result, open(os.path.join(d, "atlaslink.json"), "w"), separators=(",", ":"))
+        print(meta["id"], {k: result[k] for k in "xyz"}, len(used), "landmarks")
+
+
 if __name__ == "__main__":
-    {"export": export, "map": draft, "link": link}[sys.argv[1]]()
+    cmd = sys.argv[1]
+    fit(sys.argv[2:]) if cmd == "fit" else {"export": export, "map": draft, "link": link}[cmd]()
