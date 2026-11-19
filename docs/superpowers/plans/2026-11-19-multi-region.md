@@ -145,3 +145,12 @@ Same steps as Task 4, with these values:
 - Key levels: thoracic inlet, aortic arch, carina, pulmonary trunk, cardiac four-chamber level.
 - Then update `README.md` (regions list, credits per task, the author's 2026-11-19 permission to publish licensed-task outputs, and which cases need a license key to rebuild) and `CONTRIBUTING.md` (case file fields, `systems.json`, the open-task allow-list). Run the manual check from Task 3 Step 2 for every region, including Arabic and a 390 px viewport.
 - Commit: `"Add chest CT case and document multi-region cases"`
+
+### Task 7: Limbs case(s) (added by the owner, 2026-11-19)
+
+Same steps as Task 4, with these values:
+- Scan: `study_type` in `ct lower limb` / `ct angiography pelvis-leg` / `ct upper leg` (lower limb first; upper limb only if a usable scan exists). Adult, no pathology. Use `--z-range` / `--voxel-mm` to fit the 25 MB budget, since leg scans are long.
+- New systems: `limb-bones` (from `appendicular_bones`: femur, patella, tibia, fibula, tarsals, metatarsals, phalanges, as available), `limb-muscles` (gluteal muscles, iliopsoas from `total`). Reuse `pelvis` (hip bones, sacrum), `arteries` and `veins` (iliac vessels from `total`).
+- Tasks: `total, appendicular_bones`. Region `lower-limb` (and `upper-limb` if built), added to the region order after `abdomen-pelvis`, with `region.*` strings in 7 languages. `defaultSystems: ["limb-bones"]`. `windows: ["bone","soft"]`.
+- Key levels: hip joint, mid-femur, knee joint, mid-tibia, ankle joint (those inside the scan).
+- Commit: `"Add lower limb CT case"`
