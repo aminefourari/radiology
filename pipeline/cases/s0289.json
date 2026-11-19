@@ -1,10 +1,119 @@
 {
  "region": "neck",
- "title": {"en": "Neck · CT angiography", "de": "Hals · CT-Angiographie", "es": "Cuello · angio-TC", "ar": "العنق · تصوير مقطعي للأوعية", "fr": "Cou · angioscanner", "it": "Collo · angio-TC", "nl": "Hals · CT-angiografie"},
- "tasks": ["total", "headneck_bones_vessels", "headneck_muscles", "head_glands_cavities"],
- "systems": ["larynx", "pharynx-esophagus", "thyroid", "glands-airway", "vessels", "spine", "neck-muscles"],
- "defaultSystems": ["larynx", "vessels"],
- "windows": ["soft", "bone"],
- "systemOverrides": {"esophagus": "pharynx-esophagus", "aorta": "vessels", "nasopharynx": "pharynx-esophagus", "oropharynx": "pharynx-esophagus", "hypopharynx": "pharynx-esophagus", "internal_carotid_artery_right": "vessels", "internal_carotid_artery_left": "vessels"},
- "keyLevels": []
+ "title": {
+  "en": "Neck · CT angiography",
+  "de": "Hals · CT-Angiographie",
+  "es": "Cuello · angio-TC",
+  "ar": "العنق · تصوير مقطعي للأوعية",
+  "fr": "Cou · angioscanner",
+  "it": "Collo · angio-TC",
+  "nl": "Hals · CT-angiografie"
+ },
+ "zRange": "0:142",
+ "tasks": [
+  "total",
+  "headneck_bones_vessels",
+  "headneck_muscles",
+  "head_glands_cavities"
+ ],
+ "systems": [
+  "larynx",
+  "pharynx-esophagus",
+  "thyroid",
+  "glands-airway",
+  "vessels",
+  "spine",
+  "neck-muscles"
+ ],
+ "defaultSystems": [
+  "larynx",
+  "vessels"
+ ],
+ "windows": [
+  "soft",
+  "bone"
+ ],
+ "systemOverrides": {
+  "esophagus": "pharynx-esophagus",
+  "aorta": "vessels",
+  "nasopharynx": "pharynx-esophagus",
+  "oropharynx": "pharynx-esophagus",
+  "hypopharynx": "pharynx-esophagus",
+  "internal_carotid_artery_right": "vessels",
+  "internal_carotid_artery_left": "vessels"
+ },
+ "keyLevels": [
+  {
+   "names": {
+    "en": "C2 · oropharynx",
+    "de": "C2 · Oropharynx",
+    "es": "C2 · orofaringe",
+    "ar": "C2 · البلعوم الفموي",
+    "fr": "C2 · oropharynx",
+    "it": "C2 · orofaringe",
+    "nl": "C2 · orofarynx"
+   },
+   "axial": 116
+  },
+  {
+   "names": {
+    "en": "Hyoid bone",
+    "de": "Zungenbein",
+    "es": "Hueso hioides",
+    "ar": "العظم اللامي",
+    "fr": "Os hyoïde",
+    "it": "Osso ioide",
+    "nl": "Tongbeen"
+   },
+   "axial": 95
+  },
+  {
+   "names": {
+    "en": "Thyroid cartilage",
+    "de": "Schildknorpel",
+    "es": "Cartílago tiroides",
+    "ar": "الغضروف الدرقي",
+    "fr": "Cartilage thyroïde",
+    "it": "Cartilagine tiroidea",
+    "nl": "Schildkraakbeen"
+   },
+   "axial": 84
+  },
+  {
+   "names": {
+    "en": "Cricoid cartilage",
+    "de": "Ringknorpel",
+    "es": "Cartílago cricoides",
+    "ar": "الغضروف الحلقي",
+    "fr": "Cartilage cricoïde",
+    "it": "Cartilagine cricoidea",
+    "nl": "Ringkraakbeen"
+   },
+   "axial": 72
+  },
+  {
+   "names": {
+    "en": "Thyroid gland",
+    "de": "Schilddrüse",
+    "es": "Glándula tiroides",
+    "ar": "الغدة الدرقية",
+    "fr": "Glande thyroïde",
+    "it": "Ghiandola tiroidea",
+    "nl": "Schildklier"
+   },
+   "axial": 62
+  },
+  {
+   "names": {
+    "en": "Aortic arch",
+    "de": "Aortenbogen",
+    "es": "Cayado aórtico",
+    "ar": "قوس الأبهر",
+    "fr": "Crosse de l'aorte",
+    "it": "Arco aortico",
+    "nl": "Aortaboog"
+   },
+   "axial": 15
+  }
+ ]
 }

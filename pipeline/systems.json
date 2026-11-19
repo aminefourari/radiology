@@ -391,6 +391,34 @@
     "it": "Parete toracica",
     "nl": "Borstwand"
    }
+  },
+  {
+   "key": "limb-bones",
+   "icon": "limb-bones",
+   "color": "#d6dde8",
+   "names": {
+    "en": "Bones",
+    "de": "Knochen",
+    "es": "Huesos",
+    "ar": "العظام",
+    "fr": "Os",
+    "it": "Ossa",
+    "nl": "Botten"
+   }
+  },
+  {
+   "key": "limb-muscles",
+   "icon": "limb-muscles",
+   "color": "#f08a8a",
+   "names": {
+    "en": "Hip & thigh muscles",
+    "de": "Hüft- & Oberschenkelmuskeln",
+    "es": "Músculos de cadera y muslo",
+    "ar": "عضلات الورك والفخذ",
+    "fr": "Muscles de la hanche et de la cuisse",
+    "it": "Muscoli dell'anca e della coscia",
+    "nl": "Heup- & dijspieren"
+   }
   }
  ]
 }

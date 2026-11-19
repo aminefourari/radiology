@@ -3615,6 +3615,230 @@
     "it": "Costola 12 sinistra",
     "nl": "Linker rib 12"
    }
+  },
+  {
+   "key": "patella",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#f4cf7a",
+   "parent": null,
+   "names": {
+    "en": "Patella",
+    "de": "Kniescheibe",
+    "es": "Rótula",
+    "ar": "الرضفة",
+    "fr": "Patella",
+    "it": "Rotula",
+    "nl": "Knieschijf"
+   }
+  },
+  {
+   "key": "tibia",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "Tibia",
+    "de": "Schienbein",
+    "es": "Tibia",
+    "ar": "الظنبوب",
+    "fr": "Tibia",
+    "it": "Tibia",
+    "nl": "Scheenbeen"
+   }
+  },
+  {
+   "key": "fibula",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#8fd694",
+   "parent": null,
+   "names": {
+    "en": "Fibula",
+    "de": "Wadenbein",
+    "es": "Peroné",
+    "ar": "الشظية",
+    "fr": "Fibula",
+    "it": "Perone",
+    "nl": "Kuitbeen"
+   }
+  },
+  {
+   "key": "tarsal",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#f2a65a",
+   "parent": null,
+   "names": {
+    "en": "Tarsal bones",
+    "de": "Fußwurzelknochen",
+    "es": "Huesos del tarso",
+    "ar": "عظام الرسغ القدمي",
+    "fr": "Os du tarse",
+    "it": "Ossa del tarso",
+    "nl": "Voetwortelbeenderen"
+   }
+  },
+  {
+   "key": "metatarsal",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Metatarsal bones",
+    "de": "Mittelfußknochen",
+    "es": "Metatarsianos",
+    "ar": "عظام مشط القدم",
+    "fr": "Métatarsiens",
+    "it": "Metatarsi",
+    "nl": "Middenvoetsbeenderen"
+   }
+  },
+  {
+   "key": "phalanges_feet",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Phalanges of the foot",
+    "de": "Zehenknochen",
+    "es": "Falanges del pie",
+    "ar": "سلاميات القدم",
+    "fr": "Phalanges du pied",
+    "it": "Falangi del piede",
+    "nl": "Teenkootjes"
+   }
+  },
+  {
+   "key": "gluteus_maximus_right",
+   "source": "total",
+   "system": "limb-muscles",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Gluteus maximus, right",
+    "de": "M. gluteus maximus, rechts",
+    "es": "Glúteo mayor, lado derecho",
+    "ar": "العضلة الألوية الكبرى، الجانب الأيمن",
+    "fr": "Grand fessier, côté droit",
+    "it": "Grande gluteo, lato destro",
+    "nl": "M. gluteus maximus, rechts"
+   }
+  },
+  {
+   "key": "gluteus_maximus_left",
+   "source": "total",
+   "system": "limb-muscles",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Gluteus maximus, left",
+    "de": "M. gluteus maximus, links",
+    "es": "Glúteo mayor, lado izquierdo",
+    "ar": "العضلة الألوية الكبرى، الجانب الأيسر",
+    "fr": "Grand fessier, côté gauche",
+    "it": "Grande gluteo, lato sinistro",
+    "nl": "M. gluteus maximus, links"
+   }
+  },
+  {
+   "key": "gluteus_medius_right",
+   "source": "total",
+   "system": "limb-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Gluteus medius, right",
+    "de": "M. gluteus medius, rechts",
+    "es": "Glúteo medio, lado derecho",
+    "ar": "العضلة الألوية الوسطى، الجانب الأيمن",
+    "fr": "Moyen fessier, côté droit",
+    "it": "Medio gluteo, lato destro",
+    "nl": "M. gluteus medius, rechts"
+   }
+  },
+  {
+   "key": "gluteus_medius_left",
+   "source": "total",
+   "system": "limb-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Gluteus medius, left",
+    "de": "M. gluteus medius, links",
+    "es": "Glúteo medio, lado izquierdo",
+    "ar": "العضلة الألوية الوسطى، الجانب الأيسر",
+    "fr": "Moyen fessier, côté gauche",
+    "it": "Medio gluteo, lato sinistro",
+    "nl": "M. gluteus medius, links"
+   }
+  },
+  {
+   "key": "gluteus_minimus_right",
+   "source": "total",
+   "system": "limb-muscles",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Gluteus minimus, right",
+    "de": "M. gluteus minimus, rechts",
+    "es": "Glúteo menor, lado derecho",
+    "ar": "العضلة الألوية الصغرى، الجانب الأيمن",
+    "fr": "Petit fessier, côté droit",
+    "it": "Piccolo gluteo, lato destro",
+    "nl": "M. gluteus minimus, rechts"
+   }
+  },
+  {
+   "key": "gluteus_minimus_left",
+   "source": "total",
+   "system": "limb-muscles",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Gluteus minimus, left",
+    "de": "M. gluteus minimus, links",
+    "es": "Glúteo menor, lado izquierdo",
+    "ar": "العضلة الألوية الصغرى، الجانب الأيسر",
+    "fr": "Petit fessier, côté gauche",
+    "it": "Piccolo gluteo, lato sinistro",
+    "nl": "M. gluteus minimus, links"
+   }
+  },
+  {
+   "key": "iliopsoas_right",
+   "source": "total",
+   "system": "limb-muscles",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Iliopsoas, right",
+    "de": "M. iliopsoas, rechts",
+    "es": "Iliopsoas, lado derecho",
+    "ar": "العضلة الحرقفية القطنية، الجانب الأيمن",
+    "fr": "Ilio-psoas, côté droit",
+    "it": "Ileopsoas, lato destro",
+    "nl": "M. iliopsoas, rechts"
+   }
+  },
+  {
+   "key": "iliopsoas_left",
+   "source": "total",
+   "system": "limb-muscles",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Iliopsoas, left",
+    "de": "M. iliopsoas, links",
+    "es": "Iliopsoas, lado izquierdo",
+    "ar": "العضلة الحرقفية القطنية، الجانب الأيسر",
+    "fr": "Ilio-psoas, côté gauche",
+    "it": "Ileopsoas, lato sinistro",
+    "nl": "M. iliopsoas, links"
+   }
   }
  ]
 }

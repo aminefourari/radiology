@@ -39,7 +39,7 @@ async function fetchBytes(url, onBytes) {
 }
 
 export async function loadCase(baseUrl, onProgress) {
-  const res = await fetch(`${baseUrl}/meta.json`);
+  const res = await fetch(`${baseUrl}/meta.json`, { cache: "no-cache" });
   if (!res.ok) throw new Error(`${baseUrl}/meta.json: HTTP ${res.status}`);
   const meta = await res.json();
   const progress = { ct: [0, 0], labels: [0, 0] };

@@ -13,6 +13,19 @@
   }
  },
  {
+  "id": "s0289",
+  "region": "neck",
+  "title": {
+   "en": "Neck · CT angiography",
+   "de": "Hals · CT-Angiographie",
+   "es": "Cuello · angio-TC",
+   "ar": "العنق · تصوير مقطعي للأوعية",
+   "fr": "Cou · angioscanner",
+   "it": "Collo · angio-TC",
+   "nl": "Hals · CT-angiografie"
+  }
+ },
+ {
   "id": "s0010",
   "region": "abdomen-pelvis",
   "title": {

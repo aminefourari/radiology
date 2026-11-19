@@ -56,7 +56,7 @@ const ui = { hidden: new Set(), pan: { x: 0, y: 0 }, move: false, win: "soft", o
 // ---------- boot ----------
 async function boot() {
   try {
-    [langs, cases] = await Promise.all([loadLanguages(), fetch("cases/index.json").then((r) => r.json())]);
+    [langs, cases] = await Promise.all([loadLanguages(), fetch("cases/index.json", { cache: "no-cache" }).then((r) => r.json())]);
   } catch (e) {
     showError(e);
     return;
