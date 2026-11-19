@@ -1,5 +1,5 @@
 // ECG page DOM wiring. Geometry lives in ecgplot.js. The paper is one SVG in millimetre units.
-import { measure, panels, paperMm, pathData, shownWaves, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
+import { WAVE_KINDS, measure, panels, paperMm, parseWaves, pathData, shownWaves, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
 import { STEPS, diagnosisChoices, formatMeasure, isNormal, ltr, makeStore, nextRandom, score } from "./ecglearn.js";
 import { applyDir, loadLanguages, loadStrings, localized, pickLang, t } from "./i18n.js";
 import { REPO_URL, ecgReportUrl } from "./report.js";
@@ -10,7 +10,7 @@ const MIN_PPM = 3; // px per mm floor; narrower screens scroll sideways
 const GROUPS = ["normal", "rhythm", "conduction", "hypertrophy", "ischaemia", "other"];
 
 let langs = [], list = [], ecg = null;
-const st = { ecg: null, lang: "en", speed: 25, gain: 10, layout: "3x4", quiz: false, waves: false, learn: false };
+const st = { ecg: null, lang: "en", speed: 25, gain: 10, layout: "3x4", quiz: false, waves: [], learn: false }; // waves: shaded kinds, subset of WAVE_KINDS
 // Learn mode: { step 0..7 (7 = diagnosis), picks, dx: [ids], done }. Session data lives in localStorage when allowed.
 let learn = null;
 const store = makeStore(() => localStorage);
@@ -30,7 +30,7 @@ async function boot() {
   if (["5", "10", "20"].includes(h.get("gain"))) st.gain = +h.get("gain");
   if (["3x4", "12x1"].includes(h.get("layout"))) st.layout = h.get("layout");
   st.quiz = h.get("quiz") === "1";
-  st.waves = h.get("waves") === "1";
+  st.waves = parseWaves(h.get("waves"));
   st.learn = h.get("learn") === "1";
 
   $("lang-select").replaceChildren(...langs.map((l) => new Option(l.name, l.code)));
@@ -40,7 +40,12 @@ async function boot() {
   $("gain").onchange = (e) => { st.gain = +e.target.value; draw(); };
   $("layout").onclick = (e) => { if (e.target.dataset.layout) { st.layout = e.target.dataset.layout; draw(); } };
   $("calipers").onclick = () => { ui.calipers = !ui.calipers; clearCalipers(); sync(); };
-  $("waves").onclick = () => { st.waves = !st.waves; draw(); };
+  $("waves").onclick = (e) => {
+    const k = e.target.dataset.k;
+    if (!k) return;
+    st.waves = WAVE_KINDS.filter((x) => (x === k) !== st.waves.includes(x)); // toggle k, keep order
+    draw();
+  };
   $("learn-btn").onclick = () => (st.learn ? exitLearn() : startLearn());
   $("quiz").onchange = (e) => { st.quiz = e.target.checked; $("answer").open = false; ui.highlight = null; renderText(); draw(); };
   $("answer").ontoggle = () => renderReading();
@@ -249,12 +254,12 @@ function sync() {
   $("gain").value = st.gain;
   document.querySelectorAll("#layout [data-layout]").forEach((b) => b.setAttribute("aria-checked", b.dataset.layout === st.layout));
   $("calipers").setAttribute("aria-pressed", ui.calipers);
-  $("waves").setAttribute("aria-pressed", st.waves);
+  document.querySelectorAll("#waves [data-k]").forEach((b) => b.setAttribute("aria-pressed", st.waves.includes(b.dataset.k)));
   $("paper").classList.toggle("measuring", ui.calipers);
   $("scale-info").textContent = `${st.speed} mm/s · ${st.gain} mm/mV`;
   const q = new URLSearchParams({ ecg: st.ecg, lang: st.lang, speed: st.speed, gain: st.gain, layout: st.layout });
   if (st.quiz) q.set("quiz", "1");
-  if (st.waves) q.set("waves", "1");
+  if (st.waves.length) q.set("waves", st.waves.join(","));
   if (st.learn) q.set("learn", "1");
   history.replaceState(null, "", `#${q}`);
 }
@@ -327,7 +332,7 @@ function draw() {
   const hl = ui.highlight;
   for (const panel of panels(duration, st.layout)) {
     const dim = hl && !hl.leads.includes(panel.lead);
-    const shown = shownWaves(ecg.waves, { all: st.waves, highlight: hl?.wave, dim });
+    const shown = shownWaves(ecg.waves, { kinds: st.waves, highlight: hl?.wave, dim });
     if (shown.length) {
       for (const b of waveBands(shown, ecg.fs, panel, st.speed)) {
         bands.append(el("rect", { class: `w-${b.k}`, x: b.x, y: b.y + 1, width: b.w, height: b.h - 2 }));

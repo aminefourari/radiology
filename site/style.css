@@ -232,3 +232,14 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .learn .muted { color: var(--muted); }
 .learn .big { font-size: 16px; }
 .learn .pair { flex-wrap: wrap; margin-top: 8px; }
+
+/* per-wave toggles, coloured like their bands */
+.wave-toggles { display: flex; gap: 4px; align-items: center; }
+.wave-toggles span { color: var(--muted); font-size: 12px; margin-inline-end: 4px; }
+.wave-toggles .btn { min-width: 40px; }
+.wave-toggles .w-P { --c: #5b9cf0; }
+.wave-toggles .w-QRS { --c: #e85a5a; }
+.wave-toggles .w-ST { --c: #e0a12a; }
+.wave-toggles .w-T { --c: #4cb873; }
+.wave-toggles .btn[aria-pressed="true"] { border-color: var(--c); color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--panel)); }
+#ecg-select { max-width: 100%; min-width: 0; }

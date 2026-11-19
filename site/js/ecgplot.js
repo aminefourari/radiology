@@ -64,10 +64,19 @@ export function stSegments(waves) {
   return out;
 }
 
-// Wave bands to shade on one panel. `all` = the Waves toggle (P, QRS, ST, T);
-// otherwise only the highlighted clue's wave, and not on dimmed leads.
-export function shownWaves(waves, { all, highlight, dim = false }) {
-  if (all) return [...waves, ...stSegments(waves)];
-  if (!highlight || dim) return [];
-  return highlight === "ST" ? stSegments(waves) : waves.filter((w) => w.k === highlight);
+export const WAVE_KINDS = ["P", "QRS", "ST", "T"];
+
+// Wave bands to shade on one panel: the kinds switched on, plus a highlighted clue's wave
+// (not on dimmed leads).
+export function shownWaves(waves, { kinds, highlight, dim = false }) {
+  const want = new Set(kinds);
+  if (highlight && !dim) want.add(highlight);
+  return [...waves.filter((w) => want.has(w.k)), ...(want.has("ST") ? stSegments(waves) : [])];
+}
+
+// URL value → wave kinds. "1" is the old all-waves link.
+export function parseWaves(v) {
+  if (v === "1") return [...WAVE_KINDS];
+  const got = new Set(String(v ?? "").split(","));
+  return WAVE_KINDS.filter((k) => got.has(k));
 }
