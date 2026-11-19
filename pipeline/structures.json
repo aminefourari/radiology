@@ -3713,6 +3713,86 @@
    }
   },
   {
+   "key": "radius",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#7fb3e6",
+   "parent": null,
+   "names": {
+    "en": "Radius",
+    "de": "Speiche (Radius)",
+    "es": "Radio",
+    "ar": "الكعبرة",
+    "fr": "Radius",
+    "it": "Radio",
+    "nl": "Spaakbeen"
+   }
+  },
+  {
+   "key": "ulna",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#e6c27f",
+   "parent": null,
+   "names": {
+    "en": "Ulna",
+    "de": "Elle (Ulna)",
+    "es": "Cúbito",
+    "ar": "الزند",
+    "fr": "Ulna",
+    "it": "Ulna",
+    "nl": "Ellepijp"
+   }
+  },
+  {
+   "key": "carpal",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#f2a65a",
+   "parent": null,
+   "names": {
+    "en": "Carpal bones",
+    "de": "Handwurzelknochen",
+    "es": "Huesos del carpo",
+    "ar": "عظام الرسغ",
+    "fr": "Os du carpe",
+    "it": "Ossa del carpo",
+    "nl": "Handwortelbeentjes"
+   }
+  },
+  {
+   "key": "metacarpal",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Metacarpal bones",
+    "de": "Mittelhandknochen",
+    "es": "Metacarpianos",
+    "ar": "عظام مشط اليد",
+    "fr": "Métacarpiens",
+    "it": "Metacarpi",
+    "nl": "Middenhandsbeentjes"
+   }
+  },
+  {
+   "key": "phalanges_hand",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#8fd19e",
+   "parent": null,
+   "names": {
+    "en": "Phalanges of the hand",
+    "de": "Fingerglieder",
+    "es": "Falanges de la mano",
+    "ar": "سلاميات اليد",
+    "fr": "Phalanges de la main",
+    "it": "Falangi della mano",
+    "nl": "Vingerkootjes"
+   }
+  },
+  {
    "key": "gluteus_maximus_right",
    "source": "total",
    "system": "limb-muscles",
@@ -3838,6 +3918,134 @@
     "fr": "Ilio-psoas, côté gauche",
     "it": "Ileopsoas, lato sinistro",
     "nl": "M. iliopsoas, links"
+   }
+  },
+  {
+   "key": "quadriceps_femoris_left",
+   "source": "thigh_shoulder_muscles",
+   "system": "limb-muscles",
+   "color": "#e8c26b",
+   "parent": null,
+   "names": {
+    "en": "Quadriceps femoris, left",
+    "de": "M. quadriceps femoris, links",
+    "es": "Cuádriceps femoral, lado izquierdo",
+    "ar": "العضلة رباعية الرؤوس الفخذية، الجانب الأيسر",
+    "fr": "Quadriceps fémoral, côté gauche",
+    "it": "Quadricipite femorale, lato sinistro",
+    "nl": "M. quadriceps femoris, links"
+   }
+  },
+  {
+   "key": "quadriceps_femoris_right",
+   "source": "thigh_shoulder_muscles",
+   "system": "limb-muscles",
+   "color": "#e8c26b",
+   "parent": null,
+   "names": {
+    "en": "Quadriceps femoris, right",
+    "de": "M. quadriceps femoris, rechts",
+    "es": "Cuádriceps femoral, lado derecho",
+    "ar": "العضلة رباعية الرؤوس الفخذية، الجانب الأيمن",
+    "fr": "Quadriceps fémoral, côté droit",
+    "it": "Quadricipite femorale, lato destro",
+    "nl": "M. quadriceps femoris, rechts"
+   }
+  },
+  {
+   "key": "sartorius_left",
+   "source": "thigh_shoulder_muscles",
+   "system": "limb-muscles",
+   "color": "#9fd47a",
+   "parent": null,
+   "names": {
+    "en": "Sartorius, left",
+    "de": "M. sartorius, links",
+    "es": "Sartorio, lado izquierdo",
+    "ar": "العضلة الخياطية، الجانب الأيسر",
+    "fr": "Sartorius, côté gauche",
+    "it": "Sartorio, lato sinistro",
+    "nl": "M. sartorius, links"
+   }
+  },
+  {
+   "key": "sartorius_right",
+   "source": "thigh_shoulder_muscles",
+   "system": "limb-muscles",
+   "color": "#9fd47a",
+   "parent": null,
+   "names": {
+    "en": "Sartorius, right",
+    "de": "M. sartorius, rechts",
+    "es": "Sartorio, lado derecho",
+    "ar": "العضلة الخياطية، الجانب الأيمن",
+    "fr": "Sartorius, côté droit",
+    "it": "Sartorio, lato destro",
+    "nl": "M. sartorius, rechts"
+   }
+  },
+  {
+   "key": "thigh_medial_compartment_left",
+   "source": "thigh_shoulder_muscles",
+   "system": "limb-muscles",
+   "color": "#7fc4e6",
+   "parent": null,
+   "names": {
+    "en": "Thigh adductors (medial compartment), left",
+    "de": "Adduktoren (mediale Loge), links",
+    "es": "Aductores del muslo (compartimento medial), lado izquierdo",
+    "ar": "العضلات المقربة للفخذ (الحجيرة الإنسية)، الجانب الأيسر",
+    "fr": "Adducteurs de la cuisse (loge médiale), côté gauche",
+    "it": "Adduttori della coscia (compartimento mediale), lato sinistro",
+    "nl": "Adductoren (mediaal compartiment), links"
+   }
+  },
+  {
+   "key": "thigh_medial_compartment_right",
+   "source": "thigh_shoulder_muscles",
+   "system": "limb-muscles",
+   "color": "#7fc4e6",
+   "parent": null,
+   "names": {
+    "en": "Thigh adductors (medial compartment), right",
+    "de": "Adduktoren (mediale Loge), rechts",
+    "es": "Aductores del muslo (compartimento medial), lado derecho",
+    "ar": "العضلات المقربة للفخذ (الحجيرة الإنسية)، الجانب الأيمن",
+    "fr": "Adducteurs de la cuisse (loge médiale), côté droit",
+    "it": "Adduttori della coscia (compartimento mediale), lato destro",
+    "nl": "Adductoren (mediaal compartiment), rechts"
+   }
+  },
+  {
+   "key": "thigh_posterior_compartment_left",
+   "source": "thigh_shoulder_muscles",
+   "system": "limb-muscles",
+   "color": "#c49ae0",
+   "parent": null,
+   "names": {
+    "en": "Hamstrings (posterior compartment), left",
+    "de": "Ischiokrurale Muskeln (hintere Loge), links",
+    "es": "Isquiotibiales (compartimento posterior), lado izquierdo",
+    "ar": "أوتار الركبة (الحجيرة الخلفية)، الجانب الأيسر",
+    "fr": "Ischio-jambiers (loge postérieure), côté gauche",
+    "it": "Ischiocrurali (compartimento posteriore), lato sinistro",
+    "nl": "Hamstrings (achterste compartiment), links"
+   }
+  },
+  {
+   "key": "thigh_posterior_compartment_right",
+   "source": "thigh_shoulder_muscles",
+   "system": "limb-muscles",
+   "color": "#c49ae0",
+   "parent": null,
+   "names": {
+    "en": "Hamstrings (posterior compartment), right",
+    "de": "Ischiokrurale Muskeln (hintere Loge), rechts",
+    "es": "Isquiotibiales (compartimento posterior), lado derecho",
+    "ar": "أوتار الركبة (الحجيرة الخلفية)، الجانب الأيمن",
+    "fr": "Ischio-jambiers (loge postérieure), côté droit",
+    "it": "Ischiocrurali (compartimento posteriore), lato destro",
+    "nl": "Hamstrings (achterste compartiment), rechts"
    }
   }
  ]

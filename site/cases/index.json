@@ -63,5 +63,18 @@
    "it": "Arto inferiore · TC, dall'anca al piede",
    "nl": "Onderste ledemaat · CT, heup tot voet"
   }
+ },
+ {
+  "id": "s1489",
+  "region": "upper-limb",
+  "title": {
+   "en": "Hands & wrists · CT",
+   "de": "Hände & Handgelenke · CT",
+   "es": "Manos y muñecas · TC",
+   "ar": "اليدان والرسغان · تصوير مقطعي",
+   "fr": "Mains et poignets · TDM",
+   "it": "Mani e polsi · TC",
+   "nl": "Handen en polsen · CT"
+  }
  }
 ]

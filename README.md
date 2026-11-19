@@ -3,7 +3,7 @@
 # CT Anatomy Atlas
 
 An open, multilingual web atlas of cross-sectional anatomy on real CT scans. Pick a region (head,
-neck, chest, abdomen & pelvis, lower limb) and scroll through it in axial, coronal or sagittal view. Switch coloured
+neck, chest, abdomen & pelvis, lower limb, hands) and scroll through it in axial, coronal or sagittal view. Switch coloured
 structures on and off by system, read the labels, and jump to key levels such as the lateral
 ventricles, the thyroid cartilage or the celiac trunk.
 
@@ -63,9 +63,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
   `pipeline/cases/<id>.json` (`tasks`) and in each case's `meta.json` (`source.tasks`). Open
   models (Apache-2.0): `ventricle_parts`, `head_glands_cavities`, `oculomotor_muscles`,
   `headneck_bones_vessels`, `head_muscles`, `headneck_muscles`, `lung_vessels`. Licensed models:
-  `brain_structures` (head `s1508`), `heartchambers_highres` (chest `s0739`) and
-  `appendicular_bones` (lower limb `s0783`). Their author, Jakob Wasserthal, gave permission on
-  2026-11-19 to publish their outputs in this free, non-commercial atlas. Rebuilding those three
+  `brain_structures` (head `s1508`), `heartchambers_highres` (chest `s0739`),
+  `appendicular_bones` (lower limb `s0783`, hands `s1489`) and `thigh_shoulder_muscles` (lower
+  limb `s0783`). Their author, Jakob Wasserthal, gave permission on 2026-11-19 to publish their
+  outputs in this free, non-commercial atlas. Rebuilding those
   cases needs your own TotalSegmentator licence key; the others build with open models only.
 - ECGs come from **PTB-XL** (Wagner et al., PhysioNet,
   [doi:10.13026/kfzx-aw45](https://doi.org/10.13026/kfzx-aw45)), licensed

@@ -67,10 +67,11 @@ def main(argv=None):
 
     ct, spacing = load_canonical(ct_path)
     box = list(body_bbox(ct))
-    z_range = a.z_range or case.get("zRange")
-    if z_range:
-        lo, hi = (int(v) for v in z_range.split(":"))
-        box[2] = slice(max(box[2].start, lo), min(box[2].stop, hi))
+    # Optional crops in canonical source voxels, e.g. "yRange" to leave out the scanner table.
+    for axis, rng in ((1, case.get("yRange")), (2, a.z_range or case.get("zRange"))):
+        if rng:
+            lo, hi = (int(v) for v in rng.split(":"))
+            box[axis] = slice(max(box[axis].start, lo), min(box[axis].stop, hi))
     box = tuple(box)
 
     def prep(arr, order):

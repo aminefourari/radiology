@@ -1,0 +1,228 @@
+{
+ "id": "s1489",
+ "dims": [
+  204,
+  38,
+  166
+ ],
+ "spacing": [
+  1.5,
+  1.5,
+  1.5
+ ],
+ "orientation": "RAS",
+ "region": "upper-limb",
+ "source": {
+  "name": "TotalSegmentator dataset",
+  "license": "CC BY 4.0",
+  "url": "https://doi.org/10.5281/zenodo.6802613",
+  "case": "s1489",
+  "tasks": [
+   "appendicular_bones"
+  ]
+ },
+ "systems": [
+  {
+   "key": "limb-bones",
+   "icon": "limb-bones",
+   "color": "#d6dde8",
+   "names": {
+    "en": "Bones",
+    "de": "Knochen",
+    "es": "Huesos",
+    "ar": "العظام",
+    "fr": "Os",
+    "it": "Ossa",
+    "nl": "Botten"
+   }
+  }
+ ],
+ "defaultSystems": [
+  "limb-bones"
+ ],
+ "windows": [
+  "bone",
+  "soft"
+ ],
+ "structures": [
+  {
+   "id": 1,
+   "key": "radius",
+   "system": "limb-bones",
+   "color": "#7fb3e6",
+   "parent": null,
+   "names": {
+    "en": "Radius",
+    "de": "Speiche (Radius)",
+    "es": "Radio",
+    "ar": "الكعبرة",
+    "fr": "Radius",
+    "it": "Radio",
+    "nl": "Spaakbeen"
+   },
+   "best": {
+    "axial": 23,
+    "coronal": 16,
+    "sagittal": 51
+   }
+  },
+  {
+   "id": 2,
+   "key": "ulna",
+   "system": "limb-bones",
+   "color": "#e6c27f",
+   "parent": null,
+   "names": {
+    "en": "Ulna",
+    "de": "Elle (Ulna)",
+    "es": "Cúbito",
+    "ar": "الزند",
+    "fr": "Ulna",
+    "it": "Ulna",
+    "nl": "Ellepijp"
+   },
+   "best": {
+    "axial": 25,
+    "coronal": 17,
+    "sagittal": 39
+   }
+  },
+  {
+   "id": 3,
+   "key": "carpal",
+   "system": "limb-bones",
+   "color": "#f2a65a",
+   "parent": null,
+   "names": {
+    "en": "Carpal bones",
+    "de": "Handwurzelknochen",
+    "es": "Huesos del carpo",
+    "ar": "عظام الرسغ",
+    "fr": "Os du carpe",
+    "it": "Ossa del carpo",
+    "nl": "Handwortelbeentjes"
+   },
+   "best": {
+    "axial": 40,
+    "coronal": 17,
+    "sagittal": 160
+   }
+  },
+  {
+   "id": 4,
+   "key": "metacarpal",
+   "system": "limb-bones",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Metacarpal bones",
+    "de": "Mittelhandknochen",
+    "es": "Metacarpianos",
+    "ar": "عظام مشط اليد",
+    "fr": "Métacarpiens",
+    "it": "Metacarpi",
+    "nl": "Middenhandsbeentjes"
+   },
+   "best": {
+    "axial": 56,
+    "coronal": 11,
+    "sagittal": 139
+   }
+  },
+  {
+   "id": 5,
+   "key": "phalanges_hand",
+   "system": "limb-bones",
+   "color": "#8fd19e",
+   "parent": null,
+   "names": {
+    "en": "Phalanges of the hand",
+    "de": "Fingerglieder",
+    "es": "Falanges de la mano",
+    "ar": "سلاميات اليد",
+    "fr": "Phalanges de la main",
+    "it": "Falangi della mano",
+    "nl": "Vingerkootjes"
+   },
+   "best": {
+    "axial": 91,
+    "coronal": 17,
+    "sagittal": 61
+   }
+  }
+ ],
+ "keyLevels": [
+  {
+   "names": {
+    "en": "Distal radius & ulna",
+    "de": "Distaler Radius & Ulna",
+    "es": "Radio y cúbito distales",
+    "ar": "الكعبرة والزند القاصيان",
+    "fr": "Radius et ulna distaux",
+    "it": "Radio e ulna distali",
+    "nl": "Distale radius en ulna"
+   },
+   "axial": 15
+  },
+  {
+   "names": {
+    "en": "Proximal carpal row",
+    "de": "Proximale Handwurzelreihe",
+    "es": "Fila proximal del carpo",
+    "ar": "الصف الرسغي الداني",
+    "fr": "Rangée proximale du carpe",
+    "it": "Fila prossimale del carpo",
+    "nl": "Proximale handwortelrij"
+   },
+   "axial": 35
+  },
+  {
+   "names": {
+    "en": "Distal carpal row",
+    "de": "Distale Handwurzelreihe",
+    "es": "Fila distal del carpo",
+    "ar": "الصف الرسغي القاصي",
+    "fr": "Rangée distale du carpe",
+    "it": "Fila distale del carpo",
+    "nl": "Distale handwortelrij"
+   },
+   "axial": 48
+  },
+  {
+   "names": {
+    "en": "Metacarpal shafts",
+    "de": "Mittelhandschäfte",
+    "es": "Diáfisis metacarpianas",
+    "ar": "أجسام عظام المشط",
+    "fr": "Diaphyses métacarpiennes",
+    "it": "Diafisi metacarpali",
+    "nl": "Middenhandsschachten"
+   },
+   "axial": 65
+  },
+  {
+   "names": {
+    "en": "Proximal phalanges",
+    "de": "Grundglieder",
+    "es": "Falanges proximales",
+    "ar": "السلاميات الدانية",
+    "fr": "Phalanges proximales",
+    "it": "Falangi prossimali",
+    "nl": "Proximale kootjes"
+   },
+   "axial": 100
+  },
+  {
+   "names": {
+    "en": "Middle phalanges",
+    "de": "Mittelglieder",
+    "es": "Falanges medias",
+    "ar": "السلاميات الوسطى",
+    "fr": "Phalanges moyennes",
+    "it": "Falangi medie",
+    "nl": "Middelste kootjes"
+   },
+   "axial": 120
+  }
+ ]
+}

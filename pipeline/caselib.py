@@ -91,7 +91,7 @@ OPEN_TASKS = {"total", "liver_segments", "ventricle_parts", "head_glands_cavitie
               "headneck_muscles", "head_muscles", "oculomotor_muscles", "lung_vessels", "trunk_cavities", "body",
               "abdominal_muscles", "breasts"}
 # Licensed tasks: registered 2026-11-19; the author confirmed publishing their outputs here is fine.
-LICENSED_TASKS = {"brain_structures", "heartchambers_highres", "coronary_arteries", "aortic_sinuses",
+LICENSED_TASKS = {"thigh_shoulder_muscles", "brain_structures", "heartchambers_highres", "coronary_arteries", "aortic_sinuses",
                   "appendicular_bones", "vertebrae_pp_refined", "tissue_types"}
 ALLOWED_TASKS = frozenset(OPEN_TASKS | LICENSED_TASKS)
 
