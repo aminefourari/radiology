@@ -1,0 +1,38 @@
+import json
+import os
+
+import nibabel as nib
+import numpy as np
+
+from caselib import validate_case
+from make_case import main
+
+
+def fake_dataset(d):
+    os.makedirs(d / "segmentations")
+    ct = np.full((20, 20, 20), -1000, np.int16)
+    ct[4:16, 4:16, 2:18] = 40
+    nib.save(nib.Nifti1Image(ct, np.eye(4)), str(d / "ct.nii.gz"))
+    for key, sl in {"liver": np.s_[5:9, 5:9, 5:9], "aorta": np.s_[10:12, 10:12, 3:17]}.items():
+        m = np.zeros(ct.shape, np.uint8)
+        m[sl] = 1
+        nib.save(nib.Nifti1Image(m, np.eye(4)), str(d / "segmentations" / f"{key}.nii.gz"))
+
+
+def test_make_case_end_to_end(tmp_path):
+    src = tmp_path / "src"
+    fake_dataset(src)
+    site = tmp_path / "site"
+    args = [str(src), "t1", "--no-liver-segments", "--out", str(site)]
+    main(args)
+    main(args)  # idempotent re-run
+    case = site / "cases" / "t1"
+    validate_case(str(case))
+    meta = json.loads((case / "meta.json").read_text(encoding="utf-8"))
+    assert [s["key"] for s in meta["structures"]] == ["liver", "aorta"]
+    for s in meta["structures"]:
+        assert set(s["best"]) == {"axial", "coronal", "sagittal"}
+        assert s["names"]["en"]
+    assert meta["source"]["license"] == "CC BY 4.0"
+    index = json.loads((site / "cases" / "index.json").read_text(encoding="utf-8"))
+    assert [c["id"] for c in index] == ["t1"]

@@ -4,3 +4,4 @@ __pycache__/
 *.nii.gz
 .superpowers/
 .pytest_cache/
+.playwright-mcp/

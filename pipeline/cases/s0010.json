@@ -1,0 +1,73 @@
+{
+ "title": {
+  "en": "Abdomen & pelvis · CT, portal venous phase",
+  "de": "Abdomen & Becken · CT, portalvenöse Phase",
+  "es": "Abdomen y pelvis · TC, fase venosa portal",
+  "ar": "البطن والحوض · تصوير مقطعي، الطور الوريدي البابي",
+  "fr": "Abdomen et pelvis · TDM, phase portale",
+  "it": "Addome e pelvi · TC, fase venosa portale",
+  "nl": "Buik en bekken · CT, portaal-veneuze fase"
+ },
+ "keyLevels": [
+  {
+   "names": {
+    "en": "Esophageal hiatus · GE junction",
+    "de": "Hiatus oesophageus · ösophagogastraler Übergang",
+    "es": "Hiato esofágico · unión GE",
+    "ar": "الفتحة المريئية · الوصل المريئي المعدي",
+    "fr": "Hiatus œsophagien · jonction œso-gastrique",
+    "it": "Iato esofageo · giunzione esofago-gastrica",
+    "nl": "Hiatus oesophageus · gastro-oesofageale overgang"
+   },
+   "axial": 230
+  },
+  {
+   "names": {
+    "en": "Celiac trunk",
+    "de": "Truncus coeliacus",
+    "es": "Tronco celíaco",
+    "ar": "الجذع البطني",
+    "fr": "Tronc cœliaque",
+    "it": "Tripode celiaco",
+    "nl": "Truncus coeliacus"
+   },
+   "axial": 209
+  },
+  {
+   "names": {
+    "en": "Superior mesenteric artery",
+    "de": "Arteria mesenterica superior",
+    "es": "Arteria mesentérica superior",
+    "ar": "الشريان المساريقي العلوي",
+    "fr": "Artère mésentérique supérieure",
+    "it": "Arteria mesenterica superiore",
+    "nl": "Arteria mesenterica superior"
+   },
+   "axial": 197
+  },
+  {
+   "names": {
+    "en": "Left renal vein",
+    "de": "Linke Nierenvene",
+    "es": "Vena renal izquierda",
+    "ar": "الوريد الكلوي الأيسر",
+    "fr": "Veine rénale gauche",
+    "it": "Vena renale sinistra",
+    "nl": "Linker nierader"
+   },
+   "axial": 189
+  },
+  {
+   "names": {
+    "en": "Aortic bifurcation",
+    "de": "Aortenbifurkation",
+    "es": "Bifurcación aórtica",
+    "ar": "تشعب الأبهر",
+    "fr": "Bifurcation aortique",
+    "it": "Biforcazione aortica",
+    "nl": "Aortabifurcatie"
+   },
+   "axial": 134
+  }
+ ]
+}

@@ -1,0 +1,708 @@
+{
+ "structures": [
+  {
+   "key": "liver",
+   "source": "total",
+   "system": "organs",
+   "color": "#c98bd6",
+   "parent": null,
+   "names": {
+    "en": "Liver",
+    "de": "Leber",
+    "es": "Hígado",
+    "ar": "الكبد",
+    "fr": "Foie",
+    "it": "Fegato",
+    "nl": "Lever"
+   }
+  },
+  {
+   "key": "spleen",
+   "source": "total",
+   "system": "organs",
+   "color": "#8f7be0",
+   "parent": null,
+   "names": {
+    "en": "Spleen",
+    "de": "Milz",
+    "es": "Bazo",
+    "ar": "الطحال",
+    "fr": "Rate",
+    "it": "Milza",
+    "nl": "Milt"
+   }
+  },
+  {
+   "key": "pancreas",
+   "source": "total",
+   "system": "organs",
+   "color": "#e6c25a",
+   "parent": null,
+   "names": {
+    "en": "Pancreas",
+    "de": "Pankreas",
+    "es": "Páncreas",
+    "ar": "البنكرياس",
+    "fr": "Pancréas",
+    "it": "Pancreas",
+    "nl": "Alvleesklier"
+   }
+  },
+  {
+   "key": "gallbladder",
+   "source": "total",
+   "system": "organs",
+   "color": "#5fc48a",
+   "parent": null,
+   "names": {
+    "en": "Gallbladder",
+    "de": "Gallenblase",
+    "es": "Vesícula biliar",
+    "ar": "المرارة",
+    "fr": "Vésicule biliaire",
+    "it": "Colecisti",
+    "nl": "Galblaas"
+   }
+  },
+  {
+   "key": "adrenal_gland_right",
+   "source": "total",
+   "system": "organs",
+   "color": "#f0a05a",
+   "parent": null,
+   "names": {
+    "en": "Right adrenal gland",
+    "de": "Rechte Nebenniere",
+    "es": "Glándula suprarrenal derecha",
+    "ar": "الغدة الكظرية اليمنى",
+    "fr": "Glande surrénale droite",
+    "it": "Ghiandola surrenale destra",
+    "nl": "Rechter bijnier"
+   }
+  },
+  {
+   "key": "adrenal_gland_left",
+   "source": "total",
+   "system": "organs",
+   "color": "#f0a05a",
+   "parent": null,
+   "names": {
+    "en": "Left adrenal gland",
+    "de": "Linke Nebenniere",
+    "es": "Glándula suprarrenal izquierda",
+    "ar": "الغدة الكظرية اليسرى",
+    "fr": "Glande surrénale gauche",
+    "it": "Ghiandola surrenale sinistra",
+    "nl": "Linker bijnier"
+   }
+  },
+  {
+   "key": "liver_segment_1",
+   "source": "liver_segments",
+   "system": "segments",
+   "color": "#e8a0c8",
+   "parent": "liver",
+   "names": {
+    "en": "Liver segment I (Couinaud)",
+    "de": "Lebersegment I (Couinaud)",
+    "es": "Segmento hepático I (Couinaud)",
+    "ar": "القطعة الكبدية I (كوينو)",
+    "fr": "Segment hépatique I (Couinaud)",
+    "it": "Segmento epatico I (Couinaud)",
+    "nl": "Leversegment I (Couinaud)"
+   }
+  },
+  {
+   "key": "liver_segment_2",
+   "source": "liver_segments",
+   "system": "segments",
+   "color": "#f2a65a",
+   "parent": "liver",
+   "names": {
+    "en": "Liver segment II (Couinaud)",
+    "de": "Lebersegment II (Couinaud)",
+    "es": "Segmento hepático II (Couinaud)",
+    "ar": "القطعة الكبدية II (كوينو)",
+    "fr": "Segment hépatique II (Couinaud)",
+    "it": "Segmento epatico II (Couinaud)",
+    "nl": "Leversegment II (Couinaud)"
+   }
+  },
+  {
+   "key": "liver_segment_3",
+   "source": "liver_segments",
+   "system": "segments",
+   "color": "#f5d76e",
+   "parent": "liver",
+   "names": {
+    "en": "Liver segment III (Couinaud)",
+    "de": "Lebersegment III (Couinaud)",
+    "es": "Segmento hepático III (Couinaud)",
+    "ar": "القطعة الكبدية III (كوينو)",
+    "fr": "Segment hépatique III (Couinaud)",
+    "it": "Segmento epatico III (Couinaud)",
+    "nl": "Leversegment III (Couinaud)"
+   }
+  },
+  {
+   "key": "liver_segment_4",
+   "source": "liver_segments",
+   "system": "segments",
+   "color": "#7fd1c7",
+   "parent": "liver",
+   "names": {
+    "en": "Liver segment IV (Couinaud)",
+    "de": "Lebersegment IV (Couinaud)",
+    "es": "Segmento hepático IV (Couinaud)",
+    "ar": "القطعة الكبدية IV (كوينو)",
+    "fr": "Segment hépatique IV (Couinaud)",
+    "it": "Segmento epatico IV (Couinaud)",
+    "nl": "Leversegment IV (Couinaud)"
+   }
+  },
+  {
+   "key": "liver_segment_5",
+   "source": "liver_segments",
+   "system": "segments",
+   "color": "#8fd694",
+   "parent": "liver",
+   "names": {
+    "en": "Liver segment V (Couinaud)",
+    "de": "Lebersegment V (Couinaud)",
+    "es": "Segmento hepático V (Couinaud)",
+    "ar": "القطعة الكبدية V (كوينو)",
+    "fr": "Segment hépatique V (Couinaud)",
+    "it": "Segmento epatico V (Couinaud)",
+    "nl": "Leversegment V (Couinaud)"
+   }
+  },
+  {
+   "key": "liver_segment_6",
+   "source": "liver_segments",
+   "system": "segments",
+   "color": "#79a8e8",
+   "parent": "liver",
+   "names": {
+    "en": "Liver segment VI (Couinaud)",
+    "de": "Lebersegment VI (Couinaud)",
+    "es": "Segmento hepático VI (Couinaud)",
+    "ar": "القطعة الكبدية VI (كوينو)",
+    "fr": "Segment hépatique VI (Couinaud)",
+    "it": "Segmento epatico VI (Couinaud)",
+    "nl": "Leversegment VI (Couinaud)"
+   }
+  },
+  {
+   "key": "liver_segment_7",
+   "source": "liver_segments",
+   "system": "segments",
+   "color": "#b39ddb",
+   "parent": "liver",
+   "names": {
+    "en": "Liver segment VII (Couinaud)",
+    "de": "Lebersegment VII (Couinaud)",
+    "es": "Segmento hepático VII (Couinaud)",
+    "ar": "القطعة الكبدية VII (كوينو)",
+    "fr": "Segment hépatique VII (Couinaud)",
+    "it": "Segmento epatico VII (Couinaud)",
+    "nl": "Leversegment VII (Couinaud)"
+   }
+  },
+  {
+   "key": "liver_segment_8",
+   "source": "liver_segments",
+   "system": "segments",
+   "color": "#f08a8a",
+   "parent": "liver",
+   "names": {
+    "en": "Liver segment VIII (Couinaud)",
+    "de": "Lebersegment VIII (Couinaud)",
+    "es": "Segmento hepático VIII (Couinaud)",
+    "ar": "القطعة الكبدية VIII (كوينو)",
+    "fr": "Segment hépatique VIII (Couinaud)",
+    "it": "Segmento epatico VIII (Couinaud)",
+    "nl": "Leversegment VIII (Couinaud)"
+   }
+  },
+  {
+   "key": "esophagus",
+   "source": "total",
+   "system": "digestive",
+   "color": "#f2b880",
+   "parent": null,
+   "names": {
+    "en": "Esophagus",
+    "de": "Ösophagus",
+    "es": "Esófago",
+    "ar": "المريء",
+    "fr": "Œsophage",
+    "it": "Esofago",
+    "nl": "Slokdarm"
+   }
+  },
+  {
+   "key": "stomach",
+   "source": "total",
+   "system": "digestive",
+   "color": "#f4cf7a",
+   "parent": null,
+   "names": {
+    "en": "Stomach",
+    "de": "Magen",
+    "es": "Estómago",
+    "ar": "المعدة",
+    "fr": "Estomac",
+    "it": "Stomaco",
+    "nl": "Maag"
+   }
+  },
+  {
+   "key": "duodenum",
+   "source": "total",
+   "system": "digestive",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Duodenum",
+    "de": "Duodenum",
+    "es": "Duodeno",
+    "ar": "الاثنا عشر",
+    "fr": "Duodénum",
+    "it": "Duodeno",
+    "nl": "Twaalfvingerige darm"
+   }
+  },
+  {
+   "key": "small_bowel",
+   "source": "total",
+   "system": "digestive",
+   "color": "#f1a7a0",
+   "parent": null,
+   "names": {
+    "en": "Small bowel",
+    "de": "Dünndarm",
+    "es": "Intestino delgado",
+    "ar": "الأمعاء الدقيقة",
+    "fr": "Intestin grêle",
+    "it": "Intestino tenue",
+    "nl": "Dunne darm"
+   }
+  },
+  {
+   "key": "colon",
+   "source": "total",
+   "system": "digestive",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Colon",
+    "de": "Kolon",
+    "es": "Colon",
+    "ar": "القولون",
+    "fr": "Côlon",
+    "it": "Colon",
+    "nl": "Dikke darm"
+   }
+  },
+  {
+   "key": "kidney_right",
+   "source": "total",
+   "system": "urinary",
+   "color": "#e7d36a",
+   "parent": null,
+   "names": {
+    "en": "Right kidney",
+    "de": "Rechte Niere",
+    "es": "Riñón derecho",
+    "ar": "الكلية اليمنى",
+    "fr": "Rein droit",
+    "it": "Rene destro",
+    "nl": "Rechternier"
+   }
+  },
+  {
+   "key": "kidney_left",
+   "source": "total",
+   "system": "urinary",
+   "color": "#e7d36a",
+   "parent": null,
+   "names": {
+    "en": "Left kidney",
+    "de": "Linke Niere",
+    "es": "Riñón izquierdo",
+    "ar": "الكلية اليسرى",
+    "fr": "Rein gauche",
+    "it": "Rene sinistro",
+    "nl": "Linkernier"
+   }
+  },
+  {
+   "key": "urinary_bladder",
+   "source": "total",
+   "system": "urinary",
+   "color": "#f6e58d",
+   "parent": null,
+   "names": {
+    "en": "Urinary bladder",
+    "de": "Harnblase",
+    "es": "Vejiga urinaria",
+    "ar": "المثانة البولية",
+    "fr": "Vessie",
+    "it": "Vescica urinaria",
+    "nl": "Urineblaas"
+   }
+  },
+  {
+   "key": "prostate",
+   "source": "total",
+   "system": "urinary",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Prostate",
+    "de": "Prostata",
+    "es": "Próstata",
+    "ar": "البروستاتا",
+    "fr": "Prostate",
+    "it": "Prostata",
+    "nl": "Prostaat"
+   }
+  },
+  {
+   "key": "hip_right",
+   "source": "total",
+   "system": "pelvis",
+   "color": "#bfc8d6",
+   "parent": null,
+   "names": {
+    "en": "Right hip bone",
+    "de": "Rechtes Hüftbein",
+    "es": "Hueso coxal derecho",
+    "ar": "عظم الورك الأيمن",
+    "fr": "Os coxal droit",
+    "it": "Osso dell'anca destro",
+    "nl": "Rechter heupbeen"
+   }
+  },
+  {
+   "key": "hip_left",
+   "source": "total",
+   "system": "pelvis",
+   "color": "#bfc8d6",
+   "parent": null,
+   "names": {
+    "en": "Left hip bone",
+    "de": "Linkes Hüftbein",
+    "es": "Hueso coxal izquierdo",
+    "ar": "عظم الورك الأيسر",
+    "fr": "Os coxal gauche",
+    "it": "Osso dell'anca sinistro",
+    "nl": "Linker heupbeen"
+   }
+  },
+  {
+   "key": "sacrum",
+   "source": "total",
+   "system": "pelvis",
+   "color": "#a9b8cc",
+   "parent": null,
+   "names": {
+    "en": "Sacrum",
+    "de": "Kreuzbein",
+    "es": "Sacro",
+    "ar": "عظم العجز",
+    "fr": "Sacrum",
+    "it": "Osso sacro",
+    "nl": "Heiligbeen"
+   }
+  },
+  {
+   "key": "femur_right",
+   "source": "total",
+   "system": "pelvis",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Right femur",
+    "de": "Rechter Femur",
+    "es": "Fémur derecho",
+    "ar": "عظم الفخذ الأيمن",
+    "fr": "Fémur droit",
+    "it": "Femore destro",
+    "nl": "Rechter dijbeen"
+   }
+  },
+  {
+   "key": "femur_left",
+   "source": "total",
+   "system": "pelvis",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Left femur",
+    "de": "Linker Femur",
+    "es": "Fémur izquierdo",
+    "ar": "عظم الفخذ الأيسر",
+    "fr": "Fémur gauche",
+    "it": "Femore sinistro",
+    "nl": "Linker dijbeen"
+   }
+  },
+  {
+   "key": "vertebrae_T10",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "T10 vertebra",
+    "de": "Wirbel T10",
+    "es": "Vértebra T10",
+    "ar": "الفقرة T10",
+    "fr": "Vertèbre T10",
+    "it": "Vertebra T10",
+    "nl": "Wervel T10"
+   }
+  },
+  {
+   "key": "vertebrae_T11",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "T11 vertebra",
+    "de": "Wirbel T11",
+    "es": "Vértebra T11",
+    "ar": "الفقرة T11",
+    "fr": "Vertèbre T11",
+    "it": "Vertebra T11",
+    "nl": "Wervel T11"
+   }
+  },
+  {
+   "key": "vertebrae_T12",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "T12 vertebra",
+    "de": "Wirbel T12",
+    "es": "Vértebra T12",
+    "ar": "الفقرة T12",
+    "fr": "Vertèbre T12",
+    "it": "Vertebra T12",
+    "nl": "Wervel T12"
+   }
+  },
+  {
+   "key": "vertebrae_L1",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "L1 vertebra",
+    "de": "Wirbel L1",
+    "es": "Vértebra L1",
+    "ar": "الفقرة L1",
+    "fr": "Vertèbre L1",
+    "it": "Vertebra L1",
+    "nl": "Wervel L1"
+   }
+  },
+  {
+   "key": "vertebrae_L2",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "L2 vertebra",
+    "de": "Wirbel L2",
+    "es": "Vértebra L2",
+    "ar": "الفقرة L2",
+    "fr": "Vertèbre L2",
+    "it": "Vertebra L2",
+    "nl": "Wervel L2"
+   }
+  },
+  {
+   "key": "vertebrae_L3",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "L3 vertebra",
+    "de": "Wirbel L3",
+    "es": "Vértebra L3",
+    "ar": "الفقرة L3",
+    "fr": "Vertèbre L3",
+    "it": "Vertebra L3",
+    "nl": "Wervel L3"
+   }
+  },
+  {
+   "key": "vertebrae_L4",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "L4 vertebra",
+    "de": "Wirbel L4",
+    "es": "Vértebra L4",
+    "ar": "الفقرة L4",
+    "fr": "Vertèbre L4",
+    "it": "Vertebra L4",
+    "nl": "Wervel L4"
+   }
+  },
+  {
+   "key": "vertebrae_L5",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "L5 vertebra",
+    "de": "Wirbel L5",
+    "es": "Vértebra L5",
+    "ar": "الفقرة L5",
+    "fr": "Vertèbre L5",
+    "it": "Vertebra L5",
+    "nl": "Wervel L5"
+   }
+  },
+  {
+   "key": "vertebrae_S1",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "S1 vertebra",
+    "de": "Wirbel S1",
+    "es": "Vértebra S1",
+    "ar": "الفقرة S1",
+    "fr": "Vertèbre S1",
+    "it": "Vertebra S1",
+    "nl": "Wervel S1"
+   }
+  },
+  {
+   "key": "aorta",
+   "source": "total",
+   "system": "arteries",
+   "color": "#e85a5a",
+   "parent": null,
+   "names": {
+    "en": "Aorta",
+    "de": "Aorta",
+    "es": "Aorta",
+    "ar": "الأبهر",
+    "fr": "Aorte",
+    "it": "Aorta",
+    "nl": "Aorta"
+   }
+  },
+  {
+   "key": "iliac_artery_right",
+   "source": "total",
+   "system": "arteries",
+   "color": "#f07b6e",
+   "parent": null,
+   "names": {
+    "en": "Right iliac artery",
+    "de": "Rechte Arteria iliaca",
+    "es": "Arteria ilíaca derecha",
+    "ar": "الشريان الحرقفي الأيمن",
+    "fr": "Artère iliaque droite",
+    "it": "Arteria iliaca destra",
+    "nl": "Rechter iliacale slagader"
+   }
+  },
+  {
+   "key": "iliac_artery_left",
+   "source": "total",
+   "system": "arteries",
+   "color": "#f07b6e",
+   "parent": null,
+   "names": {
+    "en": "Left iliac artery",
+    "de": "Linke Arteria iliaca",
+    "es": "Arteria ilíaca izquierda",
+    "ar": "الشريان الحرقفي الأيسر",
+    "fr": "Artère iliaque gauche",
+    "it": "Arteria iliaca sinistra",
+    "nl": "Linker iliacale slagader"
+   }
+  },
+  {
+   "key": "inferior_vena_cava",
+   "source": "total",
+   "system": "veins",
+   "color": "#5b8def",
+   "parent": null,
+   "names": {
+    "en": "Inferior vena cava",
+    "de": "Vena cava inferior",
+    "es": "Vena cava inferior",
+    "ar": "الوريد الأجوف السفلي",
+    "fr": "Veine cave inférieure",
+    "it": "Vena cava inferiore",
+    "nl": "Onderste holle ader"
+   }
+  },
+  {
+   "key": "portal_vein_and_splenic_vein",
+   "source": "total",
+   "system": "veins",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Portal and splenic vein",
+    "de": "Pfortader und Milzvene",
+    "es": "Vena porta y vena esplénica",
+    "ar": "الوريد البابي والوريد الطحالي",
+    "fr": "Veine porte et veine splénique",
+    "it": "Vena porta e vena splenica",
+    "nl": "Poortader en miltader"
+   }
+  },
+  {
+   "key": "iliac_vena_right",
+   "source": "total",
+   "system": "veins",
+   "color": "#6f9cf2",
+   "parent": null,
+   "names": {
+    "en": "Right iliac vein",
+    "de": "Rechte Vena iliaca",
+    "es": "Vena ilíaca derecha",
+    "ar": "الوريد الحرقفي الأيمن",
+    "fr": "Veine iliaque droite",
+    "it": "Vena iliaca destra",
+    "nl": "Rechter iliacale ader"
+   }
+  },
+  {
+   "key": "iliac_vena_left",
+   "source": "total",
+   "system": "veins",
+   "color": "#6f9cf2",
+   "parent": null,
+   "names": {
+    "en": "Left iliac vein",
+    "de": "Linke Vena iliaca",
+    "es": "Vena ilíaca izquierda",
+    "ar": "الوريد الحرقفي الأيسر",
+    "fr": "Veine iliaque gauche",
+    "it": "Vena iliaca sinistra",
+    "nl": "Linker iliacale ader"
+   }
+  }
+ ]
+}
