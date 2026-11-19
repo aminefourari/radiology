@@ -155,5 +155,6 @@
  "ctl.isolate": "Isoleren",
  "ctl.showall": "Alles tonen",
  "ctl.showct": "Toon in CT",
- "ctl.show3d": "Toon in 3D"
+ "ctl.show3d": "Toon in 3D",
+ "footer.atlas": "3D-atlas: Z-Anatomy, naar BodyParts3D (DBCLS), CC BY-SA 4.0"
 }

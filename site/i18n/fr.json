@@ -155,5 +155,6 @@
  "ctl.isolate": "Isoler",
  "ctl.showall": "Tout afficher",
  "ctl.showct": "Voir dans le scanner",
- "ctl.show3d": "Voir en 3D"
+ "ctl.show3d": "Voir en 3D",
+ "footer.atlas": "Atlas 3D : Z-Anatomy, d’après BodyParts3D (DBCLS), CC BY-SA 4.0"
 }

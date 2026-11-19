@@ -38,5 +38,7 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
   `ct.html`), loaded with `import()` only when the 3D view opens — the 2D views must never fetch it.
 - Languages: en, de, es, ar (rtl), fr, it, nl; missing strings fall back to en.
 - Data credit: TotalSegmentator dataset, CC BY 4.0; PTB-XL and PTB-XL+, CC BY 4.0.
+  3D atlas: Z-Anatomy (CC BY-SA 4.0) from BodyParts3D (DBCLS, CC BY-SA 2.1 JP), see `site/atlas/LICENSE.txt`;
+  never ship Z-Anatomy's non-commercial parts (inner ear, Lissie Cowley's kidney).
 - ECG paper is one SVG in mm units (viewBox = paper mm); strokes use `vector-effect: non-scaling-stroke`. Code: MIT.
 - Commits carry no AI attribution.

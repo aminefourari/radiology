@@ -534,6 +534,7 @@ function syncControls() {
   $("toggle-3d").setAttribute("aria-pressed", String(st.is3d));
   $("panes").classList.toggle("split", st.is3d);
   $("viewer3d").hidden = !st.is3d;
+  if (st.is3d) $("atlas-credit").hidden = false; // shown once the atlas has been on screen
   document.querySelectorAll("#region-bar .btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.case === st.case)));
   $("zoom-fit").hidden = st.zoom === 1 && !ui.pan.x && !ui.pan.y;
   $("move").hidden = st.zoom <= 1;

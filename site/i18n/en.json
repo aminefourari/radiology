@@ -155,5 +155,6 @@
  "ctl.isolate": "Isolate",
  "ctl.showall": "Show all",
  "ctl.showct": "Show in CT",
- "ctl.show3d": "Show in 3D"
+ "ctl.show3d": "Show in 3D",
+ "footer.atlas": "3D atlas: Z-Anatomy, from BodyParts3D (DBCLS), CC BY-SA 4.0"
 }

@@ -155,5 +155,6 @@
  "ctl.isolate": "Isola",
  "ctl.showall": "Mostra tutto",
  "ctl.showct": "Mostra nella TC",
- "ctl.show3d": "Mostra in 3D"
+ "ctl.show3d": "Mostra in 3D",
+ "footer.atlas": "Atlante 3D: Z-Anatomy, da BodyParts3D (DBCLS), CC BY-SA 4.0"
 }
