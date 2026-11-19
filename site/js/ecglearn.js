@@ -70,3 +70,24 @@ export function score(answers, picks, correctId) {
   if (picks.dx === correctId) correct++;
   return { correct, total: STEPS.length + 1 };
 }
+
+// Key-value store over localStorage that keeps working (in memory) when storage is blocked.
+export function makeStore(getStorage) {
+  const mem = {};
+  return {
+    get(k, d) {
+      try {
+        const v = getStorage().getItem(k);
+        if (v != null) return JSON.parse(v);
+      } catch { /* blocked: fall through to memory */ }
+      return k in mem ? mem[k] : d;
+    },
+    set(k, v) {
+      mem[k] = v;
+      try { getStorage().setItem(k, JSON.stringify(v)); } catch { /* private mode */ }
+    },
+  };
+}
+
+// Left-to-right isolate, so "−30…+90" or "−64°" keep their order inside Arabic text.
+export const ltr = (s) => `⁦${s}⁩`;

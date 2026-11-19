@@ -69,3 +69,12 @@ test("en.json has every string Learn mode needs, with the right placeholders", a
     assert.deepEqual(vars(en[k]), v, `${k} placeholders`);
   }
 });
+
+test("teaching content uses the three-lead axis rule and a 1:1 P–QRS rhythm question", () => {
+  assert.match(en["note.axis"], /\bII\b/);
+  assert.match(en["note.axis"], /−30/);
+  assert.match(en["learn.question.rhythm"], /every P wave/);
+  const lafb = read("pipeline/ecgs.json").find((e) => e.id === 4619);
+  assert.match(lafb.clues[0].text.en, /\bII\b/);
+  assert.ok(lafb.clues[0].leads.includes("II"));
+});

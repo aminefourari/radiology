@@ -1,6 +1,6 @@
 // ECG page DOM wiring. Geometry lives in ecgplot.js. The paper is one SVG in millimetre units.
 import { measure, panels, paperMm, pathData, stSegments, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
-import { STEPS, diagnosisChoices, formatMeasure, isNormal, nextRandom, score } from "./ecglearn.js";
+import { STEPS, diagnosisChoices, formatMeasure, isNormal, ltr, makeStore, nextRandom, score } from "./ecglearn.js";
 import { applyDir, loadLanguages, loadStrings, localized, pickLang, t } from "./i18n.js";
 import { REPO_URL, ecgReportUrl } from "./report.js";
 
@@ -13,10 +13,7 @@ let langs = [], list = [], ecg = null;
 const st = { ecg: null, lang: "en", speed: 25, gain: 10, layout: "3x4", quiz: false, waves: false, learn: false };
 // Learn mode: { step 0..7 (7 = diagnosis), picks, dx: [ids], done }. Session data lives in localStorage when allowed.
 let learn = null;
-const store = {
-  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
-  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* private mode: keep going without it */ } },
-};
+const store = makeStore(() => localStorage);
 const ui = { calipers: false, ppm: MIN_PPM, drag: null, highlight: null }; // highlight: { leads, wave? } from a clue
 
 async function boot() {
@@ -45,7 +42,7 @@ async function boot() {
   $("calipers").onclick = () => { ui.calipers = !ui.calipers; clearCalipers(); sync(); };
   $("waves").onclick = () => { st.waves = !st.waves; draw(); };
   $("learn-btn").onclick = () => (st.learn ? exitLearn() : startLearn());
-  $("quiz").onchange = (e) => { st.quiz = e.target.checked; $("answer").open = false; renderText(); };
+  $("quiz").onchange = (e) => { st.quiz = e.target.checked; $("answer").open = false; ui.highlight = null; renderText(); draw(); };
   $("answer").ontoggle = () => renderReading();
   if (REPO_URL) { $("repo-link").hidden = false; $("repo-link").href = REPO_URL; }
   wireCalipers();
@@ -84,10 +81,16 @@ function exitLearn() {
   draw();
 }
 
+// Age and sex: shown in Learn too, since the QTc limit depends on sex.
+const patientFacts = () => [
+  ecg.age != null && `${t("ecg.age")}: ${ecg.age}`,
+  ecg.sex && `${t("ecg.sex")}: ${t(`ecg.sex.${ecg.sex}`)}`,
+].filter(Boolean);
+
 // Leads (and wave) that show the answer for a step.
 function stepHighlight(key) {
   const ALL = ["I", "II", "III", "aVR", "aVL", "aVF", "V1", "V2", "V3", "V4", "V5", "V6"];
-  if (key === "axis") return { leads: ["I", "aVF"], wave: "QRS" };
+  if (key === "axis") return { leads: ["I", "II", "aVF"], wave: "QRS" };
   if (key === "qrs") return { leads: ALL, wave: "QRS" };
   if (key === "qt") return { leads: ALL, wave: "T" };
   if (key === "st") {
@@ -114,7 +117,10 @@ function renderLearn() {
     next.onclick = startLearn;
     const exit = h("button", { class: "btn" }, t("learn.exit"));
     exit.onclick = exitLearn;
+    const pickedTitle = localized(list.find((e) => String(e.id) === learn.picks.dx).title, st.lang);
+    const right = learn.picks.dx === st.ecg;
     return box.replaceChildren(head,
+      h("p", { class: right ? "ok" : "bad" }, right ? `✓ ${t("learn.correct")}: ${pickedTitle}` : `✗ ${t("learn.wrong", { answer: localized(ecg.title, st.lang) })}`),
       h("p", { class: "big" }, t("learn.score", { correct: sc.correct, total: sc.total }), " · ", h("strong", {}, localized(ecg.title, st.lang))),
       h("p", { class: "muted" }, t("learn.tally", tally)),
       h("div", { class: "pair" }, next, exit));
@@ -133,10 +139,10 @@ function renderLearn() {
     b.onclick = () => answer(key, v);
     return b;
   });
-  const kids = [head, h("p", { class: "q" }, `${learn.step + 1}/${STEPS.length + 1} · ${t(`learn.question.${key}`)}`), h("div", { class: "choices" }, ...buttons)];
+  const kids = [head, h("p", { class: "muted" }, patientFacts().join(" · ")), h("p", { class: "q" }, `${learn.step + 1}/${STEPS.length + 1} · ${t(`learn.question.${key}`)}`), h("div", { class: "choices" }, ...buttons)];
   if (picked && !isDx) {
     kids.push(h("p", { class: picked === correct ? "ok" : "bad" }, picked === correct ? `✓ ${t("learn.correct")}` : `✗ ${t("learn.wrong", { answer: label(correct) })}`));
-    if (step.measure) kids.push(h("p", { dir: "auto" }, t("learn.measured", { value: formatMeasure(ecg.measures[step.measure], step.unit), range: step.range })));
+    if (step.measure) kids.push(h("p", { dir: "auto" }, t("learn.measured", { value: ltr(formatMeasure(ecg.measures[step.measure], step.unit)), range: ltr(step.range) })));
     if (ecg.notes[key]) kids.push(h("p", { class: "override" }, localized(ecg.notes[key], st.lang)));
     kids.push(h("p", { class: "muted" }, t(`note.${key}`)));
     const show = h("button", { class: "btn" }, t("learn.showOnTracing"));
@@ -212,11 +218,7 @@ function renderText() {
   $("ecg-title").textContent = hide ? "" : localized(ecg.title, st.lang);
   $("answer").hidden = st.learn && !learn?.done;
   $("quiz").closest("label").hidden = st.learn;
-  const facts = [
-    ecg.age != null && `${t("ecg.age")}: ${ecg.age}`,
-    ecg.sex && `${t("ecg.sex")}: ${t(`ecg.sex.${ecg.sex}`)}`,
-    ecg.axis && `${t("ecg.axis")}: ${ecg.axis}`,
-  ].filter(Boolean);
+  const facts = [...patientFacts(), ecg.axis && `${t("ecg.axis")}: ${ecg.axis}`].filter(Boolean);
   const items = ecg.statements.map((s) => {
     const li = document.createElement("li");
     li.textContent = `${s.text} (${s.code}${s.likelihood > 0 ? `, ${s.likelihood}%` : ""})`;

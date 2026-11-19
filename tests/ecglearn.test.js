@@ -57,3 +57,23 @@ test("score counts seven steps plus the diagnosis", () => {
   assert.deepEqual(score(answers, { ...NORMAL, pr: "long", dx: "x" }, "x"), { correct: 8, total: 8 });
   assert.deepEqual(score(answers, { ...NORMAL, dx: "y" }, "x"), { correct: 6, total: 8 });
 });
+
+test("makeStore falls back to memory when storage throws", async () => {
+  const { makeStore } = await import("../site/js/ecglearn.js");
+  const s = makeStore(() => { throw new Error("blocked"); });
+  assert.deepEqual(s.get("seen", []), []);
+  s.set("seen", ["a"]);
+  assert.deepEqual(s.get("seen", []), ["a"]);
+});
+
+test("makeStore uses real storage when it works", async () => {
+  const { makeStore } = await import("../site/js/ecglearn.js");
+  const m = new Map(), storage = { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, v) };
+  makeStore(() => storage).set("t", { done: 1 });
+  assert.deepEqual(makeStore(() => storage).get("t", null), { done: 1 });
+});
+
+test("ltr wraps text in LTR isolates so signed numbers survive RTL", async () => {
+  const { ltr } = await import("../site/js/ecglearn.js");
+  assert.equal(ltr("−30…+90"), "⁦−30…+90⁩");
+});

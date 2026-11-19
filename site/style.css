@@ -132,6 +132,7 @@ button, select, input, output { font: inherit; color: inherit; }
 .struct button:hover { text-decoration: underline; }
 .field { display: grid; gap: 6px; margin: 12px 0; }
 .check { display: flex; gap: 8px; align-items: center; margin: 12px 0; }
+.check[hidden] { display: none; }
 
 /* focus mode */
 body.focus { padding: 0; max-width: none; }
