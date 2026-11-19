@@ -78,3 +78,12 @@ test("teaching content uses the three-lead axis rule and a 1:1 P–QRS rhythm qu
   assert.match(lafb.clues[0].text.en, /\bII\b/);
   assert.ok(lafb.clues[0].leads.includes("II"));
 });
+
+test("UI strings: every case region and every CT window has a name in en.json", async () => {
+  const { WINDOWS } = await import("../site/js/volume.js");
+  const keys = [
+    ...read("site/cases/index.json").map((c) => `region.${c.region}`),
+    ...Object.keys(WINDOWS).map((w) => `win.${w}`),
+  ];
+  assert.deepEqual(keys.filter((k) => !(k in en)), []);
+});
