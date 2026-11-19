@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { measure, panels, paperMm, pathData, tracePoints, waveBands, ROW_MM } from "../site/js/ecgplot.js";
+import { measure, panels, paperMm, pathData, stSegments, tracePoints, waveBands, ROW_MM } from "../site/js/ecgplot.js";
 
 test("3x4 layout: 12 leads in 2.5 s columns plus a full lead II rhythm strip", () => {
   const p = panels(10, "3x4");
@@ -40,4 +40,9 @@ test("waveBands: clip each wave to its panel's time window and row", () => {
   const waves = [{ k: "P", on: 100, off: 150 }, { k: "QRS", on: 1240, off: 1260 }, { k: "T", on: 2000, off: 2100 }];
   const bands = waveBands(waves, 500, { row: 1, t0: 2.5, t1: 5 }, 25); // panel covers samples 1250..2500
   assert.deepEqual(bands.map((b) => ({ ...b, w: +b.w.toFixed(6) })), [{ k: "QRS", x: 62.5, w: 0.5, y: ROW_MM, h: ROW_MM }, { k: "T", x: 100, w: 5, y: ROW_MM, h: ROW_MM }]);
+});
+
+test("stSegments: each QRS offset to the next T onset", () => {
+  const w = [{ k: "P", on: 0, off: 5 }, { k: "QRS", on: 10, off: 20 }, { k: "T", on: 40, off: 60 }, { k: "QRS", on: 100, off: 110 }];
+  assert.deepEqual(stSegments(w), [{ k: "ST", on: 20, off: 40 }]);
 });

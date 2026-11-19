@@ -20,3 +20,18 @@ export function reportUrl(repo, { caseId, structureKey, structureName, lang, pla
   const q = new URLSearchParams({ title: `[${caseId}] ${structureName} (${structureKey})`, body, labels: "label-report" });
   return `${repo}/issues/new?${q}`;
 }
+
+export function ecgReportUrl(repo, { ecgId, item, lang, shareUrl }) {
+  const body = [
+    "**What is wrong?** (wrong clue, wrong answer, wrong translation, …)",
+    "",
+    "",
+    "---",
+    `ecg: ${ecgId}`,
+    `item: ${item}`,
+    `language: ${lang}`,
+    `view: ${shareUrl}`,
+  ].join("\n");
+  const q = new URLSearchParams({ title: `[ECG ${ecgId}] ${item}`, body, labels: "label-report" });
+  return `${repo}/issues/new?${q}`;
+}
