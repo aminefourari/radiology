@@ -208,7 +208,7 @@
   }
  },
  {
-  "id": 157,
+  "id": 4619,
   "group": "conduction",
   "title": {
    "en": "Left anterior fascicular block",
@@ -221,7 +221,7 @@
   }
  },
  {
-  "id": 377,
+  "id": 9355,
   "group": "conduction",
   "title": {
    "en": "Left posterior fascicular block",
@@ -260,7 +260,7 @@
   }
  },
  {
-  "id": 2417,
+  "id": 222,
   "group": "hypertrophy",
   "title": {
    "en": "Right ventricular hypertrophy",
@@ -273,7 +273,7 @@
   }
  },
  {
-  "id": 1785,
+  "id": 5231,
   "group": "hypertrophy",
   "title": {
    "en": "Right atrial enlargement",
@@ -351,7 +351,7 @@
   }
  },
  {
-  "id": 11916,
+  "id": 18093,
   "group": "other",
   "title": {
    "en": "Long QT interval",

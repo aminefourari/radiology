@@ -22,8 +22,10 @@ wrong.
 2. Add `{"code": "<code>", "name": "<native name>"}` to `site/i18n/index.json`. Add
    `"dir": "rtl"` for right-to-left scripts. The scan is never mirrored.
 3. Add `<code>` to the `names` of each structure in `pipeline/structures.json`, and to the key
-   levels and title in `pipeline/cases/<id>.json`. Then rebuild the cases.
-4. Run `npm test`. It checks that no language file has keys that `en.json` lacks.
+   levels and title in `pipeline/cases/<id>.json`, and to each ECG `title` in `pipeline/ecgs.json`.
+   Then rebuild the cases and ECGs.
+4. Run `npm test`. CI fails unless every language has every UI string from `en.json` (same
+   `{placeholders}`) and every structure, ECG, case and key-level name.
 
 ## Drop, recolour or regroup a structure
 
@@ -63,8 +65,22 @@ For a new case, also create `pipeline/cases/<id>.json` with its `title` and `key
 
 ## Adding an ECG
 
-Add `{"id": <PTB-XL ecg_id>, "group": "rhythm|conduction|hypertrophy|ischaemia|other|normal", "title": {"en": …, …}}`
-to `pipeline/ecgs.json`, then:
+Add an entry to `pipeline/ecgs.json`:
+
+```json
+{"id": <PTB-XL ecg_id>, "group": "rhythm|conduction|hypertrophy|ischaemia|other|normal",
+ "title": {"en": …, …all 7 languages},
+ "st": "normal|elevated|depressed",
+ "clues": [{"text": {"en": …, …}, "leads": ["V1", "V2"], "wave": "P|QRS|ST|T"}],
+ "override": {"qt": {"answer": "normal", "note": {"en": …, …}}}}
+```
+
+`st` is required. `clues` point at the leads that show the finding (`wave` is optional). The other
+reading-card answers (rate, rhythm, axis, PR, QRS, QTc) are derived from the PTB-XL+ 12SL
+measurements. Build, then check the derived answers against the diagnosis. If they contradict the
+teaching point, pick a clearer record. Use `override` (with a note in every language) only when
+no clearer record exists, or when a measurement is known to mislead: QTc with QRS ≥ 120 ms, or
+Bazett above 100 bpm. Then run:
 
 ```sh
 .venv/bin/python pipeline/make_ecg.py   # downloads only the listed records, writes site/ecg/

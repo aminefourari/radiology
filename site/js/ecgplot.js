@@ -52,3 +52,31 @@ export function waveBands(waves, fs, { row, t0, t1 }, speed) {
   }
   return out;
 }
+
+// ST segments: from each QRS offset to the next T onset.
+export function stSegments(waves) {
+  const out = [];
+  waves.forEach((w, i) => {
+    if (w.k !== "QRS") return;
+    const t = waves.slice(i + 1).find((x) => x.k === "T" || x.k === "QRS");
+    if (t?.k === "T" && t.on > w.off) out.push({ k: "ST", on: w.off, off: t.on });
+  });
+  return out;
+}
+
+export const WAVE_KINDS = ["P", "QRS", "ST", "T"];
+
+// Wave bands to shade on one panel: the kinds switched on, plus a highlighted clue's wave
+// (not on dimmed leads).
+export function shownWaves(waves, { kinds, highlight, dim = false }) {
+  const want = new Set(kinds);
+  if (highlight && !dim) want.add(highlight);
+  return [...waves.filter((w) => want.has(w.k)), ...(want.has("ST") ? stSegments(waves) : [])];
+}
+
+// URL value → wave kinds. "1" is the old all-waves link.
+export function parseWaves(v) {
+  if (v === "1") return [...WAVE_KINDS];
+  const got = new Set(String(v ?? "").split(","));
+  return WAVE_KINDS.filter((k) => got.has(k));
+}

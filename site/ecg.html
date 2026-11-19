@@ -27,8 +27,15 @@
 
 <section class="controls">
   <select id="ecg-select" aria-label="ECG" data-t-aria="ecg.pick"></select>
+  <button id="learn-btn" class="btn learn-btn" aria-pressed="false" data-t="learn.button">Learn</button>
+  <div id="waves" class="wave-toggles" role="group" aria-label="Waves" data-t-aria="ecg.waves" dir="ltr">
+    <span data-t="ecg.waves">Waves</span>
+    <button class="btn small w-P" aria-pressed="false" data-k="P">P</button>
+    <button class="btn small w-QRS" aria-pressed="false" data-k="QRS">QRS</button>
+    <button class="btn small w-ST" aria-pressed="false" data-k="ST">ST</button>
+    <button class="btn small w-T" aria-pressed="false" data-k="T">T</button>
+  </div>
   <button id="calipers" class="btn" aria-pressed="false" data-t="ecg.calipers">Calipers</button>
-  <button id="waves" class="btn" aria-pressed="false" data-t="ecg.waves">Waves</button>
   <label class="check"><input id="quiz" type="checkbox"> <span data-t="ecg.quiz">Quiz mode</span></label>
   <button class="btn" popovertarget="ecg-opts" data-t="ctl.settings">Settings</button>
   <div id="ecg-opts" class="pop" popover>
@@ -56,6 +63,10 @@
   <p class="hint" data-t="ecg.hint">Turn on Calipers and drag across the trace to measure time and voltage.</p>
 </main>
 
+<section id="learn" class="reading learn" hidden aria-live="polite"></section>
+
+<section id="reading" class="reading" hidden></section>
+
 <details id="answer" class="answer">
   <summary data-t="ecg.answer">Show interpretation</summary>
   <div id="answer-body"></div>
@@ -64,6 +75,7 @@
 <footer class="foot">
   <p data-t="ecg.disclaimer">Educational use only — not for diagnosis. Interpretations come from the dataset's cardiologist reports.</p>
   <p><a id="credit" href="https://doi.org/10.13026/kfzx-aw45" rel="noopener"></a></p>
+  <p><a id="credit-measures" href="https://doi.org/10.13026/g6h6-7g88" rel="noopener"></a></p>
   <p><a id="credit-waves" href="https://doi.org/10.13026/g6h6-7g88" rel="noopener"></a></p>
   <p><a id="repo-link" hidden rel="noopener" data-t="footer.code">Source code &amp; error reports</a></p>
 </footer>
