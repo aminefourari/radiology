@@ -8,11 +8,14 @@ const LANGS = read("site/i18n/index.json").map((l) => l.code);
 const en = read("site/i18n/en.json");
 const vars = (s) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
 
+// pipeline/ecgs.json groups examples by diagnosis; flatten to one entry per ECG.
+const ecgs = () => read("pipeline/ecgs.json").flatMap((d) => d.examples.map((ex) => ({ ...ex, title: d.title })));
+
 // [label, names object] for every translated name in the data files.
 function dataNames() {
   const out = [];
   for (const s of read("pipeline/structures.json").structures) out.push([`structure ${s.key}`, s.names]);
-  for (const e of read("pipeline/ecgs.json")) {
+  for (const e of ecgs()) {
     out.push([`ecg ${e.id}`, e.title]);
     (e.clues || []).forEach((c, i) => out.push([`ecg ${e.id} clue ${i}`, c.text]));
     for (const [step, o] of Object.entries(e.override || {})) if (o.note) out.push([`ecg ${e.id} override ${step}`, o.note]);
@@ -42,7 +45,7 @@ for (const lang of LANGS) {
 
 test("ECG clues name real leads and waves; every ECG has an ST answer", () => {
   const LEADS = ["I", "II", "III", "aVR", "aVL", "aVF", "V1", "V2", "V3", "V4", "V5", "V6"];
-  for (const e of read("pipeline/ecgs.json")) {
+  for (const e of ecgs()) {
     assert.ok(["normal", "elevated", "depressed"].includes(e.st), `ecg ${e.id} st`);
     for (const c of e.clues || []) {
       assert.ok(c.leads.length && c.leads.every((l) => LEADS.includes(l)), `ecg ${e.id} clue leads ${c.leads}`);
@@ -74,7 +77,7 @@ test("teaching content uses the three-lead axis rule and a 1:1 P–QRS rhythm qu
   assert.match(en["note.axis"], /\bII\b/);
   assert.match(en["note.axis"], /−30/);
   assert.match(en["learn.question.rhythm"], /every P wave/);
-  const lafb = read("pipeline/ecgs.json").find((e) => e.id === 4619);
+  const lafb = ecgs().find((e) => e.id === 4619);
   assert.match(lafb.clues[0].text.en, /\bII\b/);
   assert.ok(lafb.clues[0].leads.includes("II"));
 });
