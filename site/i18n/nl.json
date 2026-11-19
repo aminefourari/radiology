@@ -147,5 +147,14 @@
  "learn.question.qrs": "Is het QRS smal of breed?",
  "learn.question.qt": "Is de QTc normaal of verlengd?",
  "learn.question.st": "Hoe is het ST-segment?",
- "learn.question.dx": "Wat is de diagnose?"
+ "learn.question.dx": "Wat is de diagnose?",
+ "loading3d": "3D-atlas laden…",
+ "ctl.hide": "Verbergen",
+ "ctl.fade": "Vervagen",
+ "ctl.unfade": "Herstellen",
+ "ctl.isolate": "Isoleren",
+ "ctl.showall": "Alles tonen",
+ "ctl.showct": "Toon in CT",
+ "ctl.show3d": "Toon in 3D",
+ "footer.atlas": "3D-atlas: Z-Anatomy, naar BodyParts3D (DBCLS), CC BY-SA 4.0"
 }

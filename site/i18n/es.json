@@ -147,5 +147,14 @@
  "learn.question.qrs": "¿El QRS es estrecho o ancho?",
  "learn.question.qt": "¿El QTc es normal o largo?",
  "learn.question.st": "¿Cómo está el segmento ST?",
- "learn.question.dx": "¿Cuál es el diagnóstico?"
+ "learn.question.dx": "¿Cuál es el diagnóstico?",
+ "loading3d": "Cargando atlas 3D…",
+ "ctl.hide": "Ocultar",
+ "ctl.fade": "Atenuar",
+ "ctl.unfade": "Restaurar",
+ "ctl.isolate": "Aislar",
+ "ctl.showall": "Mostrar todo",
+ "ctl.showct": "Ver en TC",
+ "ctl.show3d": "Ver en 3D",
+ "footer.atlas": "Atlas 3D: Z-Anatomy, a partir de BodyParts3D (DBCLS), CC BY-SA 4.0"
 }

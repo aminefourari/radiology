@@ -1,7 +1,7 @@
 // View state <-> URL hash. DOM-free.
 import { PLANES, sliceCount } from "./volume.js";
 
-export const DEFAULTS = { case: null, lang: null, plane: "axial", slice: null, sys: null, zoom: 1 };
+export const DEFAULTS = { case: null, lang: null, plane: "axial", slice: null, sys: null, zoom: 1, is3d: false };
 
 export function parseHash(hash) {
   let q;
@@ -14,6 +14,7 @@ export function parseHash(hash) {
     slice: num("slice"),
     sys: q.has("sys") ? q.get("sys").split(",").filter(Boolean) : DEFAULTS.sys,
     zoom: num("zoom") ?? DEFAULTS.zoom,
+    is3d: q.get("3d") === "1",
   };
 }
 
@@ -33,6 +34,7 @@ export function clampState(s, { cases, langs, dims, systems = null, defaultSyste
     slice,
     sys: !systems ? s.sys : s.sys == null ? [...(defaultSystems ?? [])] : systems.filter((k) => s.sys.includes(k)),
     zoom,
+    is3d: !!s.is3d,
   };
 }
 
@@ -40,5 +42,6 @@ export function formatHash(s) {
   const q = new URLSearchParams();
   for (const k of ["case", "lang", "plane", "slice", "zoom"]) if (s[k] != null) q.set(k, s[k]);
   if (s.sys) q.set("sys", s.sys.join(","));
+  if (s.is3d) q.set("3d", "1");
   return "#" + q.toString().replaceAll("%2C", ",");
 }

@@ -5,7 +5,7 @@ import { anchors, bodyExtent, layoutLabels } from "./labels.js";
 import { clampState, formatHash, parseHash } from "./state.js";
 import { applyDir, loadLanguages, loadStrings, localized, saveLang, startLang, structName, t } from "./i18n.js";
 import { REPO_URL, reportUrl } from "./report.js";
-import { castRays, labelBounds, shade } from "./render3d.js";
+import { atlasToSite, atlasVisibility, caseFor, ctToAtlas, siteToAtlas, sliceMm } from "./atlasdata.js";
 
 const $ = (id) => document.getElementById(id);
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -52,7 +52,7 @@ const ctx = () => ({
   cases: cases.map((c) => c.id), langs: langs.map((l) => l.code), dims: data?.meta.dims ?? null,
   systems: data ? caseSystems() : null, defaultSystems: data?.meta.defaultSystems ?? null,
 });
-const ui = { hidden: new Set(), pan: { x: 0, y: 0 }, move: false, win: "soft", opacity: 0.45, labels: true, outline: false, selected: 0, geo: null, is3d: false, yaw: 0, pitch: 0, fast: false };
+const ui = { hidden: new Set(), pan: { x: 0, y: 0 }, move: false, win: "soft", opacity: 0.45, labels: true, outline: false, selected: 0, geo: null };
 
 // ---------- boot ----------
 async function boot() {
@@ -105,12 +105,232 @@ async function openCase(id, wanted) {
   st.lang ||= "en";
   ui.hidden.clear();
   ui.selected = 0;
+  a3.sel = null;
+  a3.at = null;
   ui.pan = { x: 0, y: 0 };
-  data.bounds = labelBounds(data.labels, data.meta.dims);
   if (id !== prevCase || !data.meta.windows.includes(ui.win)) ui.win = data.meta.windows[0]; // each region opens in its own first window
   $("loading").hidden = true;
   buildCaseUi();
   update();
+  if (st.is3d) open3d();
+}
+
+// ---------- 3D atlas ----------
+// three.js and the atlas load the first time 3D is switched on; the 2D view never fetches them.
+let view = null, viewCase = null, atlas = null, atlasByKey = null, links = {}, siteNames = {}, caseKeys = [];
+let shown3d = new Map(), siteOfAtlas = new Map();
+let atlasSys = new Set();
+const a3 = { hidden: new Set(), faded: new Set(), isolated: null, sel: null, at: null };
+const loadedSys = new Map(), fits = new Map();
+const getOk = (url) => fetch(url).then((r) => { if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`); return r; });
+
+function set3d(on) {
+  st.is3d = on;
+  update();
+  if (on) open3d();
+}
+
+function caseFit(id) {
+  if (!fits.has(id)) fits.set(id, getOk(`cases/${id}/atlaslink.json`).then((r) => r.json()).catch((e) => { console.error(e); return null; }));
+  return fits.get(id);
+}
+
+function loadSystem(key) {
+  if (!loadedSys.has(key)) {
+    const file = atlas.systems.find((s) => s.key === key).file;
+    loadedSys.set(key, view.addSystem(`atlas/${file}`, atlasByKey).then(update).catch((e) => { loadedSys.delete(key); throw e; }));
+  }
+  return loadedSys.get(key);
+}
+
+// The scanned volume mapped into the atlas, [x0,y0,z0,x1,y1,z1]; null without a full fit.
+function regionBox(fit) {
+  if (!fit || !fit.x || !fit.y || !fit.z) return null;
+  const { dims, spacing } = data.meta;
+  const lo = [0, 1, 2].map((i) => fit["xyz"[i]][1]);
+  const hi = [0, 1, 2].map((i) => fit["xyz"[i]][0] * dims[i] * spacing[i] + fit["xyz"[i]][1]);
+  return [...lo, ...hi];
+}
+
+async function open3d() {
+  const id = st.case;
+  $("loading3d").hidden = false;
+  $("loading3d").querySelector("p").textContent = t("loading3d");
+  try {
+    if (!view) {
+      const [{ createView3d }, index] = await Promise.all([import("./view3d.js"), getOk("atlas/index.json").then((r) => r.json())]);
+      atlas = index;
+      atlasByKey = new Map(atlas.structures.map((s) => [s.key, s]));
+      ({ links, siteNames } = atlas);
+      for (const k of atlasByKey.keys()) { const site = atlasToSite(links, k); if (site) siteOfAtlas.set(k, site); }
+      view ??= createView3d($("viewer3d"), $("labels3d"));
+      view.onChange(scheduleLabels3d);
+      // Which cases label which structures, for "Show in CT" (tiny files, one per case).
+      caseKeys = await Promise.all(cases.map((c) => caseFit(c.id).then((f) => ({ id: c.id, keys: new Set(f?.keys ?? []) }))));
+    }
+    const fit = await caseFit(id);
+    if (id !== st.case || !st.is3d) return;
+    if (viewCase !== id) {
+      // Each region opens on its own systems, with the sheets that cover the organs (omentum...) hidden.
+      viewCase = id;
+      const region = cases.find((c) => c.id === id)?.region;
+      atlasSys = new Set(atlas.regionDefaults[region] ?? ["skeleton"]);
+      resetAtlasView();
+      buildAtlasBar();
+      await Promise.all([...atlasSys].map(loadSystem));
+      if (id !== st.case) return;
+      render3d();
+      view.reset(regionBox(fit));
+    }
+  } catch (e) {
+    console.error(e);
+    viewCase = null; // switching 3D off and on again retries
+    $("loading3d").querySelector("p").textContent = t("error.load");
+    return;
+  }
+  $("loading3d").hidden = true;
+  update();
+}
+
+function resetAtlasView() {
+  a3.hidden = new Set(atlas.structures.filter((s) => s.off).map((s) => s.key));
+  a3.faded.clear();
+  a3.isolated = null;
+}
+
+function buildAtlasBar() {
+  if (!atlas) return;
+  $("atlas-bar").replaceChildren(...atlas.systems.map(({ key, names }) => {
+    const b = Object.assign(document.createElement("button"), { className: "btn", textContent: localized(names, st.lang) });
+    b.dataset.sys = key;
+    b.onclick = () => {
+      atlasSys.has(key) ? atlasSys.delete(key) : (atlasSys.add(key), loadSystem(key).catch(console.error));
+      update();
+    };
+    return b;
+  }));
+}
+
+// A pick in 3D also selects the structure in the slices when this case labels it.
+function pick3d(e) {
+  if (!view) return;
+  const r = $("viewer3d").getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  a3.sel = view.pick(x, y);
+  a3.at = a3.sel ? { x, y } : null;
+  const site = a3.sel && siteOfAtlas.get(a3.sel);
+  ui.selected = (site && data.meta.structures.find((s) => s.key === site)?.id) || 0;
+  popupAt = null;
+  update();
+}
+
+const atlasName = (key) => {
+  const site = siteOfAtlas.get(key);
+  return site ? localized(siteNames[site], st.lang) : atlasByKey.get(key).en;
+};
+
+function smallBtn(label, onclick) {
+  return Object.assign(document.createElement("button"), { className: "btn small", textContent: t(label), onclick });
+}
+
+function placePopup3d() {
+  const pop = $("popup3d");
+  const key = a3.sel, s = key && atlasByKey?.get(key);
+  if (!s || !a3.at || !st.is3d) { pop.hidden = true; return; }
+  const site = siteOfAtlas.get(key);
+  pop.hidden = false;
+  pop.style.setProperty("--c", s.color);
+  const strong = Object.assign(document.createElement("strong"), { textContent: atlasName(key) });
+  const latin = !site && s.la ? [Object.assign(document.createElement("em"), { className: "latin", textContent: s.la })] : [];
+  const close = () => { a3.sel = null; a3.at = null; ui.selected = 0; update(); };
+  const acts = Object.assign(document.createElement("div"), { className: "acts" });
+  acts.append(
+    smallBtn("ctl.hide", () => { a3.hidden.add(key); close(); }),
+    smallBtn(a3.faded.has(key) ? "ctl.unfade" : "ctl.fade", () => { a3.faded.has(key) ? a3.faded.delete(key) : a3.faded.add(key); update(); }),
+    smallBtn(a3.isolated === key ? "ctl.showall" : "ctl.isolate", () => { a3.isolated = a3.isolated === key ? null : key; update(); }),
+  );
+  if (site && caseFor(site, st.case, caseKeys)) acts.append(smallBtn("ctl.showct", () => showInCt(site)));
+  acts.append(smallBtn("ctl.close", close));
+  pop.replaceChildren(strong, ...latin, acts);
+  const v = $("viewer3d");
+  pop.style.left = `${Math.max(8, Math.min(a3.at.x + 12, v.clientWidth - pop.offsetWidth - 8))}px`;
+  pop.style.top = `${Math.max(8, Math.min(a3.at.y + 12, v.clientHeight - pop.offsetHeight - 8))}px`;
+}
+
+// Opens the case that labels it (this one if it does) at its best slice in the current plane.
+async function showInCt(site) {
+  const id = caseFor(site, st.case, caseKeys);
+  if (!id) return;
+  a3.at = null;
+  if (id !== st.case) await openCase(id, { plane: st.plane, slice: null, sys: null });
+  const s = data.meta.structures.find((x) => x.key === site);
+  if (s) jumpTo(s);
+}
+
+// Shows a site structure's atlas parts: their system on, unhidden, a part's parent peeled away, centred.
+function showIn3d(keys) {
+  const s = atlasByKey.get(keys[0]);
+  for (const k of keys) { a3.hidden.delete(k); a3.faded.delete(k); }
+  if (s.parent) a3.hidden.add(s.parent);
+  if (a3.isolated && !keys.includes(a3.isolated)) a3.isolated = null;
+  atlasSys.add(s.system);
+  a3.sel = null;
+  loadSystem(s.system).then(() => view.centerOn(keys[0])).catch(console.error);
+  update();
+}
+
+// Names pinned to the structures this case labels (largest first), drawn once the view settles.
+let labelTimer = 0;
+function scheduleLabels3d(moved) {
+  if (moved) { $("labels3d").replaceChildren(); $("popup3d").hidden = true; }
+  clearTimeout(labelTimer);
+  labelTimer = setTimeout(() => { drawLabels3d(); placePopup3d(); }, 120);
+}
+
+function drawLabels3d() {
+  const svg = $("labels3d");
+  svg.replaceChildren();
+  if (!view || !st.is3d || !ui.labels || viewCase !== st.case) return;
+  const v = $("viewer3d"), w = v.clientWidth, h = v.clientHeight;
+  if (a3.sel && a3.at) { const p = view.project(a3.sel); if (p?.visible) a3.at = { x: p.x, y: p.y }; }
+  const inCase = new Set(data.meta.structures.map((s) => s.key));
+  const best = new Map(); // site key -> its largest visible atlas part
+  for (const key of shown3d.keys()) {
+    const site = siteOfAtlas.get(key), size = atlasByKey.get(key).size;
+    if (site && inCase.has(site) && !(best.get(site)?.size >= size)) best.set(site, { key, size });
+  }
+  const want = [...best.values()].sort((a, b) => b.size - a.size).slice(0, w < 420 ? 6 : 12).map((b) => b.key);
+  if (a3.sel && shown3d.has(a3.sel) && !want.includes(a3.sel)) want.push(a3.sel);
+  const screen = new Map();
+  for (const key of want) {
+    const p = view.project(key);
+    if (p?.visible && p.x > 0 && p.x < w && p.y > 0 && p.y < h) screen.set(key, { x: p.x, y: p.y });
+  }
+  const placed = layoutLabels(screen, w, h - 40, LINE_H);
+  if (!placed) return;
+  const col = Math.min(150, w * 0.28), maxChars = Math.floor(col / 7);
+  for (const l of placed) {
+    const left = l.side === "left", y = l.y + 40, tx = left ? col : w - col;
+    const name = atlasName(l.id), c = atlasByKey.get(l.id).color;
+    const text = el("text", { x: left ? tx - 6 : tx + 6, y: y + 4, "text-anchor": left ? "end" : "start" });
+    text.textContent = name.length > maxChars ? name.slice(0, maxChars - 1) + "…" : name;
+    svg.append(el("line", { x1: tx, y1: y, x2: l.ax, y2: l.ay, stroke: c }), el("circle", { cx: l.ax, cy: l.ay, r: 3, stroke: c, fill: c }), text);
+  }
+}
+
+function render3d() {
+  if (!view || !atlas || viewCase !== st.case) return;
+  shown3d = atlasVisibility(atlas.structures, atlasSys, a3.hidden, a3.faded, a3.isolated);
+  view.setVisibility(shown3d);
+  const sel2d = ui.selected && data.meta.structures.find((s) => s.id === ui.selected);
+  view.select(a3.sel ? [a3.sel] : sel2d ? siteToAtlas(links, sel2d.key) : []);
+  const defaults = atlas.structures.filter((s) => s.off).length;
+  $("showall3d").hidden = !a3.isolated && !a3.faded.size && a3.hidden.size <= defaults;
+  fits.get(st.case)?.then((fit) => {
+    if (viewCase !== st.case) return;
+    const p = ctToAtlas(fit, st.plane, sliceMm(st.plane, st.slice, data.meta.spacing));
+    view.setPlane(p && { ...p, box: regionBox(fit) });
+  });
 }
 
 function showError(e) {
@@ -127,7 +347,13 @@ function buildStatic() {
   $("sys-toggle").onclick = () => { st.sys = st.sys.length ? [] : caseSystems(); update(); };
   $("zoom-in").onclick = () => setZoom(st.zoom * 1.25);
   $("zoom-out").onclick = () => setZoom(st.zoom / 1.25);
-  $("zoom-fit").onclick = () => { ui.pan = { x: 0, y: 0 }; setZoom(1); };
+  $("zoom-fit").onclick = () => {
+    ui.pan = { x: 0, y: 0 };
+    setZoom(1);
+  };
+  $("toggle-3d").onclick = () => set3d(!st.is3d);
+  $("fit3d").onclick = () => fits.get(st.case)?.then((fit) => view?.reset(regionBox(fit)));
+  $("showall3d").onclick = () => { resetAtlasView(); update(); };
   $("move").onclick = () => { ui.move = !ui.move; update(); };
   $("focus").onclick = () => toggleFocus(!document.body.classList.contains("focus"));
   $("prev").onclick = () => step(-1);
@@ -181,12 +407,8 @@ function buildPlanes() {
     b.textContent = t(`plane.${p}`);
     b.onclick = () => setPlane(p, null);
     return b;
-  }), Object.assign(document.createElement("button"), {
-    className: "btn", textContent: t("plane.3d"),
-    onclick: () => { ui.is3d = true; ui.pan = { x: 0, y: 0 }; ui.selected = 0; update(); },
   }));
-  $("plane-group").lastChild.setAttribute("role", "radio");
-  $("plane-group").lastChild.dataset.plane = "3d";
+  buildAtlasBar();
 }
 
 function buildWindows() {
@@ -245,7 +467,6 @@ function reportLink(s) {
 
 // ---------- state changes ----------
 function setPlane(plane, slice) {
-  ui.is3d = false;
   st.plane = plane;
   st.slice = slice ?? Math.floor(sliceCount(data.meta.dims, plane) / 2);
   ui.pan = { x: 0, y: 0 };
@@ -290,12 +511,15 @@ function onHashChange() {
   // A link to another case: open it with the link's own plane/slice/systems, not this case's.
   if (raw.case && raw.case !== st.case && cases.some((c) => c.id === raw.case)) {
     if (raw.lang && raw.lang !== st.lang) setLang(raw.lang);
+    st.is3d = raw.is3d;
     return openCase(raw.case, raw);
   }
   const next = clampState({ ...raw, case: st.case }, ctx());
   if (next.lang && next.lang !== st.lang) setLang(next.lang);
+  const was3d = st.is3d;
   Object.assign(st, next, { lang: next.lang || st.lang });
   update();
+  if (st.is3d && !was3d) open3d();
 }
 
 // ---------- render ----------
@@ -309,13 +533,17 @@ function update() {
 
 function syncControls() {
   document.querySelectorAll(".sys").forEach((b) => b.setAttribute("aria-pressed", String(st.sys.includes(b.dataset.sys))));
-  document.querySelectorAll("#plane-group .btn").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.plane === (ui.is3d ? "3d" : st.plane))));
+  document.querySelectorAll("#plane-group .btn").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.plane === st.plane)));
+  document.querySelectorAll("#atlas-bar .btn").forEach((b) => b.setAttribute("aria-pressed", String(atlasSys.has(b.dataset.sys))));
+  $("toggle-3d").setAttribute("aria-pressed", String(st.is3d));
+  $("panes").classList.toggle("split", st.is3d);
+  $("viewer3d").hidden = !st.is3d;
+  if (st.is3d) $("atlas-credit").hidden = false; // shown once the atlas has been on screen
   document.querySelectorAll("#region-bar .btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.case === st.case)));
   $("zoom-fit").hidden = st.zoom === 1 && !ui.pan.x && !ui.pan.y;
   $("move").hidden = st.zoom <= 1;
   $("move").setAttribute("aria-pressed", String(ui.move));
   $("viewer").classList.toggle("moving", ui.move);
-  for (const s of [".slicer", ".window"]) document.querySelector(s).style.visibility = ui.is3d ? "hidden" : "";
   if (!data) return;
   $("sys-toggle").textContent = t(st.sys.length ? "ctl.none" : "ctl.all");
   const n = sliceCount(data.meta.dims, st.plane);
@@ -323,8 +551,7 @@ function syncControls() {
   $("slice-val").textContent = `${t(`plane.${st.plane}`)} ${st.slice + 1} / ${n}`;
   const [w, h] = planeSize(data.meta.dims, st.plane);
   $("plane-info").textContent = `${t(`plane.${st.plane}`)} ${w} × ${h}`;
-  if (ui.is3d) $("plane-info").textContent = t("hint.3d");
-  const [top, bottom, left, right] = ui.is3d ? ["", "", "", ""] : MARKS[st.plane];
+  const [top, bottom, left, right] = MARKS[st.plane];
   Object.assign($("mk-top"), { textContent: top });
   Object.assign($("mk-bottom"), { textContent: bottom });
   Object.assign($("mk-left"), { textContent: left });
@@ -341,7 +568,7 @@ function render() {
     canvas.width = Math.round(cw * dpr);
     canvas.height = Math.round(ch * dpr);
   }
-  if (ui.is3d) return render3d(cw, ch, dpr);
+  if (st.is3d) render3d();
   const [w, h] = planeSize(meta.dims, st.plane);
   const ctSlice = extractSlice(ct, meta.dims, st.plane, st.slice);
   const labSlice = extractSlice(labels, meta.dims, st.plane, st.slice);
@@ -369,34 +596,6 @@ function render() {
   ctx.drawImage(off, dx, dy, dw, dh);
 
   drawLabels(labSlice, table, cw, ch);
-  placePopup();
-}
-
-let buf3d = null;
-function render3d(cw, ch, dpr) {
-  const { meta, labels, bounds } = data;
-  const canvas = $("canvas");
-  const table = colorTable(meta.structures, new Set(st.sys), ui.hidden);
-  const visible = new Uint8Array(256).map((_, i) => table[i * 4 + 3]);
-  // Fit the box's widest horizontal extent and its height at zoom 1; render below screen resolution.
-  const ext = bounds ? [0, 1, 2].map((k) => (bounds[k + 3] - bounds[k]) * meta.spacing[k]) : [1, 1, 1];
-  const pxPerMm = Math.min(cw / Math.max(ext[0], ext[1]), ch / ext[2]) * 0.94 * st.zoom;
-  const q = Math.min(1, Math.sqrt((ui.fast ? 40000 : 160000) / (cw * ch)));
-  const W = Math.max(1, Math.round(cw * q)), H = Math.max(1, Math.round(ch * q));
-  if (buf3d?.W !== W || buf3d?.H !== H) buf3d = { W, H, ids: new Uint8Array(W * H), depth: new Float32Array(W * H), img: new ImageData(W, H) };
-  const mmPerPx = 1 / (pxPerMm * q);
-  if (bounds) castRays(labels, meta.dims, meta.spacing, visible, bounds, { yaw: ui.yaw, pitch: ui.pitch, mmPerPx, panX: ui.pan.x * q, panY: ui.pan.y * q }, W, H, buf3d.ids, buf3d.depth);
-  else buf3d.ids.fill(0);
-  shade(buf3d.ids, buf3d.depth, table, W, H, mmPerPx, ui.selected, buf3d.img.data);
-  off.width = W; off.height = H;
-  off.getContext("2d").putImageData(buf3d.img, 0, 0);
-  ui.geo = { dx: 0, dy: 0, sx: cw / W, sy: ch / H, w: W, h: H, ctSlice: null, labSlice: buf3d.ids };
-  const ctx = canvas.getContext("2d");
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.imageSmoothingEnabled = true;
-  ctx.drawImage(off, 0, 0, cw, ch);
-  $("labels").replaceChildren();
-  $("hint").hidden = false;
   placePopup();
 }
 
@@ -468,7 +667,6 @@ function bindViewer() {
   v.addEventListener("wheel", (e) => {
     if (!data || !e.deltaY) return;
     e.preventDefault();
-    if (ui.is3d) return setZoom(st.zoom * (e.deltaY < 0 ? 1.1 : 1 / 1.1));
     // Mouse wheels send ~100 px per notch, trackpads many small deltas: one slice per ~40 px.
     wheelAcc += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;
     const n = Math.trunc(wheelAcc / 40);
@@ -477,7 +675,7 @@ function bindViewer() {
   v.addEventListener("pointerdown", (e) => {
     if (!data || e.target.closest(".popup")) return;
     v.setPointerCapture(e.pointerId);
-    drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, yaw: ui.yaw, pitch: ui.pitch, moved: false, panning: ui.move || e.button === 1 || e.shiftKey || (st.zoom > 1 && e.pointerType === "mouse" && !ui.is3d) };
+    drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, moved: false, panning: ui.move || e.button === 1 || e.shiftKey || (st.zoom > 1 && e.pointerType === "mouse") };
   });
   v.addEventListener("pointermove", (e) => {
     const p = pixelAt(e.clientX, e.clientY);
@@ -487,12 +685,7 @@ function bindViewer() {
     if (Math.hypot(ddx, ddy) > 5) drag.moved = true;
     if (!drag.moved) return;
     if (drag.panning) { ui.pan = { x: drag.pan.x + ddx, y: drag.pan.y + ddy }; update(); }
-    else if (ui.is3d) {
-      ui.fast = true;
-      ui.yaw = drag.yaw + ddx * 0.01;
-      ui.pitch = Math.min(1.5, Math.max(-1.5, drag.pitch + ddy * 0.01));
-      update();
-    } else {
+    else {
       const n = sliceCount(data.meta.dims, st.plane);
       const next = Math.min(n - 1, Math.max(0, drag.slice + Math.round(ddy / 4)));
       if (next !== st.slice) { st.slice = next; update(); }
@@ -501,18 +694,24 @@ function bindViewer() {
   const end = (e) => {
     if (drag && !drag.moved) select(pixelAt(e.clientX, e.clientY));
     drag = null;
-    if (ui.fast) { ui.fast = false; update(); }
   };
   v.addEventListener("pointerup", end);
-  v.addEventListener("pointercancel", () => { drag = null; if (ui.fast) { ui.fast = false; update(); } });
+  v.addEventListener("pointercancel", () => (drag = null));
+  // 3D: OrbitControls rotates/zooms; a click without a drag picks, a double-click centres.
+  const v3 = $("viewer3d");
+  let down = null;
+  v3.addEventListener("pointerdown", (e) => { down = e.target.closest(".popup, .atlas-bar, .tools3d") ? null : { x: e.clientX, y: e.clientY }; });
+  v3.addEventListener("pointerup", (e) => {
+    if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 5) pick3d(e);
+    down = null;
+  });
+  v3.addEventListener("dblclick", (e) => {
+    const r = v3.getBoundingClientRect();
+    if (view) view.centerOn(view.pick(e.clientX - r.left, e.clientY - r.top));
+  });
   v.addEventListener("keydown", (e) => {
     const k = { ArrowUp: 1, ArrowRight: 1, PageUp: 10, ArrowDown: -1, ArrowLeft: -1, PageDown: -10 }[e.key];
-    if (k && data && ui.is3d) {
-      e.preventDefault();
-      if (e.key === "ArrowLeft" || e.key === "ArrowRight") ui.yaw += k * 0.26;
-      else ui.pitch = Math.min(1.5, Math.max(-1.5, ui.pitch + Math.sign(k) * 0.26));
-      update();
-    } else if (k && data) { e.preventDefault(); step(k); }
+    if (k && data) { e.preventDefault(); step(k); }
     if (e.key === "+" || e.key === "=") setZoom(st.zoom * 1.25);
     if (e.key === "-") setZoom(st.zoom / 1.25);
     if (e.key === "Escape") { ui.selected = 0; toggleFocus(false); }
@@ -525,6 +724,8 @@ function select(p) {
   const table = colorTable(data.meta.structures, new Set(st.sys), ui.hidden);
   ui.selected = id && table[id * 4 + 3] ? id : 0;
   popupAt = ui.selected ? { x: p.x, y: p.y } : null;
+  a3.sel = null;
+  a3.at = null;
   update();
 }
 
@@ -541,7 +742,8 @@ function placePopup() {
   const close = Object.assign(document.createElement("button"), { className: "btn small", textContent: t("ctl.close") });
   close.onclick = () => { ui.selected = 0; popupAt = null; update(); };
   const rep = reportLink(shown);
-  acts.append(close, ...(rep ? [rep] : []));
+  const parts3d = st.is3d && atlas ? siteToAtlas(links, shown.key) : [];
+  acts.append(close, ...(parts3d.length ? [smallBtn("ctl.show3d", () => showIn3d(parts3d))] : []), ...(rep ? [rep] : []));
   pop.replaceChildren(strong, acts);
   const v = $("viewer");
   pop.style.left = `${Math.min(popupAt.x + 12, v.clientWidth - pop.offsetWidth - 8)}px`;

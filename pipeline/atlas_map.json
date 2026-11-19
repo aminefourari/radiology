@@ -1,0 +1,1008 @@
+{
+ "liver": [
+  "liver"
+ ],
+ "spleen": [
+  "spleen"
+ ],
+ "pancreas": [
+  "pancreas"
+ ],
+ "gallbladder": [
+  "gallbladder"
+ ],
+ "adrenal_gland_right": [
+  "suprarenal_gland_right"
+ ],
+ "adrenal_gland_left": [
+  "suprarenal_gland_left"
+ ],
+ "liver_segment_1": [
+  "posterior_segment_of_liver_i"
+ ],
+ "liver_segment_2": [
+  "left_posterior_lateral_segment_of_liver_ii"
+ ],
+ "liver_segment_3": [
+  "left_anterior_lateral_segment_of_liver_iii"
+ ],
+ "liver_segment_4": [
+  "left_medial_segment_of_liver_iv"
+ ],
+ "liver_segment_5": [
+  "anterior_medial_segment_of_liver_v"
+ ],
+ "liver_segment_6": [
+  "anterior_lateral_segment_of_liver_vi"
+ ],
+ "liver_segment_7": [
+  "posterior_lateral_segment_of_liver_vii"
+ ],
+ "liver_segment_8": [
+  "posterior_medial_segment_of_liver_viii"
+ ],
+ "esophagus": [
+  "oesophagus"
+ ],
+ "stomach": [
+  "stomach"
+ ],
+ "duodenum": [
+  "duodenum"
+ ],
+ "small_bowel": [
+  "jejunum"
+ ],
+ "colon": [
+  "ascending_colon",
+  "transverse_colon",
+  "descending_colon",
+  "sigmoid_colon"
+ ],
+ "kidney_right": [
+  "kidney_right"
+ ],
+ "kidney_left": [
+  "kidney_left"
+ ],
+ "urinary_bladder": [
+  "urinary_bladder"
+ ],
+ "prostate": [
+  "prostate"
+ ],
+ "hip_right": [
+  "hip_bone_right"
+ ],
+ "hip_left": [
+  "hip_bone_left"
+ ],
+ "sacrum": [
+  "sacrum"
+ ],
+ "femur_right": [
+  "femur_right"
+ ],
+ "femur_left": [
+  "femur_left"
+ ],
+ "vertebrae_T10": [
+  "vertebra_t10"
+ ],
+ "vertebrae_T11": [
+  "vertebra_t11"
+ ],
+ "vertebrae_T12": [
+  "vertebra_t12"
+ ],
+ "vertebrae_L1": [
+  "vertebra_l1"
+ ],
+ "vertebrae_L2": [
+  "vertebra_l2"
+ ],
+ "vertebrae_L3": [
+  "vertebra_l3"
+ ],
+ "vertebrae_L4": [
+  "vertebra_l4"
+ ],
+ "vertebrae_L5": [
+  "vertebra_l5"
+ ],
+ "vertebrae_S1": [
+  "sacrum"
+ ],
+ "aorta": [
+  "thoracic_aorta",
+  "abdominal_aorta",
+  "ascending_aorta"
+ ],
+ "iliac_artery_right": [
+  "common_iliac_artery_right",
+  "external_iliac_artery_right",
+  "internal_iliac_artery_right"
+ ],
+ "iliac_artery_left": [
+  "common_iliac_artery_left",
+  "external_iliac_artery_left",
+  "internal_iliac_artery_left"
+ ],
+ "inferior_vena_cava": [
+  "inferior_vena_cava_thoracic_part",
+  "inferior_vena_cava_abdominal_part"
+ ],
+ "portal_vein_and_splenic_vein": [
+  "hepatic_portal_vein",
+  "splenic_vein"
+ ],
+ "iliac_vena_right": [
+  "common_iliac_vein_right",
+  "external_iliac_vein_right",
+  "internal_iliac_vein_right"
+ ],
+ "iliac_vena_left": [
+  "common_iliac_vein_left",
+  "external_iliac_vein_left",
+  "internal_iliac_vein_left"
+ ],
+ "brain": [
+  "temporal_pole_left",
+  "occipital_pole_left",
+  "opercular_part_of_inferior_frontal_gyrus_left",
+  "orbital_part_of_inferior_frontal_gyrus_left",
+  "triangular_part_of_inferior_frontal_gyrus_left",
+  "orbital_gyri_frontomarginal_gyrus_and_sulcus_left",
+  "paracentral_gyrus_and_sulcus_left",
+  "transverse_frontopolar_gyrus_and_sulcus_left",
+  "straight_gyrus_gyrus_rectus_left",
+  "middle_frontal_gyrus_left",
+  "orbital_gyri_left",
+  "precentral_gyrus_left",
+  "superior_frontal_gyrus_left",
+  "angular_gyrus_left",
+  "supramarginal_gyrus_left",
+  "postcentral_gyrus_left",
+  "precuneus_left",
+  "superior_parietal_lobule_left",
+  "inferior_occipital_gyrus_and_sulcus_left",
+  "lingual_gyrus_left",
+  "lateral_occipital_gyrus_middle_occipital_gyrus_left",
+  "cuneus_left",
+  "superior_occipital_gyri_left",
+  "transverse_temporal_gyri_left",
+  "superior_temporal_gyrus_lateral_part_left",
+  "lateral_occipitotemporal_gyrus_left",
+  "medial_occipitotemporal_gyrus_parahippocampal_left",
+  "inferior_temporal_gyrus_left",
+  "middle_temporal_gyrus_left",
+  "insula_subcentral_gyrus_and_ant_and_post_sulci_left",
+  "cingulate_gyrus_and_sulcus_middle_anterior_part_left",
+  "cingulate_gyrus_and_sulcus_middle_posterior_part_left",
+  "cingulate_gyrus_and_sulcus_posterior_dorsal_part_left",
+  "cingulate_gyrus_posteroventral_part_left",
+  "temporal_pole_right",
+  "occipital_pole_right",
+  "opercular_part_of_inferior_frontal_gyrus_right",
+  "orbital_part_of_inferior_frontal_gyrus_right",
+  "triangular_part_of_inferior_frontal_gyrus_right",
+  "orbital_gyri_frontomarginal_gyrus_and_sulcus_right",
+  "paracentral_gyrus_and_sulcus_right",
+  "transverse_frontopolar_gyrus_and_sulcus_right",
+  "straight_gyrus_gyrus_rectus_right",
+  "middle_frontal_gyrus_right",
+  "orbital_gyri_right",
+  "precentral_gyrus_right",
+  "superior_frontal_gyrus_right",
+  "angular_gyrus_right",
+  "supramarginal_gyrus_right",
+  "postcentral_gyrus_right",
+  "precuneus_right",
+  "superior_parietal_lobule_right",
+  "inferior_occipital_gyrus_and_sulcus_right",
+  "lingual_gyrus_right",
+  "lateral_occipital_gyrus_middle_occipital_gyrus_right",
+  "cuneus_right",
+  "superior_occipital_gyri_right",
+  "transverse_temporal_gyri_right",
+  "superior_temporal_gyrus_lateral_part_right",
+  "lateral_occipitotemporal_gyrus_right",
+  "medial_occipitotemporal_gyrus_parahippocampal_right",
+  "inferior_temporal_gyrus_right",
+  "middle_temporal_gyrus_right",
+  "insula_subcentral_gyrus_and_ant_and_post_sulci_right",
+  "cingulate_gyrus_and_sulcus_middle_anterior_part_right",
+  "cingulate_gyrus_and_sulcus_middle_posterior_part_right",
+  "cingulate_gyrus_and_sulcus_posterior_dorsal_part_right",
+  "cingulate_gyrus_posteroventral_part_right",
+  "white_matter_of_telencephalon_left",
+  "white_matter_of_telencephalon_right",
+  "corpus_callosum"
+ ],
+ "frontal_lobe": [
+  "opercular_part_of_inferior_frontal_gyrus_left",
+  "orbital_part_of_inferior_frontal_gyrus_left",
+  "triangular_part_of_inferior_frontal_gyrus_left",
+  "orbital_gyri_frontomarginal_gyrus_and_sulcus_left",
+  "paracentral_gyrus_and_sulcus_left",
+  "straight_gyrus_gyrus_rectus_left",
+  "middle_frontal_gyrus_left",
+  "orbital_gyri_left",
+  "precentral_gyrus_left",
+  "superior_frontal_gyrus_left",
+  "opercular_part_of_inferior_frontal_gyrus_right",
+  "orbital_part_of_inferior_frontal_gyrus_right",
+  "triangular_part_of_inferior_frontal_gyrus_right",
+  "orbital_gyri_frontomarginal_gyrus_and_sulcus_right",
+  "paracentral_gyrus_and_sulcus_right",
+  "straight_gyrus_gyrus_rectus_right",
+  "middle_frontal_gyrus_right",
+  "orbital_gyri_right",
+  "precentral_gyrus_right",
+  "superior_frontal_gyrus_right"
+ ],
+ "parietal_lobe": [
+  "angular_gyrus_left",
+  "supramarginal_gyrus_left",
+  "postcentral_gyrus_left",
+  "precuneus_left",
+  "superior_parietal_lobule_left",
+  "angular_gyrus_right",
+  "supramarginal_gyrus_right",
+  "postcentral_gyrus_right",
+  "precuneus_right",
+  "superior_parietal_lobule_right"
+ ],
+ "temporal_lobe": [
+  "temporal_pole_left",
+  "transverse_temporal_gyri_left",
+  "superior_temporal_gyrus_lateral_part_left",
+  "lateral_occipitotemporal_gyrus_left",
+  "medial_occipitotemporal_gyrus_parahippocampal_left",
+  "inferior_temporal_gyrus_left",
+  "middle_temporal_gyrus_left",
+  "temporal_pole_right",
+  "transverse_temporal_gyri_right",
+  "superior_temporal_gyrus_lateral_part_right",
+  "lateral_occipitotemporal_gyrus_right",
+  "medial_occipitotemporal_gyrus_parahippocampal_right",
+  "inferior_temporal_gyrus_right",
+  "middle_temporal_gyrus_right"
+ ],
+ "occipital_lobe": [
+  "occipital_pole_left",
+  "precuneus_left",
+  "inferior_occipital_gyrus_and_sulcus_left",
+  "lingual_gyrus_left",
+  "lateral_occipital_gyrus_middle_occipital_gyrus_left",
+  "cuneus_left",
+  "superior_occipital_gyri_left",
+  "occipital_pole_right",
+  "precuneus_right",
+  "inferior_occipital_gyrus_and_sulcus_right",
+  "lingual_gyrus_right",
+  "lateral_occipital_gyrus_middle_occipital_gyrus_right",
+  "cuneus_right",
+  "superior_occipital_gyri_right"
+ ],
+ "insular_cortex": [
+  "insula_subcentral_gyrus_and_ant_and_post_sulci_left",
+  "insula_subcentral_gyrus_and_ant_and_post_sulci_right"
+ ],
+ "central_sulcus": [
+  "central_sulcus_left",
+  "central_sulcus_right"
+ ],
+ "caudate_nucleus": [
+  "caudate_nucleus_left",
+  "caudate_nucleus_right"
+ ],
+ "lentiform_nucleus": [
+  "putamen_left",
+  "putamen_right",
+  "globus_pallidus_left",
+  "globus_pallidus_right"
+ ],
+ "thalamus": [
+  "thalamus_left",
+  "thalamus_right"
+ ],
+ "cerebellum": [
+  "wing_of_central_lobule_left",
+  "uvula_of_vermis",
+  "tuber_of_vermis",
+  "tonsil_of_cerebellum_left",
+  "superior_semilunar_lobule_left",
+  "pyramis_of_vermis",
+  "posterior_quadrangular_lobule_left",
+  "nodule_of_vermis",
+  "lingula_of_cerebellum",
+  "inferior_semilunar_lobule_left",
+  "gracile_lobule_left",
+  "folium_of_vermis",
+  "flocculus_left",
+  "central_lobule",
+  "biventral_lobule_left",
+  "anterior_quadrangular_lobule_left",
+  "wing_of_central_lobule_right",
+  "tonsil_of_cerebellum_right",
+  "superior_semilunar_lobule_right",
+  "posterior_quadrangular_lobule_right",
+  "inferior_semilunar_lobule_right",
+  "gracile_lobule_right",
+  "flocculus_right",
+  "biventral_lobule_right",
+  "anterior_quadrangular_lobule_right"
+ ],
+ "brainstem": [
+  "midbrain_right",
+  "midbrain_left",
+  "pons_right",
+  "pons_left",
+  "medulla_oblongata_left",
+  "medulla_oblongata_right"
+ ],
+ "septum_pellucidum": [
+  "septum_pellucidum"
+ ],
+ "venous_sinuses": [
+  "straight_sinus",
+  "inferior_sagittal_sinus",
+  "superior_sagittal_sinus",
+  "transverse_sinus_right",
+  "transverse_sinus_left",
+  "sigmoid_sinus_right",
+  "sigmoid_sinus_left"
+ ],
+ "ventricle_frontal_horn_right": [
+  "lateral_ventricle_right"
+ ],
+ "ventricle_frontal_horn_left": [
+  "lateral_ventricle_left"
+ ],
+ "ventricle_body_right": [
+  "lateral_ventricle_right"
+ ],
+ "ventricle_body_left": [
+  "lateral_ventricle_left"
+ ],
+ "ventricle_trigone_right": [
+  "lateral_ventricle_right"
+ ],
+ "ventricle_trigone_left": [
+  "lateral_ventricle_left"
+ ],
+ "ventricle_occipital_horn_right": [
+  "lateral_ventricle_right"
+ ],
+ "ventricle_occipital_horn_left": [
+  "lateral_ventricle_left"
+ ],
+ "ventricle_temporal_horn_right": [
+  "lateral_ventricle_right"
+ ],
+ "ventricle_temporal_horn_left": [
+  "lateral_ventricle_left"
+ ],
+ "third_ventricle": [
+  "third_ventricle"
+ ],
+ "fourth_ventricle": [
+  "fourth_ventricle"
+ ],
+ "eye_right": [
+  "anterior_segment_of_eyeball_right",
+  "posterior_segment_of_eyeball_right"
+ ],
+ "eye_left": [
+  "anterior_segment_of_eyeball_left",
+  "posterior_segment_of_eyeball_left"
+ ],
+ "eye_lens_right": [
+  "lens_right"
+ ],
+ "eye_lens_left": [
+  "lens_left"
+ ],
+ "optic_nerve_right": [
+  "optic_nerve_ii_right"
+ ],
+ "optic_nerve_left": [
+  "optic_nerve_ii_left"
+ ],
+ "lateral_rectus_muscle_right": [
+  "lateral_rectus_muscle_right"
+ ],
+ "lateral_rectus_muscle_left": [
+  "lateral_rectus_muscle_left"
+ ],
+ "medial_rectus_muscle_right": [
+  "medial_rectus_muscle_right"
+ ],
+ "medial_rectus_muscle_left": [
+  "medial_rectus_muscle_left"
+ ],
+ "superior_rectus_muscle_right": [
+  "superior_rectus_muscle_right"
+ ],
+ "superior_rectus_muscle_left": [
+  "superior_rectus_muscle_left"
+ ],
+ "inferior_rectus_muscle_right": [
+  "inferior_rectus_muscle_right"
+ ],
+ "inferior_rectus_muscle_left": [
+  "inferior_rectus_muscle_left"
+ ],
+ "superior_oblique_muscle_right": [
+  "superior_oblique_muscle_right"
+ ],
+ "superior_oblique_muscle_left": [
+  "superior_oblique_muscle_left"
+ ],
+ "inferior_oblique_muscle_right": [
+  "inferior_oblique_muscle_right"
+ ],
+ "inferior_oblique_muscle_left": [
+  "inferior_oblique_muscle_left"
+ ],
+ "levator_palpebrae_superioris_right": [
+  "levator_palpebrae_superioris_right"
+ ],
+ "levator_palpebrae_superioris_left": [
+  "levator_palpebrae_superioris_left"
+ ],
+ "parotid_gland_right": [
+  "parotid_gland_right"
+ ],
+ "parotid_gland_left": [
+  "parotid_gland_left"
+ ],
+ "submandibular_gland_right": [
+  "submandibular_gland_right"
+ ],
+ "submandibular_gland_left": [
+  "submandibular_gland_left"
+ ],
+ "nasopharynx": [
+  "nasopharynx"
+ ],
+ "oropharynx": [
+  "oropharynx"
+ ],
+ "hypopharynx": [
+  "laryngopharynx"
+ ],
+ "nasal_cavity_right": [
+  "mucosa_of_nasal_cavity"
+ ],
+ "nasal_cavity_left": [
+  "mucosa_of_nasal_cavity"
+ ],
+ "soft_palate": [
+  "soft_palate"
+ ],
+ "internal_carotid_artery_right": [
+  "internal_carotid_artery_right"
+ ],
+ "internal_carotid_artery_left": [
+  "internal_carotid_artery_left"
+ ],
+ "internal_jugular_vein_right": [
+  "internal_jugular_vein_right"
+ ],
+ "internal_jugular_vein_left": [
+  "internal_jugular_vein_left"
+ ],
+ "skull": [
+  "parietal_bone_right",
+  "parietal_bone_left",
+  "frontal_bone",
+  "occipital_bone",
+  "sphenoid_bone",
+  "temporal_bone_right",
+  "ethmoid_bone",
+  "temporal_bone_left"
+ ],
+ "zygomatic_arch_right": [
+  "zygomatic_bone_right"
+ ],
+ "zygomatic_arch_left": [
+  "zygomatic_bone_left"
+ ],
+ "hyoid": [
+  "hyoid_bone"
+ ],
+ "masseter_right": [
+  "superficial_part_of_masseter_right",
+  "deep_part_of_masseter_right"
+ ],
+ "masseter_left": [
+  "superficial_part_of_masseter_left",
+  "deep_part_of_masseter_left"
+ ],
+ "temporalis_right": [
+  "temporalis_muscle_right"
+ ],
+ "temporalis_left": [
+  "temporalis_muscle_left"
+ ],
+ "lateral_pterygoid_right": [
+  "inferior_head_of_lateral_pterygoid_muscle_right",
+  "superior_head_of_lateral_pterygoid_muscle_right"
+ ],
+ "lateral_pterygoid_left": [
+  "inferior_head_of_lateral_pterygoid_muscle_left",
+  "superior_head_of_lateral_pterygoid_muscle_left"
+ ],
+ "medial_pterygoid_right": [
+  "medial_pterygoid_muscle_right"
+ ],
+ "medial_pterygoid_left": [
+  "medial_pterygoid_muscle_left"
+ ],
+ "tongue": [
+  "tongue"
+ ],
+ "digastric_right": [
+  "anterior_belly_of_digastric_muscle_right",
+  "posterior_belly_of_digastric_muscle_right"
+ ],
+ "digastric_left": [
+  "anterior_belly_of_digastric_muscle_left",
+  "posterior_belly_of_digastric_muscle_left"
+ ],
+ "thyroid_cartilage": [
+  "thyroid_cartilage"
+ ],
+ "cricoid_cartilage": [
+  "cricoid_cartilage"
+ ],
+ "trachea": [
+  "trachea"
+ ],
+ "thyroid_gland": [
+  "thyroid_gland"
+ ],
+ "common_carotid_artery_right": [
+  "right_common_carotid_artery"
+ ],
+ "common_carotid_artery_left": [
+  "left_common_carotid_artery"
+ ],
+ "subclavian_artery_right": [
+  "right_subclavian_artery"
+ ],
+ "subclavian_artery_left": [
+  "left_subclavian_artery"
+ ],
+ "brachiocephalic_trunk": [
+  "brachiocephalic_trunk"
+ ],
+ "brachiocephalic_vein_right": [
+  "right_brachiocephalic_vein"
+ ],
+ "brachiocephalic_vein_left": [
+  "left_brachiocephalic_vein"
+ ],
+ "superior_vena_cava": [
+  "superior_vena_cava"
+ ],
+ "vertebrae_C1": [
+  "atlas_c1"
+ ],
+ "vertebrae_C2": [
+  "axis_c2"
+ ],
+ "vertebrae_C3": [
+  "vertebra_c3"
+ ],
+ "vertebrae_C4": [
+  "vertebra_c4"
+ ],
+ "vertebrae_C5": [
+  "vertebra_c5"
+ ],
+ "vertebrae_C6": [
+  "vertebra_c6"
+ ],
+ "vertebrae_C7": [
+  "vertebra_c7"
+ ],
+ "vertebrae_T1": [
+  "vertebra_t1"
+ ],
+ "vertebrae_T2": [
+  "vertebra_t2"
+ ],
+ "vertebrae_T3": [
+  "vertebra_t3"
+ ],
+ "vertebrae_T4": [
+  "vertebra_t4"
+ ],
+ "vertebrae_T5": [
+  "vertebra_t5"
+ ],
+ "vertebrae_T6": [
+  "vertebra_t6"
+ ],
+ "vertebrae_T7": [
+  "vertebra_t7"
+ ],
+ "vertebrae_T8": [
+  "vertebra_t8"
+ ],
+ "vertebrae_T9": [
+  "vertebra_t9"
+ ],
+ "spinal_cord": [
+  "white_matter_of_spinal_cord",
+  "anterior_horn_of_spinal_cord",
+  "posterior_horn_of_spinal_cord"
+ ],
+ "sternocleidomastoid_right": [
+  "sternocleidomastoid_muscle_right"
+ ],
+ "sternocleidomastoid_left": [
+  "sternocleidomastoid_muscle_left"
+ ],
+ "superior_pharyngeal_constrictor": [
+  "superior_pharyngeal_constrictor_left",
+  "superior_pharyngeal_constrictor_right"
+ ],
+ "middle_pharyngeal_constrictor": [
+  "middle_pharyngeal_constrictor_left",
+  "middle_pharyngeal_constrictor_right"
+ ],
+ "inferior_pharyngeal_constrictor": [
+  "inferior_pharyngeal_constrictor_left",
+  "inferior_pharyngeal_constrictor_right"
+ ],
+ "trapezius_right": [
+  "descending_part_of_trapezius_muscle_right",
+  "transverse_part_of_trapezius_muscle_right",
+  "ascending_part_of_trapezius_muscle_right"
+ ],
+ "trapezius_left": [
+  "descending_part_of_trapezius_muscle_left",
+  "transverse_part_of_trapezius_muscle_left",
+  "ascending_part_of_trapezius_muscle_left"
+ ],
+ "platysma_right": [
+  "platysma_right"
+ ],
+ "platysma_left": [
+  "platysma_left"
+ ],
+ "levator_scapulae_right": [
+  "levator_scapulae_right"
+ ],
+ "levator_scapulae_left": [
+  "levator_scapulae_left"
+ ],
+ "anterior_scalene_right": [
+  "scalenus_anterior_muscle_right"
+ ],
+ "anterior_scalene_left": [
+  "scalenus_anterior_muscle_left"
+ ],
+ "middle_scalene_right": [
+  "scalenus_medius_muscle_right"
+ ],
+ "middle_scalene_left": [
+  "scalenus_medius_muscle_left"
+ ],
+ "posterior_scalene_right": [
+  "scalenus_posterior_muscle_right"
+ ],
+ "posterior_scalene_left": [
+  "scalenus_posterior_muscle_left"
+ ],
+ "sterno_thyroid_right": [
+  "sternothyroid_muscle_right"
+ ],
+ "sterno_thyroid_left": [
+  "sternothyroid_muscle_left"
+ ],
+ "thyrohyoid_right": [
+  "thyrohyoid_muscle_right"
+ ],
+ "thyrohyoid_left": [
+  "thyrohyoid_muscle_left"
+ ],
+ "prevertebral_right": [
+  "longus_colli_muscle_right",
+  "longus_capitis_muscle_right"
+ ],
+ "prevertebral_left": [
+  "longus_colli_muscle_left",
+  "longus_capitis_muscle_left"
+ ],
+ "lung_upper_lobe_right": [
+  "superior_lobe_of_right_lung"
+ ],
+ "lung_middle_lobe_right": [
+  "middle_lobe_of_right_lung"
+ ],
+ "lung_lower_lobe_right": [
+  "inferior_lobe_of_right_lung"
+ ],
+ "lung_upper_lobe_left": [
+  "superior_lobe_of_left_lung"
+ ],
+ "lung_lower_lobe_left": [
+  "inferior_lobe_of_left_lung"
+ ],
+ "lung_airways": [
+  "trachea",
+  "superior_segmental_bronchus_of_right_lung_bvi",
+  "lateral_segmental_bronchus_of_right_lung_biv",
+  "right_inferior_lobar_bronchus",
+  "posterior_basal_segmental_bronchus_of_right_lung_bx",
+  "medial_basal_segmental_bronchus_of_right_lung_bvii",
+  "lateral_basal_segmental_bronchus_of_right_lung_bix",
+  "anterior_basal_segmental_bronchus_of_right_lung_bviii",
+  "left_superior_lobar_bronchus",
+  "apicoposterior_segmental_bronchus_of_left_lung_bi_bii",
+  "anterior_segmental_bronchus_of_left_lung_biii",
+  "superior_lingular_segmental_bronchus_of_left_lung_biv",
+  "inferior_lingular_segmental_bronchus_of_left_lung_bv",
+  "superior_segmental_bronchus_of_left_lung_bvi",
+  "medial_basal_segmental_bronchus_of_left_lung_bvii",
+  "anterior_basal_segmental_bronchus_of_left_lung_bviii",
+  "left_inferior_lobar_bronchus",
+  "lateral_basal_segmental_bronchus_of_left_lung_bix",
+  "left_main_bronchus",
+  "anterior_segmental_bronchus_of_right_lung_biii",
+  "apical_segmental_bronchus_of_right_lung_bi",
+  "posterior_segmental_bronchus_of_right_lung_bii",
+  "right_superior_lobar_bronchus",
+  "right_main_bronchus",
+  "middle_lobar_bronchus_right",
+  "intermediate_bronchus_right",
+  "medial_segmental_bronchus_of_right_lung_bv",
+  "posterior_basal_segmental_bronchus_of_left_lung_bx",
+  "anteromedial_basal_segmental_bronchus_of_left_lung"
+ ],
+ "heart_atrium_left": [
+  "left_atrium"
+ ],
+ "heart_ventricle_left": [
+  "left_ventricle"
+ ],
+ "heart_atrium_right": [
+  "right_atrium"
+ ],
+ "heart_ventricle_right": [
+  "right_ventricle"
+ ],
+ "pulmonary_artery": [
+  "pulmonary_trunk",
+  "left_pulmonary_artery",
+  "right_pulmonary_artery"
+ ],
+ "coronary_arteries": [
+  "left_coronary_artery",
+  "right_coronary_artery"
+ ],
+ "pulmonary_vein": [
+  "right_superior_pulmonary_vein",
+  "right_inferior_pulmonary_vein",
+  "left_inferior_pulmonary_vein",
+  "left_superior_pulmonary_vein"
+ ],
+ "sternum": [
+  "manubrium_of_sternum",
+  "body_of_sternum",
+  "xiphoid_process"
+ ],
+ "costal_cartilages": [
+  "costal_cartilage_of_first_rib_right",
+  "costal_cartilage_of_second_rib_right",
+  "costal_cartilage_of_third_rib_right",
+  "costal_cartilage_of_fourth_rib_right",
+  "costal_cartilage_of_fifth_rib_right",
+  "costal_cartilage_of_sixth_rib_right",
+  "costal_cartilage_of_seventh_rib_right",
+  "costal_cartilage_of_eighth_rib_right",
+  "costal_cartilage_of_tenth_rib_right",
+  "costal_cartilage_of_ninth_rib_right",
+  "costal_cartilage_of_first_rib_left",
+  "costal_cartilage_of_second_rib_left",
+  "costal_cartilage_of_third_rib_left",
+  "costal_cartilage_of_fourth_rib_left",
+  "costal_cartilage_of_fifth_rib_left",
+  "costal_cartilage_of_sixth_rib_left",
+  "costal_cartilage_of_seventh_rib_left",
+  "costal_cartilage_of_eighth_rib_left",
+  "costal_cartilage_of_tenth_rib_left",
+  "costal_cartilage_of_ninth_rib_left"
+ ],
+ "clavicula_right": [
+  "clavicle_right"
+ ],
+ "clavicula_left": [
+  "clavicle_left"
+ ],
+ "scapula_right": [
+  "scapula_right"
+ ],
+ "scapula_left": [
+  "scapula_left"
+ ],
+ "humerus_right": [
+  "humerus_right"
+ ],
+ "humerus_left": [
+  "humerus_left"
+ ],
+ "rib_right_1": [
+  "first_rib_right"
+ ],
+ "rib_right_2": [
+  "second_rib_right"
+ ],
+ "rib_right_3": [
+  "third_rib_right"
+ ],
+ "rib_right_4": [
+  "fourth_rib_right"
+ ],
+ "rib_right_5": [
+  "fifth_rib_right"
+ ],
+ "rib_right_6": [
+  "sixth_rib_right"
+ ],
+ "rib_right_7": [
+  "seventh_rib_right"
+ ],
+ "rib_right_8": [
+  "eighth_rib_right"
+ ],
+ "rib_right_9": [
+  "ninth_rib_right"
+ ],
+ "rib_right_10": [
+  "tenth_rib_right"
+ ],
+ "rib_right_11": [
+  "eleventh_rib_right"
+ ],
+ "rib_right_12": [
+  "twelfth_rib_right"
+ ],
+ "rib_left_1": [
+  "first_rib_left"
+ ],
+ "rib_left_2": [
+  "second_rib_left"
+ ],
+ "rib_left_3": [
+  "third_rib_left"
+ ],
+ "rib_left_4": [
+  "fourth_rib_left"
+ ],
+ "rib_left_5": [
+  "fifth_rib_left"
+ ],
+ "rib_left_6": [
+  "sixth_rib_left"
+ ],
+ "rib_left_7": [
+  "seventh_rib_left"
+ ],
+ "rib_left_8": [
+  "eighth_rib_left"
+ ],
+ "rib_left_9": [
+  "ninth_rib_left"
+ ],
+ "rib_left_10": [
+  "tenth_rib_left"
+ ],
+ "rib_left_11": [
+  "eleventh_rib_left"
+ ],
+ "rib_left_12": [
+  "twelfth_rib_left"
+ ],
+ "patella": [
+  "patella_left",
+  "patella_right"
+ ],
+ "tibia": [
+  "tibia_left",
+  "tibia_right"
+ ],
+ "fibula": [
+  "fibula_left",
+  "fibula_right"
+ ],
+ "tarsal": [
+  "talus_right",
+  "calcaneus_right",
+  "navicular_bone_right",
+  "cuboid_bone_right",
+  "intermediate_cuneiform_bone_right",
+  "lateral_cuneiform_bone_right",
+  "medial_cuneiform_bone_right",
+  "talus_left",
+  "calcaneus_left",
+  "navicular_bone_left",
+  "cuboid_bone_left",
+  "intermediate_cuneiform_bone_left",
+  "lateral_cuneiform_bone_left",
+  "medial_cuneiform_bone_left"
+ ],
+ "metatarsal": [
+  "first_metatarsal_bone_right",
+  "fifth_metatarsal_bone_right",
+  "second_metatarsal_bone_right",
+  "third_metatarsal_bone_right",
+  "fourth_metatarsal_bone_right",
+  "first_metatarsal_bone_left",
+  "fifth_metatarsal_bone_left",
+  "second_metatarsal_bone_left",
+  "third_metatarsal_bone_left",
+  "fourth_metatarsal_bone_left"
+ ],
+ "phalanges_feet": [
+  "distal_phalanx_of_fifth_finger_of_foot_right",
+  "distal_phalanx_of_first_finger_of_foot_right",
+  "distal_phalanx_of_fourth_finger_of_foot_right",
+  "distal_phalanx_of_second_finger_of_foot_right",
+  "distal_phalanx_of_third_finger_of_foot_right",
+  "middle_phalanx_of_second_finger_of_foot_right",
+  "middle_phalanx_of_third_finger_of_foot_right",
+  "middle_phalanx_of_fourth_finger_of_foot_right",
+  "middle_phalanx_of_fifth_finger_of_foot_right",
+  "proximal_phalanx_of_first_finger_of_foot_right",
+  "proximal_phalanx_of_second_finger_of_foot_right",
+  "proximal_phalanx_of_third_finger_of_foot_right",
+  "proximal_phalanx_of_fourth_finger_of_foot_right",
+  "proximal_phalanx_of_fifth_finger_of_foot_right",
+  "distal_phalanx_of_fifth_finger_of_foot_left",
+  "distal_phalanx_of_first_finger_of_foot_left",
+  "distal_phalanx_of_fourth_finger_of_foot_left",
+  "distal_phalanx_of_second_finger_of_foot_left",
+  "distal_phalanx_of_third_finger_of_foot_left",
+  "middle_phalanx_of_second_finger_of_foot_left",
+  "middle_phalanx_of_third_finger_of_foot_left",
+  "middle_phalanx_of_fourth_finger_of_foot_left",
+  "middle_phalanx_of_fifth_finger_of_foot_left",
+  "proximal_phalanx_of_first_finger_of_foot_left",
+  "proximal_phalanx_of_second_finger_of_foot_left",
+  "proximal_phalanx_of_third_finger_of_foot_left",
+  "proximal_phalanx_of_fourth_finger_of_foot_left",
+  "proximal_phalanx_of_fifth_finger_of_foot_left"
+ ],
+ "gluteus_maximus_right": [
+  "gluteus_maximus_muscle_right"
+ ],
+ "gluteus_maximus_left": [
+  "gluteus_maximus_muscle_left"
+ ],
+ "gluteus_medius_right": [
+  "gluteus_medius_muscle_right"
+ ],
+ "gluteus_medius_left": [
+  "gluteus_medius_muscle_left"
+ ],
+ "gluteus_minimus_right": [
+  "gluteus_minimus_muscle_right"
+ ],
+ "gluteus_minimus_left": [
+  "gluteus_minimus_muscle_left"
+ ],
+ "iliopsoas_right": [
+  "psoas_major_right",
+  "iliacus_muscle_right"
+ ],
+ "iliopsoas_left": [
+  "psoas_major_left",
+  "iliacus_muscle_left"
+ ]
+}

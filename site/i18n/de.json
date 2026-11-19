@@ -147,5 +147,14 @@
  "learn.question.qrs": "Ist der QRS schmal oder breit?",
  "learn.question.qt": "Ist die QTc normal oder verlängert?",
  "learn.question.st": "Wie ist die ST-Strecke?",
- "learn.question.dx": "Wie lautet die Diagnose?"
+ "learn.question.dx": "Wie lautet die Diagnose?",
+ "loading3d": "3D-Atlas wird geladen…",
+ "ctl.hide": "Ausblenden",
+ "ctl.fade": "Transparent",
+ "ctl.unfade": "Deckend",
+ "ctl.isolate": "Isolieren",
+ "ctl.showall": "Alle zeigen",
+ "ctl.showct": "Im CT zeigen",
+ "ctl.show3d": "In 3D zeigen",
+ "footer.atlas": "3D-Atlas: Z-Anatomy, nach BodyParts3D (DBCLS), CC BY-SA 4.0"
 }
