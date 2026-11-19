@@ -61,6 +61,16 @@ EOF
 is over 25 MB or inconsistent. Use `--voxel-mm 2` or `--z-range LO:HI` to shrink a large case.
 For a new case, also create `pipeline/cases/<id>.json` with its `title` and `keyLevels`.
 
+## Adding an ECG
+
+Add `{"id": <PTB-XL ecg_id>, "title": {"en": …, …}}` to `pipeline/ecgs.json`, then:
+
+```sh
+.venv/bin/python pipeline/make_ecg.py   # downloads only the listed records, writes site/ecg/
+```
+
+Pick records with `validated_by_human` set and no noise flags in `ptbxl_database.csv`.
+
 ## Tests
 
 ```sh

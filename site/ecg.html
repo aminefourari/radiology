@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ECG Atlas</title>
+<meta name="description" content="Open, multilingual library of real 12-lead ECGs with calipers and cardiologist interpretations. Educational use only.">
+<meta name="theme-color" content="#0f141b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="js/ecgapp.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <h1 data-t="ecg.title">ECG Atlas</h1>
+    <p id="ecg-title" class="case-title"></p>
+  </div>
+  <div class="top-actions">
+    <a class="btn" href="index.html" data-t="nav.ct">CT atlas</a>
+    <select id="lang-select" aria-label="Language" data-t-aria="lang.label"></select>
+  </div>
+</header>
+
+<section class="controls">
+  <select id="ecg-select" aria-label="ECG" data-t-aria="ecg.pick"></select>
+  <label class="window"><span data-t="ecg.speed">Speed</span>
+    <select id="speed" dir="ltr"><option value="25">25 mm/s</option><option value="50">50 mm/s</option></select>
+  </label>
+  <label class="window"><span data-t="ecg.gain">Gain</span>
+    <select id="gain" dir="ltr"><option value="5">5 mm/mV</option><option value="10">10 mm/mV</option><option value="20">20 mm/mV</option></select>
+  </label>
+  <div id="layout" class="segmented" role="radiogroup" dir="ltr">
+    <button class="btn" role="radio" data-layout="3x4">3×4</button>
+    <button class="btn" role="radio" data-layout="12x1">12×1</button>
+  </div>
+  <button id="calipers" class="btn" aria-pressed="false" data-t="ecg.calipers">Calipers</button>
+  <label class="check"><input id="quiz" type="checkbox"> <span data-t="ecg.quiz">Quiz mode</span></label>
+</section>
+
+<main class="viewer-wrap">
+  <div class="viewer-head" dir="ltr">
+    <span id="scale-info"></span>
+    <span id="readout" class="hu"></span>
+  </div>
+  <div id="paper" class="paper" dir="ltr">
+    <canvas id="trace"></canvas>
+    <canvas id="overlay"></canvas>
+  </div>
+  <p class="hint" data-t="ecg.hint">Turn on Calipers and drag across the trace to measure time and voltage.</p>
+</main>
+
+<details id="answer" class="answer">
+  <summary data-t="ecg.answer">Show interpretation</summary>
+  <div id="answer-body"></div>
+</details>
+
+<footer class="foot">
+  <p data-t="ecg.disclaimer">Educational use only — not for diagnosis. Interpretations come from the dataset's cardiologist reports.</p>
+  <p><a id="credit" href="https://doi.org/10.13026/kfzx-aw45" rel="noopener"></a></p>
+  <p><a id="repo-link" hidden rel="noopener" data-t="footer.code">Source code &amp; error reports</a></p>
+</footer>
+</body>
+</html>

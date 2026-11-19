@@ -1,0 +1,12 @@
+[
+ {"id": 687, "title": {"en": "Normal ECG", "de": "Normales EKG", "es": "ECG normal", "ar": "تخطيط قلب طبيعي", "fr": "ECG normal", "it": "ECG normale", "nl": "Normaal ECG"}},
+ {"id": 15865, "title": {"en": "Anterior myocardial infarction", "de": "Vorderwandinfarkt", "es": "Infarto de miocardio anterior", "ar": "احتشاء عضلة القلب الأمامي", "fr": "Infarctus du myocarde antérieur", "it": "Infarto miocardico anteriore", "nl": "Voorwandinfarct"}},
+ {"id": 12941, "title": {"en": "Inferior myocardial infarction", "de": "Hinterwandinfarkt (inferior)", "es": "Infarto de miocardio inferior", "ar": "احتشاء عضلة القلب السفلي", "fr": "Infarctus du myocarde inférieur", "it": "Infarto miocardico inferiore", "nl": "Onderwandinfarct"}},
+ {"id": 1564, "title": {"en": "Left bundle branch block", "de": "Linksschenkelblock", "es": "Bloqueo de rama izquierda", "ar": "إحصار الحزيمة اليسرى", "fr": "Bloc de branche gauche", "it": "Blocco di branca sinistra", "nl": "Linkerbundeltakblok"}},
+ {"id": 5212, "title": {"en": "Right bundle branch block", "de": "Rechtsschenkelblock", "es": "Bloqueo de rama derecha", "ar": "إحصار الحزيمة اليمنى", "fr": "Bloc de branche droit", "it": "Blocco di branca destra", "nl": "Rechterbundeltakblok"}},
+ {"id": 8215, "title": {"en": "Atrial fibrillation", "de": "Vorhofflimmern", "es": "Fibrilación auricular", "ar": "الرجفان الأذيني", "fr": "Fibrillation atriale", "it": "Fibrillazione atriale", "nl": "Boezemfibrilleren"}},
+ {"id": 449, "title": {"en": "Atrial flutter", "de": "Vorhofflattern", "es": "Flúter auricular", "ar": "الرفرفة الأذينية", "fr": "Flutter atrial", "it": "Flutter atriale", "nl": "Boezemflutter"}},
+ {"id": 5911, "title": {"en": "Left ventricular hypertrophy", "de": "Linksventrikuläre Hypertrophie", "es": "Hipertrofia ventricular izquierda", "ar": "تضخم البطين الأيسر", "fr": "Hypertrophie ventriculaire gauche", "it": "Ipertrofia ventricolare sinistra", "nl": "Linkerventrikelhypertrofie"}},
+ {"id": 3948, "title": {"en": "First-degree AV block", "de": "AV-Block I. Grades", "es": "Bloqueo AV de primer grado", "ar": "إحصار أذيني بطيني من الدرجة الأولى", "fr": "Bloc AV du premier degré", "it": "Blocco AV di primo grado", "nl": "Eerstegraads AV-blok"}},
+ {"id": 9823, "title": {"en": "Wolff-Parkinson-White pattern", "de": "WPW-Muster", "es": "Patrón de Wolff-Parkinson-White", "ar": "نمط وولف باركنسون وايت", "fr": "Aspect de Wolff-Parkinson-White", "it": "Pattern di Wolff-Parkinson-White", "nl": "Wolff-Parkinson-White-patroon"}}
+]

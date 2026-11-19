@@ -149,3 +149,16 @@ body.focus .slicer { padding: 0 12px 8px; }
   .slicer output { min-width: 96px; font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+/* ECG page */
+.paper { position: relative; overflow-x: auto; background: #fff7f4; touch-action: pan-x pan-y; }
+.paper canvas { display: block; }
+.paper #overlay { position: absolute; top: 0; left: 0; }
+.paper.measuring { touch-action: none; cursor: crosshair; }
+.answer { margin-top: 14px; padding: 10px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); font-family: var(--sans); }
+.answer summary { cursor: pointer; font-family: var(--mono); }
+.answer strong { display: block; margin-top: 10px; font-weight: 600; }
+.answer .muted { color: var(--muted); font-size: 12px; margin-bottom: 0; }
+.answer ul { margin: 4px 0 0; padding-inline-start: 20px; }
+.controls .check { margin: 0; }
+a.btn { display: inline-flex; align-items: center; text-decoration: none; }
