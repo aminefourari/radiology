@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { gzipSync } from "node:zlib";
 import {
-  decodeMaybeGzip, extractSlice, pixelAspect, planeSize, sliceCount, windowToGray,
+  WINDOWS, decodeMaybeGzip, extractSlice, pixelAspect, planeSize, sliceCount, windowToGray,
 } from "../site/js/volume.js";
 
 // dims [X=2, Y=3, Z=4]; value = x + 10*y + 100*z, stored [z][y][x]
@@ -56,4 +56,9 @@ test("decodeMaybeGzip inflates gzip and passes plain bytes through", async () =>
   assert.deepEqual([...inflated], [...plain]);
   const passed = new Uint8Array(await decodeMaybeGzip(plain.buffer.slice(0)));
   assert.deepEqual([...passed], [...plain]);
+});
+
+test("window catalogue has brain and mediastinum presets", () => {
+  assert.deepEqual(WINDOWS.brain, { c: 40, w: 80 });
+  assert.deepEqual(WINDOWS.mediastinum, { c: 50, w: 350 });
 });

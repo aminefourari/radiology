@@ -9,6 +9,8 @@ export const WINDOWS = {
   liver: { c: 60, w: 160 },
   bone: { c: 400, w: 1800 },
   lung: { c: -600, w: 1500 },
+  brain: { c: 40, w: 80 },
+  mediastinum: { c: 50, w: 350 },
 };
 
 export async function decodeMaybeGzip(buf) {

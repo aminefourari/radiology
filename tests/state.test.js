@@ -1,8 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { clampState, formatHash, parseHash, SYSTEMS } from "../site/js/state.js";
+import { clampState, formatHash, parseHash } from "../site/js/state.js";
 
-const ctx = { cases: ["s1"], langs: ["en"], dims: [10, 10, 10] };
+const ABDO = ["organs", "segments", "digestive", "urinary", "pelvis", "spine", "arteries", "veins"];
+const ctx = { cases: ["s1"], langs: ["en"], dims: [10, 10, 10], systems: ABDO, defaultSystems: ["organs"] };
 
 test("bad share link clamps to a valid view", () => {
   const s = clampState(parseHash("#case=zzz&plane=foo&slice=9999&zoom=-3&lang=xx&sys=organs,bogus"), ctx);
@@ -27,6 +28,22 @@ test("empty sys list survives a round-trip", () => {
   assert.deepEqual(s.sys, []);
 });
 
-test("systems are in the launch order", () => {
-  assert.deepEqual(SYSTEMS, ["organs", "segments", "digestive", "urinary", "pelvis", "spine", "arteries", "veins"]);
+test("old abdomen link keeps its systems", () => {
+  assert.deepEqual(clampState(parseHash("#case=s1&sys=organs,segments"), ctx).sys, ["organs", "segments"]);
 });
+
+test("unknown systems are dropped per case", () => {
+  const head = { ...ctx, systems: ["brain", "ventricles"], defaultSystems: ["brain"] };
+  assert.deepEqual(clampState(parseHash("#case=s1&sys=organs,brain"), head).sys, ["brain"]);
+});
+
+test("missing sys uses the case default", () => {
+  assert.equal(parseHash("#case=s1").sys, null);
+  const head = { ...ctx, systems: ["lobes", "ventricles", "orbit"], defaultSystems: ["lobes", "ventricles"] };
+  assert.deepEqual(clampState(parseHash("#case=s1"), head).sys, ["lobes", "ventricles"]);
+});
+
+test("without a loaded case, sys passes through", () => {
+  assert.deepEqual(clampState(parseHash("#sys=brain"), { ...ctx, systems: null, defaultSystems: null }).sys, ["brain"]);
+});
+
