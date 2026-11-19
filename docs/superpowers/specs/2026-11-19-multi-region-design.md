@@ -13,11 +13,14 @@ here.
 ## Decided by the owner
 
 - Cover the whole body, as **one case per region** (separate scans), not one whole-body scan.
-- Use **only TotalSegmentator models that are free to use without a license** (Apache-2.0 "open"
-  tasks), for now. The licensed tasks (`brain_structures`, `heartchambers_highres`,
-  `coronary_arteries`, `appendicular_bones`, `tissue_types`, `vertebrae_*`, `face`, …) are out
-  until the owner gets explicit permission from the model author. An email asking for it has
-  been drafted.
+- Use the open (Apache-2.0) TotalSegmentator tasks **and** the licensed tasks the owner
+  registered for on 2026-11-19 (`brain_structures`, `heartchambers_highres`,
+  `coronary_arteries`, `aortic_sinuses`, `appendicular_bones`, `vertebrae_pp_refined`,
+  `tissue_types`). The model author, Jakob Wasserthal, confirmed by email on 2026-11-19 that
+  publishing their segmentation outputs in this free atlas is fine.
+- **The license key stays on the owner's machine** (`totalseg_set_license`). It's never
+  committed, logged or published. Contributors without a key can rebuild only cases that use
+  open tasks. The README says which cases need a key.
 - Everything stays non-commercial and free.
 - **Picking a region happens inside the CT viewer**: the home page's CT tile opens the viewer, and
   a region switcher there changes cases. There are no per-region tiles on the home page.
@@ -31,7 +34,9 @@ here.
    own systems (names in 7 languages, icon, colour, order) and its own window presets. The
    abdomen case keeps working and looks the same as today.
 2. **Three new regions**, built from open tasks only:
-   - **Head:** brain (whole), ventricles in detail (`ventricle_parts`), orbit (eyes, lenses,
+   - **Head:** brain lobes (frontal, parietal, temporal, occipital), cerebellum, brainstem,
+     deep nuclei (thalamus, caudate, lentiform), internal capsule, insula, central sulcus,
+     septum pellucidum, venous sinuses (`brain_structures`), ventricles in detail (`ventricle_parts`), orbit (eyes, lenses,
      optic nerves, eye muscles from `oculomotor_muscles`), glands & airway
      (`head_glands_cavities`), vessels (internal carotids, internal jugulars from
      `headneck_bones_vessels`), skull & face bones (skull, zygomatic arches, styloid processes,
@@ -41,7 +46,9 @@ here.
      subclavians, brachiocephalic trunk/veins), cervical spine C1–C7, and neck muscles
      (`headneck_muscles`).
    - **Chest:** lungs by lobe, airway (trachea, plus open `lung_vessels` airways if usable),
-     heart, great vessels (aorta, SVC, pulmonary veins, brachiocephalic trunk/veins,
+     heart chambers and myocardium (`heartchambers_highres`), plus coronary arteries and aortic
+     valve cusps (`coronary_arteries`, `aortic_sinuses`) if the chosen scan is sharp enough to
+     give usable masks (otherwise dropped in the sanity pass), great vessels (aorta, SVC, pulmonary veins, brachiocephalic trunk/veins,
      subclavian and carotid arteries), oesophagus, chest wall (ribs, sternum, costal cartilages,
      clavicles, scapulae) and thoracic spine. There's no chest-muscles system:
      `abdominal_muscles` only covers about T4–L4, so pectoralis and trapezius would be cut off
@@ -56,9 +63,10 @@ here.
 
 ## Non-goals
 
-- Licensed tasks (above). The pipeline refuses them, so nothing licensed ships by accident.
-- Limbs. The open models only segment the femur, humerus, hip, scapula and a few muscles; the
-  full limb bones (`appendicular_bones`) are licensed. Add limbs when that changes.
+- Tasks outside the allow-list (open tasks plus the seven registered ones). The pipeline
+  refuses them.
+- Limbs, in this round. `appendicular_bones` now makes them possible, but they come after
+  head, neck and chest, as a follow-up.
 - A whole-body continuous scan or overview case (could be added later as just another case).
 - MRI.
 
@@ -115,8 +123,11 @@ here.
 ### Pipeline
 
 - `make_case.py` runs every task in the case's `tasks` list (cached per task, as `liver_segments`
-  is today) with the existing `--device` flag. It **refuses any task not on an allow-list of open
-  tasks**, and that list is checked against the official README at build time by the builder.
+  is today) with the existing `--device` flag. It **refuses any task not on the allow-list**
+  (open tasks plus the seven registered licensed tasks). The open part is checked against the
+  official README by the builder.
+- `meta.json` `source` gains `tasks` (the TotalSegmentator tasks used), so the site credit can
+  name the models, and `README.md` notes the author's permission for the licensed outputs.
   The dataset's own `segmentations/` folder stays the source for `total` classes.
 - Cases come from the TotalSegmentator dataset, fetched one at a time (as for `s0010`). Choose
   adult scans without obvious pathology and with contrast where it helps (the neck and chest
