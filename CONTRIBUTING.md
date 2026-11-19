@@ -22,7 +22,8 @@ wrong.
 2. Add `{"code": "<code>", "name": "<native name>"}` to `site/i18n/index.json`. Add
    `"dir": "rtl"` for right-to-left scripts. The scan is never mirrored.
 3. Add `<code>` to the `names` of each structure in `pipeline/structures.json`, and to the key
-   levels and title in `pipeline/cases/<id>.json`. Then rebuild the cases.
+   levels and title in `pipeline/cases/<id>.json`, and to each ECG `title` in `pipeline/ecgs.json`.
+   Then rebuild the cases and ECGs.
 4. Run `npm test`. CI fails unless every language has every UI string from `en.json` (same
    `{placeholders}`) and every structure, ECG, case and key-level name.
 
