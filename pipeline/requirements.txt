@@ -4,5 +4,3 @@ scipy
 pytest
 TotalSegmentator
 remotezip
-scikit-image
-fast-simplification

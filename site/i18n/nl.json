@@ -147,5 +147,6 @@
  "learn.question.qrs": "Is het QRS smal of breed?",
  "learn.question.qt": "Is de QTc normaal of verlengd?",
  "learn.question.st": "Hoe is het ST-segment?",
- "learn.question.dx": "Wat is de diagnose?"
+ "learn.question.dx": "Wat is de diagnose?",
+ "loading3d": "3D-atlas laden…"
 }

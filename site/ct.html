@@ -39,6 +39,7 @@
 
 <section class="controls">
   <div id="plane-group" class="segmented" role="radiogroup"></div>
+  <button id="toggle-3d" class="btn" aria-pressed="false" data-t="plane.3d">3D</button>
   <label class="window"><span data-t="win.label">Window</span>
     <select id="win-select"></select>
   </label>
@@ -56,6 +57,7 @@
       <button id="focus" class="btn small" aria-pressed="false" data-t="ctl.focus">Focus</button>
     </span>
   </div>
+  <div id="panes" class="panes">
   <div id="viewer" class="viewer" dir="ltr" tabindex="0">
     <canvas id="canvas"></canvas>
     <svg id="labels" class="labels" aria-hidden="true"></svg>
@@ -65,6 +67,14 @@
     <span class="mark right" id="mk-right"></span>
     <div id="popup" class="popup" hidden></div>
     <div id="loading" class="loading"><div class="bar"><i id="loading-bar"></i></div><p id="loading-text"></p></div>
+  </div>
+  <div id="viewer3d" class="viewer viewer3d" dir="ltr" hidden>
+    <div id="atlas-bar" class="atlas-bar" role="group"></div>
+    <svg id="labels3d" class="labels" aria-hidden="true"></svg>
+    <div id="popup3d" class="popup" hidden></div>
+    <button id="fit3d" class="btn small fit3d" data-t="ctl.fit">Fit</button>
+    <div id="loading3d" class="loading" hidden><p data-t="loading3d">Loading 3D atlas…</p></div>
+  </div>
   </div>
   <p id="hint" class="hint" data-t="tap.hint">Tap a structure to name it</p>
 </main>

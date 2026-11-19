@@ -147,5 +147,6 @@
  "learn.question.qrs": "Le QRS est-il fin ou large ?",
  "learn.question.qt": "Le QTc est-il normal ou long ?",
  "learn.question.st": "Et le segment ST ?",
- "learn.question.dx": "Quel est le diagnostic ?"
+ "learn.question.dx": "Quel est le diagnostic ?",
+ "loading3d": "Chargement de l’atlas 3D…"
 }

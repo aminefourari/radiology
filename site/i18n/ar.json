@@ -147,5 +147,6 @@
  "learn.question.qrs": "هل مركب QRS ضيق أم عريض؟",
  "learn.question.qt": "هل QTc طبيعي أم طويل؟",
  "learn.question.st": "ماذا عن مقطع ST؟",
- "learn.question.dx": "ما التشخيص؟"
+ "learn.question.dx": "ما التشخيص؟",
+ "loading3d": "جارٍ تحميل الأطلس ثلاثي الأبعاد…"
 }

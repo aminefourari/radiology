@@ -147,5 +147,6 @@
  "learn.question.qrs": "¿El QRS es estrecho o ancho?",
  "learn.question.qt": "¿El QTc es normal o largo?",
  "learn.question.st": "¿Cómo está el segmento ST?",
- "learn.question.dx": "¿Cuál es el diagnóstico?"
+ "learn.question.dx": "¿Cuál es el diagnóstico?",
+ "loading3d": "Cargando atlas 3D…"
 }

@@ -1,13 +1,13 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { clampState, formatHash, parseHash } from "../site/js/state.js";
+import { DEFAULTS, clampState, formatHash, parseHash } from "../site/js/state.js";
 
 const ABDO = ["organs", "segments", "digestive", "urinary", "pelvis", "spine", "arteries", "veins"];
 const ctx = { cases: ["s1"], langs: ["en"], dims: [10, 10, 10], systems: ABDO, defaultSystems: ["organs"] };
 
 test("bad share link clamps to a valid view", () => {
   const s = clampState(parseHash("#case=zzz&plane=foo&slice=9999&zoom=-3&lang=xx&sys=organs,bogus"), ctx);
-  assert.deepEqual(s, { case: "s1", lang: null, plane: "axial", slice: 9, sys: ["organs"], zoom: 0.25 });
+  assert.deepEqual(s, { case: "s1", lang: null, plane: "axial", slice: 9, sys: ["organs"], zoom: 0.25, is3d: false });
 });
 
 test("missing slice defaults to the middle", () => {
@@ -19,7 +19,7 @@ test("garbage hash does not throw", () => {
 });
 
 test("format/parse round-trips", () => {
-  const s = { case: "s1", lang: "ar", plane: "coronal", slice: 3, sys: ["organs", "segments"], zoom: 2 };
+  const s = { case: "s1", lang: "ar", plane: "coronal", slice: 3, sys: ["organs", "segments"], zoom: 2, is3d: false };
   assert.deepEqual(parseHash(formatHash(s)), s);
 });
 
@@ -47,3 +47,10 @@ test("without a loaded case, sys passes through", () => {
   assert.deepEqual(clampState(parseHash("#sys=brain"), { ...ctx, systems: null, defaultSystems: null }).sys, ["brain"]);
 });
 
+
+test("3D toggle round-trips through the hash", () => {
+  assert.equal(parseHash("#3d=1").is3d, true);
+  assert.equal(parseHash("").is3d, false);
+  assert.match(formatHash({ ...DEFAULTS, case: "s1", is3d: true }), /(^#|&)3d=1(&|$)/);
+  assert.doesNotMatch(formatHash({ ...DEFAULTS, case: "s1" }), /3d/);
+});

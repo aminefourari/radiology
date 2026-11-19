@@ -12,17 +12,19 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
 - Viewer tests: `npm test` (Node built-in test runner, no npm deps)
 - Run site locally: `python3 -m http.server -d site 8000`
 - Build a case: `.venv/bin/python pipeline/make_case.py data/<dataset_case_dir> <case_id>`
-- Build 3D meshes: `.venv/bin/python pipeline/make_meshes.py site/cases/<id> ...` (from the committed
-  labels; writes `mesh.bin.gz` + `meshes.json`; rerun after rebuilding a case)
+- 3D atlas (Z-Anatomy; needs Blender, `data/zanatomy/` and the BodyParts3D kidney STLs in `data/bp3d/`):
+  `.venv/bin/python pipeline/make_atlas.py export` (Blender → `site/atlas/*.glb` + `index.json`), then
+  `make_atlas.py link` (validates `pipeline/atlas_map.json` into `index.json`), then
+  `make_atlas.py fit site/cases/<id> ...` (per-case plane fit `atlaslink.json`; rerun after rebuilding a case)
 - Build ECGs: `.venv/bin/python pipeline/make_ecg.py` (records listed in `pipeline/ecgs.json`, PTB-XL)
 
 ## Layout
 
-- `pipeline/` — `caselib.py` (pure helpers), `make_case.py` (CLI), `meshlib.py` + `make_meshes.py` (3D meshes), `structures.json`
+- `pipeline/` — `caselib.py` (pure helpers), `make_case.py` (CLI), `atlaslib.py` + `atlas_export.py` + `make_atlas.py` + `atlas_map.json` (3D atlas), `structures.json`
   (structure → system/colour/names catalogue), `cases/<id>.json` (curated key levels),
   `make_ecg.py` + `ecgs.json` (PTB-XL ECG list)
 - `site/` — static site: `index.html` (landing, `js/home.js`; redirects old `#case=` links), `ct.html` (CT), `ecg.html` (ECG, `js/ecgapp.js` + `js/ecgplot.js` + `js/ecglearn.js` for the reading steps and Learn mode), `ecg/` (ECG JSON, µV ints), `style.css`, `js/*.js` (ES modules), `i18n/*.json`,
-  `cases/` (generated case data, committed)
+  `cases/` (generated case data, committed), `atlas/` (3D atlas GLBs + index, CC BY-SA 4.0)
 - `tests/` — Node tests for `site/js` modules
 - `data/` — downloaded datasets (gitignored)
 

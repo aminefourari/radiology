@@ -126,7 +126,8 @@ export function createView3d(container, before) {
     const fitW = Math.max(x1 - x0, y1 - y0) / 2 / Math.tan(fov / 2) / Math.max(camera.aspect, 0.1);
     const dist = Math.max(fitH, fitW) * 1.15 + Math.max(y1 - y0, x1 - x0) / 2;
     controls.target.copy(c);
-    camera.position.set(c.x, c.y + dist, c.z); // anterior (+y), looking posterior
+    // Anterior (+y), looking posterior, from 15 degrees above so an axial slice plane reads as a band.
+    camera.position.set(c.x, c.y + dist * Math.cos(0.26), c.z + dist * Math.sin(0.26));
     ao.updateGtaoMaterial({ radius: dist / 80 });
     camera.near = dist / 50;
     camera.far = dist * 10;

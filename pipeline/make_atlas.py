@@ -53,7 +53,7 @@ NAMES = {
                   "Ghiandole endocrine", "Hormoonklieren"],
 }
 # Drawn only on request: sheets that cover the organs a CT reader looks for.
-OFF = re.compile(r"omentum|mesocolon|meso_appendix|taenia|peritoneum|gingiva")
+OFF = re.compile(r"omentum|mesocolon|meso_appendix|taenia|peritoneum|gingiva|^pleura$")
 LANGS = ["en", "de", "es", "ar", "fr", "it", "nl"]
 LICENSE = """3D atlas models in this folder: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
 

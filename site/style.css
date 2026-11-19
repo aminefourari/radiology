@@ -82,6 +82,21 @@ button, select, input, output { font: inherit; color: inherit; }
 .hu { font-variant-numeric: tabular-nums; }
 .viewer { position: relative; height: min(68vh, 760px); min-height: 320px; touch-action: none; user-select: none; -webkit-user-select: none; cursor: crosshair; }
 .viewer.moving { cursor: grab; }
+/* slices | 3D atlas side by side; stacked on narrow screens */
+.panes.split { display: grid; grid-template-columns: 1fr 1fr; }
+.panes.split .viewer3d { border-inline-start: 1px solid var(--line); }
+.viewer3d { cursor: grab; }
+.viewer3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.atlas-bar { position: absolute; z-index: 2; top: 8px; left: 8px; right: 60px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.atlas-bar .btn { flex: none; }
+.atlas-bar .btn { font-size: 11px; padding: 3px 8px; background: rgba(12, 16, 21, 0.75); }
+.atlas-bar .btn[aria-pressed="true"] { border-color: var(--active); color: #fff; }
+.fit3d { position: absolute; z-index: 2; top: 8px; right: 8px; }
+@media (max-width: 700px) {
+  .panes.split { grid-template-columns: 1fr; }
+  .panes.split .viewer { height: 52vh; min-height: 300px; }
+  .panes.split .viewer3d { border-inline-start: 0; border-top: 1px solid var(--line); }
+}
 .viewer canvas, .viewer .labels { position: absolute; inset: 0; width: 100%; height: 100%; }
 .labels { pointer-events: none; overflow: visible; }
 .labels text { font: 500 13px var(--sans); fill: #fff; paint-order: stroke; stroke: #000; stroke-width: 3px; }
