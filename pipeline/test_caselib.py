@@ -110,6 +110,7 @@ def test_select_structures_overrides_and_filters():
     out = select_structures(catalogue, case)
     assert [(s["key"], s["system"]) for s in out] == [("hyoid", "larynx"), ("brain", "brain")]
     assert catalogue[0]["system"] == "skull-face"  # catalogue not mutated
+    assert [s["key"] for s in select_structures(catalogue, {**case, "exclude": ["brain"]})] == ["hyoid"]
 
 
 def test_write_volume_is_deterministic(tmp_path):

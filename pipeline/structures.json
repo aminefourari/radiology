@@ -2961,7 +2961,7 @@
    }
   },
   {
-   "key": "myocardium",
+   "key": "heart_myocardium",
    "source": "heartchambers_highres",
    "system": "heart",
    "color": "#c94f4f",
@@ -2977,7 +2977,7 @@
    }
   },
   {
-   "key": "atrium_left",
+   "key": "heart_atrium_left",
    "source": "heartchambers_highres",
    "system": "heart",
    "color": "#f6a5c0",
@@ -2993,7 +2993,7 @@
    }
   },
   {
-   "key": "ventricle_left",
+   "key": "heart_ventricle_left",
    "source": "heartchambers_highres",
    "system": "heart",
    "color": "#e85a5a",
@@ -3009,7 +3009,7 @@
    }
   },
   {
-   "key": "atrium_right",
+   "key": "heart_atrium_right",
    "source": "heartchambers_highres",
    "system": "heart",
    "color": "#8fb8f0",
@@ -3025,7 +3025,7 @@
    }
   },
   {
-   "key": "ventricle_right",
+   "key": "heart_ventricle_right",
    "source": "heartchambers_highres",
    "system": "heart",
    "color": "#5b8def",

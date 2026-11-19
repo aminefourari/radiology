@@ -103,11 +103,13 @@ def check_tasks(tasks):
 
 
 def select_structures(catalogue, case):
-    """Catalogue entries this case uses, with per-case system overrides applied."""
+    """Catalogue entries this case uses, with per-case system overrides applied.
+    `exclude` drops structures the sanity pass found broken in this scan."""
     overrides = case.get("systemOverrides", {})
+    exclude = set(case.get("exclude", []))
     out = []
     for s in catalogue:
         system = overrides.get(s["key"], s["system"])
-        if s["source"] in case["tasks"] and system in case["systems"]:
+        if s["source"] in case["tasks"] and system in case["systems"] and s["key"] not in exclude:
             out.append({**s, "system": system})
     return out
