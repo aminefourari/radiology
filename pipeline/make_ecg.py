@@ -29,7 +29,7 @@ MEASURES_SOURCE = {"name": "PTB-XL+ 12SL features (GE Marquette 12SL)", "license
 MEASURE_COLS = {"hr": "HR__Global", "pr": "PR_Int_Global", "qrs": "QRS_Dur_Global", "qt": "QT_Int_Global",
                 "qtc": "QT_IntBazett_Global", "axis": "R_AxisFrontal_Global"}
 # Not every QRS has its own preceding P wave.
-NOT_ONE_P_PER_QRS = {"AFIB", "AFLT", "PSVT", "SVTAC", "2AVB", "3AVB", "PACE", "BIGU", "PVC", "PAC"}
+NOT_ONE_P_PER_QRS = {"AFIB", "AFLT", "PSVT", "SVTAC", "2AVB", "3AVB", "PACE", "BIGU", "PVC"}
 LEAD_NAMES = {"AVR": "aVR", "AVL": "aVL", "AVF": "aVF"}
 
 
@@ -98,7 +98,7 @@ def derive_answers(m, codes, sex, st, override):
         "rate": "slow" if hr is not None and hr < 60 else "fast" if hr is not None and hr > 100 else "normal",
         "rhythm": rhythm,
         "axis": "left" if axis is not None and axis < -30 else "right" if axis is not None and axis > 90 else "normal",
-        "pr": "none" if pr is None or rhythm == "no" else "short" if pr < 120 else "long" if pr > 200 else "normal",
+        "pr": "none" if pr is None or codes & NO_P_CODES else "short" if pr < 120 else "long" if pr > 200 else "normal",
         "qrs": "wide" if (m.get("qrs") or 0) >= 120 else "narrow",
         "qt": "long" if qtc is not None and qtc > (460 if sex == "F" else 450) else "normal",
         "st": st,
@@ -141,7 +141,6 @@ def main(argv=None):
     p.add_argument("--data", default=os.path.join("data", "ptbxl"))
     p.add_argument("--plus", default=os.path.join("data", "ptbxl-plus"))
     p.add_argument("--out", default="site")
-    p.add_argument("--allow-missing-content", action="store_true", help="default st to normal while content is written")
     a = p.parse_args(argv)
 
     picks = json.load(open(os.path.join(HERE, "ecgs.json"), encoding="utf-8"))
@@ -165,10 +164,10 @@ def main(argv=None):
         if points and points[0][1].startswith("## time resolution") and int(points[0][1].split(":")[1]) != fs:
             raise ValueError(f"{n}: fiducial resolution differs from {fs} Hz")
         codes = ast.literal_eval(r["scp_codes"])
-        if "st" not in pick and not a.allow_missing_content:
+        if "st" not in pick:
             raise ValueError(f"{n}: ecgs.json entry has no 'st' answer")
         sex = {"0": "M", "1": "F"}.get(r["sex"])
-        answers, notes = derive_answers(measures[n], set(codes), sex, pick.get("st", "normal"), pick.get("override", {}))
+        answers, notes = derive_answers(measures[n], set(codes), sex, pick["st"], pick.get("override", {}))
         rec = {
             "id": pick["id"], "title": pick["title"], "fs": fs, "units": "uV",
             "age": None if r["age"] in ("", "300") else int(float(r["age"])),  # PTB-XL codes age >89 as 300

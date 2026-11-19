@@ -12,7 +12,11 @@ const vars = (s) => [...s.matchAll(/\{(\w+)\}/g)].map((m) => m[1]).sort();
 function dataNames() {
   const out = [];
   for (const s of read("pipeline/structures.json").structures) out.push([`structure ${s.key}`, s.names]);
-  for (const e of read("pipeline/ecgs.json")) out.push([`ecg ${e.id}`, e.title]);
+  for (const e of read("pipeline/ecgs.json")) {
+    out.push([`ecg ${e.id}`, e.title]);
+    (e.clues || []).forEach((c, i) => out.push([`ecg ${e.id} clue ${i}`, c.text]));
+    for (const [step, o] of Object.entries(e.override || {})) if (o.note) out.push([`ecg ${e.id} override ${step}`, o.note]);
+  }
   for (const f of readdirSync(new URL("../pipeline/cases/", import.meta.url)).filter((f) => f.endsWith(".json"))) {
     const c = read(`pipeline/cases/${f}`);
     if (c.title) out.push([`case ${f} title`, c.title]);
@@ -35,3 +39,14 @@ for (const lang of LANGS) {
     assert.deepEqual(missing, [], `missing ${lang} names`);
   });
 }
+
+test("ECG clues name real leads and waves; every ECG has an ST answer", () => {
+  const LEADS = ["I", "II", "III", "aVR", "aVL", "aVF", "V1", "V2", "V3", "V4", "V5", "V6"];
+  for (const e of read("pipeline/ecgs.json")) {
+    assert.ok(["normal", "elevated", "depressed"].includes(e.st), `ecg ${e.id} st`);
+    for (const c of e.clues || []) {
+      assert.ok(c.leads.length && c.leads.every((l) => LEADS.includes(l)), `ecg ${e.id} clue leads ${c.leads}`);
+      assert.ok(c.wave === undefined || ["P", "QRS", "ST", "T"].includes(c.wave), `ecg ${e.id} clue wave ${c.wave}`);
+    }
+  }
+});

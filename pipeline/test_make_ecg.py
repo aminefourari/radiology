@@ -87,3 +87,10 @@ def test_read_12sl(tmp_path):
     p.write_text("ecg_id,HR__Global,PR_Int_Global,QRS_Dur_Global,QT_Int_Global,QT_IntBazett_Global,R_AxisFrontal_Global,P_Found_Global\n"
                  "7,66.0,,118.0,426.0,440.0,-29.0,0\n8,1,1,1,1,1,1,1\n")
     assert read_12sl(str(p), {7}) == {7: {"hr": 66.0, "pr": None, "qrs": 118.0, "qt": 426.0, "qtc": 440.0, "axis": -29.0, "pFound": False}}
+
+
+def test_pr_stays_measurable_with_ectopic_beats():
+    a = _a(codes=("NORM", "PVC", "SR"), pr=164)
+    assert (a["rhythm"], a["pr"]) == ("no", "normal")  # PVCs have no P, but sinus beats have a normal PR
+    assert _a(codes=("NORM", "PAC", "SR"))["rhythm"] == "yes"  # a PAC has its own (early) P wave
+    assert _a(codes=("2AVB",), pr=180)["pr"] == "none"
