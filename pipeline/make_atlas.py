@@ -1,11 +1,16 @@
 """Z-Anatomy 3D atlas for the CT page.
 
   make_atlas.py export   Blender export -> site/atlas/<system>.glb + index.json (needs data/zanatomy, data/bp3d)
+  make_atlas.py map      draft site->atlas links into data/zanatomy/atlas_map.draft.json (review by hand
+                         into pipeline/atlas_map.json)
+  make_atlas.py link     validate pipeline/atlas_map.json and copy it into site/atlas/index.json
 """
 import json
 import os
 import subprocess
 import sys
+
+from atlaslib import draft_map, validate_map
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HERE = os.path.join(ROOT, "pipeline")
@@ -89,5 +94,30 @@ def export():
         print(f"{region}: {mb:.2f} MB")
 
 
+def load_index():
+    return json.load(open(os.path.join(ATLAS, "index.json"), encoding="utf-8"))
+
+
+def site_structures():
+    return json.load(open(os.path.join(HERE, "structures.json"), encoding="utf-8"))["structures"]
+
+
+def draft():
+    out = os.path.join(ZA, "atlas_map.draft.json")
+    m = draft_map(site_structures(), load_index()["structures"])
+    json.dump(m, open(out, "w"), indent=1)
+    print(f"{len(m)} drafted -> {out}")
+
+
+def link():
+    index = load_index()
+    m = json.load(open(os.path.join(HERE, "atlas_map.json"), encoding="utf-8"))
+    validate_map(m, {s["key"] for s in site_structures()}, {s["key"] for s in index["structures"]})
+    index["links"] = m
+    with open(os.path.join(ATLAS, "index.json"), "w", encoding="utf-8") as f:
+        json.dump(index, f, ensure_ascii=False, separators=(",", ":"))
+    print(f"{len(m)} links")
+
+
 if __name__ == "__main__":
-    {"export": export}[sys.argv[1]]()
+    {"export": export, "map": draft, "link": link}[sys.argv[1]]()

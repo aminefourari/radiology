@@ -27,3 +27,22 @@ def test_fit_skips_axis_without_spread():
 
 def test_fit_needs_two_landmarks():
     assert fit_axes(np.zeros((1, 3)), np.zeros((1, 3))) == {"x": None, "y": None, "z": None}
+
+
+def test_validate_map_rejects_unknown_atlas_key():
+    from atlaslib import validate_map
+    with pytest.raises(ValueError, match="nope"):
+        validate_map({"liver": ["nope"]}, {"liver"}, {"liver"})
+
+
+def test_validate_map_rejects_unknown_site_key():
+    from atlaslib import validate_map
+    with pytest.raises(ValueError, match="kidney_x"):
+        validate_map({"kidney_x": ["liver"]}, {"liver"}, {"liver"})
+
+
+def test_draft_map_matches_sides():
+    from atlaslib import draft_map
+    site = [{"key": "kidney_left", "names": {"en": "Left kidney"}}]
+    atlas = [{"key": "kidney_left", "en": "Kidney (left)"}, {"key": "kidney_right", "en": "Kidney (right)"}]
+    assert draft_map(site, atlas) == {"kidney_left": ["kidney_left"]}

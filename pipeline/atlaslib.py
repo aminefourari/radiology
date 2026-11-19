@@ -35,3 +35,36 @@ def fit_axes(src, dst, min_spread_mm=30):
         if a > 0:
             out[k] = [round(float(a), 5), round(float(b), 3)]
     return out
+
+
+def validate_map(m, site_keys, atlas_keys):
+    """Raise ValueError naming the first site or atlas key the map uses that does not exist."""
+    for site, atlas in m.items():
+        if site not in site_keys:
+            raise ValueError(f"unknown site key: {site}")
+        for a in atlas:
+            if a not in atlas_keys:
+                raise ValueError(f"unknown atlas key: {a} (for {site})")
+
+
+def _side(text):
+    t = text.lower()
+    return "left" if re.search(r"\bleft\b", t) else "right" if re.search(r"\bright\b", t) else None
+
+
+def _bare(text):
+    return re.sub(r"\(?\b(left|right)\b\)?", "", text.lower()).strip(" ,()")
+
+
+def draft_map(site, atlas):
+    """First draft of site key -> [atlas keys] by English name and side; reviewed by hand afterwards."""
+    by_name = {}
+    for a in atlas:
+        by_name.setdefault((_bare(a["en"]), _side(a["en"])), []).append(a["key"])
+    out = {}
+    for s in site:
+        en = s["names"]["en"]
+        hit = by_name.get((_bare(en), _side(en) or _side(s["key"].replace("_", " "))))
+        if hit:
+            out[s["key"]] = hit
+    return out
