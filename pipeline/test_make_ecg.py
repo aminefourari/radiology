@@ -99,3 +99,12 @@ def test_pr_stays_measurable_with_ectopic_beats():
 def test_pair_waves_drops_waves_cut_off_by_the_record_end():
     pts = [(10, "QRS onset"), (20, "QRS offset"), (4998, "t-wave onset"), (5000, "t-wave offset")]
     assert pair_waves(pts, n=5000) == [{"k": "QRS", "on": 10, "off": 20}]
+
+
+def test_ecgs_json_has_unique_diagnoses_and_records():
+    import json, os
+    dxs = json.load(open(os.path.join(os.path.dirname(__file__), "ecgs.json"), encoding="utf-8"))
+    ids = [ex["id"] for d in dxs for ex in d["examples"]]
+    assert len({d["dx"] for d in dxs}) == len(dxs)
+    assert len(set(ids)) == len(ids)
+    assert all(d["examples"] for d in dxs)

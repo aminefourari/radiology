@@ -1,5 +1,7 @@
 """Turn the PTB-XL records (plus PTB-XL+ wave boundaries) listed in pipeline/ecgs.json into site/ecg/<id>.json + site/ecg/index.json.
 
+ecgs.json lists diagnoses ({dx, group, title, examples: [{id, st, clues?, override?}]}); each example becomes one ECG.
+
 Usage: make_ecg.py [--data data/ptbxl] [--out site]
 Downloads only the metadata CSVs and the listed 500 Hz records from PhysioNet (cached under --data).
 """
@@ -144,7 +146,8 @@ def main(argv=None):
     p.add_argument("--out", default="site")
     a = p.parse_args(argv)
 
-    picks = json.load(open(os.path.join(HERE, "ecgs.json"), encoding="utf-8"))
+    picks = [{**ex, "dx": d["dx"], "group": d["group"], "title": d["title"]}
+             for d in json.load(open(os.path.join(HERE, "ecgs.json"), encoding="utf-8")) for ex in d["examples"]]
     db = {r["ecg_id"]: r for r in csv.DictReader(open(fetch("ptbxl_database.csv", a.data), encoding="utf-8"))}
     scp = {r[""]: r["description"] for r in csv.DictReader(open(fetch("scp_statements.csv", a.data), encoding="utf-8"))}
     measures = read_12sl(fetch("features/12sl_features.csv", a.plus, PLUS), {e["id"] for e in picks})
@@ -175,7 +178,7 @@ def main(argv=None):
             "sex": sex,
             "axis": r["heart_axis"] or None,
             "statements": [{"code": c, "text": scp.get(c, c), "likelihood": v} for c, v in codes.items()],
-            "group": pick["group"],
+            "dx": pick["dx"], "group": pick["group"],
             "waves": [w for w in pair_waves(points, uv.shape[1]) if not (w["k"] == "P" and NO_P_CODES & codes.keys())],
             "wavesSource": WAVES_SOURCE,
             "measures": measures[n], "measuresSource": MEASURES_SOURCE,
@@ -185,7 +188,7 @@ def main(argv=None):
         }
         with open(os.path.join(out, f"{pick['id']}.json"), "w", encoding="utf-8") as f:
             json.dump(rec, f, ensure_ascii=False, separators=(",", ":"))
-        index.append({"id": pick["id"], "group": pick["group"], "title": pick["title"]})
+        index.append({"id": pick["id"], "dx": pick["dx"], "group": pick["group"], "title": pick["title"]})
         print(pick["id"], pick["title"]["en"], fs, "Hz", len(leads), "leads")
     with open(os.path.join(out, "index.json"), "w", encoding="utf-8") as f:
         json.dump(index, f, ensure_ascii=False, indent=1)

@@ -11,7 +11,7 @@ const GROUPS = ["normal", "rhythm", "conduction", "hypertrophy", "ischaemia", "o
 
 let langs = [], list = [], ecg = null;
 const st = { ecg: null, lang: "en", speed: 25, gain: 10, layout: "3x4", quiz: false, waves: [], learn: false }; // waves: shaded kinds, subset of WAVE_KINDS
-// Learn mode: { step 0..7 (7 = diagnosis), picks, dx: [ids], done }. Session data lives in localStorage when allowed.
+// Learn mode: { step 0..7 (7 = diagnosis), picks, dx: [diagnosis keys], done }. Session data lives in localStorage when allowed.
 let learn = null;
 const store = makeStore(() => localStorage);
 const ui = { calipers: false, ppm: MIN_PPM, drag: null, highlight: null }; // highlight: { leads, wave? } from a clue
@@ -70,7 +70,8 @@ async function startLearn() {
 
 function beginLearn() {
   st.learn = true;
-  learn = { step: 0, picks: {}, dx: diagnosisChoices(list.map((e) => ({ id: String(e.id), group: e.group })), st.ecg, Math.random), done: false, answered: false };
+  const dxs = [...new Map(list.map((e) => [e.dx, { id: e.dx, group: e.group }])).values()];
+  learn = { step: 0, picks: {}, dx: diagnosisChoices(dxs, ecg.dx, Math.random), done: false, answered: false };
   ui.highlight = null;
   renderText();
   renderLearn();
@@ -112,7 +113,7 @@ function renderLearn() {
   $("learn-btn").setAttribute("aria-pressed", st.learn);
   if (!st.learn || !learn) return box.replaceChildren();
   const seen = store.get("ecgLearnSeen", []);
-  const sc = score(ecg.answers, learn.picks, st.ecg);
+  const sc = score(ecg.answers, learn.picks, ecg.dx);
   const head = h("div", { class: "row-head" },
     h("h2", {}, t("learn.session", { n: Math.max(1, seen.indexOf(st.ecg) + 1 || seen.length), total: list.length })),
     learn.done ? "" : h("span", { class: "muted" }, t("learn.score", { correct: sc.correct, total: Object.keys(learn.picks).length })));
@@ -122,8 +123,8 @@ function renderLearn() {
     next.onclick = startLearn;
     const exit = h("button", { class: "btn" }, t("learn.exit"));
     exit.onclick = exitLearn;
-    const pickedTitle = localized(list.find((e) => String(e.id) === learn.picks.dx).title, st.lang);
-    const right = learn.picks.dx === st.ecg;
+    const pickedTitle = dxTitle(learn.picks.dx);
+    const right = learn.picks.dx === ecg.dx;
     return box.replaceChildren(head,
       h("p", { class: right ? "ok" : "bad" }, right ? `✓ ${t("learn.correct")}: ${pickedTitle}` : `✗ ${t("learn.wrong", { answer: localized(ecg.title, st.lang) })}`),
       h("p", { class: "big" }, t("learn.score", { correct: sc.correct, total: sc.total }), " · ", h("strong", {}, localized(ecg.title, st.lang))),
@@ -133,8 +134,8 @@ function renderLearn() {
   const isDx = learn.step === STEPS.length;
   const step = STEPS[learn.step];
   const key = isDx ? "dx" : step.key;
-  const correct = isDx ? st.ecg : ecg.answers[key];
-  const label = (v) => (isDx ? localized(list.find((e) => String(e.id) === v).title, st.lang) : t(`choice.${key}.${v}`));
+  const correct = isDx ? ecg.dx : ecg.answers[key];
+  const label = (v) => (isDx ? dxTitle(v) : t(`choice.${key}.${v}`));
   const picked = learn.picks[key];
   const buttons = (isDx ? learn.dx : step.choices).map((v) => {
     const b = h("button", { class: "btn choice", "aria-pressed": picked === v }, label(v));
@@ -164,7 +165,7 @@ function answer(key, v) {
   learn.picks[key] = v;
   if (key === "dx") {
     learn.done = true;
-    const sc = score(ecg.answers, learn.picks, st.ecg);
+    const sc = score(ecg.answers, learn.picks, ecg.dx);
     const tally = store.get("ecgLearnTally", { done: 0, correct: 0, total: 0 });
     store.set("ecgLearnTally", { done: tally.done + 1, correct: tally.correct + sc.correct, total: tally.total + sc.total });
     renderText(); // reveals title, reading card and clues
@@ -197,6 +198,15 @@ async function openEcg(id) {
   draw();
 }
 
+const dxTitle = (dx) => localized(list.find((e) => e.dx === dx).title, st.lang);
+
+// "Atrial fibrillation · 2" when a diagnosis has several examples.
+function pickerLabel(e) {
+  const same = list.filter((x) => x.dx === e.dx);
+  const title = localized(e.title, st.lang);
+  return same.length > 1 ? `${title} · ${same.indexOf(e) + 1}` : title;
+}
+
 // Picker: grouped by topic normally; a flat numbered list in quiz mode (groups would give it away).
 function buildPicker() {
   const sel = $("ecg-select");
@@ -207,7 +217,7 @@ function buildPicker() {
     sel.replaceChildren(...GROUPS.map((g) => {
       const og = document.createElement("optgroup");
       og.label = t(`ecg.group.${g}`);
-      og.append(...list.filter((e) => e.group === g).map((e) => new Option(localized(e.title, st.lang), e.id)));
+      og.append(...list.filter((e) => e.group === g).map((e) => new Option(pickerLabel(e), e.id)));
       return og;
     }).filter((og) => og.children.length));
   }

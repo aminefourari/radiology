@@ -1,6 +1,35 @@
 [
  {
   "id": 687,
+  "dx": "normal",
+  "group": "normal",
+  "title": {
+   "en": "Normal ECG",
+   "de": "Normales EKG",
+   "es": "ECG normal",
+   "ar": "تخطيط قلب طبيعي",
+   "fr": "ECG normal",
+   "it": "ECG normale",
+   "nl": "Normaal ECG"
+  }
+ },
+ {
+  "id": 317,
+  "dx": "normal",
+  "group": "normal",
+  "title": {
+   "en": "Normal ECG",
+   "de": "Normales EKG",
+   "es": "ECG normal",
+   "ar": "تخطيط قلب طبيعي",
+   "fr": "ECG normal",
+   "it": "ECG normale",
+   "nl": "Normaal ECG"
+  }
+ },
+ {
+  "id": 865,
+  "dx": "normal",
   "group": "normal",
   "title": {
    "en": "Normal ECG",
@@ -14,6 +43,35 @@
  },
  {
   "id": 611,
+  "dx": "sbrad",
+  "group": "rhythm",
+  "title": {
+   "en": "Sinus bradycardia",
+   "de": "Sinusbradykardie",
+   "es": "Bradicardia sinusal",
+   "ar": "بطء القلب الجيبي",
+   "fr": "Bradycardie sinusale",
+   "it": "Bradicardia sinusale",
+   "nl": "Sinusbradycardie"
+  }
+ },
+ {
+  "id": 5697,
+  "dx": "sbrad",
+  "group": "rhythm",
+  "title": {
+   "en": "Sinus bradycardia",
+   "de": "Sinusbradykardie",
+   "es": "Bradicardia sinusal",
+   "ar": "بطء القلب الجيبي",
+   "fr": "Bradycardie sinusale",
+   "it": "Bradicardia sinusale",
+   "nl": "Sinusbradycardie"
+  }
+ },
+ {
+  "id": 19866,
+  "dx": "sbrad",
   "group": "rhythm",
   "title": {
    "en": "Sinus bradycardia",
@@ -27,6 +85,21 @@
  },
  {
   "id": 2277,
+  "dx": "stach",
+  "group": "rhythm",
+  "title": {
+   "en": "Sinus tachycardia",
+   "de": "Sinustachykardie",
+   "es": "Taquicardia sinusal",
+   "ar": "تسرع القلب الجيبي",
+   "fr": "Tachycardie sinusale",
+   "it": "Tachicardia sinusale",
+   "nl": "Sinustachycardie"
+  }
+ },
+ {
+  "id": 969,
+  "dx": "stach",
   "group": "rhythm",
   "title": {
    "en": "Sinus tachycardia",
@@ -40,6 +113,35 @@
  },
  {
   "id": 440,
+  "dx": "sarrh",
+  "group": "rhythm",
+  "title": {
+   "en": "Sinus arrhythmia",
+   "de": "Sinusarrhythmie",
+   "es": "Arritmia sinusal",
+   "ar": "اضطراب النظم الجيبي",
+   "fr": "Arythmie sinusale",
+   "it": "Aritmia sinusale",
+   "nl": "Sinusaritmie"
+  }
+ },
+ {
+  "id": 6354,
+  "dx": "sarrh",
+  "group": "rhythm",
+  "title": {
+   "en": "Sinus arrhythmia",
+   "de": "Sinusarrhythmie",
+   "es": "Arritmia sinusal",
+   "ar": "اضطراب النظم الجيبي",
+   "fr": "Arythmie sinusale",
+   "it": "Aritmia sinusale",
+   "nl": "Sinusaritmie"
+  }
+ },
+ {
+  "id": 9106,
+  "dx": "sarrh",
   "group": "rhythm",
   "title": {
    "en": "Sinus arrhythmia",
@@ -53,6 +155,35 @@
  },
  {
   "id": 8215,
+  "dx": "afib",
+  "group": "rhythm",
+  "title": {
+   "en": "Atrial fibrillation",
+   "de": "Vorhofflimmern",
+   "es": "Fibrilación auricular",
+   "ar": "الرجفان الأذيني",
+   "fr": "Fibrillation atriale",
+   "it": "Fibrillazione atriale",
+   "nl": "Boezemfibrilleren"
+  }
+ },
+ {
+  "id": 14221,
+  "dx": "afib",
+  "group": "rhythm",
+  "title": {
+   "en": "Atrial fibrillation",
+   "de": "Vorhofflimmern",
+   "es": "Fibrilación auricular",
+   "ar": "الرجفان الأذيني",
+   "fr": "Fibrillation atriale",
+   "it": "Fibrillazione atriale",
+   "nl": "Boezemfibrilleren"
+  }
+ },
+ {
+  "id": 20406,
+  "dx": "afib",
   "group": "rhythm",
   "title": {
    "en": "Atrial fibrillation",
@@ -66,6 +197,35 @@
  },
  {
   "id": 449,
+  "dx": "aflt",
+  "group": "rhythm",
+  "title": {
+   "en": "Atrial flutter",
+   "de": "Vorhofflattern",
+   "es": "Flúter auricular",
+   "ar": "الرفرفة الأذينية",
+   "fr": "Flutter atrial",
+   "it": "Flutter atriale",
+   "nl": "Boezemflutter"
+  }
+ },
+ {
+  "id": 23,
+  "dx": "aflt",
+  "group": "rhythm",
+  "title": {
+   "en": "Atrial flutter",
+   "de": "Vorhofflattern",
+   "es": "Flúter auricular",
+   "ar": "الرفرفة الأذينية",
+   "fr": "Flutter atrial",
+   "it": "Flutter atriale",
+   "nl": "Boezemflutter"
+  }
+ },
+ {
+  "id": 6179,
+  "dx": "aflt",
   "group": "rhythm",
   "title": {
    "en": "Atrial flutter",
@@ -79,6 +239,35 @@
  },
  {
   "id": 7889,
+  "dx": "psvt",
+  "group": "rhythm",
+  "title": {
+   "en": "Paroxysmal supraventricular tachycardia",
+   "de": "Paroxysmale supraventrikuläre Tachykardie",
+   "es": "Taquicardia supraventricular paroxística",
+   "ar": "تسرع القلب فوق البطيني الانتيابي",
+   "fr": "Tachycardie supraventriculaire paroxystique",
+   "it": "Tachicardia sopraventricolare parossistica",
+   "nl": "Paroxismale supraventriculaire tachycardie"
+  }
+ },
+ {
+  "id": 2051,
+  "dx": "psvt",
+  "group": "rhythm",
+  "title": {
+   "en": "Paroxysmal supraventricular tachycardia",
+   "de": "Paroxysmale supraventrikuläre Tachykardie",
+   "es": "Taquicardia supraventricular paroxística",
+   "ar": "تسرع القلب فوق البطيني الانتيابي",
+   "fr": "Tachycardie supraventriculaire paroxystique",
+   "it": "Tachicardia sopraventricolare parossistica",
+   "nl": "Paroxismale supraventriculaire tachycardie"
+  }
+ },
+ {
+  "id": 1919,
+  "dx": "psvt",
   "group": "rhythm",
   "title": {
    "en": "Paroxysmal supraventricular tachycardia",
@@ -92,6 +281,35 @@
  },
  {
   "id": 15588,
+  "dx": "pac",
+  "group": "rhythm",
+  "title": {
+   "en": "Premature atrial complexes",
+   "de": "Supraventrikuläre Extrasystolen",
+   "es": "Extrasístoles auriculares",
+   "ar": "انقباضات أذينية مبكرة",
+   "fr": "Extrasystoles atriales",
+   "it": "Extrasistoli atriali",
+   "nl": "Atriale extrasystolen"
+  }
+ },
+ {
+  "id": 4478,
+  "dx": "pac",
+  "group": "rhythm",
+  "title": {
+   "en": "Premature atrial complexes",
+   "de": "Supraventrikuläre Extrasystolen",
+   "es": "Extrasístoles auriculares",
+   "ar": "انقباضات أذينية مبكرة",
+   "fr": "Extrasystoles atriales",
+   "it": "Extrasistoli atriali",
+   "nl": "Atriale extrasystolen"
+  }
+ },
+ {
+  "id": 20149,
+  "dx": "pac",
   "group": "rhythm",
   "title": {
    "en": "Premature atrial complexes",
@@ -105,6 +323,35 @@
  },
  {
   "id": 1993,
+  "dx": "pvc",
+  "group": "rhythm",
+  "title": {
+   "en": "Premature ventricular complexes",
+   "de": "Ventrikuläre Extrasystolen",
+   "es": "Extrasístoles ventriculares",
+   "ar": "انقباضات بطينية مبكرة",
+   "fr": "Extrasystoles ventriculaires",
+   "it": "Extrasistoli ventricolari",
+   "nl": "Ventriculaire extrasystolen"
+  }
+ },
+ {
+  "id": 4786,
+  "dx": "pvc",
+  "group": "rhythm",
+  "title": {
+   "en": "Premature ventricular complexes",
+   "de": "Ventrikuläre Extrasystolen",
+   "es": "Extrasístoles ventriculares",
+   "ar": "انقباضات بطينية مبكرة",
+   "fr": "Extrasystoles ventriculaires",
+   "it": "Extrasistoli ventricolari",
+   "nl": "Ventriculaire extrasystolen"
+  }
+ },
+ {
+  "id": 219,
+  "dx": "pvc",
   "group": "rhythm",
   "title": {
    "en": "Premature ventricular complexes",
@@ -118,6 +365,35 @@
  },
  {
   "id": 8872,
+  "dx": "bigu",
+  "group": "rhythm",
+  "title": {
+   "en": "Ventricular bigeminy",
+   "de": "Ventrikulärer Bigeminus",
+   "es": "Bigeminismo ventricular",
+   "ar": "التوائم البطيني",
+   "fr": "Bigéminisme ventriculaire",
+   "it": "Bigeminismo ventricolare",
+   "nl": "Ventriculaire bigeminie"
+  }
+ },
+ {
+  "id": 10355,
+  "dx": "bigu",
+  "group": "rhythm",
+  "title": {
+   "en": "Ventricular bigeminy",
+   "de": "Ventrikulärer Bigeminus",
+   "es": "Bigeminismo ventricular",
+   "ar": "التوائم البطيني",
+   "fr": "Bigéminisme ventriculaire",
+   "it": "Bigeminismo ventricolare",
+   "nl": "Ventriculaire bigeminie"
+  }
+ },
+ {
+  "id": 628,
+  "dx": "bigu",
   "group": "rhythm",
   "title": {
    "en": "Ventricular bigeminy",
@@ -131,6 +407,35 @@
  },
  {
   "id": 2486,
+  "dx": "pace",
+  "group": "rhythm",
+  "title": {
+   "en": "Paced rhythm",
+   "de": "Schrittmacherrhythmus",
+   "es": "Ritmo de marcapasos",
+   "ar": "نظم ناظمة الخطا",
+   "fr": "Rythme électro-entraîné",
+   "it": "Ritmo da pacemaker",
+   "nl": "Pacemakerritme"
+  }
+ },
+ {
+  "id": 144,
+  "dx": "pace",
+  "group": "rhythm",
+  "title": {
+   "en": "Paced rhythm",
+   "de": "Schrittmacherrhythmus",
+   "es": "Ritmo de marcapasos",
+   "ar": "نظم ناظمة الخطا",
+   "fr": "Rythme électro-entraîné",
+   "it": "Ritmo da pacemaker",
+   "nl": "Pacemakerritme"
+  }
+ },
+ {
+  "id": 2218,
+  "dx": "pace",
   "group": "rhythm",
   "title": {
    "en": "Paced rhythm",
@@ -144,6 +449,35 @@
  },
  {
   "id": 3948,
+  "dx": "1avb",
+  "group": "conduction",
+  "title": {
+   "en": "First-degree AV block",
+   "de": "AV-Block I. Grades",
+   "es": "Bloqueo AV de primer grado",
+   "ar": "إحصار أذيني بطيني من الدرجة الأولى",
+   "fr": "Bloc AV du premier degré",
+   "it": "Blocco AV di primo grado",
+   "nl": "Eerstegraads AV-blok"
+  }
+ },
+ {
+  "id": 2509,
+  "dx": "1avb",
+  "group": "conduction",
+  "title": {
+   "en": "First-degree AV block",
+   "de": "AV-Block I. Grades",
+   "es": "Bloqueo AV de primer grado",
+   "ar": "إحصار أذيني بطيني من الدرجة الأولى",
+   "fr": "Bloc AV du premier degré",
+   "it": "Blocco AV di primo grado",
+   "nl": "Eerstegraads AV-blok"
+  }
+ },
+ {
+  "id": 4387,
+  "dx": "1avb",
   "group": "conduction",
   "title": {
    "en": "First-degree AV block",
@@ -157,6 +491,35 @@
  },
  {
   "id": 14009,
+  "dx": "2avb",
+  "group": "conduction",
+  "title": {
+   "en": "Second-degree AV block",
+   "de": "AV-Block II. Grades",
+   "es": "Bloqueo AV de segundo grado",
+   "ar": "إحصار أذيني بطيني من الدرجة الثانية",
+   "fr": "Bloc AV du deuxième degré",
+   "it": "Blocco AV di secondo grado",
+   "nl": "Tweedegraads AV-blok"
+  }
+ },
+ {
+  "id": 1222,
+  "dx": "2avb",
+  "group": "conduction",
+  "title": {
+   "en": "Second-degree AV block",
+   "de": "AV-Block II. Grades",
+   "es": "Bloqueo AV de segundo grado",
+   "ar": "إحصار أذيني بطيني من الدرجة الثانية",
+   "fr": "Bloc AV du deuxième degré",
+   "it": "Blocco AV di secondo grado",
+   "nl": "Tweedegraads AV-blok"
+  }
+ },
+ {
+  "id": 8048,
+  "dx": "2avb",
   "group": "conduction",
   "title": {
    "en": "Second-degree AV block",
@@ -170,6 +533,35 @@
  },
  {
   "id": 4827,
+  "dx": "3avb",
+  "group": "conduction",
+  "title": {
+   "en": "Third-degree (complete) AV block",
+   "de": "AV-Block III. Grades (total)",
+   "es": "Bloqueo AV de tercer grado (completo)",
+   "ar": "إحصار أذيني بطيني من الدرجة الثالثة (كامل)",
+   "fr": "Bloc AV du troisième degré (complet)",
+   "it": "Blocco AV di terzo grado (completo)",
+   "nl": "Derdegraads (totaal) AV-blok"
+  }
+ },
+ {
+  "id": 959,
+  "dx": "3avb",
+  "group": "conduction",
+  "title": {
+   "en": "Third-degree (complete) AV block",
+   "de": "AV-Block III. Grades (total)",
+   "es": "Bloqueo AV de tercer grado (completo)",
+   "ar": "إحصار أذيني بطيني من الدرجة الثالثة (كامل)",
+   "fr": "Bloc AV du troisième degré (complet)",
+   "it": "Blocco AV di terzo grado (completo)",
+   "nl": "Derdegraads (totaal) AV-blok"
+  }
+ },
+ {
+  "id": 21533,
+  "dx": "3avb",
   "group": "conduction",
   "title": {
    "en": "Third-degree (complete) AV block",
@@ -183,6 +575,35 @@
  },
  {
   "id": 1564,
+  "dx": "lbbb",
+  "group": "conduction",
+  "title": {
+   "en": "Left bundle branch block",
+   "de": "Linksschenkelblock",
+   "es": "Bloqueo de rama izquierda",
+   "ar": "إحصار الحزيمة اليسرى",
+   "fr": "Bloc de branche gauche",
+   "it": "Blocco di branca sinistra",
+   "nl": "Linkerbundeltakblok"
+  }
+ },
+ {
+  "id": 286,
+  "dx": "lbbb",
+  "group": "conduction",
+  "title": {
+   "en": "Left bundle branch block",
+   "de": "Linksschenkelblock",
+   "es": "Bloqueo de rama izquierda",
+   "ar": "إحصار الحزيمة اليسرى",
+   "fr": "Bloc de branche gauche",
+   "it": "Blocco di branca sinistra",
+   "nl": "Linkerbundeltakblok"
+  }
+ },
+ {
+  "id": 7967,
+  "dx": "lbbb",
   "group": "conduction",
   "title": {
    "en": "Left bundle branch block",
@@ -196,6 +617,35 @@
  },
  {
   "id": 5212,
+  "dx": "rbbb",
+  "group": "conduction",
+  "title": {
+   "en": "Right bundle branch block",
+   "de": "Rechtsschenkelblock",
+   "es": "Bloqueo de rama derecha",
+   "ar": "إحصار الحزيمة اليمنى",
+   "fr": "Bloc de branche droit",
+   "it": "Blocco di branca destra",
+   "nl": "Rechterbundeltakblok"
+  }
+ },
+ {
+  "id": 621,
+  "dx": "rbbb",
+  "group": "conduction",
+  "title": {
+   "en": "Right bundle branch block",
+   "de": "Rechtsschenkelblock",
+   "es": "Bloqueo de rama derecha",
+   "ar": "إحصار الحزيمة اليمنى",
+   "fr": "Bloc de branche droit",
+   "it": "Blocco di branca destra",
+   "nl": "Rechterbundeltakblok"
+  }
+ },
+ {
+  "id": 4051,
+  "dx": "rbbb",
   "group": "conduction",
   "title": {
    "en": "Right bundle branch block",
@@ -209,6 +659,35 @@
  },
  {
   "id": 4619,
+  "dx": "lafb",
+  "group": "conduction",
+  "title": {
+   "en": "Left anterior fascicular block",
+   "de": "Linksanteriorer Hemiblock",
+   "es": "Hemibloqueo anterior izquierdo",
+   "ar": "إحصار الحزمة الأمامية اليسرى",
+   "fr": "Hémibloc antérieur gauche",
+   "it": "Emiblocco anteriore sinistro",
+   "nl": "Linker anterieur fasciculair blok"
+  }
+ },
+ {
+  "id": 41,
+  "dx": "lafb",
+  "group": "conduction",
+  "title": {
+   "en": "Left anterior fascicular block",
+   "de": "Linksanteriorer Hemiblock",
+   "es": "Hemibloqueo anterior izquierdo",
+   "ar": "إحصار الحزمة الأمامية اليسرى",
+   "fr": "Hémibloc antérieur gauche",
+   "it": "Emiblocco anteriore sinistro",
+   "nl": "Linker anterieur fasciculair blok"
+  }
+ },
+ {
+  "id": 1005,
+  "dx": "lafb",
   "group": "conduction",
   "title": {
    "en": "Left anterior fascicular block",
@@ -222,6 +701,21 @@
  },
  {
   "id": 9355,
+  "dx": "lpfb",
+  "group": "conduction",
+  "title": {
+   "en": "Left posterior fascicular block",
+   "de": "Linksposteriorer Hemiblock",
+   "es": "Hemibloqueo posterior izquierdo",
+   "ar": "إحصار الحزمة الخلفية اليسرى",
+   "fr": "Hémibloc postérieur gauche",
+   "it": "Emiblocco posteriore sinistro",
+   "nl": "Linker posterieur fasciculair blok"
+  }
+ },
+ {
+  "id": 13052,
+  "dx": "lpfb",
   "group": "conduction",
   "title": {
    "en": "Left posterior fascicular block",
@@ -235,6 +729,35 @@
  },
  {
   "id": 9823,
+  "dx": "wpw",
+  "group": "conduction",
+  "title": {
+   "en": "Wolff-Parkinson-White pattern",
+   "de": "WPW-Muster",
+   "es": "Patrón de Wolff-Parkinson-White",
+   "ar": "نمط وولف باركنسون وايت",
+   "fr": "Aspect de Wolff-Parkinson-White",
+   "it": "Pattern di Wolff-Parkinson-White",
+   "nl": "Wolff-Parkinson-White-patroon"
+  }
+ },
+ {
+  "id": 2145,
+  "dx": "wpw",
+  "group": "conduction",
+  "title": {
+   "en": "Wolff-Parkinson-White pattern",
+   "de": "WPW-Muster",
+   "es": "Patrón de Wolff-Parkinson-White",
+   "ar": "نمط وولف باركنسون وايت",
+   "fr": "Aspect de Wolff-Parkinson-White",
+   "it": "Pattern di Wolff-Parkinson-White",
+   "nl": "Wolff-Parkinson-White-patroon"
+  }
+ },
+ {
+  "id": 9795,
+  "dx": "wpw",
   "group": "conduction",
   "title": {
    "en": "Wolff-Parkinson-White pattern",
@@ -248,6 +771,35 @@
  },
  {
   "id": 5911,
+  "dx": "lvh",
+  "group": "hypertrophy",
+  "title": {
+   "en": "Left ventricular hypertrophy",
+   "de": "Linksventrikuläre Hypertrophie",
+   "es": "Hipertrofia ventricular izquierda",
+   "ar": "تضخم البطين الأيسر",
+   "fr": "Hypertrophie ventriculaire gauche",
+   "it": "Ipertrofia ventricolare sinistra",
+   "nl": "Linkerventrikelhypertrofie"
+  }
+ },
+ {
+  "id": 1370,
+  "dx": "lvh",
+  "group": "hypertrophy",
+  "title": {
+   "en": "Left ventricular hypertrophy",
+   "de": "Linksventrikuläre Hypertrophie",
+   "es": "Hipertrofia ventricular izquierda",
+   "ar": "تضخم البطين الأيسر",
+   "fr": "Hypertrophie ventriculaire gauche",
+   "it": "Ipertrofia ventricolare sinistra",
+   "nl": "Linkerventrikelhypertrofie"
+  }
+ },
+ {
+  "id": 138,
+  "dx": "lvh",
   "group": "hypertrophy",
   "title": {
    "en": "Left ventricular hypertrophy",
@@ -261,6 +813,21 @@
  },
  {
   "id": 222,
+  "dx": "rvh",
+  "group": "hypertrophy",
+  "title": {
+   "en": "Right ventricular hypertrophy",
+   "de": "Rechtsventrikuläre Hypertrophie",
+   "es": "Hipertrofia ventricular derecha",
+   "ar": "تضخم البطين الأيمن",
+   "fr": "Hypertrophie ventriculaire droite",
+   "it": "Ipertrofia ventricolare destra",
+   "nl": "Rechterventrikelhypertrofie"
+  }
+ },
+ {
+  "id": 21050,
+  "dx": "rvh",
   "group": "hypertrophy",
   "title": {
    "en": "Right ventricular hypertrophy",
@@ -274,6 +841,21 @@
  },
  {
   "id": 5231,
+  "dx": "rae",
+  "group": "hypertrophy",
+  "title": {
+   "en": "Right atrial enlargement",
+   "de": "Rechtsatriale Vergrößerung",
+   "es": "Crecimiento auricular derecho",
+   "ar": "تضخم الأذين الأيمن",
+   "fr": "Hypertrophie atriale droite",
+   "it": "Ingrandimento atriale destro",
+   "nl": "Rechteratriumvergroting"
+  }
+ },
+ {
+  "id": 8177,
+  "dx": "rae",
   "group": "hypertrophy",
   "title": {
    "en": "Right atrial enlargement",
@@ -287,6 +869,21 @@
  },
  {
   "id": 15865,
+  "dx": "ami",
+  "group": "ischaemia",
+  "title": {
+   "en": "Anterior myocardial infarction",
+   "de": "Vorderwandinfarkt",
+   "es": "Infarto de miocardio anterior",
+   "ar": "احتشاء عضلة القلب الأمامي",
+   "fr": "Infarctus du myocarde antérieur",
+   "it": "Infarto miocardico anteriore",
+   "nl": "Voorwandinfarct"
+  }
+ },
+ {
+  "id": 962,
+  "dx": "ami",
   "group": "ischaemia",
   "title": {
    "en": "Anterior myocardial infarction",
@@ -300,6 +897,35 @@
  },
  {
   "id": 3908,
+  "dx": "asmi",
+  "group": "ischaemia",
+  "title": {
+   "en": "Anteroseptal myocardial infarction",
+   "de": "Anteroseptaler Infarkt",
+   "es": "Infarto de miocardio anteroseptal",
+   "ar": "احتشاء عضلة القلب الأمامي الحاجزي",
+   "fr": "Infarctus du myocarde antéroseptal",
+   "it": "Infarto miocardico anterosettale",
+   "nl": "Anteroseptaal infarct"
+  }
+ },
+ {
+  "id": 518,
+  "dx": "asmi",
+  "group": "ischaemia",
+  "title": {
+   "en": "Anteroseptal myocardial infarction",
+   "de": "Anteroseptaler Infarkt",
+   "es": "Infarto de miocardio anteroseptal",
+   "ar": "احتشاء عضلة القلب الأمامي الحاجزي",
+   "fr": "Infarctus du myocarde antéroseptal",
+   "it": "Infarto miocardico anterosettale",
+   "nl": "Anteroseptaal infarct"
+  }
+ },
+ {
+  "id": 177,
+  "dx": "asmi",
   "group": "ischaemia",
   "title": {
    "en": "Anteroseptal myocardial infarction",
@@ -313,6 +939,35 @@
  },
  {
   "id": 12941,
+  "dx": "imi",
+  "group": "ischaemia",
+  "title": {
+   "en": "Inferior myocardial infarction",
+   "de": "Hinterwandinfarkt (inferior)",
+   "es": "Infarto de miocardio inferior",
+   "ar": "احتشاء عضلة القلب السفلي",
+   "fr": "Infarctus du myocarde inférieur",
+   "it": "Infarto miocardico inferiore",
+   "nl": "Onderwandinfarct"
+  }
+ },
+ {
+  "id": 1737,
+  "dx": "imi",
+  "group": "ischaemia",
+  "title": {
+   "en": "Inferior myocardial infarction",
+   "de": "Hinterwandinfarkt (inferior)",
+   "es": "Infarto de miocardio inferior",
+   "ar": "احتشاء عضلة القلب السفلي",
+   "fr": "Infarctus du myocarde inférieur",
+   "it": "Infarto miocardico inferiore",
+   "nl": "Onderwandinfarct"
+  }
+ },
+ {
+  "id": 532,
+  "dx": "imi",
   "group": "ischaemia",
   "title": {
    "en": "Inferior myocardial infarction",
@@ -326,6 +981,21 @@
  },
  {
   "id": 947,
+  "dx": "ilmi",
+  "group": "ischaemia",
+  "title": {
+   "en": "Inferolateral myocardial infarction",
+   "de": "Inferolateraler Infarkt",
+   "es": "Infarto de miocardio inferolateral",
+   "ar": "احتشاء عضلة القلب السفلي الجانبي",
+   "fr": "Infarctus du myocarde inférolatéral",
+   "it": "Infarto miocardico inferolaterale",
+   "nl": "Inferolateraal infarct"
+  }
+ },
+ {
+  "id": 6211,
+  "dx": "ilmi",
   "group": "ischaemia",
   "title": {
    "en": "Inferolateral myocardial infarction",
@@ -339,6 +1009,35 @@
  },
  {
   "id": 167,
+  "dx": "iscal",
+  "group": "ischaemia",
+  "title": {
+   "en": "Anterolateral ischaemia",
+   "de": "Anterolaterale Ischämie",
+   "es": "Isquemia anterolateral",
+   "ar": "نقص التروية الأمامي الجانبي",
+   "fr": "Ischémie antérolatérale",
+   "it": "Ischemia anterolaterale",
+   "nl": "Anterolaterale ischemie"
+  }
+ },
+ {
+  "id": 8125,
+  "dx": "iscal",
+  "group": "ischaemia",
+  "title": {
+   "en": "Anterolateral ischaemia",
+   "de": "Anterolaterale Ischämie",
+   "es": "Isquemia anterolateral",
+   "ar": "نقص التروية الأمامي الجانبي",
+   "fr": "Ischémie antérolatérale",
+   "it": "Ischemia anterolaterale",
+   "nl": "Anterolaterale ischemie"
+  }
+ },
+ {
+  "id": 3181,
+  "dx": "iscal",
   "group": "ischaemia",
   "title": {
    "en": "Anterolateral ischaemia",
@@ -352,6 +1051,35 @@
  },
  {
   "id": 18093,
+  "dx": "lngqt",
+  "group": "other",
+  "title": {
+   "en": "Long QT interval",
+   "de": "Verlängertes QT-Intervall",
+   "es": "Intervalo QT largo",
+   "ar": "إطالة فترة QT",
+   "fr": "QT long",
+   "it": "QT lungo",
+   "nl": "Verlengd QT-interval"
+  }
+ },
+ {
+  "id": 840,
+  "dx": "lngqt",
+  "group": "other",
+  "title": {
+   "en": "Long QT interval",
+   "de": "Verlängertes QT-Intervall",
+   "es": "Intervalo QT largo",
+   "ar": "إطالة فترة QT",
+   "fr": "QT long",
+   "it": "QT lungo",
+   "nl": "Verlengd QT-interval"
+  }
+ },
+ {
+  "id": 8032,
+  "dx": "lngqt",
   "group": "other",
   "title": {
    "en": "Long QT interval",
@@ -365,6 +1093,35 @@
  },
  {
   "id": 16750,
+  "dx": "dig",
+  "group": "other",
+  "title": {
+   "en": "Digoxin effect",
+   "de": "Digitaliswirkung",
+   "es": "Efecto digitálico",
+   "ar": "تأثير الديجوكسين",
+   "fr": "Imprégnation digitalique",
+   "it": "Effetto digitalico",
+   "nl": "Digoxine-effect"
+  }
+ },
+ {
+  "id": 1065,
+  "dx": "dig",
+  "group": "other",
+  "title": {
+   "en": "Digoxin effect",
+   "de": "Digitaliswirkung",
+   "es": "Efecto digitálico",
+   "ar": "تأثير الديجوكسين",
+   "fr": "Imprégnation digitalique",
+   "it": "Effetto digitalico",
+   "nl": "Digoxine-effect"
+  }
+ },
+ {
+  "id": 7525,
+  "dx": "dig",
   "group": "other",
   "title": {
    "en": "Digoxin effect",
