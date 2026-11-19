@@ -8,6 +8,7 @@
 """
 import json
 import os
+import re
 import subprocess
 import sys
 
@@ -27,7 +28,7 @@ BLENDER = os.environ.get("BLENDER", "/Applications/Blender.app/Contents/MacOS/Bl
 BUDGETS = {"skeleton": 480_000, "joints": 100_000, "muscles": 420_000, "vessels": 300_000, "lymph": 40_000,
            "nervous": 320_000, "respiratory": 110_000, "digestive": 180_000, "urinary": 30_000,
            "genital": 20_000, "endocrine": 11_000}
-REGION_DEFAULTS = {"head": ["skeleton", "nervous", "vessels"],
+REGION_DEFAULTS = {"head": ["nervous", "vessels"],  # the skull would hide the brain
                    "neck": ["skeleton", "vessels", "respiratory", "endocrine"],
                    "chest": ["skeleton", "vessels", "respiratory"],
                    "abdomen-pelvis": ["skeleton", "vessels", "digestive", "urinary"],
@@ -51,6 +52,8 @@ NAMES = {
     "endocrine": ["Endocrine glands", "Hormondrüsen", "Glándulas endocrinas", "الغدد الصماء", "Glandes endocrines",
                   "Ghiandole endocrine", "Hormoonklieren"],
 }
+# Drawn only on request: sheets that cover the organs a CT reader looks for.
+OFF = re.compile(r"omentum|mesocolon|meso_appendix|taenia|peritoneum|gingiva")
 LANGS = ["en", "de", "es", "ar", "fr", "it", "nl"]
 LICENSE = """3D atlas models in this folder: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).
 
@@ -90,6 +93,8 @@ def export():
     for s in meta["structures"]:
         if not s["la"]:
             del s["la"]
+        if OFF.search(s["key"]):
+            s["off"] = True
     index = {"systems": systems, "regionDefaults": REGION_DEFAULTS, "structures": meta["structures"], "links": links}
     with open(index_path, "w", encoding="utf-8") as f:
         json.dump(index, f, ensure_ascii=False, separators=(",", ":"))

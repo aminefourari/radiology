@@ -79,11 +79,13 @@ def case_centroids(labels, spacing, ids):
 
 
 def part_parents(site, links):
-    """{atlas key: parent atlas key} for atlas parts of site structures that have a parent (liver segments)."""
+    """{atlas key: parent atlas key} for atlas parts lying inside a one-mesh parent (liver segments in the liver)."""
     out = {}
     for s in site:
-        parent = links.get(s.get("parent") or "", [None])[0]
-        for a in links.get(s["key"], []) if parent else []:
-            if a != parent:
-                out[a] = parent
+        whole = links.get(s.get("parent") or "", [])
+        if len(whole) != 1:  # only a single closed mesh (liver) contains its parts; the brain is many gyri
+            continue
+        for a in links.get(s["key"], []):
+            if a != whole[0]:
+                out[a] = whole[0]
     return out

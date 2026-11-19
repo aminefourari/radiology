@@ -42,7 +42,7 @@ MAT_COLOR = {"Artery": "#b8302c", "Pulmonary vein": "#b8302c", "Vein": "#33589e"
 NAME_COLOR = [(r"liver", "#7a2f25"), (r"spleen", "#6c2b3b"), (r"kidney", "#87392c"), (r"suprarenal", "#c99c48"),
               (r"pancrea", "#d8ae76"), (r"gallbladder|bile", "#4c7739"), (r"lung|bronch|trachea|larynx", "#e4a9a6"),
               (r"heart|atrium|ventricle of heart|myocard", "#a63a33"), (r"thyroid", "#a4474a"),
-              (r"stomach|duoden|oesophag|esophag|jejun|ile|colon|caecum|cecum|rectum|appendix", "#c4766c"),
+              (r"stomach|duoden|oesophag|esophag|jejun|ileum|colon|caecum|cecum|rectum|appendix", "#c4766c"),
               (r"bladder|ureter|urethra", "#d6b493"), (r"prostate|testis|uterus|ovary", "#b5766a")]
 SYSTEM_COLOR = {"skeleton": "#e2d5bb", "joints": "#d9d3c2", "muscles": "#a3463c", "vessels": "#b8302c",
                 "lymph": "#7fa05a", "nervous": "#ecd28a", "respiratory": "#e4a9a6", "digestive": "#c4766c",
@@ -71,12 +71,15 @@ def system_of(o):
 
 
 def color_of(o, system, base):
+    """Vessel materials first, then organ names (an organ's material may be e.g. 'Ligament'), then materials."""
     m = o.active_material
-    if m and m.name in MAT_COLOR:
+    if m and system == "vessels" and m.name in MAT_COLOR:
         return MAT_COLOR[m.name]
     for pat, c in NAME_COLOR:
         if re.search(pat, base, re.I):
             return c
+    if m and m.name in MAT_COLOR:
+        return MAT_COLOR[m.name]
     if system == "nervous" and NERVOUS_ORGAN.search(base):
         return "#d9a493"
     return SYSTEM_COLOR[system]

@@ -60,3 +60,11 @@ def test_part_parents_from_site_parents():
     site = [{"key": "liver", "parent": None}, {"key": "liver_segment_4", "parent": "liver"}]
     links = {"liver": ["liver"], "liver_segment_4": ["seg_iv"]}
     assert part_parents(site, links) == {"seg_iv": "liver"}
+
+
+def test_part_parents_skips_parts_that_are_the_parent():
+    from atlaslib import part_parents
+    site = [{"key": "brain", "parent": None}, {"key": "frontal_lobe", "parent": "brain"},
+            {"key": "cerebellum", "parent": "brain"}]
+    links = {"brain": ["gyrus_a", "gyrus_b"], "frontal_lobe": ["gyrus_b"], "cerebellum": ["vermis"]}
+    assert part_parents(site, links) == {}

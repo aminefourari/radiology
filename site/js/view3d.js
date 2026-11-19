@@ -1,22 +1,24 @@
-// three.js 3D view of the case meshes. Loaded with import() only when 3D opens.
+// three.js view of the 3D atlas. Loaded with import() only when 3D is switched on.
 // World coordinates are RAS mm. Default camera looks from anterior, so the patient's right
 // is on the viewer's left (radiological), and redraws only when something changes.
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 
-// Material per tissue (from meshdata.tissueLook): wet, glossy organs and vessels; matte bone.
+// Material per tissue (atlasdata.tissueOf): wet, glossy organs and vessels; matte bone.
 const TISSUES = {
   organ: { roughness: 0.42, clearcoat: 0.55, clearcoatRoughness: 0.3, sheen: 0.35, sheenRoughness: 0.6 },
   vessel: { roughness: 0.32, clearcoat: 0.8, clearcoatRoughness: 0.2 },
   muscle: { roughness: 0.55, clearcoat: 0.25, clearcoatRoughness: 0.5, sheen: 0.5, sheenRoughness: 0.5 },
   bone: { roughness: 0.78, clearcoat: 0.05 },
   cartilage: { roughness: 0.35, clearcoat: 0.6, clearcoatRoughness: 0.2 },
-  fluid: { roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.05 },
+  nerve: { roughness: 0.45, clearcoat: 0.4, clearcoatRoughness: 0.3, sheen: 0.3, sheenRoughness: 0.5 },
 };
 
 // Soft studio backdrop: lighter in the middle, dark at the edges.
@@ -65,7 +67,17 @@ export function createView3d(container, before) {
   scene.add(group);
   const meshes = new Map();
   const raycaster = new THREE.Raycaster();
-  let selected = 0, frame = 0, changed = () => {}, box = null, needsFrame = false;
+  let selected = new Set(), frame = 0, changed = () => {};
+  const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+
+  // The current CT slice: a see-through quad with an outline, spanning the visible bodies.
+  const planeMat = new THREE.MeshBasicMaterial({ color: 0x4fd1e8, transparent: true, opacity: 0.18, depthWrite: false, side: THREE.DoubleSide });
+  const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), planeMat);
+  plane.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints([[-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5]].map(([x, y]) => new THREE.Vector3(x, y, 0))),
+    new THREE.LineBasicMaterial({ color: 0x4fd1e8 })));
+  plane.renderOrder = 2;
+  plane.visible = false;
+  scene.add(plane);
 
   // Ambient occlusion darkens creases and contact areas, which is most of the "atlas" depth.
   const composer = new EffectComposer(renderer);
@@ -97,11 +109,17 @@ export function createView3d(container, before) {
   const ro = new ResizeObserver(resize);
   ro.observe(container);
 
-  // Frames what is shown (falls back to the whole case when nothing is).
-  function frameBox() {
+  function visibleBox() {
     const vis = new THREE.Box3();
     for (const m of meshes.values()) if (m.visible) vis.expandByObject(m);
-    const [x0, y0, z0, x1, y1, z1] = vis.isEmpty() ? box : [...vis.min.toArray(), ...vis.max.toArray()];
+    return vis;
+  }
+
+  // Frames box ([x0,y0,z0,x1,y1,z1], e.g. the CT volume mapped into the atlas), else what is shown.
+  function frameBox(box) {
+    const vis = visibleBox();
+    if (!box && vis.isEmpty()) return;
+    const [x0, y0, z0, x1, y1, z1] = box ?? [...vis.min.toArray(), ...vis.max.toArray()];
     const c = new THREE.Vector3((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2);
     const fov = THREE.MathUtils.degToRad(camera.fov);
     const fitH = (z1 - z0) / 2 / Math.tan(fov / 2);
@@ -116,28 +134,40 @@ export function createView3d(container, before) {
     controls.update();
   }
 
-  function setCase(meshesById, caseBox) {
-    for (const m of meshes.values()) { m.geometry.dispose(); m.material.dispose(); }
-    group.clear();
-    meshes.clear();
-    for (const [id, d] of meshesById) {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(d.positions, 3));
-      g.setIndex(new THREE.BufferAttribute(d.indices, 1));
-      g.computeVertexNormals();
-      const m = new THREE.Mesh(g, new THREE.MeshPhysicalMaterial());
-      m.userData = { id, anchor: new THREE.Vector3(...d.anchor), size: d.size };
-      m.visible = false;
-      meshes.set(id, m);
-      group.add(m);
+  // Loads one atlas system's GLB. byKey: Map atlas key -> index.json structure (anchor, size).
+  // Meshes stay hidden until the next setVisibility.
+  async function addSystem(url, byKey) {
+    const gltf = await loader.loadAsync(url);
+    gltf.scene.traverse((o) => {
+      if (!o.isMesh) return;
+      let n = o;
+      while (n && !byKey.has(n.name)) n = n.parent; // gltfpack may nest the mesh under its named node
+      if (!n) return;
+      const s = byKey.get(n.name);
+      o.geometry.computeVertexNormals();
+      o.material = new THREE.MeshPhysicalMaterial();
+      o.userData = { id: n.name, anchor: new THREE.Vector3(...s.anchor), size: s.size };
+      o.visible = false;
+      meshes.set(n.name, o);
+    });
+    group.add(gltf.scene);
+  }
+
+  // p: { axis: "x" | "y" | "z", value, box? } in atlas mm, or null to hide. The quad spans box (the scan's
+  // extent mapped into the atlas) on the other two axes, else everything shown.
+  function setPlane(p) {
+    const vis = p?.box ? new THREE.Box3().setFromArray(p.box) : visibleBox();
+    plane.visible = !!p && !vis.isEmpty();
+    if (plane.visible) {
+      const c = vis.getCenter(new THREE.Vector3()), d = vis.getSize(new THREE.Vector3()).addScalar(10);
+      plane.position.copy(c).setComponent("xyz".indexOf(p.axis), p.value);
+      plane.rotation.set(p.axis === "y" ? Math.PI / 2 : 0, p.axis === "x" ? Math.PI / 2 : 0, 0);
+      plane.scale.set(p.axis === "x" ? d.z : d.x, p.axis === "y" ? d.z : d.y, 1);
     }
-    box = caseBox;
-    needsFrame = true; // once visibility is known
-    resize();
     requestRender();
   }
 
-  // shown: Map id -> { color, opacity } from meshVisibility.
+  // shown: Map key -> { color, tissue, opacity } from atlasVisibility.
   function setVisibility(shown) {
     for (const [id, m] of meshes) {
       const s = shown.get(id);
@@ -154,15 +184,14 @@ export function createView3d(container, before) {
       m.material.transparent = faded;
       m.material.depthWrite = !faded;
       m.renderOrder = faded ? 1 : 0;
-      m.material.emissive.set(id === selected ? 0x444444 : 0x000000);
+      m.material.emissive.set(selected.has(id) ? 0x444444 : 0x000000);
     }
-    if (needsFrame) { needsFrame = false; frameBox(); }
     requestRender();
   }
 
-  function select(id) {
-    selected = id;
-    for (const [mid, m] of meshes) m.material.emissive.set(mid === id ? 0x444444 : 0x000000);
+  function select(keys) {
+    selected = new Set(keys);
+    for (const [k, m] of meshes) m.material.emissive.set(selected.has(k) ? 0x444444 : 0x000000);
     requestRender();
   }
 
@@ -175,14 +204,13 @@ export function createView3d(container, before) {
   function pick(x, y) {
     camera.updateMatrixWorld();
     raycaster.setFromCamera(ndc(x, y), camera);
-    return raycaster.intersectObjects(solid(), false)[0]?.object.userData.id ?? 0;
+    return raycaster.intersectObjects(solid(), false)[0]?.object.userData.id ?? null;
   }
 
   function centerOn(id) {
     const m = meshes.get(id);
     if (!m) return;
-    m.geometry.computeBoundingSphere();
-    controls.target.copy(m.geometry.boundingSphere.center);
+    controls.target.copy(new THREE.Box3().setFromObject(m).getCenter(new THREE.Vector3()));
     controls.update();
   }
 
@@ -203,7 +231,8 @@ export function createView3d(container, before) {
   }
 
   return {
-    canvas, setCase, reset() { frameBox(); requestRender(); }, setVisibility, select, pick, centerOn, project,
+    canvas, addSystem, setPlane, reset(box) { frameBox(box); requestRender(); }, setVisibility, select, pick, centerOn, project,
+    has: (key) => meshes.has(key),
     onChange(cb) { changed = cb; },
     show(on) { canvas.hidden = !on; if (on) resize(); },
     dispose() { ro.disconnect(); controls.dispose(); composer.dispose(); renderer.dispose(); canvas.remove(); },
