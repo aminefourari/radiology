@@ -89,3 +89,33 @@ def test_validate_case_rejects_unknown_label(tmp_path):
     make_case_dir(tmp_path, lab, [{"id": 1}])
     with pytest.raises(AssertionError):
         validate_case(str(tmp_path))
+
+
+def test_check_tasks_rejects_tasks_outside_allow_list():
+    from caselib import check_tasks
+    with pytest.raises(ValueError, match="face"):
+        check_tasks(["total", "face"])
+    check_tasks(["total", "ventricle_parts", "brain_structures"])
+
+
+def test_select_structures_overrides_and_filters():
+    from caselib import select_structures
+    catalogue = [
+        {"key": "hyoid", "system": "skull-face", "source": "headneck_bones_vessels"},
+        {"key": "liver", "system": "organs", "source": "total"},
+        {"key": "brain", "system": "brain", "source": "total"},
+    ]
+    case = {"tasks": ["total", "headneck_bones_vessels"], "systems": ["larynx", "brain"],
+            "systemOverrides": {"hyoid": "larynx"}}
+    out = select_structures(catalogue, case)
+    assert [(s["key"], s["system"]) for s in out] == [("hyoid", "larynx"), ("brain", "brain")]
+    assert catalogue[0]["system"] == "skull-face"  # catalogue not mutated
+
+
+def test_write_volume_is_deterministic(tmp_path):
+    import time
+    arr = np.arange(24, dtype=np.int16).reshape(2, 3, 4)
+    write_volume(str(tmp_path / "a.bin.gz"), arr, "<i2")
+    time.sleep(1.1)
+    write_volume(str(tmp_path / "b.bin.gz"), arr, "<i2")
+    assert (tmp_path / "a.bin.gz").read_bytes() == (tmp_path / "b.bin.gz").read_bytes()

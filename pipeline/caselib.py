@@ -66,7 +66,8 @@ def best_slices(labels, ids):
 
 def write_volume(path, arr_xyz, dtype):
     data = np.ascontiguousarray(np.transpose(arr_xyz, (2, 1, 0)).astype(dtype))
-    with gzip.open(path, "wb", compresslevel=9) as f:
+    # mtime=0 and no filename: identical data gives identical bytes, so rebuilds don't churn git.
+    with open(path, "wb") as raw, gzip.GzipFile(filename="", fileobj=raw, mode="wb", compresslevel=9, mtime=0) as f:
         f.write(data.tobytes())
 
 
@@ -84,3 +85,29 @@ def validate_case(case_dir, budget_bytes=25 * 1024 * 1024):
     assert not unknown, f"label ids missing from meta: {sorted(unknown)}"
     total = sum(os.path.getsize(os.path.join(case_dir, n)) for n in ("ct.bin.gz", "labels.bin.gz", "meta.json"))
     assert total <= budget_bytes, f"case is {total / 2**20:.1f} MB, over budget"
+
+
+OPEN_TASKS = {"total", "liver_segments", "ventricle_parts", "head_glands_cavities", "headneck_bones_vessels",
+              "headneck_muscles", "head_muscles", "oculomotor_muscles", "lung_vessels", "trunk_cavities", "body",
+              "abdominal_muscles", "breasts"}
+# Licensed tasks: registered 2026-11-19; the author confirmed publishing their outputs here is fine.
+LICENSED_TASKS = {"brain_structures", "heartchambers_highres", "coronary_arteries", "aortic_sinuses",
+                  "appendicular_bones", "vertebrae_pp_refined", "tissue_types"}
+ALLOWED_TASKS = frozenset(OPEN_TASKS | LICENSED_TASKS)
+
+
+def check_tasks(tasks):
+    for t in tasks:
+        if t not in ALLOWED_TASKS:
+            raise ValueError(f"TotalSegmentator task not allowed: {t}")
+
+
+def select_structures(catalogue, case):
+    """Catalogue entries this case uses, with per-case system overrides applied."""
+    overrides = case.get("systemOverrides", {})
+    out = []
+    for s in catalogue:
+        system = overrides.get(s["key"], s["system"])
+        if s["source"] in case["tasks"] and system in case["systems"]:
+            out.append({**s, "system": system})
+    return out
