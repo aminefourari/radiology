@@ -124,6 +124,8 @@ def link():
     m = json.load(open(os.path.join(HERE, "atlas_map.json"), encoding="utf-8"))
     validate_map(m, {s["key"] for s in site_structures()}, {s["key"] for s in index["structures"]})
     index["links"] = m
+    # 7-language names of linked site structures, for 3D labels and popups whatever case is open.
+    index["siteNames"] = {st["key"]: st["names"] for st in site_structures() if st["key"] in m}
     parents = part_parents(site_structures(), m)
     for s in index["structures"]:
         s.pop("parent", None)
@@ -181,6 +183,7 @@ def fit(case_dirs):
             result = {k: result[k] or more[k] for k in "xyz"}
             used = used_all
         result["landmarks"] = [k for k, _, _ in used]
+        result["keys"] = [s["key"] for s in meta["structures"]]  # what "Show in CT" can open this case for
         json.dump(result, open(os.path.join(d, "atlaslink.json"), "w"), separators=(",", ":"))
         print(meta["id"], {k: result[k] for k in "xyz"}, len(used), "landmarks")
 

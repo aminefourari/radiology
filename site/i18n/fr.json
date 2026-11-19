@@ -148,5 +148,12 @@
  "learn.question.qt": "Le QTc est-il normal ou long ?",
  "learn.question.st": "Et le segment ST ?",
  "learn.question.dx": "Quel est le diagnostic ?",
- "loading3d": "Chargement de l’atlas 3D…"
+ "loading3d": "Chargement de l’atlas 3D…",
+ "ctl.hide": "Masquer",
+ "ctl.fade": "Estomper",
+ "ctl.unfade": "Rétablir",
+ "ctl.isolate": "Isoler",
+ "ctl.showall": "Tout afficher",
+ "ctl.showct": "Voir dans le scanner",
+ "ctl.show3d": "Voir en 3D"
 }

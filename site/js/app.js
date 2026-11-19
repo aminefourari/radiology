@@ -5,7 +5,7 @@ import { anchors, bodyExtent, layoutLabels } from "./labels.js";
 import { clampState, formatHash, parseHash } from "./state.js";
 import { applyDir, loadLanguages, loadStrings, localized, saveLang, startLang, structName, t } from "./i18n.js";
 import { REPO_URL, reportUrl } from "./report.js";
-import { atlasVisibility, ctToAtlas, sliceMm } from "./atlasdata.js";
+import { atlasToSite, atlasVisibility, caseFor, ctToAtlas, siteToAtlas, sliceMm } from "./atlasdata.js";
 
 const $ = (id) => document.getElementById(id);
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -115,7 +115,8 @@ async function openCase(id, wanted) {
 
 // ---------- 3D atlas ----------
 // three.js and the atlas load the first time 3D is switched on; the 2D view never fetches them.
-let view = null, viewCase = null, atlas = null, atlasByKey = null;
+let view = null, viewCase = null, atlas = null, atlasByKey = null, links = {}, siteNames = {}, caseKeys = [];
+let shown3d = new Map(), siteOfAtlas = new Map();
 let atlasSys = new Set();
 const a3 = { hidden: new Set(), faded: new Set(), isolated: null, sel: null, at: null };
 const loadedSys = new Map(), fits = new Map();
@@ -157,7 +158,12 @@ async function open3d() {
       const [{ createView3d }, index] = await Promise.all([import("./view3d.js"), getOk("atlas/index.json").then((r) => r.json())]);
       atlas = index;
       atlasByKey = new Map(atlas.structures.map((s) => [s.key, s]));
+      ({ links, siteNames } = atlas);
+      for (const k of atlasByKey.keys()) { const site = atlasToSite(links, k); if (site) siteOfAtlas.set(k, site); }
       view ??= createView3d($("viewer3d"), $("labels3d"));
+      view.onChange(scheduleLabels3d);
+      // Which cases label which structures, for "Show in CT" (tiny files, one per case).
+      caseKeys = await Promise.all(cases.map((c) => caseFit(c.id).then((f) => ({ id: c.id, keys: new Set(f?.keys ?? []) }))));
     }
     const fit = await caseFit(id);
     if (id !== st.case || !st.is3d) return;
@@ -166,9 +172,7 @@ async function open3d() {
       viewCase = id;
       const region = cases.find((c) => c.id === id)?.region;
       atlasSys = new Set(atlas.regionDefaults[region] ?? ["skeleton"]);
-      a3.hidden = new Set(atlas.structures.filter((s) => s.off).map((s) => s.key));
-      a3.faded.clear();
-      a3.isolated = null;
+      resetAtlasView();
       buildAtlasBar();
       await Promise.all([...atlasSys].map(loadSystem));
       if (id !== st.case) return;
@@ -184,6 +188,12 @@ async function open3d() {
   update();
 }
 
+function resetAtlasView() {
+  a3.hidden = new Set(atlas.structures.filter((s) => s.off).map((s) => s.key));
+  a3.faded.clear();
+  a3.isolated = null;
+}
+
 function buildAtlasBar() {
   if (!atlas) return;
   $("atlas-bar").replaceChildren(...atlas.systems.map(({ key, names }) => {
@@ -197,19 +207,122 @@ function buildAtlasBar() {
   }));
 }
 
+// A pick in 3D also selects the structure in the slices when this case labels it.
 function pick3d(e) {
   if (!view) return;
   const r = $("viewer3d").getBoundingClientRect();
   const x = e.clientX - r.left, y = e.clientY - r.top;
   a3.sel = view.pick(x, y);
   a3.at = a3.sel ? { x, y } : null;
+  const site = a3.sel && siteOfAtlas.get(a3.sel);
+  ui.selected = (site && data.meta.structures.find((s) => s.key === site)?.id) || 0;
+  popupAt = null;
   update();
+}
+
+const atlasName = (key) => {
+  const site = siteOfAtlas.get(key);
+  return site ? localized(siteNames[site], st.lang) : atlasByKey.get(key).en;
+};
+
+function smallBtn(label, onclick) {
+  return Object.assign(document.createElement("button"), { className: "btn small", textContent: t(label), onclick });
+}
+
+function placePopup3d() {
+  const pop = $("popup3d");
+  const key = a3.sel, s = key && atlasByKey?.get(key);
+  if (!s || !a3.at || !st.is3d) { pop.hidden = true; return; }
+  const site = siteOfAtlas.get(key);
+  pop.hidden = false;
+  pop.style.setProperty("--c", s.color);
+  const strong = Object.assign(document.createElement("strong"), { textContent: atlasName(key) });
+  const latin = !site && s.la ? [Object.assign(document.createElement("em"), { className: "latin", textContent: s.la })] : [];
+  const close = () => { a3.sel = null; a3.at = null; ui.selected = 0; update(); };
+  const acts = Object.assign(document.createElement("div"), { className: "acts" });
+  acts.append(
+    smallBtn("ctl.hide", () => { a3.hidden.add(key); close(); }),
+    smallBtn(a3.faded.has(key) ? "ctl.unfade" : "ctl.fade", () => { a3.faded.has(key) ? a3.faded.delete(key) : a3.faded.add(key); update(); }),
+    smallBtn(a3.isolated === key ? "ctl.showall" : "ctl.isolate", () => { a3.isolated = a3.isolated === key ? null : key; update(); }),
+  );
+  if (site && caseFor(site, st.case, caseKeys)) acts.append(smallBtn("ctl.showct", () => showInCt(site)));
+  acts.append(smallBtn("ctl.close", close));
+  pop.replaceChildren(strong, ...latin, acts);
+  const v = $("viewer3d");
+  pop.style.left = `${Math.max(8, Math.min(a3.at.x + 12, v.clientWidth - pop.offsetWidth - 8))}px`;
+  pop.style.top = `${Math.max(8, Math.min(a3.at.y + 12, v.clientHeight - pop.offsetHeight - 8))}px`;
+}
+
+// Opens the case that labels it (this one if it does) at its best slice in the current plane.
+async function showInCt(site) {
+  const id = caseFor(site, st.case, caseKeys);
+  if (!id) return;
+  a3.at = null;
+  if (id !== st.case) await openCase(id, { plane: st.plane, slice: null, sys: null });
+  const s = data.meta.structures.find((x) => x.key === site);
+  if (s) jumpTo(s);
+}
+
+// Shows a site structure's atlas parts: their system on, unhidden, a part's parent peeled away, centred.
+function showIn3d(keys) {
+  const s = atlasByKey.get(keys[0]);
+  for (const k of keys) { a3.hidden.delete(k); a3.faded.delete(k); }
+  if (s.parent) a3.hidden.add(s.parent);
+  if (a3.isolated && !keys.includes(a3.isolated)) a3.isolated = null;
+  atlasSys.add(s.system);
+  a3.sel = null;
+  loadSystem(s.system).then(() => view.centerOn(keys[0])).catch(console.error);
+  update();
+}
+
+// Names pinned to the structures this case labels (largest first), drawn once the view settles.
+let labelTimer = 0;
+function scheduleLabels3d() {
+  $("labels3d").replaceChildren();
+  $("popup3d").hidden = true;
+  clearTimeout(labelTimer);
+  labelTimer = setTimeout(() => { drawLabels3d(); placePopup3d(); }, 120);
+}
+
+function drawLabels3d() {
+  const svg = $("labels3d");
+  svg.replaceChildren();
+  if (!view || !st.is3d || !ui.labels || viewCase !== st.case) return;
+  const v = $("viewer3d"), w = v.clientWidth, h = v.clientHeight;
+  if (a3.sel && a3.at) { const p = view.project(a3.sel); if (p?.visible) a3.at = { x: p.x, y: p.y }; }
+  const inCase = new Set(data.meta.structures.map((s) => s.key));
+  const best = new Map(); // site key -> its largest visible atlas part
+  for (const key of shown3d.keys()) {
+    const site = siteOfAtlas.get(key), size = atlasByKey.get(key).size;
+    if (site && inCase.has(site) && !(best.get(site)?.size >= size)) best.set(site, { key, size });
+  }
+  const want = [...best.values()].sort((a, b) => b.size - a.size).slice(0, w < 420 ? 6 : 12).map((b) => b.key);
+  if (a3.sel && shown3d.has(a3.sel) && !want.includes(a3.sel)) want.push(a3.sel);
+  const screen = new Map();
+  for (const key of want) {
+    const p = view.project(key);
+    if (p?.visible && p.x > 0 && p.x < w && p.y > 0 && p.y < h) screen.set(key, { x: p.x, y: p.y });
+  }
+  const placed = layoutLabels(screen, w, h - 40, LINE_H);
+  if (!placed) return;
+  const col = Math.min(150, w * 0.28), maxChars = Math.floor(col / 7);
+  for (const l of placed) {
+    const left = l.side === "left", y = l.y + 40, tx = left ? col : w - col;
+    const name = atlasName(l.id), c = atlasByKey.get(l.id).color;
+    const text = el("text", { x: left ? tx - 6 : tx + 6, y: y + 4, "text-anchor": left ? "end" : "start" });
+    text.textContent = name.length > maxChars ? name.slice(0, maxChars - 1) + "…" : name;
+    svg.append(el("line", { x1: tx, y1: y, x2: l.ax, y2: l.ay, stroke: c }), el("circle", { cx: l.ax, cy: l.ay, r: 3, stroke: c, fill: c }), text);
+  }
 }
 
 function render3d() {
   if (!view || !atlas || viewCase !== st.case) return;
-  view.setVisibility(atlasVisibility(atlas.structures, atlasSys, a3.hidden, a3.faded, a3.isolated));
-  view.select(a3.sel ? [a3.sel] : []);
+  shown3d = atlasVisibility(atlas.structures, atlasSys, a3.hidden, a3.faded, a3.isolated);
+  view.setVisibility(shown3d);
+  const sel2d = ui.selected && data.meta.structures.find((s) => s.id === ui.selected);
+  view.select(a3.sel ? [a3.sel] : sel2d ? siteToAtlas(links, sel2d.key) : []);
+  const defaults = atlas.structures.filter((s) => s.off).length;
+  $("showall3d").hidden = !a3.isolated && !a3.faded.size && a3.hidden.size <= defaults;
   fits.get(st.case)?.then((fit) => {
     if (viewCase !== st.case) return;
     const p = ctToAtlas(fit, st.plane, sliceMm(st.plane, st.slice, data.meta.spacing));
@@ -237,6 +350,7 @@ function buildStatic() {
   };
   $("toggle-3d").onclick = () => set3d(!st.is3d);
   $("fit3d").onclick = () => fits.get(st.case)?.then((fit) => view?.reset(regionBox(fit)));
+  $("showall3d").onclick = () => { resetAtlasView(); update(); };
   $("move").onclick = () => { ui.move = !ui.move; update(); };
   $("focus").onclick = () => toggleFocus(!document.body.classList.contains("focus"));
   $("prev").onclick = () => step(-1);
@@ -581,7 +695,7 @@ function bindViewer() {
   // 3D: OrbitControls rotates/zooms; a click without a drag picks, a double-click centres.
   const v3 = $("viewer3d");
   let down = null;
-  v3.addEventListener("pointerdown", (e) => { down = e.target.closest(".popup, .atlas-bar, .fit3d") ? null : { x: e.clientX, y: e.clientY }; });
+  v3.addEventListener("pointerdown", (e) => { down = e.target.closest(".popup, .atlas-bar, .tools3d") ? null : { x: e.clientX, y: e.clientY }; });
   v3.addEventListener("pointerup", (e) => {
     if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 5) pick3d(e);
     down = null;
@@ -605,6 +719,8 @@ function select(p) {
   const table = colorTable(data.meta.structures, new Set(st.sys), ui.hidden);
   ui.selected = id && table[id * 4 + 3] ? id : 0;
   popupAt = ui.selected ? { x: p.x, y: p.y } : null;
+  a3.sel = null;
+  a3.at = null;
   update();
 }
 
@@ -621,7 +737,8 @@ function placePopup() {
   const close = Object.assign(document.createElement("button"), { className: "btn small", textContent: t("ctl.close") });
   close.onclick = () => { ui.selected = 0; popupAt = null; update(); };
   const rep = reportLink(shown);
-  acts.append(close, ...(rep ? [rep] : []));
+  const parts3d = st.is3d && atlas ? siteToAtlas(links, shown.key) : [];
+  acts.append(close, ...(parts3d.length ? [smallBtn("ctl.show3d", () => showIn3d(parts3d))] : []), ...(rep ? [rep] : []));
   pop.replaceChildren(strong, acts);
   const v = $("viewer");
   pop.style.left = `${Math.min(popupAt.x + 12, v.clientWidth - pop.offsetWidth - 8)}px`;

@@ -148,5 +148,12 @@
  "learn.question.qt": "Is the QTc normal or long?",
  "learn.question.st": "What about the ST segment?",
  "learn.question.dx": "What is the diagnosis?",
- "loading3d": "Loading 3D atlas…"
+ "loading3d": "Loading 3D atlas…",
+ "ctl.hide": "Hide",
+ "ctl.fade": "Fade",
+ "ctl.unfade": "Unfade",
+ "ctl.isolate": "Isolate",
+ "ctl.showall": "Show all",
+ "ctl.showct": "Show in CT",
+ "ctl.show3d": "Show in 3D"
 }

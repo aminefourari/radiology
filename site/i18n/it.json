@@ -148,5 +148,12 @@
  "learn.question.qt": "Il QTc è normale o lungo?",
  "learn.question.st": "Com'è il tratto ST?",
  "learn.question.dx": "Qual è la diagnosi?",
- "loading3d": "Caricamento atlante 3D…"
+ "loading3d": "Caricamento atlante 3D…",
+ "ctl.hide": "Nascondi",
+ "ctl.fade": "Attenua",
+ "ctl.unfade": "Ripristina",
+ "ctl.isolate": "Isola",
+ "ctl.showall": "Mostra tutto",
+ "ctl.showct": "Mostra nella TC",
+ "ctl.show3d": "Mostra in 3D"
 }

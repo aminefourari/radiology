@@ -148,5 +148,12 @@
  "learn.question.qt": "هل QTc طبيعي أم طويل؟",
  "learn.question.st": "ماذا عن مقطع ST؟",
  "learn.question.dx": "ما التشخيص؟",
- "loading3d": "جارٍ تحميل الأطلس ثلاثي الأبعاد…"
+ "loading3d": "جارٍ تحميل الأطلس ثلاثي الأبعاد…",
+ "ctl.hide": "إخفاء",
+ "ctl.fade": "تخفيف",
+ "ctl.unfade": "إظهار كاملاً",
+ "ctl.isolate": "عزل",
+ "ctl.showall": "إظهار الكل",
+ "ctl.showct": "عرض في التصوير المقطعي",
+ "ctl.show3d": "عرض ثلاثي الأبعاد"
 }
