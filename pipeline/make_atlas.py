@@ -15,7 +15,7 @@ import gzip
 
 import numpy as np
 
-from atlaslib import case_centroids, draft_map, fit_axes, validate_map
+from atlaslib import case_centroids, draft_map, fit_axes, part_parents, validate_map
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HERE = os.path.join(ROOT, "pipeline")
@@ -119,6 +119,11 @@ def link():
     m = json.load(open(os.path.join(HERE, "atlas_map.json"), encoding="utf-8"))
     validate_map(m, {s["key"] for s in site_structures()}, {s["key"] for s in index["structures"]})
     index["links"] = m
+    parents = part_parents(site_structures(), m)
+    for s in index["structures"]:
+        s.pop("parent", None)
+        if s["key"] in parents:
+            s["parent"] = parents[s["key"]]
     with open(os.path.join(ATLAS, "index.json"), "w", encoding="utf-8") as f:
         json.dump(index, f, ensure_ascii=False, separators=(",", ":"))
     print(f"{len(m)} links")

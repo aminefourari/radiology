@@ -76,3 +76,14 @@ def case_centroids(labels, spacing, ids):
     present = [i for i in ids if (labels == i).any()]
     cents = ndimage.center_of_mass(np.ones_like(labels), labels, present)
     return {i: tuple(float((c + 0.5) * s) for c, s in zip(cent, spacing)) for i, cent in zip(present, cents)}
+
+
+def part_parents(site, links):
+    """{atlas key: parent atlas key} for atlas parts of site structures that have a parent (liver segments)."""
+    out = {}
+    for s in site:
+        parent = links.get(s.get("parent") or "", [None])[0]
+        for a in links.get(s["key"], []) if parent else []:
+            if a != parent:
+                out[a] = parent
+    return out

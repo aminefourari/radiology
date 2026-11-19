@@ -53,3 +53,10 @@ def test_case_centroids_voxel_centres():
     lab = np.zeros((4, 4, 4), np.uint8)
     lab[1, 2, 3] = 7
     assert case_centroids(lab, (2, 2, 2), [7, 9]) == {7: (3.0, 5.0, 7.0)}
+
+
+def test_part_parents_from_site_parents():
+    from atlaslib import part_parents
+    site = [{"key": "liver", "parent": None}, {"key": "liver_segment_4", "parent": "liver"}]
+    links = {"liver": ["liver"], "liver_segment_4": ["seg_iv"]}
+    assert part_parents(site, links) == {"seg_iv": "liver"}
