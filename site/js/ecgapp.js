@@ -1,7 +1,7 @@
 // ECG page DOM wiring. Geometry lives in ecgplot.js. The paper is one SVG in millimetre units.
 import { WAVE_KINDS, measure, panels, paperMm, parseWaves, pathData, shownWaves, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
 import { STEPS, diagnosisChoices, formatMeasure, isNormal, ltr, makeStore, nextRandom, score } from "./ecglearn.js";
-import { applyDir, loadLanguages, loadStrings, localized, pickLang, t } from "./i18n.js";
+import { applyDir, loadLanguages, loadStrings, localized, saveLang, startLang, t } from "./i18n.js";
 import { REPO_URL, ecgReportUrl } from "./report.js";
 
 const $ = (id) => document.getElementById(id);
@@ -24,7 +24,7 @@ async function boot() {
   }
   const h = new URLSearchParams(location.hash.slice(1));
   const codes = langs.map((l) => l.code);
-  st.lang = codes.includes(h.get("lang")) ? h.get("lang") : pickLang(codes, navigator.languages || [navigator.language]);
+  st.lang = startLang(codes, h.get("lang"));
   st.ecg = list.some((e) => String(e.id) === h.get("ecg")) ? h.get("ecg") : String(list[0].id);
   if (["25", "50"].includes(h.get("speed"))) st.speed = +h.get("speed");
   if (["5", "10", "20"].includes(h.get("gain"))) st.gain = +h.get("gain");
@@ -34,7 +34,7 @@ async function boot() {
   st.learn = h.get("learn") === "1";
 
   $("lang-select").replaceChildren(...langs.map((l) => new Option(`${l.flag} ${l.name}`, l.code)));
-  $("lang-select").onchange = (e) => setLang(e.target.value);
+  $("lang-select").onchange = (e) => { saveLang(e.target.value); setLang(e.target.value); };
   $("ecg-select").onchange = (e) => openEcg(e.target.value);
   $("speed").onchange = (e) => { st.speed = +e.target.value; draw(); };
   $("gain").onchange = (e) => { st.gain = +e.target.value; draw(); };
