@@ -3713,6 +3713,86 @@
    }
   },
   {
+   "key": "radius",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#7fb3e6",
+   "parent": null,
+   "names": {
+    "en": "Radius",
+    "de": "Speiche (Radius)",
+    "es": "Radio",
+    "ar": "الكعبرة",
+    "fr": "Radius",
+    "it": "Radio",
+    "nl": "Spaakbeen"
+   }
+  },
+  {
+   "key": "ulna",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#e6c27f",
+   "parent": null,
+   "names": {
+    "en": "Ulna",
+    "de": "Elle (Ulna)",
+    "es": "Cúbito",
+    "ar": "الزند",
+    "fr": "Ulna",
+    "it": "Ulna",
+    "nl": "Ellepijp"
+   }
+  },
+  {
+   "key": "carpal",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#f2a65a",
+   "parent": null,
+   "names": {
+    "en": "Carpal bones",
+    "de": "Handwurzelknochen",
+    "es": "Huesos del carpo",
+    "ar": "عظام الرسغ",
+    "fr": "Os du carpe",
+    "it": "Ossa del carpo",
+    "nl": "Handwortelbeentjes"
+   }
+  },
+  {
+   "key": "metacarpal",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Metacarpal bones",
+    "de": "Mittelhandknochen",
+    "es": "Metacarpianos",
+    "ar": "عظام مشط اليد",
+    "fr": "Métacarpiens",
+    "it": "Metacarpi",
+    "nl": "Middenhandsbeentjes"
+   }
+  },
+  {
+   "key": "phalanges_hand",
+   "source": "appendicular_bones",
+   "system": "limb-bones",
+   "color": "#8fd19e",
+   "parent": null,
+   "names": {
+    "en": "Phalanges of the hand",
+    "de": "Fingerglieder",
+    "es": "Falanges de la mano",
+    "ar": "سلاميات اليد",
+    "fr": "Phalanges de la main",
+    "it": "Falangi della mano",
+    "nl": "Vingerkootjes"
+   }
+  },
+  {
    "key": "gluteus_maximus_right",
    "source": "total",
    "system": "limb-muscles",

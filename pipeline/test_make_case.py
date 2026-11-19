@@ -54,8 +54,9 @@ def test_case_file_z_range_crops(tmp_path):
     fake_dataset(src)
     case_file = tmp_path / "t2.json"
     case_file.write_text(json.dumps({
-        "region": "chest", "title": {"en": "T"}, "tasks": ["total"], "zRange": "5:12",
+        "region": "chest", "title": {"en": "T"}, "tasks": ["total"], "zRange": "5:12", "yRange": "0:8",
         "systems": ["organs", "arteries"], "defaultSystems": ["organs"], "windows": ["soft"], "keyLevels": []}))
     main([str(src), "t2", "--case-file", str(case_file), "--out", str(tmp_path / "site")])
     meta = json.loads((tmp_path / "site" / "cases" / "t2" / "meta.json").read_text(encoding="utf-8"))
     assert meta["dims"][2] == 7
+    assert meta["dims"][1] <= 8

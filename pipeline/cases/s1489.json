@@ -1,0 +1,100 @@
+{
+ "region": "upper-limb",
+ "title": {
+  "en": "Hands & wrists · CT",
+  "de": "Hände & Handgelenke · CT",
+  "es": "Manos y muñecas · TC",
+  "ar": "اليدان والرسغان · تصوير مقطعي",
+  "fr": "Mains et poignets · TDM",
+  "it": "Mani e polsi · TC",
+  "nl": "Handen en polsen · CT"
+ },
+ "yRange": "87:125",
+ "tasks": [
+  "appendicular_bones"
+ ],
+ "systems": [
+  "limb-bones"
+ ],
+ "defaultSystems": [
+  "limb-bones"
+ ],
+ "windows": [
+  "bone",
+  "soft"
+ ],
+ "keyLevels": [
+  {
+   "names": {
+    "en": "Distal radius & ulna",
+    "de": "Distaler Radius & Ulna",
+    "es": "Radio y cúbito distales",
+    "ar": "الكعبرة والزند القاصيان",
+    "fr": "Radius et ulna distaux",
+    "it": "Radio e ulna distali",
+    "nl": "Distale radius en ulna"
+   },
+   "axial": 15
+  },
+  {
+   "names": {
+    "en": "Proximal carpal row",
+    "de": "Proximale Handwurzelreihe",
+    "es": "Fila proximal del carpo",
+    "ar": "الصف الرسغي الداني",
+    "fr": "Rangée proximale du carpe",
+    "it": "Fila prossimale del carpo",
+    "nl": "Proximale handwortelrij"
+   },
+   "axial": 35
+  },
+  {
+   "names": {
+    "en": "Distal carpal row",
+    "de": "Distale Handwurzelreihe",
+    "es": "Fila distal del carpo",
+    "ar": "الصف الرسغي القاصي",
+    "fr": "Rangée distale du carpe",
+    "it": "Fila distale del carpo",
+    "nl": "Distale handwortelrij"
+   },
+   "axial": 48
+  },
+  {
+   "names": {
+    "en": "Metacarpal shafts",
+    "de": "Mittelhandschäfte",
+    "es": "Diáfisis metacarpianas",
+    "ar": "أجسام عظام المشط",
+    "fr": "Diaphyses métacarpiennes",
+    "it": "Diafisi metacarpali",
+    "nl": "Middenhandsschachten"
+   },
+   "axial": 65
+  },
+  {
+   "names": {
+    "en": "Proximal phalanges",
+    "de": "Grundglieder",
+    "es": "Falanges proximales",
+    "ar": "السلاميات الدانية",
+    "fr": "Phalanges proximales",
+    "it": "Falangi prossimali",
+    "nl": "Proximale kootjes"
+   },
+   "axial": 100
+  },
+  {
+   "names": {
+    "en": "Middle phalanges",
+    "de": "Mittelglieder",
+    "es": "Falanges medias",
+    "ar": "السلاميات الوسطى",
+    "fr": "Phalanges moyennes",
+    "it": "Falangi medie",
+    "nl": "Middelste kootjes"
+   },
+   "axial": 120
+  }
+ ]
+}
