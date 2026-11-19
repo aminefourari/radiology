@@ -63,3 +63,11 @@ export function stSegments(waves) {
   });
   return out;
 }
+
+// Wave bands to shade on one panel. `all` = the Waves toggle (P, QRS, ST, T);
+// otherwise only the highlighted clue's wave, and not on dimmed leads.
+export function shownWaves(waves, { all, highlight, dim = false }) {
+  if (all) return [...waves, ...stSegments(waves)];
+  if (!highlight || dim) return [];
+  return highlight === "ST" ? stSegments(waves) : waves.filter((w) => w.k === highlight);
+}

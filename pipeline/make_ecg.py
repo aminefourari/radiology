@@ -63,8 +63,9 @@ def read_annotations(b):
     return [(s, a) for s, a in out if a]
 
 
-def pair_waves(points):
-    """ECGDeli '<wave> onset' / '<wave> offset' notes → [{"k": P|QRS|T, "on": s, "off": s}]."""
+def pair_waves(points, n=None):
+    """ECGDeli '<wave> onset' / '<wave> offset' notes → [{"k": P|QRS|T, "on": s, "off": s}].
+    With n (record length), drops waves that run into the end of the record: they are cut off."""
     waves, open_ = [], {}
     for s, text in points:
         for prefix, k in WAVE_KINDS.items():
@@ -72,7 +73,7 @@ def pair_waves(points):
                 open_[k] = s
             elif text == f"{prefix} offset" and k in open_:
                 on = open_.pop(k)
-                if s > on:
+                if s > on and (n is None or s < n - 1):
                     waves.append({"k": k, "on": on, "off": s})
     return sorted(waves, key=lambda w: w["on"])
 
@@ -175,7 +176,7 @@ def main(argv=None):
             "axis": r["heart_axis"] or None,
             "statements": [{"code": c, "text": scp.get(c, c), "likelihood": v} for c, v in codes.items()],
             "group": pick["group"],
-            "waves": [w for w in pair_waves(points) if not (w["k"] == "P" and NO_P_CODES & codes.keys())],
+            "waves": [w for w in pair_waves(points, uv.shape[1]) if not (w["k"] == "P" and NO_P_CODES & codes.keys())],
             "wavesSource": WAVES_SOURCE,
             "measures": measures[n], "measuresSource": MEASURES_SOURCE,
             "answers": answers, "notes": notes, "clues": pick.get("clues", []),
