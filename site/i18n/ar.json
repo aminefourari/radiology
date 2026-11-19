@@ -69,5 +69,13 @@
  "home.ct": "تصفّح تصويرًا مقطعيًا حقيقيًا للبطن في ثلاثة مستويات مع بنى ملونة ومسمّاة ومستويات رئيسية.",
  "home.ecg": "اقرأ تخطيطات قلب حقيقية باثني عشر اتجاهًا على الورق القياسي، وقِس بالفرجار، واختبر نفسك على الأنماط الكلاسيكية.",
  "home.disclaimer": "للاستخدام التعليمي فقط — ليس للتشخيص.",
- "home.credits": "البيانات: مجموعة TotalSegmentator (التصوير المقطعي) و PTB-XL (تخطيط القلب)، كلاهما CC BY 4.0. الشيفرة: MIT."
+ "home.credits": "البيانات: مجموعة TotalSegmentator (التصوير المقطعي) و PTB-XL (تخطيط القلب)، كلاهما CC BY 4.0. الشيفرة: MIT.",
+ "ecg.waves": "الموجات",
+ "ecg.wavesCredit": "حدود الموجات (تلقائية، قد تكون خاطئة): {source}، {license}",
+ "ecg.group.normal": "طبيعي",
+ "ecg.group.rhythm": "النظم",
+ "ecg.group.conduction": "التوصيل",
+ "ecg.group.hypertrophy": "التضخم",
+ "ecg.group.ischaemia": "نقص التروية والاحتشاء",
+ "ecg.group.other": "أخرى"
 }

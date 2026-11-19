@@ -152,8 +152,21 @@ body.focus .slicer { padding: 0 12px 8px; }
 
 /* ECG page */
 .paper { position: relative; overflow-x: auto; background: #fff7f4; touch-action: pan-x pan-y; }
-.paper canvas { display: block; }
-.paper #overlay { position: absolute; top: 0; left: 0; }
+.paper svg { display: block; user-select: none; -webkit-user-select: none; }
+#trace .bg { fill: #fff7f4; }
+#trace .g1, #trace .g5, #trace path, #trace line { fill: none; vector-effect: non-scaling-stroke; }
+#trace .g1 { stroke: #f6cfcf; stroke-width: 0.5px; }
+#trace .g5 { stroke: #e69a9a; stroke-width: 1px; }
+#trace .traces path { stroke: #111; stroke-width: 1.2px; stroke-linejoin: round; }
+#trace .leads text { font: 600 3.2px var(--mono); fill: #111; }
+#trace .leads line { stroke: #111; stroke-width: 1.5px; }
+#trace .waves rect { opacity: 0.22; }
+#trace .waves text { font: 600 2.6px var(--mono); text-anchor: middle; }
+#trace .w-P { fill: #1f6fd1; }
+#trace .w-QRS { fill: #d12f2f; }
+#trace .w-T { fill: #1e8a43; }
+#cal path { stroke: #1565c0; stroke-width: 1.5px; }
+#cal text { font: 600 3.4px var(--mono); fill: #1565c0; }
 .paper.measuring { touch-action: none; cursor: crosshair; }
 .answer { margin-top: 14px; padding: 10px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); font-family: var(--sans); }
 .answer summary { cursor: pointer; font-family: var(--mono); }

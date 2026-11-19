@@ -35,3 +35,20 @@ export function measure(dx, dy, { speed, gain, ppm }) {
   const ms = (Math.abs(dx) / ppm / speed) * 1000;
   return { ms: Math.round(ms), bpm: ms > 0 ? Math.round(60000 / ms) : null, mv: Math.round((Math.abs(dy) / ppm / gain) * 100) / 100 };
 }
+
+// SVG path "M x y L x y …" from flat points, 2 decimals (paper mm → 0.01 mm is plenty).
+export function pathData(pts) {
+  let d = "";
+  for (let k = 0; k < pts.length; k += 2) d += `${k ? "L" : "M"}${pts[k].toFixed(2)} ${pts[k + 1].toFixed(2)}`;
+  return d;
+}
+
+// Wave bands ({k, on, off} in samples) clipped to one panel → rects in paper mm.
+export function waveBands(waves, fs, { row, t0, t1 }, speed) {
+  const out = [];
+  for (const w of waves) {
+    const a = Math.max(w.on / fs, t0), b = Math.min(w.off / fs, t1);
+    if (b > a) out.push({ k: w.k, x: a * speed, w: (b - a) * speed, y: row * ROW_MM, h: ROW_MM });
+  }
+  return out;
+}

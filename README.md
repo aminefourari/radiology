@@ -13,10 +13,10 @@ you spot a mistake, use "Report a problem" on the structure.
 
 ![Axial slice at the celiac trunk with liver segments, vessels and labels](assets/screenshot.png)
 
-The landing page links both atlases. The CT atlas is `ct.html`. The **ECG atlas** (`ecg.html`) is a separate page with real 12-lead ECGs from PTB-XL: classic
-patterns (normal, MI, bundle branch blocks, AF, flutter, LVH, AV block, WPW) on standard paper,
-with 3×4 or 12×1 layout, speed and gain, calipers for intervals and rate, and a quiz mode that
-hides the diagnosis until you open the interpretation.
+The landing page links both atlases. The CT atlas is `ct.html`. The **ECG atlas** (`ecg.html`) is a separate page with 29 real 12-lead ECGs from PTB-XL, grouped by
+rhythm, conduction, hypertrophy, ischaemia and more, drawn as sharp vector graphics on standard paper. It has a
+3×4 or 12×1 layout, speed and gain, calipers for intervals and rate, P/QRS/T wave shading, and a
+quiz mode that hides the diagnosis until you open the interpretation.
 
 Languages: English, Deutsch, Español, العربية, Français, Italiano, Nederlands.
 
@@ -55,5 +55,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 - ECGs come from **PTB-XL** (Wagner et al., PhysioNet,
   [doi:10.13026/kfzx-aw45](https://doi.org/10.13026/kfzx-aw45)), licensed
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Interpretations are the dataset's
-  cardiologist-validated SCP-ECG statements.
+  cardiologist-validated SCP-ECG statements. P/QRS/T boundaries come from **PTB-XL+**
+  ([doi:10.13026/g6h6-7g88](https://doi.org/10.13026/g6h6-7g88), CC BY 4.0), computed
+  automatically by ECGDeli. P bands are hidden for AF, flutter, SVT and 2nd/3rd-degree AV block.
 - Code: [MIT](LICENSE).
