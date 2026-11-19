@@ -2,10 +2,10 @@
 
 # CT Anatomy Atlas
 
-An open, multilingual web atlas of cross-sectional anatomy on real CT scans. Scroll through a
-scan in axial, coronal or sagittal view. Switch coloured structures on and off by system (organs,
-Couinaud liver segments, digestive, urinary, pelvis, spine, arteries, veins), read the labels, and
-jump to key levels such as the celiac trunk or the renal veins.
+An open, multilingual web atlas of cross-sectional anatomy on real CT scans. Pick a region (head,
+neck, abdomen & pelvis) and scroll through it in axial, coronal or sagittal view. Switch coloured
+structures on and off by system, read the labels, and jump to key levels such as the lateral
+ventricles, the thyroid cartilage or the celiac trunk.
 
 It's for medical students, doctors, and anyone learning anatomy. **Educational use only — not
 for diagnosis.** The labels are generated automatically and reviewed by the community. If
@@ -38,7 +38,7 @@ There's no build step and there are no dependencies. `site/` is the whole websit
 ## Deploy
 
 Upload `site/` to any static host (GitHub Pages, Cloudflare Pages, Netlify, …). Each case is
-about 21 MB and loads in the browser.
+3–20 MB compressed and loads in the browser.
 
 ## Tests
 

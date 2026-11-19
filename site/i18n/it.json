@@ -65,7 +65,7 @@
  "ecg.credit": "Dati ECG: {source}, {license}",
  "home.title": "Atlante clinico",
  "home.tagline": "Atlanti liberi e aperti basati su dati reali di pazienti, per studenti di medicina e medici. Senza login. Funziona sul telefono.",
- "home.ct": "Scorri una vera TC addominale in tre piani con strutture colorate ed etichettate e livelli chiave.",
+ "home.ct": "Scorri vere TC, regione per regione, in tre piani con strutture colorate ed etichettate e livelli chiave.",
  "home.ecg": "Leggi veri ECG a 12 derivazioni su carta standard, misura con il compasso e mettiti alla prova sui quadri classici.",
  "home.disclaimer": "Solo per uso didattico — non per la diagnosi.",
  "home.credits": "Dati: dataset TotalSegmentator (TC) e PTB-XL (ECG), entrambi CC BY 4.0. Codice: MIT.",

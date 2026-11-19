@@ -65,7 +65,7 @@
  "ecg.credit": "Datos de ECG: {source}, {license}",
  "home.title": "Atlas Clínico",
  "home.tagline": "Atlas libres y abiertos con datos reales de pacientes, para estudiantes de medicina y médicos. Sin registro. Funciona en el móvil.",
- "home.ct": "Recorre una TC abdominal real en tres planos con estructuras coloreadas y etiquetadas y niveles clave.",
+ "home.ct": "Recorre TC reales, región por región, en tres planos con estructuras coloreadas y etiquetadas y niveles clave.",
  "home.ecg": "Lee ECG reales de 12 derivaciones en papel estándar, mide con el compás y ponte a prueba con patrones clásicos.",
  "home.disclaimer": "Solo para uso educativo, no para diagnóstico.",
  "home.credits": "Datos: conjunto TotalSegmentator (TC) y PTB-XL (ECG), ambos CC BY 4.0. Código: MIT.",

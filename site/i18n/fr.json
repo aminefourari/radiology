@@ -65,7 +65,7 @@
  "ecg.credit": "Données ECG : {source}, {license}",
  "home.title": "Atlas clinique",
  "home.tagline": "Des atlas libres et ouverts, construits sur des données réelles de patients, pour les étudiants en médecine et les médecins. Sans connexion. Fonctionne sur téléphone.",
- "home.ct": "Parcourez une vraie TDM abdominale dans trois plans, avec des structures colorées et légendées et des niveaux clés.",
+ "home.ct": "Parcourez de vraies TDM, région par région, dans trois plans, avec des structures colorées et légendées et des niveaux clés.",
  "home.ecg": "Lisez de vrais ECG 12 dérivations sur papier standard, mesurez au compas et testez-vous sur les tracés classiques.",
  "home.disclaimer": "Usage pédagogique uniquement — pas pour le diagnostic.",
  "home.credits": "Données : jeu TotalSegmentator (TDM) et PTB-XL (ECG), tous deux CC BY 4.0. Code : MIT.",
