@@ -2,30 +2,41 @@
 
 # CT Anatomy Atlas
 
-An open, multilingual web atlas of cross-sectional anatomy on real CT scans. Pick a region (head,
-neck, chest, abdomen & pelvis, lower limb, hands) and scroll through it in axial, coronal or sagittal view. Switch coloured
-structures on and off by system, read the labels, and jump to key levels such as the lateral
-ventricles, the thyroid cartilage or the celiac trunk.
+A free, open, multilingual web atlas of anatomy on real CT scans, with a companion ECG atlas.
+It's for medical students, doctors and anyone learning anatomy.
 
-It's for medical students, doctors, and anyone learning anatomy. **Educational use only — not
-for diagnosis.** The labels are generated automatically and reviewed by the community. If
-you spot a mistake, use "Report a problem" on the structure.
+**Educational use only. Not for diagnosis.** Labels are generated automatically and reviewed by
+the community. If you spot a mistake, use "Report a problem" on the structure.
 
-![Axial slice at the celiac trunk with liver segments, vessels and labels](assets/screenshot.png)
+![Axial CT at the celiac trunk: liver segments, pancreas, spleen, aorta and IVC, labelled](assets/screenshot.png)
 
-The landing page links both atlases. The CT atlas is `ct.html`. The **ECG atlas** (`ecg.html`) has 29 real
-12-lead ECGs from PTB-XL, grouped by rhythm, conduction, hypertrophy, ischaemia and more, drawn as
-sharp vector graphics on standard paper, with 3×4 or 12×1 layouts, speed and gain, calipers,
-P, QRS, ST and T wave shading (each on or off), and a quiz mode that hides the diagnosis until you open the interpretation.
-It teaches how to *find* the pathology:
+## What's inside
 
-- **Study:** under each tracing, a reading card walks the same steps every time (rate, rhythm,
-  axis, PR, QRS, QTc, ST) with the measured value, the normal range and a verdict, followed by
-  clues for the pathology. Tapping a clue lights up the leads that show it.
-- **Learn:** a scored checklist on a random ECG. Answer each step, get feedback with the
-  measurement and a teaching note, then pick the diagnosis from four.
+**CT atlas** (`ct.html`)
 
-Languages: English, Deutsch, Español, العربية, Français, Italiano, Nederlands.
+- Six regions, each a real scan: head, neck, chest, abdomen & pelvis, lower limb, upper limb (hands & wrists).
+- Scroll in axial, coronal or sagittal. Zoom, pan, and choose the window (soft tissue, lung, bone…).
+- Coloured structures grouped by system (organs, liver segments, arteries, veins, spine…), each
+  system toggled on and off, with labels pinned to the image.
+- Key levels jump straight to landmarks such as the lateral ventricles, the thyroid cartilage or
+  the celiac trunk.
+- A rotatable 3D view of the labelled structures, loaded only when you open it.
+- Every view has its own link, so you can share the exact slice.
+
+**ECG atlas** (`ecg.html`)
+
+- 29 real 12-lead ECGs from PTB-XL, grouped by rhythm, conduction, hypertrophy, ischaemia and more.
+- Sharp vector tracings on standard paper: 3×4 or 12×1 layout, speed and gain, calipers, and
+  P / QRS / ST / T shading, each on or off.
+- **Study:** a reading card under each tracing walks rate, rhythm, axis, PR, QRS, QTc and ST, with
+  the measured value, the normal range and a verdict, then clues for the diagnosis. Tap a clue to
+  light up the leads that show it.
+- **Learn:** a scored checklist on a random ECG, with feedback at each step, then pick the
+  diagnosis from four.
+- Quiz mode hides the diagnosis until you open the interpretation.
+
+**Languages:** English, Deutsch, Español, العربية, Français, Italiano, Nederlands.
+Scans are always shown radiologically (patient right on the viewer's left), in every language.
 
 ## Run it locally
 
@@ -33,47 +44,53 @@ Languages: English, Deutsch, Español, العربية, Français, Italiano, Nede
 python3 -m http.server -d site 8000   # then open http://localhost:8000
 ```
 
-There's no build step and there are no dependencies. `site/` is the whole website.
+No build step, no dependencies: `site/` is the whole website.
 
 ## Deploy
 
-Upload `site/` to any static host (GitHub Pages, Cloudflare Pages, Netlify, …). Each case is
+Upload `site/` to any static host (GitHub Pages, Cloudflare Pages, Netlify…). Each CT case is
 3–20 MB compressed and loads in the browser.
 
 ## Tests
 
 ```sh
-npm test                      # viewer modules (Node built-in test runner, no npm install needed)
+npm test                      # viewer modules (Node's built-in runner, no npm install)
+
 uv venv -p 3.12 .venv && uv pip install -p .venv -r pipeline/requirements.txt
 .venv/bin/pytest pipeline -q  # case pipeline
 ```
 
-## Adding a case, fixing a label, adding a language
+## How it's built
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+An offline Python pipeline (`pipeline/`) turns open-dataset CTs and their segmentations into
+compact case files in `site/cases/`. The static site reslices and labels them in the browser.
+ECGs are converted the same way into `site/ecg/`.
+
+## Contributing
+
+Adding a case, fixing a label or translation, adding a language: see
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Credits and licences
 
-- CT data and segmentations come from the **TotalSegmentator dataset**
-  ([doi:10.5281/zenodo.6802613](https://doi.org/10.5281/zenodo.6802613)), licensed
+- **CT data and segmentations:** the
+  [TotalSegmentator dataset](https://doi.org/10.5281/zenodo.6802613),
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Case `s0010` uses that dataset's
-  masks, plus Couinaud liver segments generated with the open `liver_segments` model from
-  [TotalSegmentator](https://github.com/wasserth/TotalSegmentator) (Apache-2.0).
-  The other cases add masks from more TotalSegmentator models, listed per case in
-  `pipeline/cases/<id>.json` (`tasks`) and in each case's `meta.json` (`source.tasks`). Open
-  models (Apache-2.0): `ventricle_parts`, `head_glands_cavities`, `oculomotor_muscles`,
-  `headneck_bones_vessels`, `head_muscles`, `headneck_muscles`, `lung_vessels`. Licensed models:
-  `brain_structures` (head `s1508`), `heartchambers_highres` (chest `s0739`),
-  `appendicular_bones` (lower limb `s0783`, hands `s1489`) and `thigh_shoulder_muscles` (lower
-  limb `s0783`). Their author, Jakob Wasserthal, gave permission on 2026-11-19 to publish their
-  outputs in this free, non-commercial atlas. Rebuilding those
-  cases needs your own TotalSegmentator licence key; the others build with open models only.
-- ECGs come from **PTB-XL** (Wagner et al., PhysioNet,
-  [doi:10.13026/kfzx-aw45](https://doi.org/10.13026/kfzx-aw45)), licensed
+  masks plus Couinaud liver segments from the open `liver_segments` model of
+  [TotalSegmentator](https://github.com/wasserth/TotalSegmentator) (Apache-2.0). The other cases
+  add masks from more TotalSegmentator models, listed per case in `pipeline/cases/<id>.json`
+  (`tasks`) and each case's `meta.json` (`source.tasks`).
+  - Open models (Apache-2.0): `ventricle_parts`, `head_glands_cavities`, `oculomotor_muscles`,
+    `headneck_bones_vessels`, `head_muscles`, `headneck_muscles`, `lung_vessels`.
+  - Licensed models: `brain_structures` (head `s1508`), `heartchambers_highres` (chest `s0739`),
+    `appendicular_bones` (lower limb `s0783`, hands `s1489`) and `thigh_shoulder_muscles` (lower
+    limb `s0783`). Their author, Jakob Wasserthal, gave permission on 2026-11-19 to publish their
+    outputs in this free, non-commercial atlas. Rebuilding those cases needs your own
+    TotalSegmentator licence key; the others build with open models only.
+- **ECGs:** [PTB-XL](https://doi.org/10.13026/kfzx-aw45) (Wagner et al., PhysioNet),
   [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Interpretations are the dataset's
-  cardiologist-validated SCP-ECG statements. P/QRS/T boundaries come from **PTB-XL+**
-  ([doi:10.13026/g6h6-7g88](https://doi.org/10.13026/g6h6-7g88), CC BY 4.0), computed
-  automatically by ECGDeli. P bands are hidden for AF, flutter, SVT and 2nd/3rd-degree AV block.
-  The reading card's measurements are PTB-XL+'s GE 12SL features (same DOI, CC BY 4.0). Clues are
-  teaching notes reviewed by the community: use "Report a problem" next to any clue.
-- Code: [MIT](LICENSE).
+  cardiologist-validated SCP-ECG statements. Wave boundaries and the reading card's measurements
+  (ECGDeli and GE 12SL) come from [PTB-XL+](https://doi.org/10.13026/g6h6-7g88), CC BY 4.0.
+  P bands are hidden for AF, flutter, SVT and 2nd/3rd-degree AV block. Clues are teaching notes
+  reviewed by the community: use "Report a problem" next to any clue.
+- **Code:** [MIT](LICENSE).
