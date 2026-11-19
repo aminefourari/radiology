@@ -38,7 +38,13 @@
     <button class="btn" role="radio" data-layout="12x1">12×1</button>
   </div>
   <button id="learn-btn" class="btn learn-btn" aria-pressed="false" data-t="learn.button">Learn</button>
-  <button id="waves" class="btn" aria-pressed="false" data-t="ecg.waves">Waves</button>
+  <div id="waves" class="wave-toggles" role="group" aria-label="Waves" data-t-aria="ecg.waves" dir="ltr">
+    <span data-t="ecg.waves">Waves</span>
+    <button class="btn small w-P" aria-pressed="false" data-k="P">P</button>
+    <button class="btn small w-QRS" aria-pressed="false" data-k="QRS">QRS</button>
+    <button class="btn small w-ST" aria-pressed="false" data-k="ST">ST</button>
+    <button class="btn small w-T" aria-pressed="false" data-k="T">T</button>
+  </div>
   <button id="calipers" class="btn" aria-pressed="false" data-t="ecg.calipers">Calipers</button>
   <label class="check"><input id="quiz" type="checkbox"> <span data-t="ecg.quiz">Quiz mode</span></label>
 </section>

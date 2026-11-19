@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { measure, panels, paperMm, pathData, shownWaves, stSegments, tracePoints, waveBands, ROW_MM } from "../site/js/ecgplot.js";
+import { measure, panels, paperMm, parseWaves, pathData, shownWaves, stSegments, tracePoints, waveBands, ROW_MM } from "../site/js/ecgplot.js";
 
 test("3x4 layout: 12 leads in 2.5 s columns plus a full lead II rhythm strip", () => {
   const p = panels(10, "3x4");
@@ -50,16 +50,24 @@ test("stSegments: each QRS offset to the next T onset", () => {
 const W3 = [{ k: "P", on: 0, off: 5 }, { k: "QRS", on: 10, off: 20 }, { k: "T", on: 40, off: 60 }];
 const ST = { k: "ST", on: 20, off: 40 };
 
-test("shownWaves: Waves on shades P, QRS, ST and T, once each", () => {
+test("shownWaves: only the chosen kinds are shaded, once each", () => {
   const ks = (o) => shownWaves(W3, o).map((w) => w.k).sort();
-  assert.deepEqual(ks({ all: true }), ["P", "QRS", "ST", "T"]);
-  assert.deepEqual(ks({ all: true, highlight: "ST" }), ["P", "QRS", "ST", "T"]);
-  assert.deepEqual(ks({ all: true, highlight: "QRS" }), ["P", "QRS", "ST", "T"]);
+  assert.deepEqual(ks({ kinds: ["P", "QRS", "ST", "T"] }), ["P", "QRS", "ST", "T"]);
+  assert.deepEqual(ks({ kinds: ["QRS", "T"] }), ["QRS", "T"]);
+  assert.deepEqual(ks({ kinds: ["ST"] }), ["ST"]);
+  assert.deepEqual(ks({ kinds: ["ST"], highlight: "ST" }), ["ST"]);
 });
 
-test("shownWaves: Waves off shows only the highlighted wave, and nothing on dimmed leads", () => {
-  assert.deepEqual(shownWaves(W3, { all: false }), []);
-  assert.deepEqual(shownWaves(W3, { all: false, highlight: "ST" }), [ST]);
-  assert.deepEqual(shownWaves(W3, { all: false, highlight: "T" }), [W3[2]]);
-  assert.deepEqual(shownWaves(W3, { all: false, highlight: "T", dim: true }), []);
+test("shownWaves: a clue's wave is added on highlighted leads only", () => {
+  assert.deepEqual(shownWaves(W3, { kinds: [] }), []);
+  assert.deepEqual(shownWaves(W3, { kinds: [], highlight: "ST" }), [ST]);
+  assert.deepEqual(shownWaves(W3, { kinds: ["P"], highlight: "T" }).map((w) => w.k), ["P", "T"]);
+  assert.deepEqual(shownWaves(W3, { kinds: [], highlight: "T", dim: true }), []);
+});
+
+test("parseWaves: old waves=1 links mean all; unknown kinds are dropped; order is fixed", () => {
+  assert.deepEqual(parseWaves("1"), ["P", "QRS", "ST", "T"]);
+  assert.deepEqual(parseWaves("T,P,xyz"), ["P", "T"]);
+  assert.deepEqual(parseWaves(null), []);
+  assert.deepEqual(parseWaves(""), []);
 });
