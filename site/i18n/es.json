@@ -69,5 +69,13 @@
  "home.ct": "Recorre una TC abdominal real en tres planos con estructuras coloreadas y etiquetadas y niveles clave.",
  "home.ecg": "Lee ECG reales de 12 derivaciones en papel estándar, mide con el compás y ponte a prueba con patrones clásicos.",
  "home.disclaimer": "Solo para uso educativo, no para diagnóstico.",
- "home.credits": "Datos: conjunto TotalSegmentator (TC) y PTB-XL (ECG), ambos CC BY 4.0. Código: MIT."
+ "home.credits": "Datos: conjunto TotalSegmentator (TC) y PTB-XL (ECG), ambos CC BY 4.0. Código: MIT.",
+ "ecg.waves": "Ondas",
+ "ecg.wavesCredit": "Límites de las ondas (automáticos, pueden fallar): {source}, {license}",
+ "ecg.group.normal": "Normal",
+ "ecg.group.rhythm": "Ritmo",
+ "ecg.group.conduction": "Conducción",
+ "ecg.group.hypertrophy": "Hipertrofia y crecimiento",
+ "ecg.group.ischaemia": "Isquemia e infarto",
+ "ecg.group.other": "Otros"
 }

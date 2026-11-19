@@ -69,5 +69,13 @@
  "home.ct": "Durch ein echtes Abdomen-CT in drei Ebenen scrollen, mit farbigen, beschrifteten Strukturen und Schlüsselebenen.",
  "home.ecg": "Echte 12-Kanal-EKGs auf Standardpapier lesen, mit dem Messzirkel ausmessen und sich an klassischen Befunden testen.",
  "home.disclaimer": "Nur für die Lehre — nicht zur Diagnose.",
- "home.credits": "Daten: TotalSegmentator-Datensatz (CT) und PTB-XL (EKG), beide CC BY 4.0. Code: MIT."
+ "home.credits": "Daten: TotalSegmentator-Datensatz (CT) und PTB-XL (EKG), beide CC BY 4.0. Code: MIT.",
+ "ecg.waves": "Wellen",
+ "ecg.wavesCredit": "Wellengrenzen (automatisch, evtl. fehlerhaft): {source}, {license}",
+ "ecg.group.normal": "Normal",
+ "ecg.group.rhythm": "Rhythmus",
+ "ecg.group.conduction": "Erregungsleitung",
+ "ecg.group.hypertrophy": "Hypertrophie & Vergrößerung",
+ "ecg.group.ischaemia": "Ischämie & Infarkt",
+ "ecg.group.other": "Sonstiges"
 }

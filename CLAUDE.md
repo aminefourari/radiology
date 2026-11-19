@@ -32,5 +32,6 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
 - `site/js` modules other than `app.js` must stay DOM-free so Node can test them.
 - No backend, no build step, no npm dependencies.
 - Languages: en, de, es, ar (rtl), fr, it, nl; missing strings fall back to en.
-- Data credit: TotalSegmentator dataset, CC BY 4.0; PTB-XL, CC BY 4.0. Code: MIT.
+- Data credit: TotalSegmentator dataset, CC BY 4.0; PTB-XL and PTB-XL+, CC BY 4.0.
+- ECG paper is one SVG in mm units (viewBox = paper mm); strokes use `vector-effect: non-scaling-stroke`. Code: MIT.
 - Commits carry no AI attribution.

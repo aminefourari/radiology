@@ -63,11 +63,15 @@ For a new case, also create `pipeline/cases/<id>.json` with its `title` and `key
 
 ## Adding an ECG
 
-Add `{"id": <PTB-XL ecg_id>, "title": {"en": …, …}}` to `pipeline/ecgs.json`, then:
+Add `{"id": <PTB-XL ecg_id>, "group": "rhythm|conduction|hypertrophy|ischaemia|other|normal", "title": {"en": …, …}}`
+to `pipeline/ecgs.json`, then:
 
 ```sh
 .venv/bin/python pipeline/make_ecg.py   # downloads only the listed records, writes site/ecg/
 ```
+
+It also fetches each record's wave boundaries from PTB-XL+. If a new rhythm has no regular P waves,
+add its SCP code to `NO_P_CODES` in `make_ecg.py`.
 
 Pick records with `validated_by_human` set and no noise flags in `ptbxl_database.csv`.
 

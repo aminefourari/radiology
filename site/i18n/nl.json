@@ -69,5 +69,13 @@
  "home.ct": "Scroll door een echte buik-CT in drie vlakken met gekleurde, gelabelde structuren en sleutelniveaus.",
  "home.ecg": "Lees echte 12-afleidingen-ECG's op standaardpapier, meet met de passer en test jezelf op klassieke patronen.",
  "home.disclaimer": "Alleen voor onderwijs — niet voor diagnose.",
- "home.credits": "Gegevens: TotalSegmentator-dataset (CT) en PTB-XL (ECG), beide CC BY 4.0. Code: MIT."
+ "home.credits": "Gegevens: TotalSegmentator-dataset (CT) en PTB-XL (ECG), beide CC BY 4.0. Code: MIT.",
+ "ecg.waves": "Golven",
+ "ecg.wavesCredit": "Golfgrenzen (automatisch, kunnen fout zijn): {source}, {license}",
+ "ecg.group.normal": "Normaal",
+ "ecg.group.rhythm": "Ritme",
+ "ecg.group.conduction": "Geleiding",
+ "ecg.group.hypertrophy": "Hypertrofie en vergroting",
+ "ecg.group.ischaemia": "Ischemie en infarct",
+ "ecg.group.other": "Overig"
 }

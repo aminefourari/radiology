@@ -69,5 +69,13 @@
  "home.ct": "Scorri una vera TC addominale in tre piani con strutture colorate ed etichettate e livelli chiave.",
  "home.ecg": "Leggi veri ECG a 12 derivazioni su carta standard, misura con il compasso e mettiti alla prova sui quadri classici.",
  "home.disclaimer": "Solo per uso didattico — non per la diagnosi.",
- "home.credits": "Dati: dataset TotalSegmentator (TC) e PTB-XL (ECG), entrambi CC BY 4.0. Codice: MIT."
+ "home.credits": "Dati: dataset TotalSegmentator (TC) e PTB-XL (ECG), entrambi CC BY 4.0. Codice: MIT.",
+ "ecg.waves": "Onde",
+ "ecg.wavesCredit": "Limiti delle onde (automatici, possono essere errati): {source}, {license}",
+ "ecg.group.normal": "Normale",
+ "ecg.group.rhythm": "Ritmo",
+ "ecg.group.conduction": "Conduzione",
+ "ecg.group.hypertrophy": "Ipertrofia e ingrandimento",
+ "ecg.group.ischaemia": "Ischemia e infarto",
+ "ecg.group.other": "Altro"
 }
