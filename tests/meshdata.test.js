@@ -17,7 +17,7 @@ const keys = (m) => [...m.keys()].sort((a, b) => a - b);
 test("parent shows as one union mesh when only its system is on", () => {
   const m = vis(["organs"]);
   assert.deepEqual(keys(m), [1, 2]);
-  assert.deepEqual(m.get(1), { color: "#aa0000", opacity: 1 });
+  assert.deepEqual(m.get(1), { color: "#aa0000", tissue: "organ", opacity: 1 });
 });
 
 test("children replace the parent when their system is on", () => {
@@ -55,4 +55,24 @@ test("decodeMeshes dequantises positions over the box", () => {
   assert.deepEqual([...m.indices], [0, 1, 1]);
   assert.deepEqual(m.anchor, [1, 2, 3]);
   assert.equal(m.size, 9);
+});
+
+test("3D uses natural tissue colours, keeping legend colours where parts must be told apart", async () => {
+  const { tissueLook } = await import("../site/js/meshdata.js");
+  const look = (key, system = "x", color = "#123456") => tissueLook({ key, system, color });
+  assert.equal(look("aorta").tissue, "vessel");
+  assert.equal(look("aorta").color, look("subclavian_artery_left").color);
+  assert.equal(look("pulmonary_artery").color, look("superior_vena_cava").color); // deoxygenated: blue
+  assert.equal(look("vertebrae_L1").tissue, "bone");
+  assert.equal(look("heart_ventricle_left").tissue, "organ"); // not a brain ventricle
+  assert.equal(look("ventricle_body_left").tissue, "fluid");
+  assert.equal(look("eye_lens_right").color === look("eye_left").color, false);
+  assert.deepEqual(look("liver_segment_3", "segments"), { color: "#123456", tissue: "organ" });
+  assert.deepEqual(look("something_new"), { color: "#123456", tissue: "organ" });
+});
+
+test("meshVisibility carries the tissue look", () => {
+  const m = meshVisibility([{ id: 3, key: "aorta", system: "arteries", color: "#ff00ff", parent: null }], new Set(["arteries"]), none, none, 0, new Set([3]));
+  assert.equal(m.get(3).tissue, "vessel");
+  assert.notEqual(m.get(3).color, "#ff00ff");
 });

@@ -1,11 +1,11 @@
 // DOM wiring only. Logic worth testing lives in the DOM-free modules.
-import { PLANES, WINDOWS, extractSlice, loadCase, pixelAspect, planeSize, sliceCount, windowToGray } from "./volume.js";
+import { PLANES, WINDOWS, decodeMaybeGzip, extractSlice, loadCase, pixelAspect, planeSize, sliceCount, windowToGray } from "./volume.js";
 import { colorTable, compositeOverlay, visibleIds } from "./overlay.js";
 import { anchors, bodyExtent, layoutLabels } from "./labels.js";
 import { clampState, formatHash, parseHash } from "./state.js";
 import { applyDir, loadLanguages, loadStrings, localized, saveLang, startLang, structName, t } from "./i18n.js";
 import { REPO_URL, reportUrl } from "./report.js";
-import { castRays, labelBounds, shade } from "./render3d.js";
+import { decodeMeshes, meshVisibility } from "./meshdata.js";
 
 const $ = (id) => document.getElementById(id);
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -52,7 +52,7 @@ const ctx = () => ({
   cases: cases.map((c) => c.id), langs: langs.map((l) => l.code), dims: data?.meta.dims ?? null,
   systems: data ? caseSystems() : null, defaultSystems: data?.meta.defaultSystems ?? null,
 });
-const ui = { hidden: new Set(), pan: { x: 0, y: 0 }, move: false, win: "soft", opacity: 0.45, labels: true, outline: false, selected: 0, geo: null, is3d: false, yaw: 0, pitch: 0, fast: false };
+const ui = { hidden: new Set(), pan: { x: 0, y: 0 }, move: false, win: "soft", opacity: 0.45, labels: true, outline: false, selected: 0, geo: null, is3d: false };
 
 // ---------- boot ----------
 async function boot() {
@@ -106,10 +106,49 @@ async function openCase(id, wanted) {
   ui.hidden.clear();
   ui.selected = 0;
   ui.pan = { x: 0, y: 0 };
-  data.bounds = labelBounds(data.labels, data.meta.dims);
   if (id !== prevCase || !data.meta.windows.includes(ui.win)) ui.win = data.meta.windows[0]; // each region opens in its own first window
   $("loading").hidden = true;
   buildCaseUi();
+  update();
+  if (ui.is3d) open3d();
+}
+
+// ---------- 3D ----------
+let view = null, viewCase = null, viewMeshIds = new Set();
+const meshCache = new Map();
+
+function caseMeshes(id) {
+  if (!meshCache.has(id)) {
+    const get = (name) => fetch(`cases/${id}/${name}`).then((r) => { if (!r.ok) throw new Error(`${name}: HTTP ${r.status}`); return r; });
+    meshCache.set(id, Promise.all([get("meshes.json").then((r) => r.json()), get("mesh.bin.gz").then((r) => r.arrayBuffer()).then(decodeMaybeGzip)])
+      .then(([index, buf]) => ({ byId: decodeMeshes(buf, index), box: index.box }))
+      .catch((e) => { meshCache.delete(id); throw e; }));
+  }
+  return meshCache.get(id);
+}
+
+// three.js and the meshes load only the first time 3D opens for a case.
+async function open3d() {
+  ui.is3d = true;
+  ui.selected = 0;
+  popupAt = null;
+  update();
+  const id = st.case;
+  if (viewCase === id) return;
+  $("loading").hidden = false;
+  $("loading-text").textContent = t("loading", { pct: 0 });
+  try {
+    const [{ createView3d }, meshes] = await Promise.all([import("./view3d.js"), caseMeshes(id)]);
+    if (id !== st.case) return; // another case was opened meanwhile; it loads its own
+    view ??= createView3d($("viewer"), $("labels"));
+    view.setCase(meshes.byId, meshes.box);
+    viewCase = id;
+    viewMeshIds = new Set(meshes.byId.keys());
+  } catch (e) {
+    showError(e);
+    return;
+  }
+  $("loading").hidden = true;
   update();
 }
 
@@ -127,7 +166,11 @@ function buildStatic() {
   $("sys-toggle").onclick = () => { st.sys = st.sys.length ? [] : caseSystems(); update(); };
   $("zoom-in").onclick = () => setZoom(st.zoom * 1.25);
   $("zoom-out").onclick = () => setZoom(st.zoom / 1.25);
-  $("zoom-fit").onclick = () => { ui.pan = { x: 0, y: 0 }; setZoom(1); };
+  $("zoom-fit").onclick = () => {
+    if (ui.is3d) return view?.reset();
+    ui.pan = { x: 0, y: 0 };
+    setZoom(1);
+  };
   $("move").onclick = () => { ui.move = !ui.move; update(); };
   $("focus").onclick = () => toggleFocus(!document.body.classList.contains("focus"));
   $("prev").onclick = () => step(-1);
@@ -183,7 +226,7 @@ function buildPlanes() {
     return b;
   }), Object.assign(document.createElement("button"), {
     className: "btn", textContent: t("plane.3d"),
-    onclick: () => { ui.is3d = true; ui.pan = { x: 0, y: 0 }; ui.selected = 0; update(); },
+    onclick: () => open3d(),
   }));
   $("plane-group").lastChild.setAttribute("role", "radio");
   $("plane-group").lastChild.dataset.plane = "3d";
@@ -311,8 +354,9 @@ function syncControls() {
   document.querySelectorAll(".sys").forEach((b) => b.setAttribute("aria-pressed", String(st.sys.includes(b.dataset.sys))));
   document.querySelectorAll("#plane-group .btn").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.plane === (ui.is3d ? "3d" : st.plane))));
   document.querySelectorAll("#region-bar .btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.case === st.case)));
-  $("zoom-fit").hidden = st.zoom === 1 && !ui.pan.x && !ui.pan.y;
-  $("move").hidden = st.zoom <= 1;
+  $("zoom-fit").hidden = !ui.is3d && st.zoom === 1 && !ui.pan.x && !ui.pan.y;
+  $("move").hidden = ui.is3d || st.zoom <= 1;
+  $("zoom-in").hidden = $("zoom-out").hidden = $("hu-readout").hidden = ui.is3d;
   $("move").setAttribute("aria-pressed", String(ui.move));
   $("viewer").classList.toggle("moving", ui.move);
   for (const s of [".slicer", ".window"]) document.querySelector(s).style.visibility = ui.is3d ? "hidden" : "";
@@ -341,7 +385,9 @@ function render() {
     canvas.width = Math.round(cw * dpr);
     canvas.height = Math.round(ch * dpr);
   }
-  if (ui.is3d) return render3d(cw, ch, dpr);
+  view?.show(ui.is3d);
+  canvas.hidden = ui.is3d;
+  if (ui.is3d) return render3d();
   const [w, h] = planeSize(meta.dims, st.plane);
   const ctSlice = extractSlice(ct, meta.dims, st.plane, st.slice);
   const labSlice = extractSlice(labels, meta.dims, st.plane, st.slice);
@@ -372,32 +418,22 @@ function render() {
   placePopup();
 }
 
-let buf3d = null;
-function render3d(cw, ch, dpr) {
-  const { meta, labels, bounds } = data;
-  const canvas = $("canvas");
-  const table = colorTable(meta.structures, new Set(st.sys), ui.hidden);
-  const visible = new Uint8Array(256).map((_, i) => table[i * 4 + 3]);
-  // Fit the box's widest horizontal extent and its height at zoom 1; render below screen resolution.
-  const ext = bounds ? [0, 1, 2].map((k) => (bounds[k + 3] - bounds[k]) * meta.spacing[k]) : [1, 1, 1];
-  const pxPerMm = Math.min(cw / Math.max(ext[0], ext[1]), ch / ext[2]) * 0.94 * st.zoom;
-  const q = Math.min(1, Math.sqrt((ui.fast ? 40000 : 160000) / (cw * ch)));
-  const W = Math.max(1, Math.round(cw * q)), H = Math.max(1, Math.round(ch * q));
-  if (buf3d?.W !== W || buf3d?.H !== H) buf3d = { W, H, ids: new Uint8Array(W * H), depth: new Float32Array(W * H), img: new ImageData(W, H) };
-  const mmPerPx = 1 / (pxPerMm * q);
-  if (bounds) castRays(labels, meta.dims, meta.spacing, visible, bounds, { yaw: ui.yaw, pitch: ui.pitch, mmPerPx, panX: ui.pan.x * q, panY: ui.pan.y * q }, W, H, buf3d.ids, buf3d.depth);
-  else buf3d.ids.fill(0);
-  shade(buf3d.ids, buf3d.depth, table, W, H, mmPerPx, ui.selected, buf3d.img.data);
-  off.width = W; off.height = H;
-  off.getContext("2d").putImageData(buf3d.img, 0, 0);
-  ui.geo = { dx: 0, dy: 0, sx: cw / W, sy: ch / H, w: W, h: H, ctSlice: null, labSlice: buf3d.ids };
-  const ctx = canvas.getContext("2d");
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.imageSmoothingEnabled = true;
-  ctx.drawImage(off, 0, 0, cw, ch);
+function render3d() {
+  ui.geo = null;
   $("labels").replaceChildren();
   $("hint").hidden = false;
+  if (!view || viewCase !== st.case) return;
+  view.setVisibility(meshVisibility(data.meta.structures, new Set(st.sys), ui.hidden, new Set(), 0, viewMeshIds));
+  view.select(ui.selected);
   placePopup();
+}
+
+function pick3d(e) {
+  const r = $("viewer").getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  ui.selected = view && viewCase === st.case ? view.pick(x, y) : 0;
+  popupAt = ui.selected ? { x, y } : null;
+  update();
 }
 
 function highlight(rgba, lab, id) {
@@ -467,8 +503,8 @@ function bindViewer() {
   let wheelAcc = 0;
   v.addEventListener("wheel", (e) => {
     if (!data || !e.deltaY) return;
+    if (ui.is3d) return; // OrbitControls zooms
     e.preventDefault();
-    if (ui.is3d) return setZoom(st.zoom * (e.deltaY < 0 ? 1.1 : 1 / 1.1));
     // Mouse wheels send ~100 px per notch, trackpads many small deltas: one slice per ~40 px.
     wheelAcc += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;
     const n = Math.trunc(wheelAcc / 40);
@@ -476,8 +512,9 @@ function bindViewer() {
   }, { passive: false });
   v.addEventListener("pointerdown", (e) => {
     if (!data || e.target.closest(".popup")) return;
+    if (ui.is3d) { drag = { x: e.clientX, y: e.clientY, moved: false }; return; } // OrbitControls rotates/pans
     v.setPointerCapture(e.pointerId);
-    drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, yaw: ui.yaw, pitch: ui.pitch, moved: false, panning: ui.move || e.button === 1 || e.shiftKey || (st.zoom > 1 && e.pointerType === "mouse" && !ui.is3d) };
+    drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, moved: false, panning: ui.move || e.button === 1 || e.shiftKey || (st.zoom > 1 && e.pointerType === "mouse" && !ui.is3d) };
   });
   v.addEventListener("pointermove", (e) => {
     const p = pixelAt(e.clientX, e.clientY);
@@ -485,34 +522,28 @@ function bindViewer() {
     if (!drag) return;
     const ddx = e.clientX - drag.x, ddy = e.clientY - drag.y;
     if (Math.hypot(ddx, ddy) > 5) drag.moved = true;
-    if (!drag.moved) return;
+    if (!drag.moved || ui.is3d) return;
     if (drag.panning) { ui.pan = { x: drag.pan.x + ddx, y: drag.pan.y + ddy }; update(); }
-    else if (ui.is3d) {
-      ui.fast = true;
-      ui.yaw = drag.yaw + ddx * 0.01;
-      ui.pitch = Math.min(1.5, Math.max(-1.5, drag.pitch + ddy * 0.01));
-      update();
-    } else {
+    else {
       const n = sliceCount(data.meta.dims, st.plane);
       const next = Math.min(n - 1, Math.max(0, drag.slice + Math.round(ddy / 4)));
       if (next !== st.slice) { st.slice = next; update(); }
     }
   });
   const end = (e) => {
-    if (drag && !drag.moved) select(pixelAt(e.clientX, e.clientY));
+    if (drag && !drag.moved) ui.is3d ? pick3d(e) : select(pixelAt(e.clientX, e.clientY));
     drag = null;
-    if (ui.fast) { ui.fast = false; update(); }
   };
   v.addEventListener("pointerup", end);
-  v.addEventListener("pointercancel", () => { drag = null; if (ui.fast) { ui.fast = false; update(); } });
+  v.addEventListener("pointercancel", () => (drag = null));
+  v.addEventListener("dblclick", (e) => {
+    if (!ui.is3d || !view) return;
+    const r = v.getBoundingClientRect();
+    view.centerOn(view.pick(e.clientX - r.left, e.clientY - r.top));
+  });
   v.addEventListener("keydown", (e) => {
     const k = { ArrowUp: 1, ArrowRight: 1, PageUp: 10, ArrowDown: -1, ArrowLeft: -1, PageDown: -10 }[e.key];
-    if (k && data && ui.is3d) {
-      e.preventDefault();
-      if (e.key === "ArrowLeft" || e.key === "ArrowRight") ui.yaw += k * 0.26;
-      else ui.pitch = Math.min(1.5, Math.max(-1.5, ui.pitch + Math.sign(k) * 0.26));
-      update();
-    } else if (k && data) { e.preventDefault(); step(k); }
+    if (k && data && !ui.is3d) { e.preventDefault(); step(k); }
     if (e.key === "+" || e.key === "=") setZoom(st.zoom * 1.25);
     if (e.key === "-") setZoom(st.zoom / 1.25);
     if (e.key === "Escape") { ui.selected = 0; toggleFocus(false); }

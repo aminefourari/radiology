@@ -1,0 +1,211 @@
+// three.js 3D view of the case meshes. Loaded with import() only when 3D opens.
+// World coordinates are RAS mm. Default camera looks from anterior, so the patient's right
+// is on the viewer's left (radiological), and redraws only when something changes.
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+
+// Material per tissue (from meshdata.tissueLook): wet, glossy organs and vessels; matte bone.
+const TISSUES = {
+  organ: { roughness: 0.42, clearcoat: 0.55, clearcoatRoughness: 0.3, sheen: 0.35, sheenRoughness: 0.6 },
+  vessel: { roughness: 0.32, clearcoat: 0.8, clearcoatRoughness: 0.2 },
+  muscle: { roughness: 0.55, clearcoat: 0.25, clearcoatRoughness: 0.5, sheen: 0.5, sheenRoughness: 0.5 },
+  bone: { roughness: 0.78, clearcoat: 0.05 },
+  cartilage: { roughness: 0.35, clearcoat: 0.6, clearcoatRoughness: 0.2 },
+  fluid: { roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.05 },
+};
+
+// Soft studio backdrop: lighter in the middle, dark at the edges.
+function backdrop() {
+  const c = document.createElement("canvas");
+  c.width = c.height = 256;
+  const g = c.getContext("2d");
+  const grad = g.createRadialGradient(128, 110, 10, 128, 128, 190);
+  grad.addColorStop(0, "#3a4350");
+  grad.addColorStop(1, "#0c1015");
+  g.fillStyle = grad;
+  g.fillRect(0, 0, 256, 256);
+  const t = new THREE.CanvasTexture(c);
+  t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+
+export function createView3d(container, before) {
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.9;
+  const canvas = renderer.domElement;
+  container.insertBefore(canvas, before);
+
+  const scene = new THREE.Scene();
+  scene.background = backdrop();
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+  scene.environmentIntensity = 0.35;
+  scene.add(new THREE.HemisphereLight(0xfff4ec, 0x2a2224, 0.6));
+  const camera = new THREE.PerspectiveCamera(30, 1, 1, 10000);
+  camera.up.set(0, 0, 1);
+  const key = new THREE.DirectionalLight(0xfff6ee, 2.2);
+  const rim = new THREE.DirectionalLight(0xbcd4ff, 1.1);
+  camera.add(key, rim); // lights move with the camera: the side you look at is always lit
+  key.position.set(-0.5, 0.8, 1);
+  rim.position.set(0.6, 0.3, -1);
+  scene.add(camera);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = false;
+  controls.zoomToCursor = true;
+
+  const group = new THREE.Group();
+  scene.add(group);
+  const meshes = new Map();
+  const raycaster = new THREE.Raycaster();
+  let selected = 0, frame = 0, changed = () => {}, box = null, needsFrame = false;
+
+  // Ambient occlusion darkens creases and contact areas, which is most of the "atlas" depth.
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const ao = new GTAOPass(scene, camera, 1, 1);
+  ao.updateGtaoMaterial({ radius: 12, distanceExponent: 1.5, thickness: 4, scale: 1.2 });
+  ao.blendIntensity = 0.85;
+  composer.addPass(ao);
+  composer.addPass(new OutputPass());
+
+  function render() {
+    frame = 0;
+    composer.render();
+    changed();
+  }
+  const requestRender = () => { if (!frame) frame = requestAnimationFrame(render); };
+  controls.addEventListener("change", requestRender);
+
+  function resize() {
+    const w = container.clientWidth, h = container.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    composer.setPixelRatio(renderer.getPixelRatio());
+    composer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    requestRender();
+  }
+  const ro = new ResizeObserver(resize);
+  ro.observe(container);
+
+  // Frames what is shown (falls back to the whole case when nothing is).
+  function frameBox() {
+    const vis = new THREE.Box3();
+    for (const m of meshes.values()) if (m.visible) vis.expandByObject(m);
+    const [x0, y0, z0, x1, y1, z1] = vis.isEmpty() ? box : [...vis.min.toArray(), ...vis.max.toArray()];
+    const c = new THREE.Vector3((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2);
+    const fov = THREE.MathUtils.degToRad(camera.fov);
+    const fitH = (z1 - z0) / 2 / Math.tan(fov / 2);
+    const fitW = Math.max(x1 - x0, y1 - y0) / 2 / Math.tan(fov / 2) / Math.max(camera.aspect, 0.1);
+    const dist = Math.max(fitH, fitW) * 1.15 + Math.max(y1 - y0, x1 - x0) / 2;
+    controls.target.copy(c);
+    camera.position.set(c.x, c.y + dist, c.z); // anterior (+y), looking posterior
+    ao.updateGtaoMaterial({ radius: dist / 80 });
+    camera.near = dist / 50;
+    camera.far = dist * 10;
+    camera.updateProjectionMatrix();
+    controls.update();
+  }
+
+  function setCase(meshesById, caseBox) {
+    for (const m of meshes.values()) { m.geometry.dispose(); m.material.dispose(); }
+    group.clear();
+    meshes.clear();
+    for (const [id, d] of meshesById) {
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.BufferAttribute(d.positions, 3));
+      g.setIndex(new THREE.BufferAttribute(d.indices, 1));
+      g.computeVertexNormals();
+      const m = new THREE.Mesh(g, new THREE.MeshPhysicalMaterial());
+      m.userData = { id, anchor: new THREE.Vector3(...d.anchor), size: d.size };
+      m.visible = false;
+      meshes.set(id, m);
+      group.add(m);
+    }
+    box = caseBox;
+    needsFrame = true; // once visibility is known
+    resize();
+    requestRender();
+  }
+
+  // shown: Map id -> { color, opacity } from meshVisibility.
+  function setVisibility(shown) {
+    for (const [id, m] of meshes) {
+      const s = shown.get(id);
+      m.visible = !!s;
+      if (!s) continue;
+      const faded = s.opacity < 1;
+      if (m.userData.tissue !== s.tissue) {
+        m.material.setValues({ roughness: 0.5, clearcoat: 0, clearcoatRoughness: 0, sheen: 0, sheenRoughness: 1, ...TISSUES[s.tissue] });
+        m.userData.tissue = s.tissue;
+      }
+      m.material.color.set(s.color);
+      m.material.sheenColor.set(s.color).lerp(new THREE.Color(0xffffff), 0.5);
+      m.material.opacity = s.opacity;
+      m.material.transparent = faded;
+      m.material.depthWrite = !faded;
+      m.renderOrder = faded ? 1 : 0;
+      m.material.emissive.set(id === selected ? 0x444444 : 0x000000);
+    }
+    if (needsFrame) { needsFrame = false; frameBox(); }
+    requestRender();
+  }
+
+  function select(id) {
+    selected = id;
+    for (const [mid, m] of meshes) m.material.emissive.set(mid === id ? 0x444444 : 0x000000);
+    requestRender();
+  }
+
+  const solid = () => [...meshes.values()].filter((m) => m.visible && !m.material.transparent);
+  function ndc(x, y) {
+    return new THREE.Vector2((x / container.clientWidth) * 2 - 1, -(y / container.clientHeight) * 2 + 1);
+  }
+
+  // x, y in px relative to the container. Faded and hidden structures are seen through.
+  function pick(x, y) {
+    camera.updateMatrixWorld();
+    raycaster.setFromCamera(ndc(x, y), camera);
+    return raycaster.intersectObjects(solid(), false)[0]?.object.userData.id ?? 0;
+  }
+
+  function centerOn(id) {
+    const m = meshes.get(id);
+    if (!m) return;
+    m.geometry.computeBoundingSphere();
+    controls.target.copy(m.geometry.boundingSphere.center);
+    controls.update();
+  }
+
+  // Screen position of a structure's label anchor; visible is false when something solid covers it.
+  function project(id) {
+    const m = meshes.get(id);
+    if (!m || !m.visible) return null;
+    camera.updateMatrixWorld();
+    const a = m.userData.anchor;
+    const p = a.clone().project(camera);
+    const x = ((p.x + 1) / 2) * container.clientWidth, y = ((1 - p.y) / 2) * container.clientHeight;
+    const dir = a.clone().sub(camera.position);
+    const dist = dir.length();
+    raycaster.set(camera.position, dir.normalize());
+    const hit = raycaster.intersectObjects(solid(), false)[0];
+    const visible = p.z < 1 && (!hit || hit.object === m || hit.distance > dist - 2);
+    return { x, y, visible, size: m.userData.size };
+  }
+
+  return {
+    canvas, setCase, reset() { frameBox(); requestRender(); }, setVisibility, select, pick, centerOn, project,
+    onChange(cb) { changed = cb; },
+    show(on) { canvas.hidden = !on; if (on) resize(); },
+    dispose() { ro.disconnect(); controls.dispose(); composer.dispose(); renderer.dispose(); canvas.remove(); },
+  };
+}
