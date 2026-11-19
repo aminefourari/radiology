@@ -1,0 +1,6 @@
+data/
+__pycache__/
+.venv/
+*.nii.gz
+.superpowers/
+.pytest_cache/
