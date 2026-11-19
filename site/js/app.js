@@ -5,6 +5,7 @@ import { anchors, bodyExtent, layoutLabels } from "./labels.js";
 import { clampState, formatHash, parseHash } from "./state.js";
 import { applyDir, loadLanguages, loadStrings, localized, saveLang, startLang, structName, t } from "./i18n.js";
 import { REPO_URL, reportUrl } from "./report.js";
+import { castRays, labelBounds, shade } from "./render3d.js";
 
 const $ = (id) => document.getElementById(id);
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -51,7 +52,7 @@ const ctx = () => ({
   cases: cases.map((c) => c.id), langs: langs.map((l) => l.code), dims: data?.meta.dims ?? null,
   systems: data ? caseSystems() : null, defaultSystems: data?.meta.defaultSystems ?? null,
 });
-const ui = { hidden: new Set(), pan: { x: 0, y: 0 }, move: false, win: "soft", opacity: 0.45, labels: true, outline: false, selected: 0, geo: null };
+const ui = { hidden: new Set(), pan: { x: 0, y: 0 }, move: false, win: "soft", opacity: 0.45, labels: true, outline: false, selected: 0, geo: null, is3d: false, yaw: 0, pitch: 0, fast: false };
 
 // ---------- boot ----------
 async function boot() {
@@ -105,6 +106,7 @@ async function openCase(id, wanted) {
   ui.hidden.clear();
   ui.selected = 0;
   ui.pan = { x: 0, y: 0 };
+  data.bounds = labelBounds(data.labels, data.meta.dims);
   if (id !== prevCase || !data.meta.windows.includes(ui.win)) ui.win = data.meta.windows[0]; // each region opens in its own first window
   $("loading").hidden = true;
   buildCaseUi();
@@ -179,7 +181,12 @@ function buildPlanes() {
     b.textContent = t(`plane.${p}`);
     b.onclick = () => setPlane(p, null);
     return b;
+  }), Object.assign(document.createElement("button"), {
+    className: "btn", textContent: t("plane.3d"),
+    onclick: () => { ui.is3d = true; ui.pan = { x: 0, y: 0 }; ui.selected = 0; update(); },
   }));
+  $("plane-group").lastChild.setAttribute("role", "radio");
+  $("plane-group").lastChild.dataset.plane = "3d";
 }
 
 function buildWindows() {
@@ -238,6 +245,7 @@ function reportLink(s) {
 
 // ---------- state changes ----------
 function setPlane(plane, slice) {
+  ui.is3d = false;
   st.plane = plane;
   st.slice = slice ?? Math.floor(sliceCount(data.meta.dims, plane) / 2);
   ui.pan = { x: 0, y: 0 };
@@ -301,12 +309,13 @@ function update() {
 
 function syncControls() {
   document.querySelectorAll(".sys").forEach((b) => b.setAttribute("aria-pressed", String(st.sys.includes(b.dataset.sys))));
-  document.querySelectorAll("#plane-group .btn").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.plane === st.plane)));
+  document.querySelectorAll("#plane-group .btn").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.plane === (ui.is3d ? "3d" : st.plane))));
   document.querySelectorAll("#region-bar .btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.case === st.case)));
   $("zoom-fit").hidden = st.zoom === 1 && !ui.pan.x && !ui.pan.y;
   $("move").hidden = st.zoom <= 1;
   $("move").setAttribute("aria-pressed", String(ui.move));
   $("viewer").classList.toggle("moving", ui.move);
+  for (const s of [".slicer", ".window"]) document.querySelector(s).style.visibility = ui.is3d ? "hidden" : "";
   if (!data) return;
   $("sys-toggle").textContent = t(st.sys.length ? "ctl.none" : "ctl.all");
   const n = sliceCount(data.meta.dims, st.plane);
@@ -314,7 +323,8 @@ function syncControls() {
   $("slice-val").textContent = `${t(`plane.${st.plane}`)} ${st.slice + 1} / ${n}`;
   const [w, h] = planeSize(data.meta.dims, st.plane);
   $("plane-info").textContent = `${t(`plane.${st.plane}`)} ${w} × ${h}`;
-  const [top, bottom, left, right] = MARKS[st.plane];
+  if (ui.is3d) $("plane-info").textContent = t("hint.3d");
+  const [top, bottom, left, right] = ui.is3d ? ["", "", "", ""] : MARKS[st.plane];
   Object.assign($("mk-top"), { textContent: top });
   Object.assign($("mk-bottom"), { textContent: bottom });
   Object.assign($("mk-left"), { textContent: left });
@@ -331,6 +341,7 @@ function render() {
     canvas.width = Math.round(cw * dpr);
     canvas.height = Math.round(ch * dpr);
   }
+  if (ui.is3d) return render3d(cw, ch, dpr);
   const [w, h] = planeSize(meta.dims, st.plane);
   const ctSlice = extractSlice(ct, meta.dims, st.plane, st.slice);
   const labSlice = extractSlice(labels, meta.dims, st.plane, st.slice);
@@ -358,6 +369,34 @@ function render() {
   ctx.drawImage(off, dx, dy, dw, dh);
 
   drawLabels(labSlice, table, cw, ch);
+  placePopup();
+}
+
+let buf3d = null;
+function render3d(cw, ch, dpr) {
+  const { meta, labels, bounds } = data;
+  const canvas = $("canvas");
+  const table = colorTable(meta.structures, new Set(st.sys), ui.hidden);
+  const visible = new Uint8Array(256).map((_, i) => table[i * 4 + 3]);
+  // Fit the box's widest horizontal extent and its height at zoom 1; render below screen resolution.
+  const ext = bounds ? [0, 1, 2].map((k) => (bounds[k + 3] - bounds[k]) * meta.spacing[k]) : [1, 1, 1];
+  const pxPerMm = Math.min(cw / Math.max(ext[0], ext[1]), ch / ext[2]) * 0.94 * st.zoom;
+  const q = Math.min(1, Math.sqrt((ui.fast ? 40000 : 160000) / (cw * ch)));
+  const W = Math.max(1, Math.round(cw * q)), H = Math.max(1, Math.round(ch * q));
+  if (buf3d?.W !== W || buf3d?.H !== H) buf3d = { W, H, ids: new Uint8Array(W * H), depth: new Float32Array(W * H), img: new ImageData(W, H) };
+  const mmPerPx = 1 / (pxPerMm * q);
+  if (bounds) castRays(labels, meta.dims, meta.spacing, visible, bounds, { yaw: ui.yaw, pitch: ui.pitch, mmPerPx, panX: ui.pan.x * q, panY: ui.pan.y * q }, W, H, buf3d.ids, buf3d.depth);
+  else buf3d.ids.fill(0);
+  shade(buf3d.ids, buf3d.depth, table, W, H, mmPerPx, ui.selected, buf3d.img.data);
+  off.width = W; off.height = H;
+  off.getContext("2d").putImageData(buf3d.img, 0, 0);
+  ui.geo = { dx: 0, dy: 0, sx: cw / W, sy: ch / H, w: W, h: H, ctSlice: null, labSlice: buf3d.ids };
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.imageSmoothingEnabled = true;
+  ctx.drawImage(off, 0, 0, cw, ch);
+  $("labels").replaceChildren();
+  $("hint").hidden = false;
   placePopup();
 }
 
@@ -429,6 +468,7 @@ function bindViewer() {
   v.addEventListener("wheel", (e) => {
     if (!data || !e.deltaY) return;
     e.preventDefault();
+    if (ui.is3d) return setZoom(st.zoom * (e.deltaY < 0 ? 1.1 : 1 / 1.1));
     // Mouse wheels send ~100 px per notch, trackpads many small deltas: one slice per ~40 px.
     wheelAcc += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;
     const n = Math.trunc(wheelAcc / 40);
@@ -437,17 +477,22 @@ function bindViewer() {
   v.addEventListener("pointerdown", (e) => {
     if (!data || e.target.closest(".popup")) return;
     v.setPointerCapture(e.pointerId);
-    drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, moved: false, panning: ui.move || e.button === 1 || e.shiftKey || (st.zoom > 1 && e.pointerType === "mouse") };
+    drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, yaw: ui.yaw, pitch: ui.pitch, moved: false, panning: ui.move || e.button === 1 || e.shiftKey || (st.zoom > 1 && e.pointerType === "mouse" && !ui.is3d) };
   });
   v.addEventListener("pointermove", (e) => {
     const p = pixelAt(e.clientX, e.clientY);
-    $("hu-readout").textContent = p ? `HU ${ui.geo.ctSlice[p.i]}` : "HU —";
+    $("hu-readout").textContent = p && ui.geo.ctSlice ? `HU ${ui.geo.ctSlice[p.i]}` : "HU —";
     if (!drag) return;
     const ddx = e.clientX - drag.x, ddy = e.clientY - drag.y;
     if (Math.hypot(ddx, ddy) > 5) drag.moved = true;
     if (!drag.moved) return;
     if (drag.panning) { ui.pan = { x: drag.pan.x + ddx, y: drag.pan.y + ddy }; update(); }
-    else {
+    else if (ui.is3d) {
+      ui.fast = true;
+      ui.yaw = drag.yaw + ddx * 0.01;
+      ui.pitch = Math.min(1.5, Math.max(-1.5, drag.pitch + ddy * 0.01));
+      update();
+    } else {
       const n = sliceCount(data.meta.dims, st.plane);
       const next = Math.min(n - 1, Math.max(0, drag.slice + Math.round(ddy / 4)));
       if (next !== st.slice) { st.slice = next; update(); }
@@ -456,12 +501,18 @@ function bindViewer() {
   const end = (e) => {
     if (drag && !drag.moved) select(pixelAt(e.clientX, e.clientY));
     drag = null;
+    if (ui.fast) { ui.fast = false; update(); }
   };
   v.addEventListener("pointerup", end);
-  v.addEventListener("pointercancel", () => (drag = null));
+  v.addEventListener("pointercancel", () => { drag = null; if (ui.fast) { ui.fast = false; update(); } });
   v.addEventListener("keydown", (e) => {
     const k = { ArrowUp: 1, ArrowRight: 1, PageUp: 10, ArrowDown: -1, ArrowLeft: -1, PageDown: -10 }[e.key];
-    if (k && data) { e.preventDefault(); step(k); }
+    if (k && data && ui.is3d) {
+      e.preventDefault();
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") ui.yaw += k * 0.26;
+      else ui.pitch = Math.min(1.5, Math.max(-1.5, ui.pitch + Math.sign(k) * 0.26));
+      update();
+    } else if (k && data) { e.preventDefault(); step(k); }
     if (e.key === "+" || e.key === "=") setZoom(st.zoom * 1.25);
     if (e.key === "-") setZoom(st.zoom / 1.25);
     if (e.key === "Escape") { ui.selected = 0; toggleFocus(false); }

@@ -14,6 +14,8 @@
  "plane.axial": "Axial",
  "plane.coronal": "Coronal",
  "plane.sagittal": "Sagittal",
+ "plane.3d": "3D",
+ "hint.3d": "Drag to rotate · scroll to zoom",
  "ctl.all": "All",
  "ctl.none": "None",
  "ctl.fit": "Fit",

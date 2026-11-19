@@ -14,6 +14,8 @@
  "plane.axial": "Axial",
  "plane.coronal": "Coronal",
  "plane.sagittal": "Sagital",
+ "plane.3d": "3D",
+ "hint.3d": "Arrastre para girar · desplace para ampliar",
  "ctl.all": "Todos",
  "ctl.none": "Ninguno",
  "ctl.fit": "Ajustar",

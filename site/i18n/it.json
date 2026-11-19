@@ -14,6 +14,8 @@
  "plane.axial": "Assiale",
  "plane.coronal": "Coronale",
  "plane.sagittal": "Sagittale",
+ "plane.3d": "3D",
+ "hint.3d": "Trascina per ruotare · scorri per ingrandire",
  "ctl.all": "Tutti",
  "ctl.none": "Nessuno",
  "ctl.fit": "Adatta",
