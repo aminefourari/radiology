@@ -65,7 +65,7 @@
  "ecg.credit": "EKG-Daten: {source}, {license}",
  "home.title": "Klinischer Atlas",
  "home.tagline": "Freie, offene Atlanten mit echten Patientendaten für Medizinstudierende und Ärztinnen und Ärzte. Ohne Anmeldung. Funktioniert auf dem Handy.",
- "home.ct": "Durch ein echtes Abdomen-CT in drei Ebenen scrollen, mit farbigen, beschrifteten Strukturen und Schlüsselebenen.",
+ "home.ct": "Echte CT-Scans Region für Region in drei Ebenen durchscrollen, mit farbigen, beschrifteten Strukturen und Schlüsselebenen.",
  "home.ecg": "Echte 12-Kanal-EKGs auf Standardpapier lesen, mit dem Messzirkel ausmessen und sich an klassischen Befunden testen.",
  "home.disclaimer": "Nur für die Lehre — nicht zur Diagnose.",
  "home.credits": "Daten: TotalSegmentator-Datensatz (CT) und PTB-XL (EKG), beide CC BY 4.0. Code: MIT.",
