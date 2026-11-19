@@ -19,7 +19,8 @@
   "case": "s0783",
   "tasks": [
    "total",
-   "appendicular_bones"
+   "appendicular_bones",
+   "thigh_shoulder_muscles"
   ]
  },
  "systems": [
@@ -394,7 +395,91 @@
    "best": {
     "axial": 658,
     "coronal": 64,
-    "sagittal": 91
+    "sagittal": 92
+   }
+  },
+  {
+   "id": 15,
+   "key": "quadriceps_femoris_left",
+   "system": "limb-muscles",
+   "color": "#e8c26b",
+   "parent": null,
+   "names": {
+    "en": "Quadriceps femoris, left",
+    "de": "M. quadriceps femoris, links",
+    "es": "Cuádriceps femoral, lado izquierdo",
+    "ar": "العضلة رباعية الرؤوس الفخذية، الجانب الأيسر",
+    "fr": "Quadriceps fémoral, côté gauche",
+    "it": "Quadricipite femorale, lato sinistro",
+    "nl": "M. quadriceps femoris, links"
+   },
+   "best": {
+    "axial": 474,
+    "coronal": 68,
+    "sagittal": 64
+   }
+  },
+  {
+   "id": 16,
+   "key": "sartorius_left",
+   "system": "limb-muscles",
+   "color": "#9fd47a",
+   "parent": null,
+   "names": {
+    "en": "Sartorius, left",
+    "de": "M. sartorius, links",
+    "es": "Sartorio, lado izquierdo",
+    "ar": "العضلة الخياطية، الجانب الأيسر",
+    "fr": "Sartorius, côté gauche",
+    "it": "Sartorio, lato sinistro",
+    "nl": "M. sartorius, links"
+   },
+   "best": {
+    "axial": 571,
+    "coronal": 79,
+    "sagittal": 123
+   }
+  },
+  {
+   "id": 17,
+   "key": "thigh_medial_compartment_left",
+   "system": "limb-muscles",
+   "color": "#7fc4e6",
+   "parent": null,
+   "names": {
+    "en": "Thigh adductors (medial compartment), left",
+    "de": "Adduktoren (mediale Loge), links",
+    "es": "Aductores del muslo (compartimento medial), lado izquierdo",
+    "ar": "العضلات المقربة للفخذ (الحجيرة الإنسية)، الجانب الأيسر",
+    "fr": "Adducteurs de la cuisse (loge médiale), côté gauche",
+    "it": "Adduttori della coscia (compartimento mediale), lato sinistro",
+    "nl": "Adductoren (mediaal compartiment), links"
+   },
+   "best": {
+    "axial": 515,
+    "coronal": 30,
+    "sagittal": 121
+   }
+  },
+  {
+   "id": 18,
+   "key": "thigh_posterior_compartment_left",
+   "system": "limb-muscles",
+   "color": "#c49ae0",
+   "parent": null,
+   "names": {
+    "en": "Hamstrings (posterior compartment), left",
+    "de": "Ischiokrurale Muskeln (hintere Loge), links",
+    "es": "Isquiotibiales (compartimento posterior), lado izquierdo",
+    "ar": "أوتار الركبة (الحجيرة الخلفية)، الجانب الأيسر",
+    "fr": "Ischio-jambiers (loge postérieure), côté gauche",
+    "it": "Ischiocrurali (compartimento posteriore), lato sinistro",
+    "nl": "Hamstrings (achterste compartiment), links"
+   },
+   "best": {
+    "axial": 426,
+    "coronal": 7,
+    "sagittal": 103
    }
   }
  ],

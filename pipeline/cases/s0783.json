@@ -11,7 +11,8 @@
  },
  "tasks": [
   "total",
-  "appendicular_bones"
+  "appendicular_bones",
+  "thigh_shoulder_muscles"
  ],
  "systems": [
   "limb-bones",
