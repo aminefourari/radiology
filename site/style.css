@@ -185,3 +185,9 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .tile img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; background: #000; }
 .tile h2 { margin: 14px 16px 0; font-size: 17px; color: var(--text); }
 .tile p { margin: 6px 16px 16px; font-family: var(--sans); color: var(--muted); }
+
+/* region switcher (CT viewer) */
+.region-bar { display: flex; gap: 8px; margin-top: 14px; overflow-x: auto; padding-bottom: 4px; }
+.region-bar[hidden] { display: none; }
+.region-bar .btn { flex: 0 0 auto; white-space: nowrap; }
+.region-bar .btn[aria-pressed="true"] { border-color: var(--active); color: var(--active); }

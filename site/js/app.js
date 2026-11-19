@@ -2,7 +2,7 @@
 import { PLANES, WINDOWS, extractSlice, loadCase, pixelAspect, planeSize, sliceCount, windowToGray } from "./volume.js";
 import { colorTable, compositeOverlay, visibleIds } from "./overlay.js";
 import { anchors, bodyExtent, layoutLabels } from "./labels.js";
-import { SYSTEMS, clampState, formatHash, parseHash } from "./state.js";
+import { clampState, formatHash, parseHash } from "./state.js";
 import { applyDir, loadLanguages, loadStrings, localized, pickLang, structName, t } from "./i18n.js";
 import { REPO_URL, reportUrl } from "./report.js";
 
@@ -17,13 +17,40 @@ const ICONS = {
   spine: '<rect x="8" y="3" width="8" height="4" rx="1.5"/><rect x="8" y="10" width="8" height="4" rx="1.5"/><rect x="8" y="17" width="8" height="4" rx="1.5"/>',
   arteries: '<path d="M12 21V11M12 11L6 4M12 11l6-7"/>',
   veins: '<path d="M12 3v10M12 13l-6 7M12 13l6 7"/>',
+  brain: '<path d="M12 5c-2-2-6-1-6 2-2 1-2 4 0 5-1 3 2 5 4 4 1 2 4 2 4 0 2 1 5-1 4-4 2-1 2-4 0-5 0-3-4-4-6-2z"/><path d="M12 5v13"/>',
+  lobes: '<path d="M4 13c0-5 4-9 8-9s8 4 8 9c0 3-2 5-5 5H9c-3 0-5-2-5-5z"/><path d="M12 4v9M12 13l-6 3M12 13l7 2"/>',
+  "deep-nuclei": '<path d="M4 13c0-5 4-9 8-9s8 4 8 9c0 3-2 5-5 5H9c-3 0-5-2-5-5z"/><circle cx="10" cy="12" r="1.8"/><circle cx="14" cy="12" r="1.8"/>',
+  "posterior-fossa": '<path d="M5 9c0-3 3-5 7-5s7 2 7 5"/><path d="M6 12c2 3 10 3 12 0M12 12v8"/>',
+  "meninges-sinuses": '<path d="M4 14c0-6 4-10 8-10s8 4 8 10"/><path d="M7 14c0-4 2-7 5-7s5 3 5 7"/>',
+  ventricles: '<path d="M8 6c-2 2-2 6 0 8l2 2M16 6c2 2 2 6 0 8l-2 2"/><path d="M12 16v4"/>',
+  orbit: '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/>',
+  "glands-airway": '<path d="M9 3v7c0 3-3 4-3 8M15 3v7c0 3 3 4 3 8"/><circle cx="12" cy="18" r="2"/>',
+  vessels: '<path d="M8 21V9c0-3 2-5 4-5M16 21V9c0-3-2-5-4-5"/>',
+  "skull-face": '<path d="M5 11a7 7 0 0 1 14 0v3l-2 1v4H7v-4l-2-1z"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>',
+  mastication: '<path d="M4 10c2-4 14-4 16 0M5 14c3 4 11 4 14 0"/><path d="M8 10v4M12 9v5M16 10v4"/>',
+  larynx: '<path d="M8 3h8l-1 6H9zM9 9l1 12M15 9l-1 12"/>',
+  "pharynx-esophagus": '<path d="M10 3v7c0 4 4 5 4 11"/><path d="M14 3v4"/>',
+  thyroid: '<path d="M12 10c-1-4-7-5-7 1s5 6 7 2c2 4 7 3 7-2s-6-5-7-1z"/>',
+  "neck-muscles": '<path d="M7 4l5 16M17 4l-5 16M9 4h6"/>',
+  lungs: '<path d="M11 5v6c0 6-2 9-5 9s-3-4-2-8 4-7 7-7zM13 5v6c0 6 2 9 5 9s3-4 2-8-4-7-7-7z"/>',
+  airway: '<path d="M12 3v9M12 12l-5 6M12 12l5 6"/><path d="M10 5h4M10 8h4"/>',
+  heart: '<path d="M12 20s-8-5-8-11a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 6-8 11-8 11z"/>',
+  "heart-vessels": '<path d="M12 20s-7-4-7-9a3.5 3.5 0 0 1 7-1"/><path d="M12 10V4c3 0 6 2 6 5"/>',
+  "chest-wall": '<path d="M12 4v16M12 7c-4 0-7 1-8 3M12 11c-4 0-7 1-8 3M12 15c-4 0-6 1-7 3M12 7c4 0 7 1 8 3M12 11c4 0 7 1 8 3M12 15c4 0 6 1 7 3"/>',
+  "limb-bones": '<path d="M9 4a2 2 0 1 1 3 2l-1 12a2 2 0 1 1-3 2"/><path d="M15 4a2 2 0 1 0-3 2"/>',
+  "limb-muscles": '<path d="M9 3c-3 5-3 13 1 18M15 3c3 5 3 13-1 18"/>',
 };
-const SYSTEM_COLOR = { organs: "#c98bd6", segments: "#f2a65a", digestive: "#f4cf7a", urinary: "#e7d36a", pelvis: "#bfc8d6", spine: "#9ec5e8", arteries: "#e85a5a", veins: "#5b8def" };
+const ICON_FALLBACK = '<circle cx="12" cy="12" r="6"/>';
 const MARKS = { axial: ["A", "P", "R", "L"], coronal: ["S", "I", "R", "L"], sagittal: ["S", "I", "A", "P"] };
 const LINE_H = 20;
 
 let langs = [], cases = [], data = null;
-let st = { case: null, lang: "en", plane: "axial", slice: 0, sys: ["organs"], zoom: 1 };
+let st = { case: null, lang: "en", plane: "axial", slice: 0, sys: [], zoom: 1 };
+const caseSystems = () => (data ? data.meta.systems.map((s) => s.key) : []);
+const ctx = () => ({
+  cases: cases.map((c) => c.id), langs: langs.map((l) => l.code), dims: data?.meta.dims ?? null,
+  systems: data ? caseSystems() : null, defaultSystems: data?.meta.defaultSystems ?? null,
+});
 const ui = { hidden: new Set(), pan: { x: 0, y: 0 }, move: false, win: "soft", opacity: 0.45, labels: true, outline: false, selected: 0, geo: null };
 
 // ---------- boot ----------
@@ -35,11 +62,12 @@ async function boot() {
     return;
   }
   const codes = langs.map((l) => l.code);
-  const fromHash = clampState(parseHash(location.hash), { cases: cases.map((c) => c.id), langs: codes, dims: null });
+  const raw = parseHash(location.hash);
+  const fromHash = clampState(raw, ctx());
   st = { ...fromHash, lang: fromHash.lang || pickLang(codes, navigator.languages || [navigator.language]) };
   buildStatic();
   await setLang(st.lang);
-  await openCase(st.case, fromHash.slice);
+  await openCase(st.case, raw);
   addEventListener("hashchange", onHashChange);
 }
 
@@ -51,14 +79,14 @@ async function setLang(lang) {
   document.querySelectorAll("[data-t]").forEach((el) => (el.textContent = t(el.dataset.t)));
   document.querySelectorAll("[data-t-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.tAria)));
   document.title = t("app.title");
-  buildSystems();
   buildPlanes();
-  buildWindows();
+  buildRegions();
   if (data) buildCaseUi();
   update();
 }
 
-async function openCase(id, slice) {
+// wanted: the plane/slice/sys a link asked for, or null to start the case at its defaults.
+async function openCase(id, wanted) {
   $("loading").hidden = false;
   $("loading-text").textContent = t("loading", { pct: 0 });
   try {
@@ -70,10 +98,13 @@ async function openCase(id, slice) {
     showError(e);
     return;
   }
-  st = clampState({ ...st, case: id, slice }, { cases: cases.map((c) => c.id), langs: langs.map((l) => l.code), dims: data.meta.dims });
+  const w = wanted ?? { plane: "axial", slice: null, sys: null };
+  st = clampState({ ...st, case: id, plane: w.plane, slice: w.slice, sys: w.sys }, ctx());
   st.lang ||= "en";
   ui.hidden.clear();
   ui.selected = 0;
+  ui.pan = { x: 0, y: 0 };
+  if (!data.meta.windows.includes(ui.win)) ui.win = data.meta.windows[0];
   $("loading").hidden = true;
   buildCaseUi();
   update();
@@ -90,11 +121,7 @@ function showError(e) {
 function buildStatic() {
   $("lang-select").replaceChildren(...langs.map((l) => new Option(l.name, l.code)));
   $("lang-select").onchange = (e) => setLang(e.target.value);
-  if (cases.length > 1) {
-    $("case-select").hidden = false;
-    $("case-select").onchange = (e) => openCase(e.target.value, null);
-  }
-  $("sys-all").onclick = () => { st.sys = [...SYSTEMS]; update(); };
+  $("sys-all").onclick = () => { st.sys = caseSystems(); update(); };
   $("sys-none").onclick = () => { st.sys = []; update(); };
   $("zoom-in").onclick = () => setZoom(st.zoom * 1.25);
   $("zoom-out").onclick = () => setZoom(st.zoom / 1.25);
@@ -118,14 +145,28 @@ function buildStatic() {
 }
 
 function buildSystems() {
-  $("system-bar").replaceChildren(...SYSTEMS.map((k) => {
+  const keys = caseSystems();
+  $("system-bar").replaceChildren(...data.meta.systems.map(({ key, icon, color, names }) => {
     const b = document.createElement("button");
     b.className = "sys";
-    b.dataset.sys = k;
-    b.style.setProperty("--c", SYSTEM_COLOR[k]);
-    b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg><span></span>`;
-    b.querySelector("span").textContent = t(`system.${k}`);
-    b.onclick = () => { st.sys = st.sys.includes(k) ? st.sys.filter((s) => s !== k) : SYSTEMS.filter((s) => s === k || st.sys.includes(s)); update(); };
+    b.dataset.sys = key;
+    b.style.setProperty("--c", color);
+    b.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[icon] ?? ICON_FALLBACK}</svg><span></span>`;
+    b.querySelector("span").textContent = localized(names, st.lang);
+    b.onclick = () => { st.sys = st.sys.includes(key) ? st.sys.filter((s) => s !== key) : keys.filter((s) => s === key || st.sys.includes(s)); update(); };
+    return b;
+  }));
+}
+
+function buildRegions() {
+  const bar = $("region-bar");
+  bar.hidden = cases.length < 2;
+  bar.replaceChildren(...cases.map((c) => {
+    const b = document.createElement("button");
+    b.className = "btn";
+    b.dataset.case = c.id;
+    b.textContent = t(`region.${c.region}`);
+    b.onclick = () => { if (c.id !== st.case) openCase(c.id, null); };
     return b;
   }));
 }
@@ -143,7 +184,7 @@ function buildPlanes() {
 }
 
 function buildWindows() {
-  $("win-select").replaceChildren(...Object.keys(WINDOWS).map((k) => new Option(t(`win.${k}`), k)));
+  $("win-select").replaceChildren(...data.meta.windows.filter((k) => WINDOWS[k]).map((k) => new Option(t(`win.${k}`), k)));
   $("win-select").value = ui.win;
 }
 
@@ -151,8 +192,8 @@ function buildCaseUi() {
   const { meta } = data;
   const entry = cases.find((c) => c.id === st.case);
   $("case-title").textContent = localized(entry?.title, st.lang);
-  $("case-select").replaceChildren(...cases.map((c) => new Option(localized(c.title, st.lang) || c.id, c.id)));
-  $("case-select").value = st.case;
+  buildSystems();
+  buildWindows();
   $("credit").textContent = t("footer.credit", { source: meta.source.name, license: meta.source.license });
   $("credit").href = meta.source.url;
 
@@ -167,11 +208,11 @@ function buildCaseUi() {
 
   const list = $("structure-list");
   list.replaceChildren();
-  for (const sys of SYSTEMS) {
-    const items = meta.structures.filter((s) => s.system === sys);
+  for (const sys of meta.systems) {
+    const items = meta.structures.filter((s) => s.system === sys.key);
     if (!items.length) continue;
     const h = document.createElement("h3");
-    h.textContent = t(`system.${sys}`);
+    h.textContent = localized(sys.names, st.lang);
     list.append(h);
     for (const s of items) {
       const row = document.createElement("div");
@@ -206,7 +247,7 @@ function setPlane(plane, slice) {
 }
 
 function jumpTo(s) {
-  if (!st.sys.includes(s.system)) st.sys = SYSTEMS.filter((k) => k === s.system || st.sys.includes(k));
+  if (!st.sys.includes(s.system)) st.sys = caseSystems().filter((k) => k === s.system || st.sys.includes(k));
   ui.hidden.delete(s.id);
   setPlane(st.plane, s.best[st.plane]);
   ui.selected = s.id;
@@ -244,8 +285,13 @@ function syncHash() {
 }
 
 function onHashChange() {
-  const next = clampState(parseHash(location.hash), { cases: cases.map((c) => c.id), langs: langs.map((l) => l.code), dims: data?.meta.dims ?? null });
-  if (next.case !== st.case) return openCase(next.case, next.slice);
+  const raw = parseHash(location.hash);
+  // A link to another case: open it with the link's own plane/slice/systems, not this case's.
+  if (raw.case && raw.case !== st.case && cases.some((c) => c.id === raw.case)) {
+    if (raw.lang && raw.lang !== st.lang) setLang(raw.lang);
+    return openCase(raw.case, raw);
+  }
+  const next = clampState({ ...raw, case: st.case }, ctx());
   if (next.lang && next.lang !== st.lang) setLang(next.lang);
   Object.assign(st, next, { lang: next.lang || st.lang });
   update();
@@ -263,6 +309,7 @@ function update() {
 function syncControls() {
   document.querySelectorAll(".sys").forEach((b) => b.setAttribute("aria-pressed", String(st.sys.includes(b.dataset.sys))));
   document.querySelectorAll("#plane-group .btn").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.plane === st.plane)));
+  document.querySelectorAll("#region-bar .btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.case === st.case)));
   $("zoom-val").textContent = `${Math.round(st.zoom * 100)}%`;
   $("move").setAttribute("aria-pressed", String(ui.move));
   $("viewer").classList.toggle("moving", ui.move);
