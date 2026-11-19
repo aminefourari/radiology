@@ -150,7 +150,7 @@ body.focus .slicer { padding: 0 12px 8px; }
 
 @media (min-width: 601px) {
   .system-bar { flex-wrap: wrap; overflow: visible; }
-  .sys { min-width: 0; width: 96px; text-align: center; line-height: 1.25; }
+  .sys { min-width: 0; width: 96px; text-align: center; line-height: 1.25; hyphens: auto; overflow-wrap: anywhere; }
 }
 @media (max-width: 600px) {
   .viewer { height: 62vh; }
