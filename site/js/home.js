@@ -1,5 +1,5 @@
-// Landing page: language picker + translated text. Chosen language carries into the atlases via #lang=.
-import { applyDir, loadLanguages, loadStrings, pickLang, t } from "./i18n.js";
+// Landing page: language picker + translated text. The picked language is remembered (i18n.js saveLang).
+import { applyDir, loadLanguages, loadStrings, saveLang, startLang, t } from "./i18n.js";
 import { REPO_URL } from "./report.js";
 
 const sel = document.getElementById("lang-select");
@@ -18,6 +18,6 @@ const langs = await loadLanguages();
 const codes = langs.map((l) => l.code);
 const fromHash = new URLSearchParams(location.hash.slice(1)).get("lang");
 sel.replaceChildren(...langs.map((l) => new Option(`${l.flag} ${l.name}`, l.code)));
-sel.onchange = () => setLang(sel.value);
+sel.onchange = () => { saveLang(sel.value); setLang(sel.value); };
 if (REPO_URL) Object.assign(document.getElementById("repo-link"), { hidden: false, href: REPO_URL });
-await setLang(codes.includes(fromHash) ? fromHash : pickLang(codes, navigator.languages || [navigator.language]));
+await setLang(startLang(codes, fromHash));

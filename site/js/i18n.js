@@ -11,6 +11,23 @@ export function pickLang(available, preferred) {
   return "en";
 }
 
+const LANG_KEY = "atlas.lang";
+
+// The language last picked in a selector. Storage can be blocked (private mode, file://): never throw.
+export function savedLang() {
+  try { return localStorage.getItem(LANG_KEY); } catch { return null; }
+}
+
+export function saveLang(lang) {
+  try { localStorage.setItem(LANG_KEY, lang); } catch { /* blocked: choice lasts for this page only */ }
+}
+
+// A link's #lang= wins, then the last pick, then the browser's languages.
+export function startLang(codes, linkLang) {
+  const nav = globalThis.navigator;
+  return pickLang(codes, [linkLang, savedLang(), ...(nav?.languages ?? [nav?.language])].filter(Boolean));
+}
+
 export async function loadLanguages(base = "i18n") {
   languages = await (await fetch(`${base}/index.json`)).json();
   return languages;

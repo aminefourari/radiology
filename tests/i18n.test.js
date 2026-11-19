@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
-import { pickLang, structName } from "../site/js/i18n.js";
+import { pickLang, savedLang, saveLang, startLang, structName } from "../site/js/i18n.js";
 
 const dir = new URL("../site/i18n/", import.meta.url);
 const read = (f) => JSON.parse(readFileSync(new URL(f, dir), "utf8"));
@@ -33,4 +33,43 @@ test("index.json lists all seven launch languages, each with a file", () => {
   assert.deepEqual(codes, ["en", "de", "es", "ar", "fr", "it", "nl"]);
   for (const c of codes) read(`${c}.json`);
   assert.equal(read("index.json").find((l) => l.code === "ar").dir, "rtl");
+});
+
+function withStorage(storage, fn) {
+  const prev = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
+  Object.defineProperty(globalThis, "localStorage", { configurable: true, get: () => storage() });
+  try { fn(); } finally {
+    if (prev) Object.defineProperty(globalThis, "localStorage", prev);
+    else delete globalThis.localStorage;
+  }
+}
+const memStorage = () => { const m = new Map(); return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, String(v)) }; };
+
+test("saveLang/savedLang round-trip through localStorage", () => {
+  const s = memStorage();
+  withStorage(() => s, () => {
+    assert.equal(savedLang(), null);
+    saveLang("fr");
+    assert.equal(savedLang(), "fr");
+  });
+});
+
+test("savedLang/saveLang never throw when storage is blocked", () => {
+  withStorage(() => { throw new Error("blocked"); }, () => {
+    assert.doesNotThrow(() => saveLang("fr"));
+    assert.equal(savedLang(), null);
+  });
+});
+
+test("startLang: link beats saved choice, saved beats browser, unknown codes are skipped", () => {
+  const s = memStorage();
+  withStorage(() => s, () => {
+    const codes = ["en", "de", "fr"];
+    saveLang("fr");
+    assert.equal(startLang(codes, "de"), "de");   // #lang= wins
+    assert.equal(startLang(codes, null), "fr");   // then the saved pick
+    assert.equal(startLang(codes, "xx"), "fr");   // invalid link value falls through
+    saveLang("zz");                                // stale stored code
+    assert.ok(codes.includes(startLang(codes, null))); // falls back to browser/en, still a valid code
+  });
 });

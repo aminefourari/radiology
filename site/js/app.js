@@ -3,7 +3,7 @@ import { PLANES, WINDOWS, extractSlice, loadCase, pixelAspect, planeSize, sliceC
 import { colorTable, compositeOverlay, visibleIds } from "./overlay.js";
 import { anchors, bodyExtent, layoutLabels } from "./labels.js";
 import { clampState, formatHash, parseHash } from "./state.js";
-import { applyDir, loadLanguages, loadStrings, localized, pickLang, structName, t } from "./i18n.js";
+import { applyDir, loadLanguages, loadStrings, localized, saveLang, startLang, structName, t } from "./i18n.js";
 import { REPO_URL, reportUrl } from "./report.js";
 
 const $ = (id) => document.getElementById(id);
@@ -64,7 +64,7 @@ async function boot() {
   const codes = langs.map((l) => l.code);
   const raw = parseHash(location.hash);
   const fromHash = clampState(raw, ctx());
-  st = { ...fromHash, lang: fromHash.lang || pickLang(codes, navigator.languages || [navigator.language]) };
+  st = { ...fromHash, lang: startLang(codes, fromHash.lang) };
   buildStatic();
   await setLang(st.lang);
   await openCase(st.case, raw);
@@ -121,7 +121,7 @@ function showError(e) {
 // ---------- static UI ----------
 function buildStatic() {
   $("lang-select").replaceChildren(...langs.map((l) => new Option(`${l.flag} ${l.name}`, l.code)));
-  $("lang-select").onchange = (e) => setLang(e.target.value);
+  $("lang-select").onchange = (e) => { saveLang(e.target.value); setLang(e.target.value); };
   $("sys-toggle").onclick = () => { st.sys = st.sys.length ? [] : caseSystems(); update(); };
   $("zoom-in").onclick = () => setZoom(st.zoom * 1.25);
   $("zoom-out").onclick = () => setZoom(st.zoom / 1.25);
