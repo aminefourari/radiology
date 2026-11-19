@@ -1,6 +1,6 @@
 // ECG page DOM wiring. Geometry lives in ecgplot.js. The paper is one SVG in millimetre units.
 import { measure, panels, paperMm, pathData, stSegments, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
-import { STEPS, formatMeasure, isNormal } from "./ecglearn.js";
+import { STEPS, diagnosisChoices, formatMeasure, isNormal, nextRandom, score } from "./ecglearn.js";
 import { applyDir, loadLanguages, loadStrings, localized, pickLang, t } from "./i18n.js";
 import { REPO_URL, ecgReportUrl } from "./report.js";
 
@@ -10,7 +10,13 @@ const MIN_PPM = 3; // px per mm floor; narrower screens scroll sideways
 const GROUPS = ["normal", "rhythm", "conduction", "hypertrophy", "ischaemia", "other"];
 
 let langs = [], list = [], ecg = null;
-const st = { ecg: null, lang: "en", speed: 25, gain: 10, layout: "3x4", quiz: false, waves: false };
+const st = { ecg: null, lang: "en", speed: 25, gain: 10, layout: "3x4", quiz: false, waves: false, learn: false };
+// Learn mode: { step 0..7 (7 = diagnosis), picks, dx: [ids], done }. Session data lives in localStorage when allowed.
+let learn = null;
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* private mode: keep going without it */ } },
+};
 const ui = { calipers: false, ppm: MIN_PPM, drag: null, highlight: null }; // highlight: { leads, wave? } from a clue
 
 async function boot() {
@@ -28,6 +34,7 @@ async function boot() {
   if (["3x4", "12x1"].includes(h.get("layout"))) st.layout = h.get("layout");
   st.quiz = h.get("quiz") === "1";
   st.waves = h.get("waves") === "1";
+  st.learn = h.get("learn") === "1";
 
   $("lang-select").replaceChildren(...langs.map((l) => new Option(l.name, l.code)));
   $("lang-select").onchange = (e) => setLang(e.target.value);
@@ -37,6 +44,7 @@ async function boot() {
   $("layout").onclick = (e) => { if (e.target.dataset.layout) { st.layout = e.target.dataset.layout; draw(); } };
   $("calipers").onclick = () => { ui.calipers = !ui.calipers; clearCalipers(); sync(); };
   $("waves").onclick = () => { st.waves = !st.waves; draw(); };
+  $("learn-btn").onclick = () => (st.learn ? exitLearn() : startLearn());
   $("quiz").onchange = (e) => { st.quiz = e.target.checked; $("answer").open = false; renderText(); };
   $("answer").ontoggle = () => renderReading();
   if (REPO_URL) { $("repo-link").hidden = false; $("repo-link").href = REPO_URL; }
@@ -45,6 +53,112 @@ async function boot() {
 
   await setLang(st.lang);
   await openEcg(st.ecg);
+  if (st.learn) beginLearn(); // reload keeps you in Learn on the same ECG
+}
+
+// ---------- Learn ----------
+async function startLearn() {
+  const { id, seen } = nextRandom(list.map((e) => String(e.id)), store.get("ecgLearnSeen", []), Math.random);
+  store.set("ecgLearnSeen", seen);
+  st.learn = true;
+  learn = { done: false, picks: {}, step: 0, dx: [] }; // placeholder so nothing is revealed while loading
+  await openEcg(id);
+  beginLearn();
+}
+
+function beginLearn() {
+  st.learn = true;
+  learn = { step: 0, picks: {}, dx: diagnosisChoices(list.map((e) => ({ id: String(e.id), group: e.group })), st.ecg, Math.random), done: false, answered: false };
+  ui.highlight = null;
+  renderText();
+  renderLearn();
+  draw();
+}
+
+function exitLearn() {
+  st.learn = false;
+  learn = null;
+  ui.highlight = null;
+  renderText();
+  renderLearn();
+  draw();
+}
+
+// Leads (and wave) that show the answer for a step.
+function stepHighlight(key) {
+  const ALL = ["I", "II", "III", "aVR", "aVL", "aVF", "V1", "V2", "V3", "V4", "V5", "V6"];
+  if (key === "axis") return { leads: ["I", "aVF"], wave: "QRS" };
+  if (key === "qrs") return { leads: ALL, wave: "QRS" };
+  if (key === "qt") return { leads: ALL, wave: "T" };
+  if (key === "st") {
+    const leads = [...new Set(ecg.clues.filter((c) => c.wave === "ST").flatMap((c) => c.leads))];
+    return { leads: leads.length ? leads : ALL, wave: "ST" };
+  }
+  return { leads: ["II"], wave: key === "pr" ? "P" : undefined };
+}
+
+function renderLearn() {
+  const box = $("learn");
+  box.hidden = !st.learn;
+  $("learn-btn").textContent = t(st.learn ? "learn.exit" : "learn.button");
+  $("learn-btn").setAttribute("aria-pressed", st.learn);
+  if (!st.learn || !learn) return box.replaceChildren();
+  const seen = store.get("ecgLearnSeen", []);
+  const sc = score(ecg.answers, learn.picks, st.ecg);
+  const head = h("div", { class: "row-head" },
+    h("h2", {}, t("learn.session", { n: Math.max(1, seen.indexOf(st.ecg) + 1 || seen.length), total: list.length })),
+    learn.done ? "" : h("span", { class: "muted" }, t("learn.score", { correct: sc.correct, total: Object.keys(learn.picks).length })));
+  if (learn.done) {
+    const tally = store.get("ecgLearnTally", { done: 0, correct: 0, total: 0 });
+    const next = h("button", { class: "btn" }, t("learn.nextEcg"));
+    next.onclick = startLearn;
+    const exit = h("button", { class: "btn" }, t("learn.exit"));
+    exit.onclick = exitLearn;
+    return box.replaceChildren(head,
+      h("p", { class: "big" }, t("learn.score", { correct: sc.correct, total: sc.total }), " · ", h("strong", {}, localized(ecg.title, st.lang))),
+      h("p", { class: "muted" }, t("learn.tally", tally)),
+      h("div", { class: "pair" }, next, exit));
+  }
+  const isDx = learn.step === STEPS.length;
+  const step = STEPS[learn.step];
+  const key = isDx ? "dx" : step.key;
+  const correct = isDx ? st.ecg : ecg.answers[key];
+  const label = (v) => (isDx ? localized(list.find((e) => String(e.id) === v).title, st.lang) : t(`choice.${key}.${v}`));
+  const picked = learn.picks[key];
+  const buttons = (isDx ? learn.dx : step.choices).map((v) => {
+    const b = h("button", { class: "btn choice", "aria-pressed": picked === v }, label(v));
+    if (picked) b.disabled = true;
+    if (picked && v === correct) b.classList.add("right");
+    if (picked === v && v !== correct) b.classList.add("wrong");
+    b.onclick = () => answer(key, v);
+    return b;
+  });
+  const kids = [head, h("p", { class: "q" }, `${learn.step + 1}/${STEPS.length + 1} · ${t(`learn.question.${key}`)}`), h("div", { class: "choices" }, ...buttons)];
+  if (picked && !isDx) {
+    kids.push(h("p", { class: picked === correct ? "ok" : "bad" }, picked === correct ? `✓ ${t("learn.correct")}` : `✗ ${t("learn.wrong", { answer: label(correct) })}`));
+    if (step.measure) kids.push(h("p", { dir: "auto" }, t("learn.measured", { value: formatMeasure(ecg.measures[step.measure], step.unit), range: step.range })));
+    if (ecg.notes[key]) kids.push(h("p", { class: "override" }, localized(ecg.notes[key], st.lang)));
+    kids.push(h("p", { class: "muted" }, t(`note.${key}`)));
+    const show = h("button", { class: "btn" }, t("learn.showOnTracing"));
+    show.onclick = () => { ui.highlight = stepHighlight(key); draw(); };
+    const next = h("button", { class: "btn" }, t("learn.next"));
+    next.onclick = () => { learn.step++; ui.highlight = null; renderLearn(); draw(); };
+    kids.push(h("div", { class: "pair" }, show, next));
+  }
+  box.replaceChildren(...kids);
+}
+
+function answer(key, v) {
+  if (learn.picks[key]) return;
+  learn.picks[key] = v;
+  if (key === "dx") {
+    learn.done = true;
+    const sc = score(ecg.answers, learn.picks, st.ecg);
+    const tally = store.get("ecgLearnTally", { done: 0, correct: 0, total: 0 });
+    store.set("ecgLearnTally", { done: tally.done + 1, correct: tally.correct + sc.correct, total: tally.total + sc.total });
+    renderText(); // reveals title, reading card and clues
+  }
+  renderLearn();
 }
 
 async function setLang(lang) {
@@ -56,6 +170,7 @@ async function setLang(lang) {
   document.querySelectorAll("[data-t-aria]").forEach((el) => el.setAttribute("aria-label", t(el.dataset.tAria)));
   document.title = t("ecg.title");
   renderText();
+  renderLearn();
 }
 
 async function openEcg(id) {
@@ -74,7 +189,8 @@ async function openEcg(id) {
 // Picker: grouped by topic normally; a flat numbered list in quiz mode (groups would give it away).
 function buildPicker() {
   const sel = $("ecg-select");
-  if (st.quiz) {
+  sel.hidden = st.learn;
+  if (st.quiz || st.learn) {
     sel.replaceChildren(...list.map((e, i) => new Option(t("ecg.unknown", { n: i + 1 }), e.id)));
   } else {
     sel.replaceChildren(...GROUPS.map((g) => {
@@ -92,7 +208,10 @@ function renderText() {
   buildPicker();
   $("quiz").checked = st.quiz;
   if (!ecg) return sync();
-  $("ecg-title").textContent = st.quiz ? "" : localized(ecg.title, st.lang);
+  const hide = st.learn ? !learn?.done : st.quiz;
+  $("ecg-title").textContent = hide ? "" : localized(ecg.title, st.lang);
+  $("answer").hidden = st.learn && !learn?.done;
+  $("quiz").closest("label").hidden = st.learn;
   const facts = [
     ecg.age != null && `${t("ecg.age")}: ${ecg.age}`,
     ecg.sex && `${t("ecg.sex")}: ${t(`ecg.sex.${ecg.sex}`)}`,
@@ -134,6 +253,7 @@ function sync() {
   const q = new URLSearchParams({ ecg: st.ecg, lang: st.lang, speed: st.speed, gain: st.gain, layout: st.layout });
   if (st.quiz) q.set("quiz", "1");
   if (st.waves) q.set("waves", "1");
+  if (st.learn) q.set("learn", "1");
   history.replaceState(null, "", `#${q}`);
 }
 
@@ -151,7 +271,7 @@ const reportLink = (item) =>
 function renderReading() {
   const box = $("reading");
   if (!ecg) return;
-  box.hidden = st.quiz && !$("answer").open;
+  box.hidden = st.learn ? !learn?.done : st.quiz && !$("answer").open;
   const rows = STEPS.map((s) => {
     const ans = ecg.answers[s.key];
     const value = s.measure ? formatMeasure(ecg.measures[s.measure], s.unit) : "";

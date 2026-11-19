@@ -37,6 +37,7 @@
     <button class="btn" role="radio" data-layout="3x4">3×4</button>
     <button class="btn" role="radio" data-layout="12x1">12×1</button>
   </div>
+  <button id="learn-btn" class="btn learn-btn" aria-pressed="false" data-t="learn.button">Learn</button>
   <button id="waves" class="btn" aria-pressed="false" data-t="ecg.waves">Waves</button>
   <button id="calipers" class="btn" aria-pressed="false" data-t="ecg.calipers">Calipers</button>
   <label class="check"><input id="quiz" type="checkbox"> <span data-t="ecg.quiz">Quiz mode</span></label>
@@ -52,6 +53,8 @@
   </div>
   <p class="hint" data-t="ecg.hint">Turn on Calipers and drag across the trace to measure time and voltage.</p>
 </main>
+
+<section id="learn" class="reading learn" hidden aria-live="polite"></section>
 
 <section id="reading" class="reading" hidden></section>
 

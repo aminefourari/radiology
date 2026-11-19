@@ -57,3 +57,15 @@ test("en.json has every string the ECG reading card needs", async () => {
   for (const s of STEPS) need.push(`step.${s.key}`, `note.${s.key}`, ...s.choices.map((c) => `choice.${s.key}.${c}`));
   assert.deepEqual(need.filter((k) => !(k in en)), []);
 });
+
+test("en.json has every string Learn mode needs, with the right placeholders", async () => {
+  const { STEPS } = await import("../site/js/ecglearn.js");
+  const need = { "learn.button": [], "learn.exit": [], "learn.next": [], "learn.nextEcg": [], "learn.correct": [],
+    "learn.wrong": ["answer"], "learn.measured": ["range", "value"], "learn.showOnTracing": [], "learn.session": ["n", "total"],
+    "learn.score": ["correct", "total"], "learn.tally": ["correct", "done", "total"], "learn.question.dx": [] };
+  for (const s of STEPS) need[`learn.question.${s.key}`] = [];
+  for (const [k, v] of Object.entries(need)) {
+    assert.ok(k in en, `${k} missing`);
+    assert.deepEqual(vars(en[k]), v, `${k} placeholders`);
+  }
+});

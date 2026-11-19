@@ -215,3 +215,19 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
   .reading .step .range { display: none; }
   .clue-row { flex-direction: column; align-items: stretch; }
 }
+
+/* Learn mode */
+.learn-btn { border-color: var(--active); color: var(--active); }
+.learn .q { font: 500 15px var(--sans); margin: 10px 0; }
+.learn .choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.learn .choice { font-family: var(--sans); }
+.learn .choice.right { border-color: #7bc58a; color: #7bc58a; }
+.learn .choice.wrong { border-color: #e06c6c; color: #e06c6c; }
+.learn .choice:disabled { cursor: default; opacity: 1; }
+.learn p { font-family: var(--sans); }
+.learn .ok { color: #7bc58a; }
+.learn .bad { color: var(--active); }
+.learn .override { color: var(--text); }
+.learn .muted { color: var(--muted); }
+.learn .big { font-size: 16px; }
+.learn .pair { flex-wrap: wrap; margin-top: 8px; }
