@@ -94,3 +94,8 @@ def test_pr_stays_measurable_with_ectopic_beats():
     assert (a["rhythm"], a["pr"]) == ("no", "normal")  # PVCs have no P, but sinus beats have a normal PR
     assert _a(codes=("NORM", "PAC", "SR"))["rhythm"] == "yes"  # a PAC has its own (early) P wave
     assert _a(codes=("2AVB",), pr=180)["pr"] == "none"
+
+
+def test_pair_waves_drops_waves_cut_off_by_the_record_end():
+    pts = [(10, "QRS onset"), (20, "QRS offset"), (4998, "t-wave onset"), (5000, "t-wave offset")]
+    assert pair_waves(pts, n=5000) == [{"k": "QRS", "on": 10, "off": 20}]

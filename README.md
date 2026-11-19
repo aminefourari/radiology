@@ -16,7 +16,7 @@ you spot a mistake, use "Report a problem" on the structure.
 The landing page links both atlases. The CT atlas is `ct.html`. The **ECG atlas** (`ecg.html`) has 29 real
 12-lead ECGs from PTB-XL, grouped by rhythm, conduction, hypertrophy, ischaemia and more, drawn as
 sharp vector graphics on standard paper, with 3×4 or 12×1 layouts, speed and gain, calipers,
-P/QRS/T wave shading, and a quiz mode that hides the diagnosis until you open the interpretation.
+P/QRS/ST/T wave shading, and a quiz mode that hides the diagnosis until you open the interpretation.
 It teaches how to *find* the pathology:
 
 - **Study:** under each tracing, a reading card walks the same steps every time (rate, rhythm,

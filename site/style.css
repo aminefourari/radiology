@@ -166,7 +166,7 @@ body.focus .slicer { padding: 0 12px 8px; }
 #trace .w-P { fill: #1f6fd1; }
 #trace .w-QRS { fill: #d12f2f; }
 #trace .w-T { fill: #1e8a43; }
-#trace .w-ST { fill: #b3261e; }
+#trace .w-ST { fill: #c98200; }
 #cal path { stroke: #1565c0; stroke-width: 1.5px; }
 #cal text { font: 600 3.4px var(--mono); fill: #1565c0; }
 .paper.measuring { touch-action: none; cursor: crosshair; }

@@ -1,5 +1,5 @@
 // ECG page DOM wiring. Geometry lives in ecgplot.js. The paper is one SVG in millimetre units.
-import { measure, panels, paperMm, pathData, stSegments, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
+import { measure, panels, paperMm, pathData, shownWaves, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
 import { STEPS, diagnosisChoices, formatMeasure, isNormal, ltr, makeStore, nextRandom, score } from "./ecglearn.js";
 import { applyDir, loadLanguages, loadStrings, localized, pickLang, t } from "./i18n.js";
 import { REPO_URL, ecgReportUrl } from "./report.js";
@@ -325,10 +325,9 @@ function draw() {
   const bands = el("g", { class: "waves" }), traces = el("g", { class: "traces" }), labels = el("g", { class: "leads" });
   const scale = { speed: st.speed, gain: st.gain, ppm: 1 }; // ppm 1 → coordinates in paper mm
   const hl = ui.highlight;
-  const hlWaves = hl?.wave ? (hl.wave === "ST" ? stSegments(ecg.waves) : ecg.waves.filter((w) => w.k === hl.wave)) : [];
   for (const panel of panels(duration, st.layout)) {
     const dim = hl && !hl.leads.includes(panel.lead);
-    const shown = [...(st.waves ? ecg.waves : []), ...(dim || (st.waves && hl?.wave !== "ST") ? [] : hlWaves)];
+    const shown = shownWaves(ecg.waves, { all: st.waves, highlight: hl?.wave, dim });
     if (shown.length) {
       for (const b of waveBands(shown, ecg.fs, panel, st.speed)) {
         bands.append(el("rect", { class: `w-${b.k}`, x: b.x, y: b.y + 1, width: b.w, height: b.h - 2 }));
