@@ -7,6 +7,11 @@ Derived from:
   https://dbarchive.biosciencedbc.jp/en/bodyparts3d/ (kidneys from the STL set at
   https://github.com/Kevin-Mattheus-Moerman/BodyParts3D)
 
+Z-Anatomy also includes and adapts, and these files keep:
+- "Cranial Nerves and Foramina" by the University of Dundee, CAHID, CC BY 4.0
+- "Brainder" and "White matter" models from the University of Washington
+
 Changes: converted to RAS millimetres, simplified, compressed (meshopt). Left out because they are
-non-commercial in Z-Anatomy: the inner ear and auditory ossicles (University of Dundee, CC BY-NC-SA) and
-the kidney by Lissie Cowley (CC BY-NC), replaced by the BodyParts3D kidneys.
+non-commercial in Z-Anatomy, with neighbouring parts of uncertain origin: the inner ear, auditory ossicles,
+tympanic membrane and auditory tube (University of Dundee, CC BY-NC-SA) and the kidney by Lissie Cowley
+(CC BY-NC) with the intrarenal and segmental renal vessels; the kidneys are BodyParts3D's.

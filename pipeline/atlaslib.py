@@ -89,3 +89,14 @@ def part_parents(site, links):
             if a != whole[0]:
                 out[a] = whole[0]
     return out
+
+
+# Non-commercial in Z-Anatomy: the inner ear (University of Dundee, CC BY-NC-SA) and the kidney by Lissie
+# Cowley (CC BY-NC). Their neighbours of uncertain origin (ossicles, tympanic membrane, auditory tube,
+# intrarenal and segmental renal vessels) are left out too. The kidney is replaced by BodyParts3D's.
+EXCLUDE = re.compile(r"(?i)^(cochlea|vestibule|.*semicircular|.*duct of cochlea|.*labyrinth|malleus|incus|stapes"
+                     r"|tympanic membrane|auditory tube|kidney|renal pelvis|intrarenal|(anterior|posterior) branch of renal)\b")
+
+
+def excluded(name):
+    return bool(EXCLUDE.search(name))

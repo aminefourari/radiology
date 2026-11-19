@@ -21,6 +21,8 @@ const TISSUES = {
   nerve: { roughness: 0.45, clearcoat: 0.4, clearcoatRoughness: 0.3, sheen: 0.3, sheenRoughness: 0.5 },
 };
 
+const WHITE = new THREE.Color(0xffffff);
+
 // Soft studio backdrop: lighter in the middle, dark at the edges.
 function backdrop() {
   const c = document.createElement("canvas");
@@ -88,10 +90,13 @@ export function createView3d(container, before) {
   composer.addPass(ao);
   composer.addPass(new OutputPass());
 
+  const lastCam = new THREE.Matrix4();
   function render() {
     frame = 0;
     composer.render();
-    changed();
+    const moved = !lastCam.equals(camera.matrixWorld);
+    lastCam.copy(camera.matrixWorld);
+    changed(moved); // moved: screen positions of everything changed
   }
   const requestRender = () => { if (!frame) frame = requestAnimationFrame(render); };
   controls.addEventListener("change", requestRender);
@@ -173,24 +178,26 @@ export function createView3d(container, before) {
     for (const [id, m] of meshes) {
       const s = shown.get(id);
       m.visible = !!s;
-      if (!s) continue;
-      const faded = s.opacity < 1;
-      if (m.userData.tissue !== s.tissue) {
+      const u = m.userData;
+      if (!s || (u.color === s.color && u.tissue === s.tissue && u.opacity === s.opacity)) continue; // unchanged
+      if (u.tissue !== s.tissue) {
         m.material.setValues({ roughness: 0.5, clearcoat: 0, clearcoatRoughness: 0, sheen: 0, sheenRoughness: 1, ...TISSUES[s.tissue] });
-        m.userData.tissue = s.tissue;
       }
+      const faded = s.opacity < 1;
       m.material.color.set(s.color);
-      m.material.sheenColor.set(s.color).lerp(new THREE.Color(0xffffff), 0.5);
+      m.material.sheenColor.set(s.color).lerp(WHITE, 0.5);
       m.material.opacity = s.opacity;
+      if (m.material.transparent !== faded) m.material.needsUpdate = true; // opaque shaders force alpha to 1
       m.material.transparent = faded;
       m.material.depthWrite = !faded;
       m.renderOrder = faded ? 1 : 0;
-      m.material.emissive.set(selected.has(id) ? 0x444444 : 0x000000);
+      Object.assign(u, { color: s.color, tissue: s.tissue, opacity: s.opacity });
     }
     requestRender();
   }
 
   function select(keys) {
+    if (keys.length === selected.size && keys.every((k) => selected.has(k))) return;
     selected = new Set(keys);
     for (const [k, m] of meshes) m.material.emissive.set(selected.has(k) ? 0x444444 : 0x000000);
     requestRender();

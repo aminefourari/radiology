@@ -15,7 +15,7 @@ import bpy
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from atlaslib import fit_axes, slug  # noqa: E402
+from atlaslib import excluded, fit_axes, slug  # noqa: E402
 
 out_dir, bp3d_dir, ta2_path, budgets_path = sys.argv[sys.argv.index("--") + 1:]
 BUDGETS = json.load(open(budgets_path))  # system -> target triangles
@@ -27,10 +27,6 @@ TOP = {
 }
 VISCERAL = [("Respiratory system", "respiratory"), ("Bronchi", "respiratory"), ("Lungs", "respiratory"),
             ("Urinary system", "urinary"), ("Genital systems'", "genital"), ("Endocrine glands", "endocrine")]
-# Non-commercial parts (Z-Anatomy credits): inner ear (Dundee, CC BY-NC-SA) and the kidney by Lissie
-# Cowley (CC BY-NC). The kidney is replaced by BodyParts3D's below.
-EXCLUDE = re.compile(r"(?i)^(cochlea|vestibule|semicircular|.*\bduct of cochlea|.*labyrinth|malleus|incus|stapes"
-                     r"|kidney|renal pelvis)\b")
 HELPER = re.compile(r"\.[a-z]$")
 SIDE = re.compile(r"\.[lr]$")
 
@@ -150,7 +146,7 @@ def main():
                 continue
             done.add(o.name)
             base = SIDE.sub("", o.name).strip("()[] ")
-            if EXCLUDE.search(base):
+            if excluded(base):
                 continue
             system = system_of(o)
             me = bpy.data.meshes.new_from_object(o.evaluated_get(dg), depsgraph=dg)

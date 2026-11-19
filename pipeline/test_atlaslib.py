@@ -68,3 +68,13 @@ def test_part_parents_skips_parts_that_are_the_parent():
             {"key": "cerebellum", "parent": "brain"}]
     links = {"brain": ["gyrus_a", "gyrus_b"], "frontal_lobe": ["gyrus_b"], "cerebellum": ["vermis"]}
     assert part_parents(site, links) == {}
+
+
+def test_excluded_non_commercial_parts():
+    from atlaslib import excluded
+    for name in ["Cochlea", "Vestibule", "Malleus", "Kidney", "Renal pelvis", "Intrarenal arteries of left kidney",
+                 "Intrarenal veins of right kidney", "Anterior branch of renal artery", "Tympanic membrane",
+                 "Auditory tube", "Lateral semicircular canal"]:
+        assert excluded(name), name
+    for name in ["Left renal artery", "Liver", "Cochlear nerve", "Vestibular nuclei", "Suprarenal gland"]:
+        assert not excluded(name), name

@@ -105,6 +105,8 @@ async function openCase(id, wanted) {
   st.lang ||= "en";
   ui.hidden.clear();
   ui.selected = 0;
+  a3.sel = null;
+  a3.at = null;
   ui.pan = { x: 0, y: 0 };
   if (id !== prevCase || !data.meta.windows.includes(ui.win)) ui.win = data.meta.windows[0]; // each region opens in its own first window
   $("loading").hidden = true;
@@ -153,6 +155,7 @@ function regionBox(fit) {
 async function open3d() {
   const id = st.case;
   $("loading3d").hidden = false;
+  $("loading3d").querySelector("p").textContent = t("loading3d");
   try {
     if (!view) {
       const [{ createView3d }, index] = await Promise.all([import("./view3d.js"), getOk("atlas/index.json").then((r) => r.json())]);
@@ -181,6 +184,7 @@ async function open3d() {
     }
   } catch (e) {
     console.error(e);
+    viewCase = null; // switching 3D off and on again retries
     $("loading3d").querySelector("p").textContent = t("error.load");
     return;
   }
@@ -277,9 +281,8 @@ function showIn3d(keys) {
 
 // Names pinned to the structures this case labels (largest first), drawn once the view settles.
 let labelTimer = 0;
-function scheduleLabels3d() {
-  $("labels3d").replaceChildren();
-  $("popup3d").hidden = true;
+function scheduleLabels3d(moved) {
+  if (moved) { $("labels3d").replaceChildren(); $("popup3d").hidden = true; }
   clearTimeout(labelTimer);
   labelTimer = setTimeout(() => { drawLabels3d(); placePopup3d(); }, 120);
 }
@@ -508,6 +511,7 @@ function onHashChange() {
   // A link to another case: open it with the link's own plane/slice/systems, not this case's.
   if (raw.case && raw.case !== st.case && cases.some((c) => c.id === raw.case)) {
     if (raw.lang && raw.lang !== st.lang) setLang(raw.lang);
+    st.is3d = raw.is3d;
     return openCase(raw.case, raw);
   }
   const next = clampState({ ...raw, case: st.case }, ctx());
