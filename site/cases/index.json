@@ -1,6 +1,33 @@
 [
  {
+  "id": "s1508",
+  "region": "head",
+  "title": {
+   "en": "Head · non-contrast CT",
+   "de": "Kopf · CT ohne Kontrastmittel",
+   "es": "Cabeza · TC sin contraste",
+   "ar": "الرأس · تصوير مقطعي دون تباين",
+   "fr": "Tête · TDM sans injection",
+   "it": "Testa · TC senza contrasto",
+   "nl": "Hoofd · CT zonder contrast"
+  }
+ },
+ {
+  "id": "s0289",
+  "region": "neck",
+  "title": {
+   "en": "Neck · CT angiography",
+   "de": "Hals · CT-Angiographie",
+   "es": "Cuello · angio-TC",
+   "ar": "العنق · تصوير مقطعي للأوعية",
+   "fr": "Cou · angioscanner",
+   "it": "Collo · angio-TC",
+   "nl": "Hals · CT-angiografie"
+  }
+ },
+ {
   "id": "s0010",
+  "region": "abdomen-pelvis",
   "title": {
    "en": "Abdomen & pelvis · CT, portal venous phase",
    "de": "Abdomen & Becken · CT, portalvenöse Phase",

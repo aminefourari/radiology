@@ -1,0 +1,424 @@
+{
+ "systems": [
+  {
+   "key": "organs",
+   "icon": "organs",
+   "color": "#c98bd6",
+   "names": {
+    "en": "Organs",
+    "de": "Organe",
+    "es": "Órganos",
+    "ar": "الأعضاء",
+    "fr": "Organes",
+    "it": "Organi",
+    "nl": "Organen"
+   }
+  },
+  {
+   "key": "segments",
+   "icon": "segments",
+   "color": "#f2a65a",
+   "names": {
+    "en": "Segments",
+    "de": "Segmente",
+    "es": "Segmentos",
+    "ar": "القطع",
+    "fr": "Segments",
+    "it": "Segmenti",
+    "nl": "Segmenten"
+   }
+  },
+  {
+   "key": "digestive",
+   "icon": "digestive",
+   "color": "#f4cf7a",
+   "names": {
+    "en": "Digestive",
+    "de": "Verdauung",
+    "es": "Digestivo",
+    "ar": "الهضمي",
+    "fr": "Digestif",
+    "it": "Digerente",
+    "nl": "Spijsvertering"
+   }
+  },
+  {
+   "key": "urinary",
+   "icon": "urinary",
+   "color": "#e7d36a",
+   "names": {
+    "en": "Urinary",
+    "de": "Harnwege",
+    "es": "Urinario",
+    "ar": "البولي",
+    "fr": "Urinaire",
+    "it": "Urinario",
+    "nl": "Urinewegen"
+   }
+  },
+  {
+   "key": "pelvis",
+   "icon": "pelvis",
+   "color": "#bfc8d6",
+   "names": {
+    "en": "Pelvis",
+    "de": "Becken",
+    "es": "Pelvis",
+    "ar": "الحوض",
+    "fr": "Bassin",
+    "it": "Bacino",
+    "nl": "Bekken"
+   }
+  },
+  {
+   "key": "spine",
+   "icon": "spine",
+   "color": "#9ec5e8",
+   "names": {
+    "en": "Spine",
+    "de": "Wirbelsäule",
+    "es": "Columna",
+    "ar": "العمود الفقري",
+    "fr": "Rachis",
+    "it": "Colonna",
+    "nl": "Wervelkolom"
+   }
+  },
+  {
+   "key": "arteries",
+   "icon": "arteries",
+   "color": "#e85a5a",
+   "names": {
+    "en": "Arteries",
+    "de": "Arterien",
+    "es": "Arterias",
+    "ar": "الشرايين",
+    "fr": "Artères",
+    "it": "Arterie",
+    "nl": "Slagaders"
+   }
+  },
+  {
+   "key": "veins",
+   "icon": "veins",
+   "color": "#5b8def",
+   "names": {
+    "en": "Veins",
+    "de": "Venen",
+    "es": "Venas",
+    "ar": "الأوردة",
+    "fr": "Veines",
+    "it": "Vene",
+    "nl": "Aders"
+   }
+  },
+  {
+   "key": "lobes",
+   "icon": "lobes",
+   "color": "#c98bd6",
+   "names": {
+    "en": "Lobes",
+    "de": "Hirnlappen",
+    "es": "Lóbulos",
+    "ar": "الفصوص",
+    "fr": "Lobes",
+    "it": "Lobi",
+    "nl": "Kwabben"
+   }
+  },
+  {
+   "key": "deep-nuclei",
+   "icon": "deep-nuclei",
+   "color": "#f2a65a",
+   "names": {
+    "en": "Deep nuclei",
+    "de": "Kerngebiete",
+    "es": "Núcleos profundos",
+    "ar": "النوى العميقة",
+    "fr": "Noyaux gris",
+    "it": "Nuclei profondi",
+    "nl": "Diepe kernen"
+   }
+  },
+  {
+   "key": "posterior-fossa",
+   "icon": "posterior-fossa",
+   "color": "#7fd1c7",
+   "names": {
+    "en": "Posterior fossa",
+    "de": "Hintere Schädelgrube",
+    "es": "Fosa posterior",
+    "ar": "الحفرة الخلفية",
+    "fr": "Fosse postérieure",
+    "it": "Fossa posteriore",
+    "nl": "Achterste schedelgroeve"
+   }
+  },
+  {
+   "key": "meninges-sinuses",
+   "icon": "meninges-sinuses",
+   "color": "#5b8def",
+   "names": {
+    "en": "Sinuses & CSF",
+    "de": "Sinus & Liquorräume",
+    "es": "Senos y LCR",
+    "ar": "الجيوب والسائل الدماغي",
+    "fr": "Sinus et LCS",
+    "it": "Seni e liquor",
+    "nl": "Sinussen & liquor"
+   }
+  },
+  {
+   "key": "brain",
+   "icon": "brain",
+   "color": "#b39ddb",
+   "names": {
+    "en": "Brain",
+    "de": "Gehirn",
+    "es": "Encéfalo",
+    "ar": "الدماغ",
+    "fr": "Encéphale",
+    "it": "Encefalo",
+    "nl": "Hersenen"
+   }
+  },
+  {
+   "key": "ventricles",
+   "icon": "ventricles",
+   "color": "#5ec8e5",
+   "names": {
+    "en": "Ventricles",
+    "de": "Ventrikel",
+    "es": "Ventrículos",
+    "ar": "البطينات",
+    "fr": "Ventricules",
+    "it": "Ventricoli",
+    "nl": "Ventrikels"
+   }
+  },
+  {
+   "key": "orbit",
+   "icon": "orbit",
+   "color": "#f4cf7a",
+   "names": {
+    "en": "Orbit",
+    "de": "Orbita",
+    "es": "Órbita",
+    "ar": "المحجر",
+    "fr": "Orbite",
+    "it": "Orbita",
+    "nl": "Oogkas"
+   }
+  },
+  {
+   "key": "glands-airway",
+   "icon": "glands-airway",
+   "color": "#8fd694",
+   "names": {
+    "en": "Glands & airway",
+    "de": "Drüsen & Atemwege",
+    "es": "Glándulas y vía aérea",
+    "ar": "الغدد والمجرى الهوائي",
+    "fr": "Glandes et voies aériennes",
+    "it": "Ghiandole e vie aeree",
+    "nl": "Klieren & luchtweg"
+   }
+  },
+  {
+   "key": "vessels",
+   "icon": "vessels",
+   "color": "#e85a5a",
+   "names": {
+    "en": "Vessels",
+    "de": "Gefäße",
+    "es": "Vasos",
+    "ar": "الأوعية",
+    "fr": "Vaisseaux",
+    "it": "Vasi",
+    "nl": "Bloedvaten"
+   }
+  },
+  {
+   "key": "skull-face",
+   "icon": "skull-face",
+   "color": "#bfc8d6",
+   "names": {
+    "en": "Skull & face",
+    "de": "Schädel & Gesicht",
+    "es": "Cráneo y cara",
+    "ar": "الجمجمة والوجه",
+    "fr": "Crâne et face",
+    "it": "Cranio e faccia",
+    "nl": "Schedel & gezicht"
+   }
+  },
+  {
+   "key": "mastication",
+   "icon": "mastication",
+   "color": "#f08a8a",
+   "names": {
+    "en": "Jaw muscles & tongue",
+    "de": "Kiefermuskeln & Zunge",
+    "es": "Músculos mandibulares y lengua",
+    "ar": "عضلات الفك واللسان",
+    "fr": "Muscles de la mâchoire et langue",
+    "it": "Muscoli mandibolari e lingua",
+    "nl": "Kaakspieren & tong"
+   }
+  },
+  {
+   "key": "larynx",
+   "icon": "larynx",
+   "color": "#f2b880",
+   "names": {
+    "en": "Larynx & trachea",
+    "de": "Kehlkopf & Trachea",
+    "es": "Laringe y tráquea",
+    "ar": "الحنجرة والرغامى",
+    "fr": "Larynx et trachée",
+    "it": "Laringe e trachea",
+    "nl": "Strottenhoofd & luchtpijp"
+   }
+  },
+  {
+   "key": "pharynx-esophagus",
+   "icon": "pharynx-esophagus",
+   "color": "#f4cf7a",
+   "names": {
+    "en": "Pharynx & oesophagus",
+    "de": "Rachen & Ösophagus",
+    "es": "Faringe y esófago",
+    "ar": "البلعوم والمريء",
+    "fr": "Pharynx et œsophage",
+    "it": "Faringe ed esofago",
+    "nl": "Keelholte & slokdarm"
+   }
+  },
+  {
+   "key": "thyroid",
+   "icon": "thyroid",
+   "color": "#f6a5c0",
+   "names": {
+    "en": "Thyroid",
+    "de": "Schilddrüse",
+    "es": "Tiroides",
+    "ar": "الغدة الدرقية",
+    "fr": "Thyroïde",
+    "it": "Tiroide",
+    "nl": "Schildklier"
+   }
+  },
+  {
+   "key": "neck-muscles",
+   "icon": "neck-muscles",
+   "color": "#f08a8a",
+   "names": {
+    "en": "Neck muscles",
+    "de": "Halsmuskeln",
+    "es": "Músculos del cuello",
+    "ar": "عضلات العنق",
+    "fr": "Muscles du cou",
+    "it": "Muscoli del collo",
+    "nl": "Halsspieren"
+   }
+  },
+  {
+   "key": "lungs",
+   "icon": "lungs",
+   "color": "#9ec5e8",
+   "names": {
+    "en": "Lungs",
+    "de": "Lunge",
+    "es": "Pulmones",
+    "ar": "الرئتان",
+    "fr": "Poumons",
+    "it": "Polmoni",
+    "nl": "Longen"
+   }
+  },
+  {
+   "key": "airway",
+   "icon": "airway",
+   "color": "#79a8e8",
+   "names": {
+    "en": "Airway",
+    "de": "Atemwege",
+    "es": "Vía aérea",
+    "ar": "المجرى الهوائي",
+    "fr": "Voies aériennes",
+    "it": "Vie aeree",
+    "nl": "Luchtwegen"
+   }
+  },
+  {
+   "key": "heart",
+   "icon": "heart",
+   "color": "#e85a5a",
+   "names": {
+    "en": "Heart",
+    "de": "Herz",
+    "es": "Corazón",
+    "ar": "القلب",
+    "fr": "Cœur",
+    "it": "Cuore",
+    "nl": "Hart"
+   }
+  },
+  {
+   "key": "heart-vessels",
+   "icon": "heart-vessels",
+   "color": "#f07b6e",
+   "names": {
+    "en": "Great vessels",
+    "de": "Große Gefäße",
+    "es": "Grandes vasos",
+    "ar": "الأوعية الكبرى",
+    "fr": "Gros vaisseaux",
+    "it": "Grossi vasi",
+    "nl": "Grote vaten"
+   }
+  },
+  {
+   "key": "chest-wall",
+   "icon": "chest-wall",
+   "color": "#bfc8d6",
+   "names": {
+    "en": "Chest wall",
+    "de": "Brustwand",
+    "es": "Pared torácica",
+    "ar": "جدار الصدر",
+    "fr": "Paroi thoracique",
+    "it": "Parete toracica",
+    "nl": "Borstwand"
+   }
+  },
+  {
+   "key": "limb-bones",
+   "icon": "limb-bones",
+   "color": "#d6dde8",
+   "names": {
+    "en": "Bones",
+    "de": "Knochen",
+    "es": "Huesos",
+    "ar": "العظام",
+    "fr": "Os",
+    "it": "Ossa",
+    "nl": "Botten"
+   }
+  },
+  {
+   "key": "limb-muscles",
+   "icon": "limb-muscles",
+   "color": "#f08a8a",
+   "names": {
+    "en": "Hip & thigh muscles",
+    "de": "Hüft- & Oberschenkelmuskeln",
+    "es": "Músculos de cadera y muslo",
+    "ar": "عضلات الورك والفخذ",
+    "fr": "Muscles de la hanche et de la cuisse",
+    "it": "Muscoli dell'anca e della coscia",
+    "nl": "Heup- & dijspieren"
+   }
+  }
+ ]
+}

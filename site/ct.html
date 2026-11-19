@@ -21,43 +21,39 @@
   </div>
   <div class="top-actions">
     <a class="btn" href="ecg.html" data-t="nav.ecg">ECG atlas</a>
-    <select id="case-select" hidden aria-label="Case" data-t-aria="case.label"></select>
     <select id="lang-select" aria-label="Language" data-t-aria="lang.label"></select>
     <button id="btn-structures" class="btn" data-t="ctl.structures">Structures</button>
-    <button id="btn-settings" class="btn" data-t="ctl.settings">Settings</button>
   </div>
 </header>
+
+<nav id="region-bar" class="region-bar" hidden aria-label="Region" data-t-aria="region.label"></nav>
 
 <section class="systems" aria-labelledby="systems-title">
   <div class="row-head">
     <h2 id="systems-title" data-t="systems.title">Systems · toggle on and off</h2>
-    <div class="pair">
-      <button id="sys-all" class="btn small" data-t="ctl.all">All</button>
-      <button id="sys-none" class="btn small" data-t="ctl.none">None</button>
-    </div>
+    <button id="sys-toggle" class="btn small"></button>
   </div>
   <div id="system-bar" class="system-bar" role="group"></div>
 </section>
 
 <section class="controls">
   <div id="plane-group" class="segmented" role="radiogroup"></div>
-  <div class="zoom">
-    <button id="zoom-out" class="btn icon" aria-label="Zoom out" data-t-aria="ctl.zoomOut">−</button>
-    <output id="zoom-val">100%</output>
-    <button id="zoom-in" class="btn icon" aria-label="Zoom in" data-t-aria="ctl.zoomIn">+</button>
-    <button id="zoom-fit" class="btn" data-t="ctl.fit">Fit</button>
-    <button id="move" class="btn" aria-pressed="false" data-t="ctl.move">Move</button>
-  </div>
   <label class="window"><span data-t="win.label">Window</span>
     <select id="win-select"></select>
   </label>
-  <button id="focus" class="btn" aria-pressed="false" data-t="ctl.focus">Focus</button>
 </section>
 
 <main class="viewer-wrap">
   <div class="viewer-head" dir="ltr">
     <span id="plane-info"></span>
-    <span id="hu-readout" class="hu">HU —</span>
+    <span class="tools">
+      <span id="hu-readout" class="hu">HU —</span>
+      <button id="zoom-fit" class="btn small" hidden data-t="ctl.fit">Fit</button>
+      <button id="move" class="btn small" hidden aria-pressed="false" data-t="ctl.move">Move</button>
+      <button id="zoom-out" class="btn small icon" aria-label="Zoom out" data-t-aria="ctl.zoomOut">−</button>
+      <button id="zoom-in" class="btn small icon" aria-label="Zoom in" data-t-aria="ctl.zoomIn">+</button>
+      <button id="focus" class="btn small" aria-pressed="false" data-t="ctl.focus">Focus</button>
+    </span>
   </div>
   <div id="viewer" class="viewer" dir="ltr" tabindex="0">
     <canvas id="canvas"></canvas>
@@ -72,16 +68,16 @@
   <p id="hint" class="hint" data-t="tap.hint">Tap a structure to name it</p>
 </main>
 
-<section class="levels" aria-labelledby="levels-title">
-  <h2 id="levels-title" data-t="keylevels">Key levels</h2>
-  <div id="levels" class="level-bar"></div>
-</section>
-
 <section class="slicer" dir="ltr">
   <button id="prev" class="btn icon" aria-label="Previous slice" data-t-aria="ctl.prev">‹</button>
   <input id="slider" type="range" min="0" max="0" value="0" aria-label="Slice">
   <button id="next" class="btn icon" aria-label="Next slice" data-t-aria="ctl.next">›</button>
   <output id="slice-val"></output>
+</section>
+
+<section class="levels" aria-labelledby="levels-title">
+  <h2 id="levels-title" data-t="keylevels">Key levels</h2>
+  <div id="levels" class="level-bar"></div>
 </section>
 
 <footer class="foot">
@@ -92,14 +88,11 @@
 
 <dialog id="dlg-structures" class="drawer">
   <div class="drawer-head"><h2 data-t="ctl.structures">Structures</h2><button class="btn small" data-close data-t="ctl.close">Close</button></div>
-  <div id="structure-list"></div>
-</dialog>
-
-<dialog id="dlg-settings" class="drawer">
-  <div class="drawer-head"><h2 data-t="ctl.settings">Settings</h2><button class="btn small" data-close data-t="ctl.close">Close</button></div>
+  <h3 data-t="ctl.settings">Settings</h3>
   <label class="field"><span data-t="settings.opacity">Overlay opacity</span><input id="opacity" type="range" min="0" max="1" step="0.05" value="0.45"></label>
   <label class="check"><input id="labels-on" type="checkbox" checked> <span data-t="settings.labels">Show labels</span></label>
   <label class="check"><input id="outline" type="checkbox"> <span data-t="settings.outline">Outlines only</span></label>
+  <div id="structure-list"></div>
 </dialog>
 </body>
 </html>

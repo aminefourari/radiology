@@ -33,7 +33,7 @@ async function boot() {
   st.waves = parseWaves(h.get("waves"));
   st.learn = h.get("learn") === "1";
 
-  $("lang-select").replaceChildren(...langs.map((l) => new Option(l.name, l.code)));
+  $("lang-select").replaceChildren(...langs.map((l) => new Option(`${l.flag} ${l.name}`, l.code)));
   $("lang-select").onchange = (e) => setLang(e.target.value);
   $("ecg-select").onchange = (e) => openEcg(e.target.value);
   $("speed").onchange = (e) => { st.speed = +e.target.value; draw(); };

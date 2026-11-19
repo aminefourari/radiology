@@ -39,6 +39,7 @@ button, select, input, output { font: inherit; color: inherit; }
   padding: 8px 12px;
   min-height: 38px;
   cursor: pointer;
+  max-width: 100%;
 }
 .btn:hover { border-color: var(--muted); }
 .btn.small { min-height: 32px; padding: 4px 10px; font-size: 12px; }
@@ -52,8 +53,8 @@ button, select, input, output { font: inherit; color: inherit; }
 
 /* systems */
 .systems { margin-top: 16px; }
-.row-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
 .pair { display: flex; gap: 6px; }
+.row-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
 .system-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
 .sys {
   flex: 0 0 auto;
@@ -68,14 +69,16 @@ button, select, input, output { font: inherit; color: inherit; }
 /* controls */
 .controls { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-top: 12px; }
 .segmented { display: flex; gap: 6px; }
-.zoom { display: flex; gap: 6px; align-items: center; }
-.zoom output { min-width: 52px; text-align: center; }
 .window { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 12px; }
 .window select { color: var(--text); font-size: 14px; }
 
 /* viewer */
 .viewer-wrap { margin-top: 12px; border: 1px solid var(--line); border-radius: 14px; background: #000; overflow: hidden; }
 .viewer-head { display: flex; justify-content: space-between; padding: 8px 12px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--line); background: var(--ground); }
+.viewer-head { align-items: center; gap: 8px; padding-block: 6px; }
+.tools { display: flex; align-items: center; gap: 6px; }
+.tools .hu { margin-inline-end: 6px; }
+.tools .btn.small.icon { width: 32px; font-size: 16px; }
 .hu { font-variant-numeric: tabular-nums; }
 .viewer { position: relative; height: min(68vh, 760px); min-height: 320px; touch-action: none; user-select: none; -webkit-user-select: none; cursor: crosshair; }
 .viewer.moving { cursor: grab; }
@@ -110,7 +113,11 @@ button, select, input, output { font: inherit; color: inherit; }
 .levels[hidden] { display: none; }
 .level-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
 .level-bar .btn { flex: 0 0 auto; white-space: nowrap; font-family: var(--sans); }
-.slicer { margin-top: 12px; display: flex; gap: 8px; align-items: center; }
+.slicer {
+  position: sticky; bottom: 0; z-index: 4;
+  margin-top: 4px; padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+  display: flex; gap: 8px; align-items: center; background: var(--ground);
+}
 .slicer input { flex: 1; accent-color: var(--active); min-width: 0; }
 .slicer output { min-width: 120px; text-align: end; font-variant-numeric: tabular-nums; font-size: 13px; }
 
@@ -140,10 +147,14 @@ body.focus > :not(.viewer-wrap):not(.slicer):not(dialog) { display: none; }
 body.focus .viewer-wrap { margin: 0; border-radius: 0; border: 0; }
 body.focus .viewer { height: calc(100dvh - 100px); }
 body.focus .slicer { padding: 0 12px 8px; }
-.exit-focus { position: absolute; top: 8px; right: 8px; z-index: 3; }
 
+@media (min-width: 601px) {
+  .system-bar { flex-wrap: wrap; overflow: visible; }
+  .sys { min-width: 0; width: 96px; text-align: center; line-height: 1.25; }
+}
 @media (max-width: 600px) {
   .viewer { height: 62vh; }
+  .top-actions a.btn { display: none; } /* other atlas stays one tap away via the home link */
   .controls { gap: 8px; }
   .window span { display: none; }
   .levels { flex-direction: column; align-items: stretch; }
@@ -188,6 +199,27 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .tile h2 { margin: 14px 16px 0; font-size: 17px; color: var(--text); }
 .tile p { margin: 6px 16px 16px; font-family: var(--sans); color: var(--muted); }
 
+/* region switcher (CT viewer) */
+.region-bar { display: flex; gap: 8px; margin-top: 14px; overflow-x: auto; padding-bottom: 4px; }
+.region-bar[hidden] { display: none; }
+.region-bar .btn { flex: 0 0 auto; white-space: nowrap; }
+.region-bar .btn[aria-pressed="true"] { border-color: var(--active); color: var(--active); }
+@media (hover: none) { .tools .hu { display: none; } } /* HU follows the mouse; no hover on touch */
+
+/* ECG settings popover (native popover; anchored where CSS anchor positioning exists, centred otherwise) */
+.pop {
+  display: none; flex-direction: column; align-items: stretch; gap: 10px;
+  padding: 12px; min-width: 220px; color: var(--text);
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 8px 28px #000a;
+}
+.pop:popover-open { display: flex; }
+.pop .window { justify-content: space-between; }
+.pop .window select { width: 130px; }
+.pop .window span { display: inline; }
+.pop .segmented .btn { flex: 1; }
+@supports (position-area: bottom) {
+  .pop { margin: 6px 0 0; position-area: bottom span-right; position-try-fallbacks: flip-inline; }
+}
 /* ECG reading card + clues */
 #trace .traces path.dim, #trace .leads text.dim { opacity: 0.2; }
 #trace .leads text.hl { fill: #b3261e; }

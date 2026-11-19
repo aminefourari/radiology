@@ -27,16 +27,6 @@
 
 <section class="controls">
   <select id="ecg-select" aria-label="ECG" data-t-aria="ecg.pick"></select>
-  <label class="window"><span data-t="ecg.speed">Speed</span>
-    <select id="speed" dir="ltr"><option value="25">25 mm/s</option><option value="50">50 mm/s</option></select>
-  </label>
-  <label class="window"><span data-t="ecg.gain">Gain</span>
-    <select id="gain" dir="ltr"><option value="5">5 mm/mV</option><option value="10">10 mm/mV</option><option value="20">20 mm/mV</option></select>
-  </label>
-  <div id="layout" class="segmented" role="radiogroup" dir="ltr">
-    <button class="btn" role="radio" data-layout="3x4">3×4</button>
-    <button class="btn" role="radio" data-layout="12x1">12×1</button>
-  </div>
   <button id="learn-btn" class="btn learn-btn" aria-pressed="false" data-t="learn.button">Learn</button>
   <div id="waves" class="wave-toggles" role="group" aria-label="Waves" data-t-aria="ecg.waves" dir="ltr">
     <span data-t="ecg.waves">Waves</span>
@@ -47,6 +37,19 @@
   </div>
   <button id="calipers" class="btn" aria-pressed="false" data-t="ecg.calipers">Calipers</button>
   <label class="check"><input id="quiz" type="checkbox"> <span data-t="ecg.quiz">Quiz mode</span></label>
+  <button class="btn" popovertarget="ecg-opts" data-t="ctl.settings">Settings</button>
+  <div id="ecg-opts" class="pop" popover>
+    <label class="window"><span data-t="ecg.speed">Speed</span>
+      <select id="speed" dir="ltr"><option value="25">25 mm/s</option><option value="50">50 mm/s</option></select>
+    </label>
+    <label class="window"><span data-t="ecg.gain">Gain</span>
+      <select id="gain" dir="ltr"><option value="5">5 mm/mV</option><option value="10">10 mm/mV</option><option value="20">20 mm/mV</option></select>
+    </label>
+    <div id="layout" class="segmented" role="radiogroup" dir="ltr">
+      <button class="btn" role="radio" data-layout="3x4">3×4</button>
+      <button class="btn" role="radio" data-layout="12x1">12×1</button>
+    </div>
+  </div>
 </section>
 
 <main class="viewer-wrap">

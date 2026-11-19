@@ -1,0 +1,108 @@
+{
+ "region": "head",
+ "title": {
+  "en": "Head · non-contrast CT",
+  "de": "Kopf · CT ohne Kontrastmittel",
+  "es": "Cabeza · TC sin contraste",
+  "ar": "الرأس · تصوير مقطعي دون تباين",
+  "fr": "Tête · TDM sans injection",
+  "it": "Testa · TC senza contrasto",
+  "nl": "Hoofd · CT zonder contrast"
+ },
+ "tasks": [
+  "total",
+  "brain_structures",
+  "ventricle_parts",
+  "head_glands_cavities",
+  "oculomotor_muscles",
+  "headneck_bones_vessels",
+  "head_muscles"
+ ],
+ "systems": [
+  "lobes",
+  "deep-nuclei",
+  "posterior-fossa",
+  "meninges-sinuses",
+  "brain",
+  "ventricles",
+  "orbit",
+  "glands-airway",
+  "vessels",
+  "skull-face",
+  "mastication"
+ ],
+ "defaultSystems": [
+  "lobes",
+  "ventricles"
+ ],
+ "windows": [
+  "brain",
+  "bone",
+  "soft"
+ ],
+ "systemOverrides": {
+  "hyoid": "skull-face"
+ },
+ "keyLevels": [
+  {
+   "names": {
+    "en": "Centrum semiovale",
+    "de": "Centrum semiovale",
+    "es": "Centro semioval",
+    "ar": "المركز البيضوي",
+    "fr": "Centre semi-ovale",
+    "it": "Centro semiovale",
+    "nl": "Centrum semiovale"
+   },
+   "axial": 85
+  },
+  {
+   "names": {
+    "en": "Lateral ventricles",
+    "de": "Seitenventrikel",
+    "es": "Ventrículos laterales",
+    "ar": "البطينان الجانبيان",
+    "fr": "Ventricules latéraux",
+    "it": "Ventricoli laterali",
+    "nl": "Zijventrikels"
+   },
+   "axial": 68
+  },
+  {
+   "names": {
+    "en": "Basal ganglia · internal capsule",
+    "de": "Basalganglien · Capsula interna",
+    "es": "Ganglios basales · cápsula interna",
+    "ar": "العقد القاعدية · المحفظة الداخلية",
+    "fr": "Noyaux gris centraux · capsule interne",
+    "it": "Gangli della base · capsula interna",
+    "nl": "Basale kernen · capsula interna"
+   },
+   "axial": 58
+  },
+  {
+   "names": {
+    "en": "Orbits · optic nerves",
+    "de": "Orbitae · Sehnerven",
+    "es": "Órbitas · nervios ópticos",
+    "ar": "المحجران · العصبان البصريان",
+    "fr": "Orbites · nerfs optiques",
+    "it": "Orbite · nervi ottici",
+    "nl": "Oogkassen · oogzenuwen"
+   },
+   "axial": 37
+  },
+  {
+   "names": {
+    "en": "Foramen magnum",
+    "de": "Foramen magnum",
+    "es": "Foramen magno",
+    "ar": "الثقبة العظمى",
+    "fr": "Foramen magnum",
+    "it": "Forame magno",
+    "nl": "Foramen magnum"
+   },
+   "axial": 12
+  }
+ ]
+}

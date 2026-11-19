@@ -23,7 +23,12 @@ def test_make_case_end_to_end(tmp_path):
     src = tmp_path / "src"
     fake_dataset(src)
     site = tmp_path / "site"
-    args = [str(src), "t1", "--no-liver-segments", "--out", str(site)]
+    case_file = tmp_path / "t1.json"
+    case_file.write_text(json.dumps({
+        "region": "abdomen-pelvis", "title": {"en": "T"}, "tasks": ["total"],
+        "systems": ["organs", "arteries"], "defaultSystems": ["organs", "veins"],
+        "windows": ["soft", "bone"], "keyLevels": []}))
+    args = [str(src), "t1", "--case-file", str(case_file), "--out", str(site)]
     main(args)
     main(args)  # idempotent re-run
     case = site / "cases" / "t1"
@@ -34,5 +39,23 @@ def test_make_case_end_to_end(tmp_path):
         assert set(s["best"]) == {"axial", "coronal", "sagittal"}
         assert s["names"]["en"]
     assert meta["source"]["license"] == "CC BY 4.0"
+    assert [s["key"] for s in meta["systems"]] == ["organs", "arteries"]
+    assert all(s["names"]["en"] for s in meta["systems"])
+    assert meta["defaultSystems"] == ["organs"]
+    assert meta["windows"] == ["soft", "bone"]
+    assert meta["region"] == "abdomen-pelvis"
+    assert meta["source"]["tasks"] == ["total"]
     index = json.loads((site / "cases" / "index.json").read_text(encoding="utf-8"))
-    assert [c["id"] for c in index] == ["t1"]
+    assert [(c["id"], c["region"]) for c in index] == [("t1", "abdomen-pelvis")]
+
+
+def test_case_file_z_range_crops(tmp_path):
+    src = tmp_path / "src"
+    fake_dataset(src)
+    case_file = tmp_path / "t2.json"
+    case_file.write_text(json.dumps({
+        "region": "chest", "title": {"en": "T"}, "tasks": ["total"], "zRange": "5:12",
+        "systems": ["organs", "arteries"], "defaultSystems": ["organs"], "windows": ["soft"], "keyLevels": []}))
+    main([str(src), "t2", "--case-file", str(case_file), "--out", str(tmp_path / "site")])
+    meta = json.loads((tmp_path / "site" / "cases" / "t2" / "meta.json").read_text(encoding="utf-8"))
+    assert meta["dims"][2] == 7

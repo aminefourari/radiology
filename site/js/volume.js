@@ -9,6 +9,8 @@ export const WINDOWS = {
   liver: { c: 60, w: 160 },
   bone: { c: 400, w: 1800 },
   lung: { c: -600, w: 1500 },
+  brain: { c: 40, w: 80 },
+  mediastinum: { c: 50, w: 350 },
 };
 
 export async function decodeMaybeGzip(buf) {
@@ -37,7 +39,7 @@ async function fetchBytes(url, onBytes) {
 }
 
 export async function loadCase(baseUrl, onProgress) {
-  const res = await fetch(`${baseUrl}/meta.json`);
+  const res = await fetch(`${baseUrl}/meta.json`, { cache: "no-cache" });
   if (!res.ok) throw new Error(`${baseUrl}/meta.json: HTTP ${res.status}`);
   const meta = await res.json();
   const progress = { ct: [0, 0], labels: [0, 0] };

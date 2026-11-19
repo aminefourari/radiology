@@ -1,0 +1,10 @@
+{
+ "region": "lower-limb",
+ "title": {"en": "Lower limb · CT, hip to foot", "de": "Untere Extremität · CT, Hüfte bis Fuß", "es": "Miembro inferior · TC, de cadera a pie", "ar": "الطرف السفلي · تصوير مقطعي من الورك إلى القدم", "fr": "Membre inférieur · TDM, de la hanche au pied", "it": "Arto inferiore · TC, dall'anca al piede", "nl": "Onderste ledemaat · CT, heup tot voet"},
+ "tasks": ["total", "appendicular_bones"],
+ "systems": ["limb-bones", "pelvis", "limb-muscles", "arteries", "veins"],
+ "defaultSystems": ["limb-bones", "pelvis"],
+ "windows": ["bone", "soft"],
+ "systemOverrides": {"femur_left": "limb-bones", "femur_right": "limb-bones"},
+ "keyLevels": []
+}
