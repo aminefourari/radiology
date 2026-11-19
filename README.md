@@ -13,7 +13,7 @@ you spot a mistake, use "Report a problem" on the structure.
 
 ![Axial slice at the celiac trunk with liver segments, vessels and labels](assets/screenshot.png)
 
-The **ECG atlas** (`ecg.html`) is a separate page with real 12-lead ECGs from PTB-XL: classic
+The landing page links both atlases. The CT atlas is `ct.html`. The **ECG atlas** (`ecg.html`) is a separate page with real 12-lead ECGs from PTB-XL: classic
 patterns (normal, MI, bundle branch blocks, AF, flutter, LVH, AV block, WPW) on standard paper,
 with 3×4 or 12×1 layout, speed and gain, calipers for intervals and rate, and a quiz mode that
 hides the diagnosis until you open the interpretation.

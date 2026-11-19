@@ -19,7 +19,7 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
 - `pipeline/` — `caselib.py` (pure helpers), `make_case.py` (CLI), `structures.json`
   (structure → system/colour/names catalogue), `cases/<id>.json` (curated key levels),
   `make_ecg.py` + `ecgs.json` (PTB-XL ECG list)
-- `site/` — static site: `index.html` (CT), `ecg.html` (ECG, `js/ecgapp.js` + `js/ecgplot.js`), `ecg/` (ECG JSON, µV ints), `style.css`, `js/*.js` (ES modules), `i18n/*.json`,
+- `site/` — static site: `index.html` (landing, `js/home.js`; redirects old `#case=` links), `ct.html` (CT), `ecg.html` (ECG, `js/ecgapp.js` + `js/ecgplot.js`), `ecg/` (ECG JSON, µV ints), `style.css`, `js/*.js` (ES modules), `i18n/*.json`,
   `cases/` (generated case data, committed)
 - `tests/` — Node tests for `site/js` modules
 - `data/` — downloaded datasets (gitignored)

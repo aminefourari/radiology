@@ -63,5 +63,11 @@
  "ecg.hint": "Turn on Calipers and drag across the trace to measure time and voltage.",
  "ecg.measure": "{ms} ms · {bpm} bpm · {mv} mV",
  "ecg.disclaimer": "Educational use only — not for diagnosis. Interpretations come from the dataset's cardiologist reports.",
- "ecg.credit": "ECG data: {source}, {license}"
+ "ecg.credit": "ECG data: {source}, {license}",
+ "home.title": "Clinical Atlas",
+ "home.tagline": "Free, open atlases built on real patient data, for medical students and doctors. No login. Works on your phone.",
+ "home.ct": "Scroll a real abdominal CT in three planes with coloured, labelled structures and key levels.",
+ "home.ecg": "Read real 12-lead ECGs on standard paper, measure with calipers, and quiz yourself on classic patterns.",
+ "home.disclaimer": "Educational use only — not for diagnosis.",
+ "home.credits": "Data: TotalSegmentator dataset (CT) and PTB-XL (ECG), both CC BY 4.0. Code: MIT."
 }

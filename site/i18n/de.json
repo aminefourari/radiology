@@ -63,5 +63,11 @@
  "ecg.hint": "Messzirkel einschalten und über die Kurve ziehen, um Zeit und Spannung zu messen.",
  "ecg.measure": "{ms} ms · {bpm} /min · {mv} mV",
  "ecg.disclaimer": "Nur für die Lehre — nicht zur Diagnose. Die Befunde stammen aus den kardiologischen Berichten des Datensatzes.",
- "ecg.credit": "EKG-Daten: {source}, {license}"
+ "ecg.credit": "EKG-Daten: {source}, {license}",
+ "home.title": "Klinischer Atlas",
+ "home.tagline": "Freie, offene Atlanten mit echten Patientendaten für Medizinstudierende und Ärztinnen und Ärzte. Ohne Anmeldung. Funktioniert auf dem Handy.",
+ "home.ct": "Durch ein echtes Abdomen-CT in drei Ebenen scrollen, mit farbigen, beschrifteten Strukturen und Schlüsselebenen.",
+ "home.ecg": "Echte 12-Kanal-EKGs auf Standardpapier lesen, mit dem Messzirkel ausmessen und sich an klassischen Befunden testen.",
+ "home.disclaimer": "Nur für die Lehre — nicht zur Diagnose.",
+ "home.credits": "Daten: TotalSegmentator-Datensatz (CT) und PTB-XL (EKG), beide CC BY 4.0. Code: MIT."
 }
