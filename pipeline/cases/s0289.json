@@ -1,0 +1,10 @@
+{
+ "region": "neck",
+ "title": {"en": "Neck · CT angiography", "de": "Hals · CT-Angiographie", "es": "Cuello · angio-TC", "ar": "العنق · تصوير مقطعي للأوعية", "fr": "Cou · angioscanner", "it": "Collo · angio-TC", "nl": "Hals · CT-angiografie"},
+ "tasks": ["total", "headneck_bones_vessels", "headneck_muscles", "head_glands_cavities"],
+ "systems": ["larynx", "pharynx-esophagus", "thyroid", "glands-airway", "vessels", "spine", "neck-muscles"],
+ "defaultSystems": ["larynx", "vessels"],
+ "windows": ["soft", "bone"],
+ "systemOverrides": {"esophagus": "pharynx-esophagus", "aorta": "vessels", "nasopharynx": "pharynx-esophagus", "oropharynx": "pharynx-esophagus", "hypopharynx": "pharynx-esophagus", "internal_carotid_artery_right": "vessels", "internal_carotid_artery_left": "vessels"},
+ "keyLevels": []
+}

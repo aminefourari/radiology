@@ -1,0 +1,11 @@
+{
+ "region": "chest",
+ "title": {"en": "Chest · CT, venous phase", "de": "Thorax · CT, venöse Phase", "es": "Tórax · TC, fase venosa", "ar": "الصدر · تصوير مقطعي، الطور الوريدي", "fr": "Thorax · TDM, temps veineux", "it": "Torace · TC, fase venosa", "nl": "Borstkas · CT, veneuze fase"},
+ "zRange": "210:440",
+ "tasks": ["total", "heartchambers_highres", "coronary_arteries", "lung_vessels"],
+ "systems": ["lungs", "airway", "heart", "heart-vessels", "digestive", "chest-wall", "spine"],
+ "defaultSystems": ["lungs", "heart", "heart-vessels"],
+ "windows": ["lung", "mediastinum", "bone"],
+ "systemOverrides": {"trachea": "airway", "aorta": "heart-vessels", "superior_vena_cava": "heart-vessels", "inferior_vena_cava": "heart-vessels", "brachiocephalic_trunk": "heart-vessels", "brachiocephalic_vein_left": "heart-vessels", "brachiocephalic_vein_right": "heart-vessels", "subclavian_artery_left": "heart-vessels", "subclavian_artery_right": "heart-vessels", "common_carotid_artery_left": "heart-vessels", "common_carotid_artery_right": "heart-vessels", "portal_vein_and_splenic_vein": "heart-vessels"},
+ "keyLevels": []
+}

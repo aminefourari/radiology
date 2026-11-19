@@ -67,8 +67,9 @@ def main(argv=None):
 
     ct, spacing = load_canonical(ct_path)
     box = list(body_bbox(ct))
-    if a.z_range:
-        lo, hi = (int(v) for v in a.z_range.split(":"))
+    z_range = a.z_range or case.get("zRange")
+    if z_range:
+        lo, hi = (int(v) for v in z_range.split(":"))
         box[2] = slice(max(box[2].start, lo), min(box[2].stop, hi))
     box = tuple(box)
 

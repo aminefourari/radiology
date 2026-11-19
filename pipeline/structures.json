@@ -703,6 +703,2918 @@
     "it": "Vena iliaca sinistra",
     "nl": "Linker iliacale ader"
    }
+  },
+  {
+   "key": "brain",
+   "source": "total",
+   "system": "brain",
+   "color": "#b39ddb",
+   "parent": null,
+   "names": {
+    "en": "Brain",
+    "de": "Gehirn",
+    "es": "Encéfalo",
+    "ar": "الدماغ",
+    "fr": "Encéphale",
+    "it": "Encefalo",
+    "nl": "Hersenen"
+   }
+  },
+  {
+   "key": "frontal_lobe",
+   "source": "brain_structures",
+   "system": "lobes",
+   "color": "#c98bd6",
+   "parent": "brain",
+   "names": {
+    "en": "Frontal lobe",
+    "de": "Frontallappen",
+    "es": "Lóbulo frontal",
+    "ar": "الفص الجبهي",
+    "fr": "Lobe frontal",
+    "it": "Lobo frontale",
+    "nl": "Frontale kwab"
+   }
+  },
+  {
+   "key": "parietal_lobe",
+   "source": "brain_structures",
+   "system": "lobes",
+   "color": "#8fb8f0",
+   "parent": "brain",
+   "names": {
+    "en": "Parietal lobe",
+    "de": "Parietallappen",
+    "es": "Lóbulo parietal",
+    "ar": "الفص الجداري",
+    "fr": "Lobe pariétal",
+    "it": "Lobo parietale",
+    "nl": "Pariëtale kwab"
+   }
+  },
+  {
+   "key": "temporal_lobe",
+   "source": "brain_structures",
+   "system": "lobes",
+   "color": "#8fd694",
+   "parent": "brain",
+   "names": {
+    "en": "Temporal lobe",
+    "de": "Temporallappen",
+    "es": "Lóbulo temporal",
+    "ar": "الفص الصدغي",
+    "fr": "Lobe temporal",
+    "it": "Lobo temporale",
+    "nl": "Temporale kwab"
+   }
+  },
+  {
+   "key": "occipital_lobe",
+   "source": "brain_structures",
+   "system": "lobes",
+   "color": "#f4cf7a",
+   "parent": "brain",
+   "names": {
+    "en": "Occipital lobe",
+    "de": "Okzipitallappen",
+    "es": "Lóbulo occipital",
+    "ar": "الفص القذالي",
+    "fr": "Lobe occipital",
+    "it": "Lobo occipitale",
+    "nl": "Occipitale kwab"
+   }
+  },
+  {
+   "key": "insular_cortex",
+   "source": "brain_structures",
+   "system": "lobes",
+   "color": "#f08a8a",
+   "parent": "brain",
+   "names": {
+    "en": "Insular cortex",
+    "de": "Inselrinde",
+    "es": "Corteza insular",
+    "ar": "القشرة الجزيرية",
+    "fr": "Cortex insulaire",
+    "it": "Corteccia insulare",
+    "nl": "Insulaire cortex"
+   }
+  },
+  {
+   "key": "central_sulcus",
+   "source": "brain_structures",
+   "system": "lobes",
+   "color": "#ffffff",
+   "parent": "brain",
+   "names": {
+    "en": "Central sulcus",
+    "de": "Sulcus centralis",
+    "es": "Surco central",
+    "ar": "التلم المركزي",
+    "fr": "Sillon central",
+    "it": "Solco centrale",
+    "nl": "Sulcus centralis"
+   }
+  },
+  {
+   "key": "caudate_nucleus",
+   "source": "brain_structures",
+   "system": "deep-nuclei",
+   "color": "#f2a65a",
+   "parent": "brain",
+   "names": {
+    "en": "Caudate nucleus",
+    "de": "Nucleus caudatus",
+    "es": "Núcleo caudado",
+    "ar": "النواة المذنبة",
+    "fr": "Noyau caudé",
+    "it": "Nucleo caudato",
+    "nl": "Nucleus caudatus"
+   }
+  },
+  {
+   "key": "lentiform_nucleus",
+   "source": "brain_structures",
+   "system": "deep-nuclei",
+   "color": "#e7d36a",
+   "parent": "brain",
+   "names": {
+    "en": "Lentiform nucleus",
+    "de": "Nucleus lentiformis",
+    "es": "Núcleo lenticular",
+    "ar": "النواة العدسية",
+    "fr": "Noyau lenticulaire",
+    "it": "Nucleo lenticolare",
+    "nl": "Nucleus lentiformis"
+   }
+  },
+  {
+   "key": "internal_capsule",
+   "source": "brain_structures",
+   "system": "deep-nuclei",
+   "color": "#d4a5e6",
+   "parent": "brain",
+   "names": {
+    "en": "Internal capsule",
+    "de": "Capsula interna",
+    "es": "Cápsula interna",
+    "ar": "المحفظة الداخلية",
+    "fr": "Capsule interne",
+    "it": "Capsula interna",
+    "nl": "Capsula interna"
+   }
+  },
+  {
+   "key": "thalamus",
+   "source": "brain_structures",
+   "system": "deep-nuclei",
+   "color": "#f6a5c0",
+   "parent": "brain",
+   "names": {
+    "en": "Thalamus",
+    "de": "Thalamus",
+    "es": "Tálamo",
+    "ar": "المهاد",
+    "fr": "Thalamus",
+    "it": "Talamo",
+    "nl": "Thalamus"
+   }
+  },
+  {
+   "key": "cerebellum",
+   "source": "brain_structures",
+   "system": "posterior-fossa",
+   "color": "#7fd1c7",
+   "parent": "brain",
+   "names": {
+    "en": "Cerebellum",
+    "de": "Kleinhirn",
+    "es": "Cerebelo",
+    "ar": "المخيخ",
+    "fr": "Cervelet",
+    "it": "Cervelletto",
+    "nl": "Kleine hersenen"
+   }
+  },
+  {
+   "key": "brainstem",
+   "source": "brain_structures",
+   "system": "posterior-fossa",
+   "color": "#79a8e8",
+   "parent": "brain",
+   "names": {
+    "en": "Brainstem",
+    "de": "Hirnstamm",
+    "es": "Tronco encefálico",
+    "ar": "جذع الدماغ",
+    "fr": "Tronc cérébral",
+    "it": "Tronco encefalico",
+    "nl": "Hersenstam"
+   }
+  },
+  {
+   "key": "subarachnoid_space",
+   "source": "brain_structures",
+   "system": "meninges-sinuses",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "Subarachnoid space",
+    "de": "Subarachnoidalraum",
+    "es": "Espacio subaracnoideo",
+    "ar": "الحيز تحت العنكبوتي",
+    "fr": "Espace sous-arachnoïdien",
+    "it": "Spazio subaracnoideo",
+    "nl": "Subarachnoïdale ruimte"
+   }
+  },
+  {
+   "key": "septum_pellucidum",
+   "source": "brain_structures",
+   "system": "meninges-sinuses",
+   "color": "#ffffff",
+   "parent": null,
+   "names": {
+    "en": "Septum pellucidum",
+    "de": "Septum pellucidum",
+    "es": "Septum pellucidum",
+    "ar": "الحاجز الشفاف",
+    "fr": "Septum pellucidum",
+    "it": "Setto pellucido",
+    "nl": "Septum pellucidum"
+   }
+  },
+  {
+   "key": "venous_sinuses",
+   "source": "brain_structures",
+   "system": "meninges-sinuses",
+   "color": "#5b8def",
+   "parent": null,
+   "names": {
+    "en": "Dural venous sinuses",
+    "de": "Durale Sinus",
+    "es": "Senos venosos durales",
+    "ar": "الجيوب الوريدية الجافية",
+    "fr": "Sinus veineux duraux",
+    "it": "Seni venosi durali",
+    "nl": "Durale veneuze sinussen"
+   }
+  },
+  {
+   "key": "ventricle_frontal_horn_right",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Frontal horn, right lateral ventricle",
+    "de": "Vorderhorn, rechter Seitenventrikel",
+    "es": "Asta frontal, ventrículo lateral derecho",
+    "ar": "القرن الأمامي، البطين الجانبي الأيمن",
+    "fr": "Corne frontale, ventricule latéral droit",
+    "it": "Corno frontale, ventricolo laterale destro",
+    "nl": "Voorhoorn, rechter zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_frontal_horn_left",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Frontal horn, left lateral ventricle",
+    "de": "Vorderhorn, linker Seitenventrikel",
+    "es": "Asta frontal, ventrículo lateral izquierdo",
+    "ar": "القرن الأمامي، البطين الجانبي الأيسر",
+    "fr": "Corne frontale, ventricule latéral gauche",
+    "it": "Corno frontale, ventricolo laterale sinistro",
+    "nl": "Voorhoorn, linker zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_body_right",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Body, right lateral ventricle",
+    "de": "Pars centralis, rechter Seitenventrikel",
+    "es": "Cuerpo, ventrículo lateral derecho",
+    "ar": "الجسم، البطين الجانبي الأيمن",
+    "fr": "Corps, ventricule latéral droit",
+    "it": "Corpo, ventricolo laterale destro",
+    "nl": "Corpus, rechter zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_body_left",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Body, left lateral ventricle",
+    "de": "Pars centralis, linker Seitenventrikel",
+    "es": "Cuerpo, ventrículo lateral izquierdo",
+    "ar": "الجسم، البطين الجانبي الأيسر",
+    "fr": "Corps, ventricule latéral gauche",
+    "it": "Corpo, ventricolo laterale sinistro",
+    "nl": "Corpus, linker zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_trigone_right",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Trigone, right lateral ventricle",
+    "de": "Trigonum collaterale, rechter Seitenventrikel",
+    "es": "Atrio, ventrículo lateral derecho",
+    "ar": "المثلث، البطين الجانبي الأيمن",
+    "fr": "Carrefour, ventricule latéral droit",
+    "it": "Trigono, ventricolo laterale destro",
+    "nl": "Trigonum, rechter zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_trigone_left",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Trigone, left lateral ventricle",
+    "de": "Trigonum collaterale, linker Seitenventrikel",
+    "es": "Atrio, ventrículo lateral izquierdo",
+    "ar": "المثلث، البطين الجانبي الأيسر",
+    "fr": "Carrefour, ventricule latéral gauche",
+    "it": "Trigono, ventricolo laterale sinistro",
+    "nl": "Trigonum, linker zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_occipital_horn_right",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Occipital horn, right lateral ventricle",
+    "de": "Hinterhorn, rechter Seitenventrikel",
+    "es": "Asta occipital, ventrículo lateral derecho",
+    "ar": "القرن الخلفي، البطين الجانبي الأيمن",
+    "fr": "Corne occipitale, ventricule latéral droit",
+    "it": "Corno occipitale, ventricolo laterale destro",
+    "nl": "Achterhoorn, rechter zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_occipital_horn_left",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Occipital horn, left lateral ventricle",
+    "de": "Hinterhorn, linker Seitenventrikel",
+    "es": "Asta occipital, ventrículo lateral izquierdo",
+    "ar": "القرن الخلفي، البطين الجانبي الأيسر",
+    "fr": "Corne occipitale, ventricule latéral gauche",
+    "it": "Corno occipitale, ventricolo laterale sinistro",
+    "nl": "Achterhoorn, linker zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_temporal_horn_right",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Temporal horn, right lateral ventricle",
+    "de": "Unterhorn, rechter Seitenventrikel",
+    "es": "Asta temporal, ventrículo lateral derecho",
+    "ar": "القرن الصدغي، البطين الجانبي الأيمن",
+    "fr": "Corne temporale, ventricule latéral droit",
+    "it": "Corno temporale, ventricolo laterale destro",
+    "nl": "Onderhoorn, rechter zijventrikel"
+   }
+  },
+  {
+   "key": "ventricle_temporal_horn_left",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#5ec8e5",
+   "parent": null,
+   "names": {
+    "en": "Temporal horn, left lateral ventricle",
+    "de": "Unterhorn, linker Seitenventrikel",
+    "es": "Asta temporal, ventrículo lateral izquierdo",
+    "ar": "القرن الصدغي، البطين الجانبي الأيسر",
+    "fr": "Corne temporale, ventricule latéral gauche",
+    "it": "Corno temporale, ventricolo laterale sinistro",
+    "nl": "Onderhoorn, linker zijventrikel"
+   }
+  },
+  {
+   "key": "third_ventricle",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#3fb0d0",
+   "parent": null,
+   "names": {
+    "en": "Third ventricle",
+    "de": "Dritter Ventrikel",
+    "es": "Tercer ventrículo",
+    "ar": "البطين الثالث",
+    "fr": "Troisième ventricule",
+    "it": "Terzo ventricolo",
+    "nl": "Derde ventrikel"
+   }
+  },
+  {
+   "key": "fourth_ventricle",
+   "source": "ventricle_parts",
+   "system": "ventricles",
+   "color": "#3fb0d0",
+   "parent": null,
+   "names": {
+    "en": "Fourth ventricle",
+    "de": "Vierter Ventrikel",
+    "es": "Cuarto ventrículo",
+    "ar": "البطين الرابع",
+    "fr": "Quatrième ventricule",
+    "it": "Quarto ventricolo",
+    "nl": "Vierde ventrikel"
+   }
+  },
+  {
+   "key": "eye_right",
+   "source": "head_glands_cavities",
+   "system": "orbit",
+   "color": "#f4cf7a",
+   "parent": null,
+   "names": {
+    "en": "Eye, right",
+    "de": "Auge, rechts",
+    "es": "Ojo, lado derecho",
+    "ar": "العين، الجانب الأيمن",
+    "fr": "Œil, côté droit",
+    "it": "Occhio, lato destro",
+    "nl": "Oog, rechts"
+   }
+  },
+  {
+   "key": "eye_left",
+   "source": "head_glands_cavities",
+   "system": "orbit",
+   "color": "#f4cf7a",
+   "parent": null,
+   "names": {
+    "en": "Eye, left",
+    "de": "Auge, links",
+    "es": "Ojo, lado izquierdo",
+    "ar": "العين، الجانب الأيسر",
+    "fr": "Œil, côté gauche",
+    "it": "Occhio, lato sinistro",
+    "nl": "Oog, links"
+   }
+  },
+  {
+   "key": "eye_lens_right",
+   "source": "head_glands_cavities",
+   "system": "orbit",
+   "color": "#ffffff",
+   "parent": null,
+   "names": {
+    "en": "Lens, right",
+    "de": "Linse, rechts",
+    "es": "Cristalino, lado derecho",
+    "ar": "العدسة، الجانب الأيمن",
+    "fr": "Cristallin, côté droit",
+    "it": "Cristallino, lato destro",
+    "nl": "Ooglens, rechts"
+   }
+  },
+  {
+   "key": "eye_lens_left",
+   "source": "head_glands_cavities",
+   "system": "orbit",
+   "color": "#ffffff",
+   "parent": null,
+   "names": {
+    "en": "Lens, left",
+    "de": "Linse, links",
+    "es": "Cristalino, lado izquierdo",
+    "ar": "العدسة، الجانب الأيسر",
+    "fr": "Cristallin, côté gauche",
+    "it": "Cristallino, lato sinistro",
+    "nl": "Ooglens, links"
+   }
+  },
+  {
+   "key": "optic_nerve_right",
+   "source": "head_glands_cavities",
+   "system": "orbit",
+   "color": "#f2a65a",
+   "parent": null,
+   "names": {
+    "en": "Optic nerve, right",
+    "de": "Sehnerv, rechts",
+    "es": "Nervio óptico, lado derecho",
+    "ar": "العصب البصري، الجانب الأيمن",
+    "fr": "Nerf optique, côté droit",
+    "it": "Nervo ottico, lato destro",
+    "nl": "Oogzenuw, rechts"
+   }
+  },
+  {
+   "key": "optic_nerve_left",
+   "source": "head_glands_cavities",
+   "system": "orbit",
+   "color": "#f2a65a",
+   "parent": null,
+   "names": {
+    "en": "Optic nerve, left",
+    "de": "Sehnerv, links",
+    "es": "Nervio óptico, lado izquierdo",
+    "ar": "العصب البصري، الجانب الأيسر",
+    "fr": "Nerf optique, côté gauche",
+    "it": "Nervo ottico, lato sinistro",
+    "nl": "Oogzenuw, links"
+   }
+  },
+  {
+   "key": "lateral_rectus_muscle_right",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Lateral rectus, right",
+    "de": "M. rectus lateralis, rechts",
+    "es": "Recto lateral, lado derecho",
+    "ar": "العضلة المستقيمة الوحشية، الجانب الأيمن",
+    "fr": "Droit latéral, côté droit",
+    "it": "Retto laterale, lato destro",
+    "nl": "M. rectus lateralis, rechts"
+   }
+  },
+  {
+   "key": "lateral_rectus_muscle_left",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Lateral rectus, left",
+    "de": "M. rectus lateralis, links",
+    "es": "Recto lateral, lado izquierdo",
+    "ar": "العضلة المستقيمة الوحشية، الجانب الأيسر",
+    "fr": "Droit latéral, côté gauche",
+    "it": "Retto laterale, lato sinistro",
+    "nl": "M. rectus lateralis, links"
+   }
+  },
+  {
+   "key": "medial_rectus_muscle_right",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Medial rectus, right",
+    "de": "M. rectus medialis, rechts",
+    "es": "Recto medial, lado derecho",
+    "ar": "العضلة المستقيمة الإنسية، الجانب الأيمن",
+    "fr": "Droit médial, côté droit",
+    "it": "Retto mediale, lato destro",
+    "nl": "M. rectus medialis, rechts"
+   }
+  },
+  {
+   "key": "medial_rectus_muscle_left",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Medial rectus, left",
+    "de": "M. rectus medialis, links",
+    "es": "Recto medial, lado izquierdo",
+    "ar": "العضلة المستقيمة الإنسية، الجانب الأيسر",
+    "fr": "Droit médial, côté gauche",
+    "it": "Retto mediale, lato sinistro",
+    "nl": "M. rectus medialis, links"
+   }
+  },
+  {
+   "key": "superior_rectus_muscle_right",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Superior rectus, right",
+    "de": "M. rectus superior, rechts",
+    "es": "Recto superior, lado derecho",
+    "ar": "العضلة المستقيمة العلوية، الجانب الأيمن",
+    "fr": "Droit supérieur, côté droit",
+    "it": "Retto superiore, lato destro",
+    "nl": "M. rectus superior, rechts"
+   }
+  },
+  {
+   "key": "superior_rectus_muscle_left",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Superior rectus, left",
+    "de": "M. rectus superior, links",
+    "es": "Recto superior, lado izquierdo",
+    "ar": "العضلة المستقيمة العلوية، الجانب الأيسر",
+    "fr": "Droit supérieur, côté gauche",
+    "it": "Retto superiore, lato sinistro",
+    "nl": "M. rectus superior, links"
+   }
+  },
+  {
+   "key": "inferior_rectus_muscle_right",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Inferior rectus, right",
+    "de": "M. rectus inferior, rechts",
+    "es": "Recto inferior, lado derecho",
+    "ar": "العضلة المستقيمة السفلية، الجانب الأيمن",
+    "fr": "Droit inférieur, côté droit",
+    "it": "Retto inferiore, lato destro",
+    "nl": "M. rectus inferior, rechts"
+   }
+  },
+  {
+   "key": "inferior_rectus_muscle_left",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Inferior rectus, left",
+    "de": "M. rectus inferior, links",
+    "es": "Recto inferior, lado izquierdo",
+    "ar": "العضلة المستقيمة السفلية، الجانب الأيسر",
+    "fr": "Droit inférieur, côté gauche",
+    "it": "Retto inferiore, lato sinistro",
+    "nl": "M. rectus inferior, links"
+   }
+  },
+  {
+   "key": "superior_oblique_muscle_right",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Superior oblique, right",
+    "de": "M. obliquus superior, rechts",
+    "es": "Oblicuo superior, lado derecho",
+    "ar": "العضلة المائلة العلوية، الجانب الأيمن",
+    "fr": "Oblique supérieur, côté droit",
+    "it": "Obliquo superiore, lato destro",
+    "nl": "M. obliquus superior, rechts"
+   }
+  },
+  {
+   "key": "superior_oblique_muscle_left",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Superior oblique, left",
+    "de": "M. obliquus superior, links",
+    "es": "Oblicuo superior, lado izquierdo",
+    "ar": "العضلة المائلة العلوية، الجانب الأيسر",
+    "fr": "Oblique supérieur, côté gauche",
+    "it": "Obliquo superiore, lato sinistro",
+    "nl": "M. obliquus superior, links"
+   }
+  },
+  {
+   "key": "inferior_oblique_muscle_right",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Inferior oblique, right",
+    "de": "M. obliquus inferior, rechts",
+    "es": "Oblicuo inferior, lado derecho",
+    "ar": "العضلة المائلة السفلية، الجانب الأيمن",
+    "fr": "Oblique inférieur, côté droit",
+    "it": "Obliquo inferiore, lato destro",
+    "nl": "M. obliquus inferior, rechts"
+   }
+  },
+  {
+   "key": "inferior_oblique_muscle_left",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Inferior oblique, left",
+    "de": "M. obliquus inferior, links",
+    "es": "Oblicuo inferior, lado izquierdo",
+    "ar": "العضلة المائلة السفلية، الجانب الأيسر",
+    "fr": "Oblique inférieur, côté gauche",
+    "it": "Obliquo inferiore, lato sinistro",
+    "nl": "M. obliquus inferior, links"
+   }
+  },
+  {
+   "key": "levator_palpebrae_superioris_right",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Levator palpebrae superioris, right",
+    "de": "M. levator palpebrae superioris, rechts",
+    "es": "Elevador del párpado superior, lado derecho",
+    "ar": "العضلة الرافعة للجفن العلوي، الجانب الأيمن",
+    "fr": "Releveur de la paupière supérieure, côté droit",
+    "it": "Elevatore della palpebra superiore, lato destro",
+    "nl": "M. levator palpebrae superioris, rechts"
+   }
+  },
+  {
+   "key": "levator_palpebrae_superioris_left",
+   "source": "oculomotor_muscles",
+   "system": "orbit",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Levator palpebrae superioris, left",
+    "de": "M. levator palpebrae superioris, links",
+    "es": "Elevador del párpado superior, lado izquierdo",
+    "ar": "العضلة الرافعة للجفن العلوي، الجانب الأيسر",
+    "fr": "Releveur de la paupière supérieure, côté gauche",
+    "it": "Elevatore della palpebra superiore, lato sinistro",
+    "nl": "M. levator palpebrae superioris, links"
+   }
+  },
+  {
+   "key": "parotid_gland_right",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#8fd694",
+   "parent": null,
+   "names": {
+    "en": "Parotid gland, right",
+    "de": "Ohrspeicheldrüse, rechts",
+    "es": "Glándula parótida, lado derecho",
+    "ar": "الغدة النكفية، الجانب الأيمن",
+    "fr": "Glande parotide, côté droit",
+    "it": "Ghiandola parotide, lato destro",
+    "nl": "Oorspeekselklier, rechts"
+   }
+  },
+  {
+   "key": "parotid_gland_left",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#8fd694",
+   "parent": null,
+   "names": {
+    "en": "Parotid gland, left",
+    "de": "Ohrspeicheldrüse, links",
+    "es": "Glándula parótida, lado izquierdo",
+    "ar": "الغدة النكفية، الجانب الأيسر",
+    "fr": "Glande parotide, côté gauche",
+    "it": "Ghiandola parotide, lato sinistro",
+    "nl": "Oorspeekselklier, links"
+   }
+  },
+  {
+   "key": "submandibular_gland_right",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#5fc48a",
+   "parent": null,
+   "names": {
+    "en": "Submandibular gland, right",
+    "de": "Unterkieferspeicheldrüse, rechts",
+    "es": "Glándula submandibular, lado derecho",
+    "ar": "الغدة تحت الفك السفلي، الجانب الأيمن",
+    "fr": "Glande submandibulaire, côté droit",
+    "it": "Ghiandola sottomandibolare, lato destro",
+    "nl": "Onderkaakspeekselklier, rechts"
+   }
+  },
+  {
+   "key": "submandibular_gland_left",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#5fc48a",
+   "parent": null,
+   "names": {
+    "en": "Submandibular gland, left",
+    "de": "Unterkieferspeicheldrüse, links",
+    "es": "Glándula submandibular, lado izquierdo",
+    "ar": "الغدة تحت الفك السفلي، الجانب الأيسر",
+    "fr": "Glande submandibulaire, côté gauche",
+    "it": "Ghiandola sottomandibolare, lato sinistro",
+    "nl": "Onderkaakspeekselklier, links"
+   }
+  },
+  {
+   "key": "nasopharynx",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "Nasopharynx",
+    "de": "Nasopharynx",
+    "es": "Nasofaringe",
+    "ar": "البلعوم الأنفي",
+    "fr": "Nasopharynx",
+    "it": "Rinofaringe",
+    "nl": "Nasofarynx"
+   }
+  },
+  {
+   "key": "oropharynx",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#79a8e8",
+   "parent": null,
+   "names": {
+    "en": "Oropharynx",
+    "de": "Oropharynx",
+    "es": "Orofaringe",
+    "ar": "البلعوم الفموي",
+    "fr": "Oropharynx",
+    "it": "Orofaringe",
+    "nl": "Orofarynx"
+   }
+  },
+  {
+   "key": "hypopharynx",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#5b8def",
+   "parent": null,
+   "names": {
+    "en": "Hypopharynx",
+    "de": "Hypopharynx",
+    "es": "Hipofaringe",
+    "ar": "البلعوم السفلي",
+    "fr": "Hypopharynx",
+    "it": "Ipofaringe",
+    "nl": "Hypofarynx"
+   }
+  },
+  {
+   "key": "nasal_cavity_right",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "Nasal cavity, right",
+    "de": "Nasenhöhle, rechts",
+    "es": "Fosa nasal, lado derecho",
+    "ar": "التجويف الأنفي، الجانب الأيمن",
+    "fr": "Fosse nasale, côté droit",
+    "it": "Cavità nasale, lato destro",
+    "nl": "Neusholte, rechts"
+   }
+  },
+  {
+   "key": "nasal_cavity_left",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "Nasal cavity, left",
+    "de": "Nasenhöhle, links",
+    "es": "Fosa nasal, lado izquierdo",
+    "ar": "التجويف الأنفي، الجانب الأيسر",
+    "fr": "Fosse nasale, côté gauche",
+    "it": "Cavità nasale, lato sinistro",
+    "nl": "Neusholte, links"
+   }
+  },
+  {
+   "key": "auditory_canal_right",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#e7d36a",
+   "parent": null,
+   "names": {
+    "en": "External auditory canal, right",
+    "de": "Äußerer Gehörgang, rechts",
+    "es": "Conducto auditivo externo, lado derecho",
+    "ar": "القناة السمعية الخارجية، الجانب الأيمن",
+    "fr": "Conduit auditif externe, côté droit",
+    "it": "Condotto uditivo esterno, lato destro",
+    "nl": "Uitwendige gehoorgang, rechts"
+   }
+  },
+  {
+   "key": "auditory_canal_left",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#e7d36a",
+   "parent": null,
+   "names": {
+    "en": "External auditory canal, left",
+    "de": "Äußerer Gehörgang, links",
+    "es": "Conducto auditivo externo, lado izquierdo",
+    "ar": "القناة السمعية الخارجية، الجانب الأيسر",
+    "fr": "Conduit auditif externe, côté gauche",
+    "it": "Condotto uditivo esterno, lato sinistro",
+    "nl": "Uitwendige gehoorgang, links"
+   }
+  },
+  {
+   "key": "soft_palate",
+   "source": "head_glands_cavities",
+   "system": "glands-airway",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Soft palate",
+    "de": "Weicher Gaumen",
+    "es": "Paladar blando",
+    "ar": "الحنك الرخو",
+    "fr": "Voile du palais",
+    "it": "Palato molle",
+    "nl": "Zacht gehemelte"
+   }
+  },
+  {
+   "key": "hard_palate",
+   "source": "head_glands_cavities",
+   "system": "skull-face",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Hard palate",
+    "de": "Harter Gaumen",
+    "es": "Paladar duro",
+    "ar": "الحنك الصلب",
+    "fr": "Palais dur",
+    "it": "Palato duro",
+    "nl": "Hard gehemelte"
+   }
+  },
+  {
+   "key": "internal_carotid_artery_right",
+   "source": "headneck_bones_vessels",
+   "system": "vessels",
+   "color": "#e85a5a",
+   "parent": null,
+   "names": {
+    "en": "Internal carotid artery, right",
+    "de": "A. carotis interna, rechts",
+    "es": "Arteria carótida interna, lado derecho",
+    "ar": "الشريان السباتي الباطن، الجانب الأيمن",
+    "fr": "Artère carotide interne, côté droit",
+    "it": "Arteria carotide interna, lato destro",
+    "nl": "Arteria carotis interna, rechts"
+   }
+  },
+  {
+   "key": "internal_carotid_artery_left",
+   "source": "headneck_bones_vessels",
+   "system": "vessels",
+   "color": "#e85a5a",
+   "parent": null,
+   "names": {
+    "en": "Internal carotid artery, left",
+    "de": "A. carotis interna, links",
+    "es": "Arteria carótida interna, lado izquierdo",
+    "ar": "الشريان السباتي الباطن، الجانب الأيسر",
+    "fr": "Artère carotide interne, côté gauche",
+    "it": "Arteria carotide interna, lato sinistro",
+    "nl": "Arteria carotis interna, links"
+   }
+  },
+  {
+   "key": "internal_jugular_vein_right",
+   "source": "headneck_bones_vessels",
+   "system": "vessels",
+   "color": "#5b8def",
+   "parent": null,
+   "names": {
+    "en": "Internal jugular vein, right",
+    "de": "V. jugularis interna, rechts",
+    "es": "Vena yugular interna, lado derecho",
+    "ar": "الوريد الوداجي الباطن، الجانب الأيمن",
+    "fr": "Veine jugulaire interne, côté droit",
+    "it": "Vena giugulare interna, lato destro",
+    "nl": "Vena jugularis interna, rechts"
+   }
+  },
+  {
+   "key": "internal_jugular_vein_left",
+   "source": "headneck_bones_vessels",
+   "system": "vessels",
+   "color": "#5b8def",
+   "parent": null,
+   "names": {
+    "en": "Internal jugular vein, left",
+    "de": "V. jugularis interna, links",
+    "es": "Vena yugular interna, lado izquierdo",
+    "ar": "الوريد الوداجي الباطن، الجانب الأيسر",
+    "fr": "Veine jugulaire interne, côté gauche",
+    "it": "Vena giugulare interna, lato sinistro",
+    "nl": "Vena jugularis interna, links"
+   }
+  },
+  {
+   "key": "skull",
+   "source": "total",
+   "system": "skull-face",
+   "color": "#bfc8d6",
+   "parent": null,
+   "names": {
+    "en": "Skull",
+    "de": "Schädel",
+    "es": "Cráneo",
+    "ar": "الجمجمة",
+    "fr": "Crâne",
+    "it": "Cranio",
+    "nl": "Schedel"
+   }
+  },
+  {
+   "key": "zygomatic_arch_right",
+   "source": "headneck_bones_vessels",
+   "system": "skull-face",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Zygomatic arch, right",
+    "de": "Jochbogen, rechts",
+    "es": "Arco cigomático, lado derecho",
+    "ar": "القوس الوجني، الجانب الأيمن",
+    "fr": "Arcade zygomatique, côté droit",
+    "it": "Arcata zigomatica, lato destro",
+    "nl": "Jukboog, rechts"
+   }
+  },
+  {
+   "key": "zygomatic_arch_left",
+   "source": "headneck_bones_vessels",
+   "system": "skull-face",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Zygomatic arch, left",
+    "de": "Jochbogen, links",
+    "es": "Arco cigomático, lado izquierdo",
+    "ar": "القوس الوجني، الجانب الأيسر",
+    "fr": "Arcade zygomatique, côté gauche",
+    "it": "Arcata zigomatica, lato sinistro",
+    "nl": "Jukboog, links"
+   }
+  },
+  {
+   "key": "styloid_process_right",
+   "source": "headneck_bones_vessels",
+   "system": "skull-face",
+   "color": "#a9b8cc",
+   "parent": null,
+   "names": {
+    "en": "Styloid process, right",
+    "de": "Processus styloideus, rechts",
+    "es": "Apófisis estiloides, lado derecho",
+    "ar": "الناتئ الإبري، الجانب الأيمن",
+    "fr": "Processus styloïde, côté droit",
+    "it": "Processo stiloideo, lato destro",
+    "nl": "Processus styloideus, rechts"
+   }
+  },
+  {
+   "key": "styloid_process_left",
+   "source": "headneck_bones_vessels",
+   "system": "skull-face",
+   "color": "#a9b8cc",
+   "parent": null,
+   "names": {
+    "en": "Styloid process, left",
+    "de": "Processus styloideus, links",
+    "es": "Apófisis estiloides, lado izquierdo",
+    "ar": "الناتئ الإبري، الجانب الأيسر",
+    "fr": "Processus styloïde, côté gauche",
+    "it": "Processo stiloideo, lato sinistro",
+    "nl": "Processus styloideus, links"
+   }
+  },
+  {
+   "key": "hyoid",
+   "source": "headneck_bones_vessels",
+   "system": "larynx",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Hyoid bone",
+    "de": "Zungenbein",
+    "es": "Hueso hioides",
+    "ar": "العظم اللامي",
+    "fr": "Os hyoïde",
+    "it": "Osso ioide",
+    "nl": "Tongbeen"
+   }
+  },
+  {
+   "key": "masseter_right",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Masseter, right",
+    "de": "M. masseter, rechts",
+    "es": "Masetero, lado derecho",
+    "ar": "العضلة الماضغة، الجانب الأيمن",
+    "fr": "Masséter, côté droit",
+    "it": "Massetere, lato destro",
+    "nl": "M. masseter, rechts"
+   }
+  },
+  {
+   "key": "masseter_left",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Masseter, left",
+    "de": "M. masseter, links",
+    "es": "Masetero, lado izquierdo",
+    "ar": "العضلة الماضغة، الجانب الأيسر",
+    "fr": "Masséter, côté gauche",
+    "it": "Massetere, lato sinistro",
+    "nl": "M. masseter, links"
+   }
+  },
+  {
+   "key": "temporalis_right",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Temporalis, right",
+    "de": "M. temporalis, rechts",
+    "es": "Músculo temporal, lado derecho",
+    "ar": "العضلة الصدغية، الجانب الأيمن",
+    "fr": "Muscle temporal, côté droit",
+    "it": "Muscolo temporale, lato destro",
+    "nl": "M. temporalis, rechts"
+   }
+  },
+  {
+   "key": "temporalis_left",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Temporalis, left",
+    "de": "M. temporalis, links",
+    "es": "Músculo temporal, lado izquierdo",
+    "ar": "العضلة الصدغية، الجانب الأيسر",
+    "fr": "Muscle temporal, côté gauche",
+    "it": "Muscolo temporale, lato sinistro",
+    "nl": "M. temporalis, links"
+   }
+  },
+  {
+   "key": "lateral_pterygoid_right",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Lateral pterygoid, right",
+    "de": "M. pterygoideus lateralis, rechts",
+    "es": "Pterigoideo lateral, lado derecho",
+    "ar": "العضلة الجناحية الوحشية، الجانب الأيمن",
+    "fr": "Ptérygoïdien latéral, côté droit",
+    "it": "Pterigoideo laterale, lato destro",
+    "nl": "M. pterygoideus lateralis, rechts"
+   }
+  },
+  {
+   "key": "lateral_pterygoid_left",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Lateral pterygoid, left",
+    "de": "M. pterygoideus lateralis, links",
+    "es": "Pterigoideo lateral, lado izquierdo",
+    "ar": "العضلة الجناحية الوحشية، الجانب الأيسر",
+    "fr": "Ptérygoïdien latéral, côté gauche",
+    "it": "Pterigoideo laterale, lato sinistro",
+    "nl": "M. pterygoideus lateralis, links"
+   }
+  },
+  {
+   "key": "medial_pterygoid_right",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#b39ddb",
+   "parent": null,
+   "names": {
+    "en": "Medial pterygoid, right",
+    "de": "M. pterygoideus medialis, rechts",
+    "es": "Pterigoideo medial, lado derecho",
+    "ar": "العضلة الجناحية الإنسية، الجانب الأيمن",
+    "fr": "Ptérygoïdien médial, côté droit",
+    "it": "Pterigoideo mediale, lato destro",
+    "nl": "M. pterygoideus medialis, rechts"
+   }
+  },
+  {
+   "key": "medial_pterygoid_left",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#b39ddb",
+   "parent": null,
+   "names": {
+    "en": "Medial pterygoid, left",
+    "de": "M. pterygoideus medialis, links",
+    "es": "Pterigoideo medial, lado izquierdo",
+    "ar": "العضلة الجناحية الإنسية، الجانب الأيسر",
+    "fr": "Ptérygoïdien médial, côté gauche",
+    "it": "Pterigoideo mediale, lato sinistro",
+    "nl": "M. pterygoideus medialis, links"
+   }
+  },
+  {
+   "key": "tongue",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Tongue",
+    "de": "Zunge",
+    "es": "Lengua",
+    "ar": "اللسان",
+    "fr": "Langue",
+    "it": "Lingua",
+    "nl": "Tong"
+   }
+  },
+  {
+   "key": "digastric_right",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Digastric, right",
+    "de": "M. digastricus, rechts",
+    "es": "Digástrico, lado derecho",
+    "ar": "العضلة ذات البطنين، الجانب الأيمن",
+    "fr": "Digastrique, côté droit",
+    "it": "Digastrico, lato destro",
+    "nl": "M. digastricus, rechts"
+   }
+  },
+  {
+   "key": "digastric_left",
+   "source": "head_muscles",
+   "system": "mastication",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Digastric, left",
+    "de": "M. digastricus, links",
+    "es": "Digástrico, lado izquierdo",
+    "ar": "العضلة ذات البطنين، الجانب الأيسر",
+    "fr": "Digastrique, côté gauche",
+    "it": "Digastrico, lato sinistro",
+    "nl": "M. digastricus, links"
+   }
+  },
+  {
+   "key": "larynx_air",
+   "source": "headneck_bones_vessels",
+   "system": "larynx",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "Laryngeal airway",
+    "de": "Kehlkopflumen",
+    "es": "Luz laríngea",
+    "ar": "تجويف الحنجرة",
+    "fr": "Lumière laryngée",
+    "it": "Lume laringeo",
+    "nl": "Larynxlumen"
+   }
+  },
+  {
+   "key": "thyroid_cartilage",
+   "source": "headneck_bones_vessels",
+   "system": "larynx",
+   "color": "#f2b880",
+   "parent": null,
+   "names": {
+    "en": "Thyroid cartilage",
+    "de": "Schildknorpel",
+    "es": "Cartílago tiroides",
+    "ar": "الغضروف الدرقي",
+    "fr": "Cartilage thyroïde",
+    "it": "Cartilagine tiroidea",
+    "nl": "Schildkraakbeen"
+   }
+  },
+  {
+   "key": "cricoid_cartilage",
+   "source": "headneck_bones_vessels",
+   "system": "larynx",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Cricoid cartilage",
+    "de": "Ringknorpel",
+    "es": "Cartílago cricoides",
+    "ar": "الغضروف الحلقي",
+    "fr": "Cartilage cricoïde",
+    "it": "Cartilagine cricoidea",
+    "nl": "Ringkraakbeen"
+   }
+  },
+  {
+   "key": "trachea",
+   "source": "total",
+   "system": "larynx",
+   "color": "#79a8e8",
+   "parent": null,
+   "names": {
+    "en": "Trachea",
+    "de": "Luftröhre",
+    "es": "Tráquea",
+    "ar": "الرغامى",
+    "fr": "Trachée",
+    "it": "Trachea",
+    "nl": "Luchtpijp"
+   }
+  },
+  {
+   "key": "thyroid_gland",
+   "source": "total",
+   "system": "thyroid",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Thyroid gland",
+    "de": "Schilddrüse",
+    "es": "Glándula tiroides",
+    "ar": "الغدة الدرقية",
+    "fr": "Glande thyroïde",
+    "it": "Ghiandola tiroidea",
+    "nl": "Schildklier"
+   }
+  },
+  {
+   "key": "common_carotid_artery_right",
+   "source": "total",
+   "system": "vessels",
+   "color": "#e85a5a",
+   "parent": null,
+   "names": {
+    "en": "Common carotid artery, right",
+    "de": "A. carotis communis, rechts",
+    "es": "Arteria carótida común, lado derecho",
+    "ar": "الشريان السباتي المشترك، الجانب الأيمن",
+    "fr": "Artère carotide commune, côté droit",
+    "it": "Arteria carotide comune, lato destro",
+    "nl": "Arteria carotis communis, rechts"
+   }
+  },
+  {
+   "key": "common_carotid_artery_left",
+   "source": "total",
+   "system": "vessels",
+   "color": "#e85a5a",
+   "parent": null,
+   "names": {
+    "en": "Common carotid artery, left",
+    "de": "A. carotis communis, links",
+    "es": "Arteria carótida común, lado izquierdo",
+    "ar": "الشريان السباتي المشترك، الجانب الأيسر",
+    "fr": "Artère carotide commune, côté gauche",
+    "it": "Arteria carotide comune, lato sinistro",
+    "nl": "Arteria carotis communis, links"
+   }
+  },
+  {
+   "key": "subclavian_artery_right",
+   "source": "total",
+   "system": "vessels",
+   "color": "#f07b6e",
+   "parent": null,
+   "names": {
+    "en": "Subclavian artery, right",
+    "de": "A. subclavia, rechts",
+    "es": "Arteria subclavia, lado derecho",
+    "ar": "الشريان تحت الترقوة، الجانب الأيمن",
+    "fr": "Artère subclavière, côté droit",
+    "it": "Arteria succlavia, lato destro",
+    "nl": "Arteria subclavia, rechts"
+   }
+  },
+  {
+   "key": "subclavian_artery_left",
+   "source": "total",
+   "system": "vessels",
+   "color": "#f07b6e",
+   "parent": null,
+   "names": {
+    "en": "Subclavian artery, left",
+    "de": "A. subclavia, links",
+    "es": "Arteria subclavia, lado izquierdo",
+    "ar": "الشريان تحت الترقوة، الجانب الأيسر",
+    "fr": "Artère subclavière, côté gauche",
+    "it": "Arteria succlavia, lato sinistro",
+    "nl": "Arteria subclavia, links"
+   }
+  },
+  {
+   "key": "brachiocephalic_trunk",
+   "source": "total",
+   "system": "vessels",
+   "color": "#d9534f",
+   "parent": null,
+   "names": {
+    "en": "Brachiocephalic trunk",
+    "de": "Truncus brachiocephalicus",
+    "es": "Tronco braquiocefálico",
+    "ar": "الجذع العضدي الرأسي",
+    "fr": "Tronc brachiocéphalique",
+    "it": "Tronco brachiocefalico",
+    "nl": "Truncus brachiocephalicus"
+   }
+  },
+  {
+   "key": "brachiocephalic_vein_right",
+   "source": "total",
+   "system": "vessels",
+   "color": "#6f9cf2",
+   "parent": null,
+   "names": {
+    "en": "Brachiocephalic vein, right",
+    "de": "V. brachiocephalica, rechts",
+    "es": "Vena braquiocefálica, lado derecho",
+    "ar": "الوريد العضدي الرأسي، الجانب الأيمن",
+    "fr": "Veine brachiocéphalique, côté droit",
+    "it": "Vena brachiocefalica, lato destro",
+    "nl": "Vena brachiocephalica, rechts"
+   }
+  },
+  {
+   "key": "brachiocephalic_vein_left",
+   "source": "total",
+   "system": "vessels",
+   "color": "#6f9cf2",
+   "parent": null,
+   "names": {
+    "en": "Brachiocephalic vein, left",
+    "de": "V. brachiocephalica, links",
+    "es": "Vena braquiocefálica, lado izquierdo",
+    "ar": "الوريد العضدي الرأسي، الجانب الأيسر",
+    "fr": "Veine brachiocéphalique, côté gauche",
+    "it": "Vena brachiocefalica, lato sinistro",
+    "nl": "Vena brachiocephalica, links"
+   }
+  },
+  {
+   "key": "superior_vena_cava",
+   "source": "total",
+   "system": "vessels",
+   "color": "#5b8def",
+   "parent": null,
+   "names": {
+    "en": "Superior vena cava",
+    "de": "Vena cava superior",
+    "es": "Vena cava superior",
+    "ar": "الوريد الأجوف العلوي",
+    "fr": "Veine cave supérieure",
+    "it": "Vena cava superiore",
+    "nl": "Bovenste holle ader"
+   }
+  },
+  {
+   "key": "vertebrae_C1",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "C1 vertebra",
+    "de": "Wirbel C1",
+    "es": "Vértebra C1",
+    "ar": "الفقرة C1",
+    "fr": "Vertèbre C1",
+    "it": "Vertebra C1",
+    "nl": "Wervel C1"
+   }
+  },
+  {
+   "key": "vertebrae_C2",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "C2 vertebra",
+    "de": "Wirbel C2",
+    "es": "Vértebra C2",
+    "ar": "الفقرة C2",
+    "fr": "Vertèbre C2",
+    "it": "Vertebra C2",
+    "nl": "Wervel C2"
+   }
+  },
+  {
+   "key": "vertebrae_C3",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "C3 vertebra",
+    "de": "Wirbel C3",
+    "es": "Vértebra C3",
+    "ar": "الفقرة C3",
+    "fr": "Vertèbre C3",
+    "it": "Vertebra C3",
+    "nl": "Wervel C3"
+   }
+  },
+  {
+   "key": "vertebrae_C4",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "C4 vertebra",
+    "de": "Wirbel C4",
+    "es": "Vértebra C4",
+    "ar": "الفقرة C4",
+    "fr": "Vertèbre C4",
+    "it": "Vertebra C4",
+    "nl": "Wervel C4"
+   }
+  },
+  {
+   "key": "vertebrae_C5",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "C5 vertebra",
+    "de": "Wirbel C5",
+    "es": "Vértebra C5",
+    "ar": "الفقرة C5",
+    "fr": "Vertèbre C5",
+    "it": "Vertebra C5",
+    "nl": "Wervel C5"
+   }
+  },
+  {
+   "key": "vertebrae_C6",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "C6 vertebra",
+    "de": "Wirbel C6",
+    "es": "Vértebra C6",
+    "ar": "الفقرة C6",
+    "fr": "Vertèbre C6",
+    "it": "Vertebra C6",
+    "nl": "Wervel C6"
+   }
+  },
+  {
+   "key": "vertebrae_C7",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "C7 vertebra",
+    "de": "Wirbel C7",
+    "es": "Vértebra C7",
+    "ar": "الفقرة C7",
+    "fr": "Vertèbre C7",
+    "it": "Vertebra C7",
+    "nl": "Wervel C7"
+   }
+  },
+  {
+   "key": "vertebrae_T1",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "T1 vertebra",
+    "de": "Wirbel T1",
+    "es": "Vértebra T1",
+    "ar": "الفقرة T1",
+    "fr": "Vertèbre T1",
+    "it": "Vertebra T1",
+    "nl": "Wervel T1"
+   }
+  },
+  {
+   "key": "vertebrae_T2",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "T2 vertebra",
+    "de": "Wirbel T2",
+    "es": "Vértebra T2",
+    "ar": "الفقرة T2",
+    "fr": "Vertèbre T2",
+    "it": "Vertebra T2",
+    "nl": "Wervel T2"
+   }
+  },
+  {
+   "key": "vertebrae_T3",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "T3 vertebra",
+    "de": "Wirbel T3",
+    "es": "Vértebra T3",
+    "ar": "الفقرة T3",
+    "fr": "Vertèbre T3",
+    "it": "Vertebra T3",
+    "nl": "Wervel T3"
+   }
+  },
+  {
+   "key": "vertebrae_T4",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "T4 vertebra",
+    "de": "Wirbel T4",
+    "es": "Vértebra T4",
+    "ar": "الفقرة T4",
+    "fr": "Vertèbre T4",
+    "it": "Vertebra T4",
+    "nl": "Wervel T4"
+   }
+  },
+  {
+   "key": "vertebrae_T5",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "T5 vertebra",
+    "de": "Wirbel T5",
+    "es": "Vértebra T5",
+    "ar": "الفقرة T5",
+    "fr": "Vertèbre T5",
+    "it": "Vertebra T5",
+    "nl": "Wervel T5"
+   }
+  },
+  {
+   "key": "vertebrae_T6",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "T6 vertebra",
+    "de": "Wirbel T6",
+    "es": "Vértebra T6",
+    "ar": "الفقرة T6",
+    "fr": "Vertèbre T6",
+    "it": "Vertebra T6",
+    "nl": "Wervel T6"
+   }
+  },
+  {
+   "key": "vertebrae_T7",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "T7 vertebra",
+    "de": "Wirbel T7",
+    "es": "Vértebra T7",
+    "ar": "الفقرة T7",
+    "fr": "Vertèbre T7",
+    "it": "Vertebra T7",
+    "nl": "Wervel T7"
+   }
+  },
+  {
+   "key": "vertebrae_T8",
+   "source": "total",
+   "system": "spine",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "T8 vertebra",
+    "de": "Wirbel T8",
+    "es": "Vértebra T8",
+    "ar": "الفقرة T8",
+    "fr": "Vertèbre T8",
+    "it": "Vertebra T8",
+    "nl": "Wervel T8"
+   }
+  },
+  {
+   "key": "vertebrae_T9",
+   "source": "total",
+   "system": "spine",
+   "color": "#b5d3ee",
+   "parent": null,
+   "names": {
+    "en": "T9 vertebra",
+    "de": "Wirbel T9",
+    "es": "Vértebra T9",
+    "ar": "الفقرة T9",
+    "fr": "Vertèbre T9",
+    "it": "Vertebra T9",
+    "nl": "Wervel T9"
+   }
+  },
+  {
+   "key": "spinal_cord",
+   "source": "total",
+   "system": "spine",
+   "color": "#f4cf7a",
+   "parent": null,
+   "names": {
+    "en": "Spinal cord",
+    "de": "Rückenmark",
+    "es": "Médula espinal",
+    "ar": "الحبل الشوكي",
+    "fr": "Moelle spinale",
+    "it": "Midollo spinale",
+    "nl": "Ruggenmerg"
+   }
+  },
+  {
+   "key": "sternocleidomastoid_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Sternocleidomastoid, right",
+    "de": "M. sternocleidomastoideus, rechts",
+    "es": "Esternocleidomastoideo, lado derecho",
+    "ar": "العضلة القصية الترقوية الخشائية، الجانب الأيمن",
+    "fr": "Sterno-cléido-mastoïdien, côté droit",
+    "it": "Sternocleidomastoideo, lato destro",
+    "nl": "M. sternocleidomastoideus, rechts"
+   }
+  },
+  {
+   "key": "sternocleidomastoid_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Sternocleidomastoid, left",
+    "de": "M. sternocleidomastoideus, links",
+    "es": "Esternocleidomastoideo, lado izquierdo",
+    "ar": "العضلة القصية الترقوية الخشائية، الجانب الأيسر",
+    "fr": "Sterno-cléido-mastoïdien, côté gauche",
+    "it": "Sternocleidomastoideo, lato sinistro",
+    "nl": "M. sternocleidomastoideus, links"
+   }
+  },
+  {
+   "key": "superior_pharyngeal_constrictor",
+   "source": "headneck_muscles",
+   "system": "pharynx-esophagus",
+   "color": "#e7d36a",
+   "parent": null,
+   "names": {
+    "en": "Superior pharyngeal constrictor",
+    "de": "M. constrictor pharyngis superior",
+    "es": "Constrictor superior de la faringe",
+    "ar": "العضلة العاصرة البلعومية العلوية",
+    "fr": "Constricteur supérieur du pharynx",
+    "it": "Costrittore superiore della faringe",
+    "nl": "M. constrictor pharyngis superior"
+   }
+  },
+  {
+   "key": "middle_pharyngeal_constrictor",
+   "source": "headneck_muscles",
+   "system": "pharynx-esophagus",
+   "color": "#e7d36a",
+   "parent": null,
+   "names": {
+    "en": "Middle pharyngeal constrictor",
+    "de": "M. constrictor pharyngis medius",
+    "es": "Constrictor medio de la faringe",
+    "ar": "العضلة العاصرة البلعومية الوسطى",
+    "fr": "Constricteur moyen du pharynx",
+    "it": "Costrittore medio della faringe",
+    "nl": "M. constrictor pharyngis medius"
+   }
+  },
+  {
+   "key": "inferior_pharyngeal_constrictor",
+   "source": "headneck_muscles",
+   "system": "pharynx-esophagus",
+   "color": "#e7d36a",
+   "parent": null,
+   "names": {
+    "en": "Inferior pharyngeal constrictor",
+    "de": "M. constrictor pharyngis inferior",
+    "es": "Constrictor inferior de la faringe",
+    "ar": "العضلة العاصرة البلعومية السفلية",
+    "fr": "Constricteur inférieur du pharynx",
+    "it": "Costrittore inferiore della faringe",
+    "nl": "M. constrictor pharyngis inferior"
+   }
+  },
+  {
+   "key": "trapezius_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Trapezius, right",
+    "de": "M. trapezius, rechts",
+    "es": "Trapecio, lado derecho",
+    "ar": "العضلة شبه المنحرفة، الجانب الأيمن",
+    "fr": "Trapèze, côté droit",
+    "it": "Trapezio, lato destro",
+    "nl": "M. trapezius, rechts"
+   }
+  },
+  {
+   "key": "trapezius_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Trapezius, left",
+    "de": "M. trapezius, links",
+    "es": "Trapecio, lado izquierdo",
+    "ar": "العضلة شبه المنحرفة، الجانب الأيسر",
+    "fr": "Trapèze, côté gauche",
+    "it": "Trapezio, lato sinistro",
+    "nl": "M. trapezius, links"
+   }
+  },
+  {
+   "key": "platysma_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Platysma, right",
+    "de": "Platysma, rechts",
+    "es": "Platisma, lado derecho",
+    "ar": "العضلة الجلدية للعنق، الجانب الأيمن",
+    "fr": "Platysma, côté droit",
+    "it": "Platisma, lato destro",
+    "nl": "Platysma, rechts"
+   }
+  },
+  {
+   "key": "platysma_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Platysma, left",
+    "de": "Platysma, links",
+    "es": "Platisma, lado izquierdo",
+    "ar": "العضلة الجلدية للعنق، الجانب الأيسر",
+    "fr": "Platysma, côté gauche",
+    "it": "Platisma, lato sinistro",
+    "nl": "Platysma, links"
+   }
+  },
+  {
+   "key": "levator_scapulae_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Levator scapulae, right",
+    "de": "M. levator scapulae, rechts",
+    "es": "Elevador de la escápula, lado derecho",
+    "ar": "العضلة الرافعة للوح، الجانب الأيمن",
+    "fr": "Élévateur de la scapula, côté droit",
+    "it": "Elevatore della scapola, lato destro",
+    "nl": "M. levator scapulae, rechts"
+   }
+  },
+  {
+   "key": "levator_scapulae_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Levator scapulae, left",
+    "de": "M. levator scapulae, links",
+    "es": "Elevador de la escápula, lado izquierdo",
+    "ar": "العضلة الرافعة للوح، الجانب الأيسر",
+    "fr": "Élévateur de la scapula, côté gauche",
+    "it": "Elevatore della scapola, lato sinistro",
+    "nl": "M. levator scapulae, links"
+   }
+  },
+  {
+   "key": "anterior_scalene_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Anterior scalene, right",
+    "de": "M. scalenus anterior, rechts",
+    "es": "Escaleno anterior, lado derecho",
+    "ar": "العضلة الأخمعية الأمامية، الجانب الأيمن",
+    "fr": "Scalène antérieur, côté droit",
+    "it": "Scaleno anteriore, lato destro",
+    "nl": "M. scalenus anterior, rechts"
+   }
+  },
+  {
+   "key": "anterior_scalene_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Anterior scalene, left",
+    "de": "M. scalenus anterior, links",
+    "es": "Escaleno anterior, lado izquierdo",
+    "ar": "العضلة الأخمعية الأمامية، الجانب الأيسر",
+    "fr": "Scalène antérieur, côté gauche",
+    "it": "Scaleno anteriore, lato sinistro",
+    "nl": "M. scalenus anterior, links"
+   }
+  },
+  {
+   "key": "middle_scalene_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Middle scalene, right",
+    "de": "M. scalenus medius, rechts",
+    "es": "Escaleno medio, lado derecho",
+    "ar": "العضلة الأخمعية الوسطى، الجانب الأيمن",
+    "fr": "Scalène moyen, côté droit",
+    "it": "Scaleno medio, lato destro",
+    "nl": "M. scalenus medius, rechts"
+   }
+  },
+  {
+   "key": "middle_scalene_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Middle scalene, left",
+    "de": "M. scalenus medius, links",
+    "es": "Escaleno medio, lado izquierdo",
+    "ar": "العضلة الأخمعية الوسطى، الجانب الأيسر",
+    "fr": "Scalène moyen, côté gauche",
+    "it": "Scaleno medio, lato sinistro",
+    "nl": "M. scalenus medius, links"
+   }
+  },
+  {
+   "key": "posterior_scalene_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Posterior scalene, right",
+    "de": "M. scalenus posterior, rechts",
+    "es": "Escaleno posterior, lado derecho",
+    "ar": "العضلة الأخمعية الخلفية، الجانب الأيمن",
+    "fr": "Scalène postérieur, côté droit",
+    "it": "Scaleno posteriore, lato destro",
+    "nl": "M. scalenus posterior, rechts"
+   }
+  },
+  {
+   "key": "posterior_scalene_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Posterior scalene, left",
+    "de": "M. scalenus posterior, links",
+    "es": "Escaleno posterior, lado izquierdo",
+    "ar": "العضلة الأخمعية الخلفية، الجانب الأيسر",
+    "fr": "Scalène postérieur, côté gauche",
+    "it": "Scaleno posteriore, lato sinistro",
+    "nl": "M. scalenus posterior, links"
+   }
+  },
+  {
+   "key": "sterno_thyroid_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#b39ddb",
+   "parent": null,
+   "names": {
+    "en": "Sternothyroid, right",
+    "de": "M. sternothyroideus, rechts",
+    "es": "Esternotiroideo, lado derecho",
+    "ar": "العضلة القصية الدرقية، الجانب الأيمن",
+    "fr": "Sterno-thyroïdien, côté droit",
+    "it": "Sternotiroideo, lato destro",
+    "nl": "M. sternothyroideus, rechts"
+   }
+  },
+  {
+   "key": "sterno_thyroid_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#b39ddb",
+   "parent": null,
+   "names": {
+    "en": "Sternothyroid, left",
+    "de": "M. sternothyroideus, links",
+    "es": "Esternotiroideo, lado izquierdo",
+    "ar": "العضلة القصية الدرقية، الجانب الأيسر",
+    "fr": "Sterno-thyroïdien, côté gauche",
+    "it": "Sternotiroideo, lato sinistro",
+    "nl": "M. sternothyroideus, links"
+   }
+  },
+  {
+   "key": "thyrohyoid_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#b39ddb",
+   "parent": null,
+   "names": {
+    "en": "Thyrohyoid, right",
+    "de": "M. thyrohyoideus, rechts",
+    "es": "Tirohioideo, lado derecho",
+    "ar": "العضلة الدرقية اللامية، الجانب الأيمن",
+    "fr": "Thyro-hyoïdien, côté droit",
+    "it": "Tireoioideo, lato destro",
+    "nl": "M. thyrohyoideus, rechts"
+   }
+  },
+  {
+   "key": "thyrohyoid_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#b39ddb",
+   "parent": null,
+   "names": {
+    "en": "Thyrohyoid, left",
+    "de": "M. thyrohyoideus, links",
+    "es": "Tirohioideo, lado izquierdo",
+    "ar": "العضلة الدرقية اللامية، الجانب الأيسر",
+    "fr": "Thyro-hyoïdien, côté gauche",
+    "it": "Tireoioideo, lato sinistro",
+    "nl": "M. thyrohyoideus, links"
+   }
+  },
+  {
+   "key": "prevertebral_right",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#a9b8cc",
+   "parent": null,
+   "names": {
+    "en": "Prevertebral muscles, right",
+    "de": "Prävertebrale Muskulatur, rechts",
+    "es": "Músculos prevertebrales, lado derecho",
+    "ar": "العضلات أمام الفقرية، الجانب الأيمن",
+    "fr": "Muscles prévertébraux, côté droit",
+    "it": "Muscoli prevertebrali, lato destro",
+    "nl": "Prevertebrale spieren, rechts"
+   }
+  },
+  {
+   "key": "prevertebral_left",
+   "source": "headneck_muscles",
+   "system": "neck-muscles",
+   "color": "#a9b8cc",
+   "parent": null,
+   "names": {
+    "en": "Prevertebral muscles, left",
+    "de": "Prävertebrale Muskulatur, links",
+    "es": "Músculos prevertebrales, lado izquierdo",
+    "ar": "العضلات أمام الفقرية، الجانب الأيسر",
+    "fr": "Muscles prévertébraux, côté gauche",
+    "it": "Muscoli prevertebrali, lato sinistro",
+    "nl": "Prevertebrale spieren, links"
+   }
+  },
+  {
+   "key": "lung_upper_lobe_right",
+   "source": "total",
+   "system": "lungs",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "Right upper lobe",
+    "de": "Rechter Oberlappen",
+    "es": "Lóbulo superior derecho",
+    "ar": "الفص العلوي الأيمن",
+    "fr": "Lobe supérieur droit",
+    "it": "Lobo superiore destro",
+    "nl": "Rechter bovenkwab"
+   }
+  },
+  {
+   "key": "lung_middle_lobe_right",
+   "source": "total",
+   "system": "lungs",
+   "color": "#7fd1c7",
+   "parent": null,
+   "names": {
+    "en": "Right middle lobe",
+    "de": "Rechter Mittellappen",
+    "es": "Lóbulo medio derecho",
+    "ar": "الفص الأوسط الأيمن",
+    "fr": "Lobe moyen droit",
+    "it": "Lobo medio destro",
+    "nl": "Rechter middenkwab"
+   }
+  },
+  {
+   "key": "lung_lower_lobe_right",
+   "source": "total",
+   "system": "lungs",
+   "color": "#8fd694",
+   "parent": null,
+   "names": {
+    "en": "Right lower lobe",
+    "de": "Rechter Unterlappen",
+    "es": "Lóbulo inferior derecho",
+    "ar": "الفص السفلي الأيمن",
+    "fr": "Lobe inférieur droit",
+    "it": "Lobo inferiore destro",
+    "nl": "Rechter onderkwab"
+   }
+  },
+  {
+   "key": "lung_upper_lobe_left",
+   "source": "total",
+   "system": "lungs",
+   "color": "#b39ddb",
+   "parent": null,
+   "names": {
+    "en": "Left upper lobe",
+    "de": "Linker Oberlappen",
+    "es": "Lóbulo superior izquierdo",
+    "ar": "الفص العلوي الأيسر",
+    "fr": "Lobe supérieur gauche",
+    "it": "Lobo superiore sinistro",
+    "nl": "Linker bovenkwab"
+   }
+  },
+  {
+   "key": "lung_lower_lobe_left",
+   "source": "total",
+   "system": "lungs",
+   "color": "#f4cf7a",
+   "parent": null,
+   "names": {
+    "en": "Left lower lobe",
+    "de": "Linker Unterlappen",
+    "es": "Lóbulo inferior izquierdo",
+    "ar": "الفص السفلي الأيسر",
+    "fr": "Lobe inférieur gauche",
+    "it": "Lobo inferiore sinistro",
+    "nl": "Linker onderkwab"
+   }
+  },
+  {
+   "key": "lung_airways",
+   "source": "lung_vessels",
+   "system": "airway",
+   "color": "#79a8e8",
+   "parent": null,
+   "names": {
+    "en": "Bronchi",
+    "de": "Bronchien",
+    "es": "Bronquios",
+    "ar": "القصبات",
+    "fr": "Bronches",
+    "it": "Bronchi",
+    "nl": "Bronchiën"
+   }
+  },
+  {
+   "key": "myocardium",
+   "source": "heartchambers_highres",
+   "system": "heart",
+   "color": "#c94f4f",
+   "parent": null,
+   "names": {
+    "en": "Left ventricular myocardium",
+    "de": "Myokard des linken Ventrikels",
+    "es": "Miocardio del ventrículo izquierdo",
+    "ar": "عضلة البطين الأيسر",
+    "fr": "Myocarde du ventricule gauche",
+    "it": "Miocardio del ventricolo sinistro",
+    "nl": "Myocard linkerventrikel"
+   }
+  },
+  {
+   "key": "atrium_left",
+   "source": "heartchambers_highres",
+   "system": "heart",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Left atrium",
+    "de": "Linker Vorhof",
+    "es": "Aurícula izquierda",
+    "ar": "الأذين الأيسر",
+    "fr": "Oreillette gauche",
+    "it": "Atrio sinistro",
+    "nl": "Linkerboezem"
+   }
+  },
+  {
+   "key": "ventricle_left",
+   "source": "heartchambers_highres",
+   "system": "heart",
+   "color": "#e85a5a",
+   "parent": null,
+   "names": {
+    "en": "Left ventricle",
+    "de": "Linker Ventrikel",
+    "es": "Ventrículo izquierdo",
+    "ar": "البطين الأيسر",
+    "fr": "Ventricule gauche",
+    "it": "Ventricolo sinistro",
+    "nl": "Linkerkamer"
+   }
+  },
+  {
+   "key": "atrium_right",
+   "source": "heartchambers_highres",
+   "system": "heart",
+   "color": "#8fb8f0",
+   "parent": null,
+   "names": {
+    "en": "Right atrium",
+    "de": "Rechter Vorhof",
+    "es": "Aurícula derecha",
+    "ar": "الأذين الأيمن",
+    "fr": "Oreillette droite",
+    "it": "Atrio destro",
+    "nl": "Rechterboezem"
+   }
+  },
+  {
+   "key": "ventricle_right",
+   "source": "heartchambers_highres",
+   "system": "heart",
+   "color": "#5b8def",
+   "parent": null,
+   "names": {
+    "en": "Right ventricle",
+    "de": "Rechter Ventrikel",
+    "es": "Ventrículo derecho",
+    "ar": "البطين الأيمن",
+    "fr": "Ventricule droit",
+    "it": "Ventricolo destro",
+    "nl": "Rechterkamer"
+   }
+  },
+  {
+   "key": "pulmonary_artery",
+   "source": "heartchambers_highres",
+   "system": "heart-vessels",
+   "color": "#7f8ff0",
+   "parent": null,
+   "names": {
+    "en": "Pulmonary trunk and arteries",
+    "de": "Truncus pulmonalis & Pulmonalarterien",
+    "es": "Tronco y arterias pulmonares",
+    "ar": "الجذع الرئوي والشرايين الرئوية",
+    "fr": "Tronc et artères pulmonaires",
+    "it": "Tronco e arterie polmonari",
+    "nl": "Truncus pulmonalis & longslagaders"
+   }
+  },
+  {
+   "key": "coronary_arteries",
+   "source": "coronary_arteries",
+   "system": "heart",
+   "color": "#f2a65a",
+   "parent": null,
+   "names": {
+    "en": "Coronary arteries",
+    "de": "Koronararterien",
+    "es": "Arterias coronarias",
+    "ar": "الشرايين التاجية",
+    "fr": "Artères coronaires",
+    "it": "Arterie coronarie",
+    "nl": "Kransslagaders"
+   }
+  },
+  {
+   "key": "pulmonary_vein",
+   "source": "total",
+   "system": "heart-vessels",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Pulmonary veins",
+    "de": "Lungenvenen",
+    "es": "Venas pulmonares",
+    "ar": "الأوردة الرئوية",
+    "fr": "Veines pulmonaires",
+    "it": "Vene polmonari",
+    "nl": "Longaders"
+   }
+  },
+  {
+   "key": "atrial_appendage_left",
+   "source": "total",
+   "system": "heart",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Left atrial appendage",
+    "de": "Linkes Herzohr",
+    "es": "Orejuela izquierda",
+    "ar": "الزائدة الأذينية اليسرى",
+    "fr": "Auricule gauche",
+    "it": "Auricola sinistra",
+    "nl": "Linker hartoortje"
+   }
+  },
+  {
+   "key": "sternum",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Sternum",
+    "de": "Brustbein",
+    "es": "Esternón",
+    "ar": "القص",
+    "fr": "Sternum",
+    "it": "Sterno",
+    "nl": "Borstbeen"
+   }
+  },
+  {
+   "key": "costal_cartilages",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#e7e2c8",
+   "parent": null,
+   "names": {
+    "en": "Costal cartilages",
+    "de": "Rippenknorpel",
+    "es": "Cartílagos costales",
+    "ar": "الغضاريف الضلعية",
+    "fr": "Cartilages costaux",
+    "it": "Cartilagini costali",
+    "nl": "Ribkraakbeen"
+   }
+  },
+  {
+   "key": "clavicula_right",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#bfc8d6",
+   "parent": null,
+   "names": {
+    "en": "Clavicle, right",
+    "de": "Schlüsselbein, rechts",
+    "es": "Clavícula, lado derecho",
+    "ar": "الترقوة، الجانب الأيمن",
+    "fr": "Clavicule, côté droit",
+    "it": "Clavicola, lato destro",
+    "nl": "Sleutelbeen, rechts"
+   }
+  },
+  {
+   "key": "clavicula_left",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#bfc8d6",
+   "parent": null,
+   "names": {
+    "en": "Clavicle, left",
+    "de": "Schlüsselbein, links",
+    "es": "Clavícula, lado izquierdo",
+    "ar": "الترقوة، الجانب الأيسر",
+    "fr": "Clavicule, côté gauche",
+    "it": "Clavicola, lato sinistro",
+    "nl": "Sleutelbeen, links"
+   }
+  },
+  {
+   "key": "scapula_right",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#a9b8cc",
+   "parent": null,
+   "names": {
+    "en": "Scapula, right",
+    "de": "Schulterblatt, rechts",
+    "es": "Escápula, lado derecho",
+    "ar": "لوح الكتف، الجانب الأيمن",
+    "fr": "Omoplate, côté droit",
+    "it": "Scapola, lato destro",
+    "nl": "Schouderblad, rechts"
+   }
+  },
+  {
+   "key": "scapula_left",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#a9b8cc",
+   "parent": null,
+   "names": {
+    "en": "Scapula, left",
+    "de": "Schulterblatt, links",
+    "es": "Escápula, lado izquierdo",
+    "ar": "لوح الكتف، الجانب الأيسر",
+    "fr": "Omoplate, côté gauche",
+    "it": "Scapola, lato sinistro",
+    "nl": "Schouderblad, links"
+   }
+  },
+  {
+   "key": "humerus_right",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Humerus, right",
+    "de": "Oberarmknochen, rechts",
+    "es": "Húmero, lado derecho",
+    "ar": "عظم العضد، الجانب الأيمن",
+    "fr": "Humérus, côté droit",
+    "it": "Omero, lato destro",
+    "nl": "Opperarmbeen, rechts"
+   }
+  },
+  {
+   "key": "humerus_left",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Humerus, left",
+    "de": "Oberarmknochen, links",
+    "es": "Húmero, lado izquierdo",
+    "ar": "عظم العضد، الجانب الأيسر",
+    "fr": "Humérus, côté gauche",
+    "it": "Omero, lato sinistro",
+    "nl": "Opperarmbeen, links"
+   }
+  },
+  {
+   "key": "rib_right_1",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Right rib 1",
+    "de": "Rechte Rippe 1",
+    "es": "Costilla 1 derecha",
+    "ar": "الضلع 1 اليمنى",
+    "fr": "Côte 1 droite",
+    "it": "Costola 1 destra",
+    "nl": "Rechter rib 1"
+   }
+  },
+  {
+   "key": "rib_right_2",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Right rib 2",
+    "de": "Rechte Rippe 2",
+    "es": "Costilla 2 derecha",
+    "ar": "الضلع 2 اليمنى",
+    "fr": "Côte 2 droite",
+    "it": "Costola 2 destra",
+    "nl": "Rechter rib 2"
+   }
+  },
+  {
+   "key": "rib_right_3",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Right rib 3",
+    "de": "Rechte Rippe 3",
+    "es": "Costilla 3 derecha",
+    "ar": "الضلع 3 اليمنى",
+    "fr": "Côte 3 droite",
+    "it": "Costola 3 destra",
+    "nl": "Rechter rib 3"
+   }
+  },
+  {
+   "key": "rib_right_4",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Right rib 4",
+    "de": "Rechte Rippe 4",
+    "es": "Costilla 4 derecha",
+    "ar": "الضلع 4 اليمنى",
+    "fr": "Côte 4 droite",
+    "it": "Costola 4 destra",
+    "nl": "Rechter rib 4"
+   }
+  },
+  {
+   "key": "rib_right_5",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Right rib 5",
+    "de": "Rechte Rippe 5",
+    "es": "Costilla 5 derecha",
+    "ar": "الضلع 5 اليمنى",
+    "fr": "Côte 5 droite",
+    "it": "Costola 5 destra",
+    "nl": "Rechter rib 5"
+   }
+  },
+  {
+   "key": "rib_right_6",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Right rib 6",
+    "de": "Rechte Rippe 6",
+    "es": "Costilla 6 derecha",
+    "ar": "الضلع 6 اليمنى",
+    "fr": "Côte 6 droite",
+    "it": "Costola 6 destra",
+    "nl": "Rechter rib 6"
+   }
+  },
+  {
+   "key": "rib_right_7",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Right rib 7",
+    "de": "Rechte Rippe 7",
+    "es": "Costilla 7 derecha",
+    "ar": "الضلع 7 اليمنى",
+    "fr": "Côte 7 droite",
+    "it": "Costola 7 destra",
+    "nl": "Rechter rib 7"
+   }
+  },
+  {
+   "key": "rib_right_8",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Right rib 8",
+    "de": "Rechte Rippe 8",
+    "es": "Costilla 8 derecha",
+    "ar": "الضلع 8 اليمنى",
+    "fr": "Côte 8 droite",
+    "it": "Costola 8 destra",
+    "nl": "Rechter rib 8"
+   }
+  },
+  {
+   "key": "rib_right_9",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Right rib 9",
+    "de": "Rechte Rippe 9",
+    "es": "Costilla 9 derecha",
+    "ar": "الضلع 9 اليمنى",
+    "fr": "Côte 9 droite",
+    "it": "Costola 9 destra",
+    "nl": "Rechter rib 9"
+   }
+  },
+  {
+   "key": "rib_right_10",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Right rib 10",
+    "de": "Rechte Rippe 10",
+    "es": "Costilla 10 derecha",
+    "ar": "الضلع 10 اليمنى",
+    "fr": "Côte 10 droite",
+    "it": "Costola 10 destra",
+    "nl": "Rechter rib 10"
+   }
+  },
+  {
+   "key": "rib_right_11",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Right rib 11",
+    "de": "Rechte Rippe 11",
+    "es": "Costilla 11 derecha",
+    "ar": "الضلع 11 اليمنى",
+    "fr": "Côte 11 droite",
+    "it": "Costola 11 destra",
+    "nl": "Rechter rib 11"
+   }
+  },
+  {
+   "key": "rib_right_12",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Right rib 12",
+    "de": "Rechte Rippe 12",
+    "es": "Costilla 12 derecha",
+    "ar": "الضلع 12 اليمنى",
+    "fr": "Côte 12 droite",
+    "it": "Costola 12 destra",
+    "nl": "Rechter rib 12"
+   }
+  },
+  {
+   "key": "rib_left_1",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Left rib 1",
+    "de": "Linke Rippe 1",
+    "es": "Costilla 1 izquierda",
+    "ar": "الضلع 1 اليسرى",
+    "fr": "Côte 1 gauche",
+    "it": "Costola 1 sinistra",
+    "nl": "Linker rib 1"
+   }
+  },
+  {
+   "key": "rib_left_2",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Left rib 2",
+    "de": "Linke Rippe 2",
+    "es": "Costilla 2 izquierda",
+    "ar": "الضلع 2 اليسرى",
+    "fr": "Côte 2 gauche",
+    "it": "Costola 2 sinistra",
+    "nl": "Linker rib 2"
+   }
+  },
+  {
+   "key": "rib_left_3",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Left rib 3",
+    "de": "Linke Rippe 3",
+    "es": "Costilla 3 izquierda",
+    "ar": "الضلع 3 اليسرى",
+    "fr": "Côte 3 gauche",
+    "it": "Costola 3 sinistra",
+    "nl": "Linker rib 3"
+   }
+  },
+  {
+   "key": "rib_left_4",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Left rib 4",
+    "de": "Linke Rippe 4",
+    "es": "Costilla 4 izquierda",
+    "ar": "الضلع 4 اليسرى",
+    "fr": "Côte 4 gauche",
+    "it": "Costola 4 sinistra",
+    "nl": "Linker rib 4"
+   }
+  },
+  {
+   "key": "rib_left_5",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Left rib 5",
+    "de": "Linke Rippe 5",
+    "es": "Costilla 5 izquierda",
+    "ar": "الضلع 5 اليسرى",
+    "fr": "Côte 5 gauche",
+    "it": "Costola 5 sinistra",
+    "nl": "Linker rib 5"
+   }
+  },
+  {
+   "key": "rib_left_6",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Left rib 6",
+    "de": "Linke Rippe 6",
+    "es": "Costilla 6 izquierda",
+    "ar": "الضلع 6 اليسرى",
+    "fr": "Côte 6 gauche",
+    "it": "Costola 6 sinistra",
+    "nl": "Linker rib 6"
+   }
+  },
+  {
+   "key": "rib_left_7",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Left rib 7",
+    "de": "Linke Rippe 7",
+    "es": "Costilla 7 izquierda",
+    "ar": "الضلع 7 اليسرى",
+    "fr": "Côte 7 gauche",
+    "it": "Costola 7 sinistra",
+    "nl": "Linker rib 7"
+   }
+  },
+  {
+   "key": "rib_left_8",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Left rib 8",
+    "de": "Linke Rippe 8",
+    "es": "Costilla 8 izquierda",
+    "ar": "الضلع 8 اليسرى",
+    "fr": "Côte 8 gauche",
+    "it": "Costola 8 sinistra",
+    "nl": "Linker rib 8"
+   }
+  },
+  {
+   "key": "rib_left_9",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Left rib 9",
+    "de": "Linke Rippe 9",
+    "es": "Costilla 9 izquierda",
+    "ar": "الضلع 9 اليسرى",
+    "fr": "Côte 9 gauche",
+    "it": "Costola 9 sinistra",
+    "nl": "Linker rib 9"
+   }
+  },
+  {
+   "key": "rib_left_10",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Left rib 10",
+    "de": "Linke Rippe 10",
+    "es": "Costilla 10 izquierda",
+    "ar": "الضلع 10 اليسرى",
+    "fr": "Côte 10 gauche",
+    "it": "Costola 10 sinistra",
+    "nl": "Linker rib 10"
+   }
+  },
+  {
+   "key": "rib_left_11",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#c8d0dc",
+   "parent": null,
+   "names": {
+    "en": "Left rib 11",
+    "de": "Linke Rippe 11",
+    "es": "Costilla 11 izquierda",
+    "ar": "الضلع 11 اليسرى",
+    "fr": "Côte 11 gauche",
+    "it": "Costola 11 sinistra",
+    "nl": "Linker rib 11"
+   }
+  },
+  {
+   "key": "rib_left_12",
+   "source": "total",
+   "system": "chest-wall",
+   "color": "#b0bccb",
+   "parent": null,
+   "names": {
+    "en": "Left rib 12",
+    "de": "Linke Rippe 12",
+    "es": "Costilla 12 izquierda",
+    "ar": "الضلع 12 اليسرى",
+    "fr": "Côte 12 gauche",
+    "it": "Costola 12 sinistra",
+    "nl": "Linker rib 12"
+   }
   }
  ]
 }

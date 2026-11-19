@@ -87,6 +87,7 @@ async function setLang(lang) {
 
 // wanted: the plane/slice/sys a link asked for, or null to start the case at its defaults.
 async function openCase(id, wanted) {
+  const prevCase = data?.meta.id;
   $("loading").hidden = false;
   $("loading-text").textContent = t("loading", { pct: 0 });
   try {
@@ -104,7 +105,7 @@ async function openCase(id, wanted) {
   ui.hidden.clear();
   ui.selected = 0;
   ui.pan = { x: 0, y: 0 };
-  if (!data.meta.windows.includes(ui.win)) ui.win = data.meta.windows[0];
+  if (id !== prevCase || !data.meta.windows.includes(ui.win)) ui.win = data.meta.windows[0]; // each region opens in its own first window
   $("loading").hidden = true;
   buildCaseUi();
   update();
