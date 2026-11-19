@@ -52,3 +52,14 @@ export function waveBands(waves, fs, { row, t0, t1 }, speed) {
   }
   return out;
 }
+
+// ST segments: from each QRS offset to the next T onset.
+export function stSegments(waves) {
+  const out = [];
+  waves.forEach((w, i) => {
+    if (w.k !== "QRS") return;
+    const t = waves.slice(i + 1).find((x) => x.k === "T" || x.k === "QRS");
+    if (t?.k === "T" && t.on > w.off) out.push({ k: "ST", on: w.off, off: t.on });
+  });
+  return out;
+}
