@@ -1,7 +1,8 @@
 // ECG page DOM wiring. Geometry lives in ecgplot.js. The paper is one SVG in millimetre units.
-import { measure, panels, paperMm, pathData, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
+import { measure, panels, paperMm, pathData, stSegments, tracePoints, waveBands, ROW_MM } from "./ecgplot.js";
+import { STEPS, formatMeasure, isNormal } from "./ecglearn.js";
 import { applyDir, loadLanguages, loadStrings, localized, pickLang, t } from "./i18n.js";
-import { REPO_URL } from "./report.js";
+import { REPO_URL, ecgReportUrl } from "./report.js";
 
 const $ = (id) => document.getElementById(id);
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -10,7 +11,7 @@ const GROUPS = ["normal", "rhythm", "conduction", "hypertrophy", "ischaemia", "o
 
 let langs = [], list = [], ecg = null;
 const st = { ecg: null, lang: "en", speed: 25, gain: 10, layout: "3x4", quiz: false, waves: false };
-const ui = { calipers: false, ppm: MIN_PPM, drag: null };
+const ui = { calipers: false, ppm: MIN_PPM, drag: null, highlight: null }; // highlight: { leads, wave? } from a clue
 
 async function boot() {
   try {
@@ -37,6 +38,7 @@ async function boot() {
   $("calipers").onclick = () => { ui.calipers = !ui.calipers; clearCalipers(); sync(); };
   $("waves").onclick = () => { st.waves = !st.waves; draw(); };
   $("quiz").onchange = (e) => { st.quiz = e.target.checked; $("answer").open = false; renderText(); };
+  $("answer").ontoggle = () => renderReading();
   if (REPO_URL) { $("repo-link").hidden = false; $("repo-link").href = REPO_URL; }
   wireCalipers();
   new ResizeObserver(() => draw()).observe($("paper"));
@@ -64,6 +66,7 @@ async function openEcg(id) {
     return showError(e);
   }
   $("answer").open = false;
+  ui.highlight = null;
   renderText();
   draw();
 }
@@ -114,6 +117,9 @@ function renderText() {
   $("credit").href = ecg.source.url;
   $("credit-waves").textContent = t("ecg.wavesCredit", { source: ecg.wavesSource.name, license: ecg.wavesSource.license });
   $("credit-waves").href = ecg.wavesSource.url;
+  $("credit-measures").textContent = t("ecg.measuresCredit", { source: ecg.measuresSource.name, license: ecg.measuresSource.license });
+  $("credit-measures").href = ecg.measuresSource.url;
+  renderReading();
   sync();
 }
 
@@ -129,6 +135,52 @@ function sync() {
   if (st.quiz) q.set("quiz", "1");
   if (st.waves) q.set("waves", "1");
   history.replaceState(null, "", `#${q}`);
+}
+
+const h = (tag, attrs = {}, ...kids) => {
+  const n = document.createElement(tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  n.append(...kids);
+  return n;
+};
+
+const reportLink = (item) =>
+  REPO_URL ? h("a", { class: "report", href: ecgReportUrl(REPO_URL, { ecgId: ecg.id, item, lang: st.lang, shareUrl: location.href }), target: "_blank", rel: "noopener" }, t("ecg.report")) : "";
+
+// Study view: the reading card (same steps as Learn) and the clues. Hidden in quiz mode until the answer is opened.
+function renderReading() {
+  const box = $("reading");
+  if (!ecg) return;
+  box.hidden = st.quiz && !$("answer").open;
+  const rows = STEPS.map((s) => {
+    const ans = ecg.answers[s.key];
+    const value = s.measure ? formatMeasure(ecg.measures[s.measure], s.unit) : "";
+    const ok = isNormal(s.key, ans);
+    const note = ecg.notes[s.key] ? h("p", { class: "override" }, localized(ecg.notes[s.key], st.lang)) : "";
+    return h("details", { class: "step" },
+      h("summary", {},
+        h("span", { class: "name" }, t(`step.${s.key}`)),
+        h("span", { class: "val", dir: "ltr" }, value),
+        h("span", { class: "range", dir: "ltr" }, s.range),
+        h("span", { class: ok ? "ok" : "bad" }, `${ok ? "✓" : "✗"} ${t(`choice.${s.key}.${ans}`)}`)),
+      note, h("p", {}, t(`note.${s.key}`)));
+  });
+  const clues = ecg.clues.length
+    ? ecg.clues.map((c, i) => {
+        const on = ui.highlight?.clue === i;
+        const b = h("button", { class: "clue", "aria-pressed": on },
+          h("span", {}, localized(c.text, st.lang)), h("span", { class: "chips", dir: "ltr" }, ...c.leads.map((l) => h("i", {}, l))));
+        b.onclick = () => { ui.highlight = on ? null : { clue: i, leads: c.leads, wave: c.wave }; renderReading(); draw(); };
+        return h("div", { class: "clue-row" }, b, reportLink(`clue ${i + 1}: ${c.text.en}`));
+      })
+    : [h("p", { class: "muted" }, t("read.noFindings"))];
+  box.replaceChildren(
+    h("div", { class: "row-head" }, h("h2", {}, t("read.title")), h("span", { class: "muted" }, t("read.machine"))),
+    ...rows,
+    h("h2", { class: "clues-title" }, t("read.clues")),
+    ...clues,
+    h("p", { class: "muted" }, t("read.community"), " ", reportLink("reading card")),
+  );
 }
 
 const el = (tag, attrs = {}, text) => {
@@ -150,16 +202,20 @@ function draw() {
 
   const bands = el("g", { class: "waves" }), traces = el("g", { class: "traces" }), labels = el("g", { class: "leads" });
   const scale = { speed: st.speed, gain: st.gain, ppm: 1 }; // ppm 1 → coordinates in paper mm
+  const hl = ui.highlight;
+  const hlWaves = hl?.wave ? (hl.wave === "ST" ? stSegments(ecg.waves) : ecg.waves.filter((w) => w.k === hl.wave)) : [];
   for (const panel of panels(duration, st.layout)) {
-    if (st.waves) {
-      for (const b of waveBands(ecg.waves, ecg.fs, panel, st.speed)) {
+    const dim = hl && !hl.leads.includes(panel.lead);
+    const shown = [...(st.waves ? ecg.waves : []), ...(dim || (st.waves && hl?.wave !== "ST") ? [] : hlWaves)];
+    if (shown.length) {
+      for (const b of waveBands(shown, ecg.fs, panel, st.speed)) {
         bands.append(el("rect", { class: `w-${b.k}`, x: b.x, y: b.y + 1, width: b.w, height: b.h - 2 }));
         if (b.w > 1) bands.append(el("text", { class: `w-${b.k}`, x: b.x + b.w / 2, y: b.y + b.h - 2 }, b.k));
       }
     }
-    traces.append(el("path", { d: pathData(tracePoints(ecg.leads[panel.lead], ecg.fs, panel, scale)) }));
+    traces.append(el("path", { d: pathData(tracePoints(ecg.leads[panel.lead], ecg.fs, panel, scale)), class: dim ? "dim" : "" }));
     const x = panel.t0 * st.speed, top = panel.row * ROW_MM;
-    labels.append(el("text", { x: x + 1, y: top + 4 }, panel.lead));
+    labels.append(el("text", { x: x + 1, y: top + 4, class: dim ? "dim" : hl ? "hl" : "" }, panel.lead));
     if (panel.t0 > 0) labels.append(el("line", { x1: x, x2: x, y1: top + ROW_MM * 0.3, y2: top + ROW_MM * 0.7 }));
   }
   svg.replaceChildren(

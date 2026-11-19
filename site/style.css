@@ -165,6 +165,7 @@ body.focus .slicer { padding: 0 12px 8px; }
 #trace .w-P { fill: #1f6fd1; }
 #trace .w-QRS { fill: #d12f2f; }
 #trace .w-T { fill: #1e8a43; }
+#trace .w-ST { fill: #b3261e; }
 #cal path { stroke: #1565c0; stroke-width: 1.5px; }
 #cal text { font: 600 3.4px var(--mono); fill: #1565c0; }
 .paper.measuring { touch-action: none; cursor: crosshair; }
@@ -185,3 +186,32 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .tile img { display: block; width: 100%; height: auto; aspect-ratio: 2 / 1; object-fit: cover; background: #000; }
 .tile h2 { margin: 14px 16px 0; font-size: 17px; color: var(--text); }
 .tile p { margin: 6px 16px 16px; font-family: var(--sans); color: var(--muted); }
+
+/* ECG reading card + clues */
+#trace .traces path.dim, #trace .leads text.dim { opacity: 0.2; }
+#trace .leads text.hl { fill: #b3261e; }
+.reading { margin-top: 14px; padding: 10px 12px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+.reading[hidden] { display: none; }
+.reading h2 { font-size: 13px; color: var(--text); }
+.reading .muted { color: var(--muted); font-size: 12px; font-family: var(--sans); }
+.reading .step { border-top: 1px solid var(--line); }
+.reading .step summary { display: grid; grid-template-columns: minmax(7em, 1.4fr) 1fr 1fr minmax(8em, 1.6fr); gap: 8px; padding: 8px 0; cursor: pointer; list-style: none; align-items: baseline; }
+.reading .step summary::-webkit-details-marker { display: none; }
+.reading .step .val { font-variant-numeric: tabular-nums; }
+.reading .step .range { color: var(--muted); font-size: 12px; }
+.reading .step .ok { color: #7bc58a; }
+.reading .step .bad { color: var(--active); }
+.reading .step p { margin: 0 0 10px; font-family: var(--sans); color: var(--muted); }
+.reading .step p.override { color: var(--text); }
+.reading .clues-title { margin-top: 14px; }
+.clue-row { display: flex; gap: 10px; align-items: center; margin-top: 8px; }
+.clue { flex: 1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; text-align: start; background: var(--ground); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 10px; cursor: pointer; font-family: var(--sans); }
+.clue[aria-pressed="true"] { border-color: var(--active); }
+.clue .chips { display: flex; gap: 4px; flex-wrap: wrap; }
+.clue .chips i { font: normal 11px var(--mono); padding: 1px 6px; border-radius: 6px; background: var(--panel); border: 1px solid var(--line); }
+.reading a.report { font-size: 12px; color: var(--muted); white-space: nowrap; }
+@media (max-width: 600px) {
+  .reading .step summary { grid-template-columns: 1fr auto; }
+  .reading .step .range { display: none; }
+  .clue-row { flex-direction: column; align-items: stretch; }
+}

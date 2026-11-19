@@ -50,3 +50,10 @@ test("ECG clues name real leads and waves; every ECG has an ST answer", () => {
     }
   }
 });
+
+test("en.json has every string the ECG reading card needs", async () => {
+  const { STEPS } = await import("../site/js/ecglearn.js");
+  const need = ["read.title", "read.machine", "read.clues", "read.noFindings", "read.community", "ecg.report", "ecg.measuresCredit", "step.dx"];
+  for (const s of STEPS) need.push(`step.${s.key}`, `note.${s.key}`, ...s.choices.map((c) => `choice.${s.key}.${c}`));
+  assert.deepEqual(need.filter((k) => !(k in en)), []);
+});
