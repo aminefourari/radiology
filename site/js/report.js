@@ -2,7 +2,7 @@
 
 // Set to the public GitHub repo URL (e.g. "https://github.com/<owner>/<repo>") once it exists.
 // Empty hides every report link in the UI.
-export const REPO_URL = "";
+export const REPO_URL = "https://github.com/aminefourari/radiology";
 
 export function reportUrl(repo, { caseId, structureKey, structureName, lang, plane, slice, shareUrl }) {
   const body = [
