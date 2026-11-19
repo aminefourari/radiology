@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { anchors, layoutLabels } from "../site/js/labels.js";
+import { anchors, bodyExtent, layoutLabels } from "../site/js/labels.js";
 
 test("anchor of an L-shape lies on the structure", () => {
   const w = 10, h = 10, lab = new Uint8Array(100);
@@ -38,4 +38,18 @@ test("too many labels for the height returns null", () => {
   const m = new Map();
   for (let i = 1; i <= 16; i++) m.set(i, { x: 1, y: i, area: 1 });
   assert.equal(layoutLabels(m, 100, 100, 10), null);
+});
+
+test("bodyExtent finds the columns occupied by the body", () => {
+  const w = 10, h = 2, ct = new Int16Array(20).fill(-1000);
+  ct[3] = 40; ct[w + 6] = 40;
+  assert.deepEqual(bodyExtent(ct, w, h, -500), { left: 3, right: 7 });
+  assert.deepEqual(bodyExtent(new Int16Array(20).fill(-1000), w, h, -500), { left: 0, right: w });
+});
+
+test("bodyExtent ignores thin structures like the CT table", () => {
+  const w = 10, h = 100, ct = new Int16Array(w * h).fill(-1000);
+  for (let r = 0; r < 50; r++) for (let c = 4; c < 6; c++) ct[r * w + c] = 40; // body
+  for (let c = 0; c < w; c++) ct[90 * w + c] = 300; // 1-row table across the width
+  assert.deepEqual(bodyExtent(ct, w, h, -500), { left: 4, right: 6 });
 });

@@ -48,3 +48,16 @@ export function layoutLabels(anchorMap, w, h, lineHeight) {
   }
   return out;
 }
+
+// Columns spanned by the body (HU > threshold), ignoring columns with only a few such pixels
+// (CT table, noise). Right is exclusive. Falls back to the full width.
+export function bodyExtent(ct, w, h, threshold) {
+  const min = Math.max(1, Math.ceil(h * 0.03));
+  let left = -1, right = -1;
+  for (let c = 0; c < w; c++) {
+    let n = 0;
+    for (let r = 0; r < h && n < min; r++) if (ct[r * w + c] > threshold) n++;
+    if (n >= min) { if (left < 0) left = c; right = c + 1; }
+  }
+  return left < 0 ? { left: 0, right: w } : { left, right };
+}

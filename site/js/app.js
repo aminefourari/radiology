@@ -1,7 +1,7 @@
 // DOM wiring only. Logic worth testing lives in the DOM-free modules.
 import { PLANES, WINDOWS, extractSlice, loadCase, pixelAspect, planeSize, sliceCount, windowToGray } from "./volume.js";
 import { colorTable, compositeOverlay, visibleIds } from "./overlay.js";
-import { anchors, layoutLabels } from "./labels.js";
+import { anchors, bodyExtent, layoutLabels } from "./labels.js";
 import { SYSTEMS, clampState, formatHash, parseHash } from "./state.js";
 import { applyDir, loadLanguages, loadStrings, localized, pickLang, structName, t } from "./i18n.js";
 import { REPO_URL, reportUrl } from "./report.js";
@@ -326,8 +326,9 @@ function highlight(rgba, lab, id) {
 function drawLabels(labSlice, table, cw, ch) {
   const svg = $("labels");
   svg.replaceChildren();
-  const { dx, dy, sx, sy, w, h } = ui.geo;
-  const marginL = dx, marginR = cw - (dx + w * sx);
+  const { dx, dy, sx, sy, w, h, ctSlice } = ui.geo;
+  const body = bodyExtent(ctSlice, w, h, -500); // labels go in the dark space beside the body
+  const marginL = dx + body.left * sx, marginR = cw - (dx + body.right * sx);
   const room = Math.min(marginL, marginR);
   const auto = ui.labels && room >= 110;
   $("hint").hidden = auto;
@@ -382,11 +383,19 @@ function pixelAt(clientX, clientY) {
 function bindViewer() {
   const v = $("viewer");
   let drag = null;
-  v.addEventListener("wheel", (e) => { if (!data) return; e.preventDefault(); step(e.deltaY > 0 ? 1 : -1); }, { passive: false });
+  let wheelAcc = 0;
+  v.addEventListener("wheel", (e) => {
+    if (!data || !e.deltaY) return;
+    e.preventDefault();
+    // Mouse wheels send ~100 px per notch, trackpads many small deltas: one slice per ~40 px.
+    wheelAcc += e.deltaMode === 1 ? e.deltaY * 40 : e.deltaY;
+    const n = Math.trunc(wheelAcc / 40);
+    if (n) { wheelAcc -= n * 40; step(n); }
+  }, { passive: false });
   v.addEventListener("pointerdown", (e) => {
     if (!data || e.target.closest(".popup, .exit-focus")) return;
     v.setPointerCapture(e.pointerId);
-    drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, moved: false, panning: ui.move || e.button === 1 || e.shiftKey };
+    drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, moved: false, panning: ui.move || e.button === 1 || e.shiftKey || (st.zoom > 1 && e.pointerType === "mouse") };
   });
   v.addEventListener("pointermove", (e) => {
     const p = pixelAt(e.clientX, e.clientY);
