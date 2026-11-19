@@ -26,6 +26,19 @@
   }
  },
  {
+  "id": "s0739",
+  "region": "chest",
+  "title": {
+   "en": "Chest · CT, venous phase",
+   "de": "Thorax · CT, venöse Phase",
+   "es": "Tórax · TC, fase venosa",
+   "ar": "الصدر · تصوير مقطعي، الطور الوريدي",
+   "fr": "Thorax · TDM, temps veineux",
+   "it": "Torace · TC, fase venosa",
+   "nl": "Borstkas · CT, veneuze fase"
+  }
+ },
+ {
   "id": "s0010",
   "region": "abdomen-pelvis",
   "title": {
@@ -36,6 +49,19 @@
    "fr": "Abdomen et pelvis · TDM, phase portale",
    "it": "Addome e pelvi · TC, fase venosa portale",
    "nl": "Buik en bekken · CT, portaal-veneuze fase"
+  }
+ },
+ {
+  "id": "s0783",
+  "region": "lower-limb",
+  "title": {
+   "en": "Lower limb · CT, hip to foot",
+   "de": "Untere Extremität · CT, Hüfte bis Fuß",
+   "es": "Miembro inferior · TC, de cadera a pie",
+   "ar": "الطرف السفلي · تصوير مقطعي من الورك إلى القدم",
+   "fr": "Membre inférieur · TDM, de la hanche au pied",
+   "it": "Arto inferiore · TC, dall'anca al piede",
+   "nl": "Onderste ledemaat · CT, heup tot voet"
   }
  }
 ]

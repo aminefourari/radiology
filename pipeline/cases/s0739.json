@@ -1,11 +1,130 @@
 {
  "region": "chest",
- "title": {"en": "Chest · CT, venous phase", "de": "Thorax · CT, venöse Phase", "es": "Tórax · TC, fase venosa", "ar": "الصدر · تصوير مقطعي، الطور الوريدي", "fr": "Thorax · TDM, temps veineux", "it": "Torace · TC, fase venosa", "nl": "Borstkas · CT, veneuze fase"},
+ "title": {
+  "en": "Chest · CT, venous phase",
+  "de": "Thorax · CT, venöse Phase",
+  "es": "Tórax · TC, fase venosa",
+  "ar": "الصدر · تصوير مقطعي، الطور الوريدي",
+  "fr": "Thorax · TDM, temps veineux",
+  "it": "Torace · TC, fase venosa",
+  "nl": "Borstkas · CT, veneuze fase"
+ },
  "zRange": "210:440",
- "tasks": ["total", "heartchambers_highres", "coronary_arteries", "lung_vessels"],
- "systems": ["lungs", "airway", "heart", "heart-vessels", "digestive", "chest-wall", "spine"],
- "defaultSystems": ["lungs", "heart", "heart-vessels"],
- "windows": ["lung", "mediastinum", "bone"],
- "systemOverrides": {"trachea": "airway", "aorta": "heart-vessels", "superior_vena_cava": "heart-vessels", "inferior_vena_cava": "heart-vessels", "brachiocephalic_trunk": "heart-vessels", "brachiocephalic_vein_left": "heart-vessels", "brachiocephalic_vein_right": "heart-vessels", "subclavian_artery_left": "heart-vessels", "subclavian_artery_right": "heart-vessels", "common_carotid_artery_left": "heart-vessels", "common_carotid_artery_right": "heart-vessels", "portal_vein_and_splenic_vein": "heart-vessels"},
- "keyLevels": []
+ "tasks": [
+  "total",
+  "heartchambers_highres",
+  "lung_vessels"
+ ],
+ "systems": [
+  "lungs",
+  "airway",
+  "heart",
+  "heart-vessels",
+  "digestive",
+  "chest-wall",
+  "spine"
+ ],
+ "defaultSystems": [
+  "lungs",
+  "heart",
+  "heart-vessels"
+ ],
+ "windows": [
+  "lung",
+  "mediastinum",
+  "bone"
+ ],
+ "systemOverrides": {
+  "trachea": "airway",
+  "aorta": "heart-vessels",
+  "superior_vena_cava": "heart-vessels",
+  "inferior_vena_cava": "heart-vessels",
+  "brachiocephalic_trunk": "heart-vessels",
+  "brachiocephalic_vein_left": "heart-vessels",
+  "brachiocephalic_vein_right": "heart-vessels",
+  "subclavian_artery_left": "heart-vessels",
+  "subclavian_artery_right": "heart-vessels",
+  "common_carotid_artery_left": "heart-vessels",
+  "common_carotid_artery_right": "heart-vessels",
+  "portal_vein_and_splenic_vein": "heart-vessels"
+ },
+ "exclude": [
+  "small_bowel",
+  "vertebrae_C6",
+  "vertebrae_L2"
+ ],
+ "keyLevels": [
+  {
+   "names": {
+    "en": "Thoracic inlet",
+    "de": "Obere Thoraxapertur",
+    "es": "Abertura torácica superior",
+    "ar": "المدخل الصدري",
+    "fr": "Défilé cervico-thoracique",
+    "it": "Stretto toracico superiore",
+    "nl": "Bovenste thoraxapertuur"
+   },
+   "axial": 210
+  },
+  {
+   "names": {
+    "en": "Aortic arch",
+    "de": "Aortenbogen",
+    "es": "Arco aórtico",
+    "ar": "قوس الأبهر",
+    "fr": "Crosse aortique",
+    "it": "Arco aortico",
+    "nl": "Aortaboog"
+   },
+   "axial": 160
+  },
+  {
+   "names": {
+    "en": "Carina",
+    "de": "Carina",
+    "es": "Carina",
+    "ar": "الجؤجؤ (تفرع الرغامى)",
+    "fr": "Carène",
+    "it": "Carena",
+    "nl": "Carina"
+   },
+   "axial": 147
+  },
+  {
+   "names": {
+    "en": "Pulmonary trunk",
+    "de": "Truncus pulmonalis",
+    "es": "Tronco pulmonar",
+    "ar": "الجذع الرئوي",
+    "fr": "Tronc pulmonaire",
+    "it": "Tronco polmonare",
+    "nl": "Truncus pulmonalis"
+   },
+   "axial": 140
+  },
+  {
+   "names": {
+    "en": "Four chambers",
+    "de": "Vierkammerblick",
+    "es": "Cuatro cámaras",
+    "ar": "الحجرات الأربع",
+    "fr": "Quatre cavités",
+    "it": "Quattro camere",
+    "nl": "Vierkamerniveau"
+   },
+   "axial": 92
+  },
+  {
+   "names": {
+    "en": "Oesophageal hiatus",
+    "de": "Hiatus oesophageus",
+    "es": "Hiato esofágico",
+    "ar": "الفرجة المريئية",
+    "fr": "Hiatus œsophagien",
+    "it": "Iato esofageo",
+    "nl": "Hiatus oesophageus"
+   },
+   "axial": 55
+  }
+ ]
 }

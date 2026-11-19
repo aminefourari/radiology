@@ -1,10 +1,136 @@
 {
  "region": "lower-limb",
- "title": {"en": "Lower limb · CT, hip to foot", "de": "Untere Extremität · CT, Hüfte bis Fuß", "es": "Miembro inferior · TC, de cadera a pie", "ar": "الطرف السفلي · تصوير مقطعي من الورك إلى القدم", "fr": "Membre inférieur · TDM, de la hanche au pied", "it": "Arto inferiore · TC, dall'anca al piede", "nl": "Onderste ledemaat · CT, heup tot voet"},
- "tasks": ["total", "appendicular_bones"],
- "systems": ["limb-bones", "pelvis", "limb-muscles", "arteries", "veins"],
- "defaultSystems": ["limb-bones", "pelvis"],
- "windows": ["bone", "soft"],
- "systemOverrides": {"femur_left": "limb-bones", "femur_right": "limb-bones"},
- "keyLevels": []
+ "title": {
+  "en": "Lower limb · CT, hip to foot",
+  "de": "Untere Extremität · CT, Hüfte bis Fuß",
+  "es": "Miembro inferior · TC, de cadera a pie",
+  "ar": "الطرف السفلي · تصوير مقطعي من الورك إلى القدم",
+  "fr": "Membre inférieur · TDM, de la hanche au pied",
+  "it": "Arto inferiore · TC, dall'anca al piede",
+  "nl": "Onderste ledemaat · CT, heup tot voet"
+ },
+ "tasks": [
+  "total",
+  "appendicular_bones"
+ ],
+ "systems": [
+  "limb-bones",
+  "pelvis",
+  "limb-muscles",
+  "arteries",
+  "veins"
+ ],
+ "defaultSystems": [
+  "limb-bones",
+  "pelvis"
+ ],
+ "windows": [
+  "bone",
+  "soft"
+ ],
+ "systemOverrides": {
+  "femur_left": "limb-bones",
+  "femur_right": "limb-bones"
+ },
+ "exclude": [
+  "hip_right"
+ ],
+ "keyLevels": [
+  {
+   "names": {
+    "en": "Femoral head",
+    "de": "Femurkopf",
+    "es": "Cabeza femoral",
+    "ar": "رأس الفخذ",
+    "fr": "Tête fémorale",
+    "it": "Testa del femore",
+    "nl": "Heupkop"
+   },
+   "axial": 630
+  },
+  {
+   "names": {
+    "en": "Trochanters",
+    "de": "Trochanteren",
+    "es": "Trocánteres",
+    "ar": "المدوران",
+    "fr": "Trochanters",
+    "it": "Trocanteri",
+    "nl": "Trochanters"
+   },
+   "axial": 600
+  },
+  {
+   "names": {
+    "en": "Mid-thigh",
+    "de": "Oberschenkelmitte",
+    "es": "Mitad del muslo",
+    "ar": "منتصف الفخذ",
+    "fr": "Mi-cuisse",
+    "it": "Metà coscia",
+    "nl": "Midden bovenbeen"
+   },
+   "axial": 480
+  },
+  {
+   "names": {
+    "en": "Patella",
+    "de": "Patella",
+    "es": "Rótula",
+    "ar": "الرضفة",
+    "fr": "Patella",
+    "it": "Rotula",
+    "nl": "Knieschijf"
+   },
+   "axial": 360
+  },
+  {
+   "names": {
+    "en": "Tibial plateau",
+    "de": "Tibiaplateau",
+    "es": "Meseta tibial",
+    "ar": "هضبة الظنبوب",
+    "fr": "Plateau tibial",
+    "it": "Piatto tibiale",
+    "nl": "Tibiaplateau"
+   },
+   "axial": 320
+  },
+  {
+   "names": {
+    "en": "Mid-leg",
+    "de": "Unterschenkelmitte",
+    "es": "Mitad de la pierna",
+    "ar": "منتصف الساق",
+    "fr": "Mi-jambe",
+    "it": "Metà gamba",
+    "nl": "Midden onderbeen"
+   },
+   "axial": 230
+  },
+  {
+   "names": {
+    "en": "Ankle",
+    "de": "Sprunggelenk",
+    "es": "Tobillo",
+    "ar": "الكاحل",
+    "fr": "Cheville",
+    "it": "Caviglia",
+    "nl": "Enkel"
+   },
+   "axial": 80
+  },
+  {
+   "names": {
+    "en": "Midfoot",
+    "de": "Mittelfuß",
+    "es": "Mediopié",
+    "ar": "منتصف القدم",
+    "fr": "Médio-pied",
+    "it": "Mesopiede",
+    "nl": "Middenvoet"
+   },
+   "axial": 30
+  }
+ ]
 }

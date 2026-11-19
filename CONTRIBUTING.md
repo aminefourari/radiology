@@ -61,7 +61,11 @@ EOF
 
 `make_case.py` writes `site/cases/<id>/`, updates `site/cases/index.json`, and fails if the case
 is over 25 MB or inconsistent. Use `--voxel-mm 2` or `--z-range LO:HI` to shrink a large case.
-For a new case, also create `pipeline/cases/<id>.json` with its `title` and `keyLevels`.
+For a new case, also create `pipeline/cases/<id>.json` with its `region`, `title`, `tasks`,
+`systems`, `defaultSystems`, `windows` and `keyLevels` (copy an existing case). Optional:
+`zRange`, `systemOverrides` (regroup a structure for this region) and `exclude` (structures
+whose masks are broken in this scan). Only allow-listed TotalSegmentator tasks run (see
+`pipeline/caselib.py`); licensed ones need your own key.
 
 ## Adding an ECG
 

@@ -1,0 +1,499 @@
+{
+ "id": "s0783",
+ "dims": [
+  165,
+  159,
+  659
+ ],
+ "spacing": [
+  1.5,
+  1.5,
+  1.5
+ ],
+ "orientation": "RAS",
+ "region": "lower-limb",
+ "source": {
+  "name": "TotalSegmentator dataset",
+  "license": "CC BY 4.0",
+  "url": "https://doi.org/10.5281/zenodo.6802613",
+  "case": "s0783",
+  "tasks": [
+   "total",
+   "appendicular_bones"
+  ]
+ },
+ "systems": [
+  {
+   "key": "limb-bones",
+   "icon": "limb-bones",
+   "color": "#d6dde8",
+   "names": {
+    "en": "Bones",
+    "de": "Knochen",
+    "es": "Huesos",
+    "ar": "العظام",
+    "fr": "Os",
+    "it": "Ossa",
+    "nl": "Botten"
+   }
+  },
+  {
+   "key": "pelvis",
+   "icon": "pelvis",
+   "color": "#bfc8d6",
+   "names": {
+    "en": "Pelvis",
+    "de": "Becken",
+    "es": "Pelvis",
+    "ar": "الحوض",
+    "fr": "Bassin",
+    "it": "Bacino",
+    "nl": "Bekken"
+   }
+  },
+  {
+   "key": "limb-muscles",
+   "icon": "limb-muscles",
+   "color": "#f08a8a",
+   "names": {
+    "en": "Hip & thigh muscles",
+    "de": "Hüft- & Oberschenkelmuskeln",
+    "es": "Músculos de cadera y muslo",
+    "ar": "عضلات الورك والفخذ",
+    "fr": "Muscles de la hanche et de la cuisse",
+    "it": "Muscoli dell'anca e della coscia",
+    "nl": "Heup- & dijspieren"
+   }
+  },
+  {
+   "key": "arteries",
+   "icon": "arteries",
+   "color": "#e85a5a",
+   "names": {
+    "en": "Arteries",
+    "de": "Arterien",
+    "es": "Arterias",
+    "ar": "الشرايين",
+    "fr": "Artères",
+    "it": "Arterie",
+    "nl": "Slagaders"
+   }
+  },
+  {
+   "key": "veins",
+   "icon": "veins",
+   "color": "#5b8def",
+   "names": {
+    "en": "Veins",
+    "de": "Venen",
+    "es": "Venas",
+    "ar": "الأوردة",
+    "fr": "Veines",
+    "it": "Vene",
+    "nl": "Aders"
+   }
+  }
+ ],
+ "defaultSystems": [
+  "limb-bones",
+  "pelvis"
+ ],
+ "windows": [
+  "bone",
+  "soft"
+ ],
+ "structures": [
+  {
+   "id": 1,
+   "key": "hip_left",
+   "system": "pelvis",
+   "color": "#bfc8d6",
+   "parent": null,
+   "names": {
+    "en": "Left hip bone",
+    "de": "Linkes Hüftbein",
+    "es": "Hueso coxal izquierdo",
+    "ar": "عظم الورك الأيسر",
+    "fr": "Os coxal gauche",
+    "it": "Osso dell'anca sinistro",
+    "nl": "Linker heupbeen"
+   },
+   "best": {
+    "axial": 647,
+    "coronal": 22,
+    "sagittal": 119
+   }
+  },
+  {
+   "id": 2,
+   "key": "femur_left",
+   "system": "limb-bones",
+   "color": "#d6dde8",
+   "parent": null,
+   "names": {
+    "en": "Left femur",
+    "de": "Linker Femur",
+    "es": "Fémur izquierdo",
+    "ar": "عظم الفخذ الأيسر",
+    "fr": "Fémur gauche",
+    "it": "Femore sinistro",
+    "nl": "Linker dijbeen"
+   },
+   "best": {
+    "axial": 351,
+    "coronal": 52,
+    "sagittal": 79
+   }
+  },
+  {
+   "id": 3,
+   "key": "iliac_artery_left",
+   "system": "arteries",
+   "color": "#f07b6e",
+   "parent": null,
+   "names": {
+    "en": "Left iliac artery",
+    "de": "Linke Arteria iliaca",
+    "es": "Arteria ilíaca izquierda",
+    "ar": "الشريان الحرقفي الأيسر",
+    "fr": "Artère iliaque gauche",
+    "it": "Arteria iliaca sinistra",
+    "nl": "Linker iliacale slagader"
+   },
+   "best": {
+    "axial": 641,
+    "coronal": 72,
+    "sagittal": 110
+   }
+  },
+  {
+   "id": 4,
+   "key": "iliac_vena_left",
+   "system": "veins",
+   "color": "#6f9cf2",
+   "parent": null,
+   "names": {
+    "en": "Left iliac vein",
+    "de": "Linke Vena iliaca",
+    "es": "Vena ilíaca izquierda",
+    "ar": "الوريد الحرقفي الأيسر",
+    "fr": "Veine iliaque gauche",
+    "it": "Vena iliaca sinistra",
+    "nl": "Linker iliacale ader"
+   },
+   "best": {
+    "axial": 645,
+    "coronal": 71,
+    "sagittal": 124
+   }
+  },
+  {
+   "id": 5,
+   "key": "patella",
+   "system": "limb-bones",
+   "color": "#f4cf7a",
+   "parent": null,
+   "names": {
+    "en": "Patella",
+    "de": "Kniescheibe",
+    "es": "Rótula",
+    "ar": "الرضفة",
+    "fr": "Patella",
+    "it": "Rotula",
+    "nl": "Knieschijf"
+   },
+   "best": {
+    "axial": 355,
+    "coronal": 87,
+    "sagittal": 85
+   }
+  },
+  {
+   "id": 6,
+   "key": "tibia",
+   "system": "limb-bones",
+   "color": "#9ec5e8",
+   "parent": null,
+   "names": {
+    "en": "Tibia",
+    "de": "Schienbein",
+    "es": "Tibia",
+    "ar": "الظنبوب",
+    "fr": "Tibia",
+    "it": "Tibia",
+    "nl": "Scheenbeen"
+   },
+   "best": {
+    "axial": 320,
+    "coronal": 64,
+    "sagittal": 89
+   }
+  },
+  {
+   "id": 7,
+   "key": "fibula",
+   "system": "limb-bones",
+   "color": "#8fd694",
+   "parent": null,
+   "names": {
+    "en": "Fibula",
+    "de": "Wadenbein",
+    "es": "Peroné",
+    "ar": "الشظية",
+    "fr": "Fibula",
+    "it": "Perone",
+    "nl": "Kuitbeen"
+   },
+   "best": {
+    "axial": 310,
+    "coronal": 40,
+    "sagittal": 70
+   }
+  },
+  {
+   "id": 8,
+   "key": "tarsal",
+   "system": "limb-bones",
+   "color": "#f2a65a",
+   "parent": null,
+   "names": {
+    "en": "Tarsal bones",
+    "de": "Fußwurzelknochen",
+    "es": "Huesos del tarso",
+    "ar": "عظام الرسغ القدمي",
+    "fr": "Os du tarse",
+    "it": "Ossa del tarso",
+    "nl": "Voetwortelbeenderen"
+   },
+   "best": {
+    "axial": 47,
+    "coronal": 75,
+    "sagittal": 95
+   }
+  },
+  {
+   "id": 9,
+   "key": "metatarsal",
+   "system": "limb-bones",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Metatarsal bones",
+    "de": "Mittelfußknochen",
+    "es": "Metatarsianos",
+    "ar": "عظام مشط القدم",
+    "fr": "Métatarsiens",
+    "it": "Metatarsi",
+    "nl": "Middenvoetsbeenderen"
+   },
+   "best": {
+    "axial": 25,
+    "coronal": 122,
+    "sagittal": 83
+   }
+  },
+  {
+   "id": 10,
+   "key": "phalanges_feet",
+   "system": "limb-bones",
+   "color": "#f6a5c0",
+   "parent": null,
+   "names": {
+    "en": "Phalanges of the foot",
+    "de": "Zehenknochen",
+    "es": "Falanges del pie",
+    "ar": "سلاميات القدم",
+    "fr": "Phalanges du pied",
+    "it": "Falangi del piede",
+    "nl": "Teenkootjes"
+   },
+   "best": {
+    "axial": 8,
+    "coronal": 156,
+    "sagittal": 101
+   }
+  },
+  {
+   "id": 11,
+   "key": "gluteus_maximus_left",
+   "system": "limb-muscles",
+   "color": "#f08a8a",
+   "parent": null,
+   "names": {
+    "en": "Gluteus maximus, left",
+    "de": "M. gluteus maximus, links",
+    "es": "Glúteo mayor, lado izquierdo",
+    "ar": "العضلة الألوية الكبرى، الجانب الأيسر",
+    "fr": "Grand fessier, côté gauche",
+    "it": "Grande gluteo, lato sinistro",
+    "nl": "M. gluteus maximus, links"
+   },
+   "best": {
+    "axial": 581,
+    "coronal": 1,
+    "sagittal": 69
+   }
+  },
+  {
+   "id": 12,
+   "key": "gluteus_medius_left",
+   "system": "limb-muscles",
+   "color": "#e89a6b",
+   "parent": null,
+   "names": {
+    "en": "Gluteus medius, left",
+    "de": "M. gluteus medius, links",
+    "es": "Glúteo medio, lado izquierdo",
+    "ar": "العضلة الألوية الوسطى، الجانب الأيسر",
+    "fr": "Moyen fessier, côté gauche",
+    "it": "Medio gluteo, lato sinistro",
+    "nl": "M. gluteus medius, links"
+   },
+   "best": {
+    "axial": 649,
+    "coronal": 28,
+    "sagittal": 64
+   }
+  },
+  {
+   "id": 13,
+   "key": "gluteus_minimus_left",
+   "system": "limb-muscles",
+   "color": "#c9a77c",
+   "parent": null,
+   "names": {
+    "en": "Gluteus minimus, left",
+    "de": "M. gluteus minimus, links",
+    "es": "Glúteo menor, lado izquierdo",
+    "ar": "العضلة الألوية الصغرى، الجانب الأيسر",
+    "fr": "Petit fessier, côté gauche",
+    "it": "Piccolo gluteo, lato sinistro",
+    "nl": "M. gluteus minimus, links"
+   },
+   "best": {
+    "axial": 650,
+    "coronal": 40,
+    "sagittal": 78
+   }
+  },
+  {
+   "id": 14,
+   "key": "iliopsoas_left",
+   "system": "limb-muscles",
+   "color": "#d4a5e6",
+   "parent": null,
+   "names": {
+    "en": "Iliopsoas, left",
+    "de": "M. iliopsoas, links",
+    "es": "Iliopsoas, lado izquierdo",
+    "ar": "العضلة الحرقفية القطنية، الجانب الأيسر",
+    "fr": "Ilio-psoas, côté gauche",
+    "it": "Ileopsoas, lato sinistro",
+    "nl": "M. iliopsoas, links"
+   },
+   "best": {
+    "axial": 658,
+    "coronal": 64,
+    "sagittal": 91
+   }
+  }
+ ],
+ "keyLevels": [
+  {
+   "names": {
+    "en": "Femoral head",
+    "de": "Femurkopf",
+    "es": "Cabeza femoral",
+    "ar": "رأس الفخذ",
+    "fr": "Tête fémorale",
+    "it": "Testa del femore",
+    "nl": "Heupkop"
+   },
+   "axial": 630
+  },
+  {
+   "names": {
+    "en": "Trochanters",
+    "de": "Trochanteren",
+    "es": "Trocánteres",
+    "ar": "المدوران",
+    "fr": "Trochanters",
+    "it": "Trocanteri",
+    "nl": "Trochanters"
+   },
+   "axial": 600
+  },
+  {
+   "names": {
+    "en": "Mid-thigh",
+    "de": "Oberschenkelmitte",
+    "es": "Mitad del muslo",
+    "ar": "منتصف الفخذ",
+    "fr": "Mi-cuisse",
+    "it": "Metà coscia",
+    "nl": "Midden bovenbeen"
+   },
+   "axial": 480
+  },
+  {
+   "names": {
+    "en": "Patella",
+    "de": "Patella",
+    "es": "Rótula",
+    "ar": "الرضفة",
+    "fr": "Patella",
+    "it": "Rotula",
+    "nl": "Knieschijf"
+   },
+   "axial": 360
+  },
+  {
+   "names": {
+    "en": "Tibial plateau",
+    "de": "Tibiaplateau",
+    "es": "Meseta tibial",
+    "ar": "هضبة الظنبوب",
+    "fr": "Plateau tibial",
+    "it": "Piatto tibiale",
+    "nl": "Tibiaplateau"
+   },
+   "axial": 320
+  },
+  {
+   "names": {
+    "en": "Mid-leg",
+    "de": "Unterschenkelmitte",
+    "es": "Mitad de la pierna",
+    "ar": "منتصف الساق",
+    "fr": "Mi-jambe",
+    "it": "Metà gamba",
+    "nl": "Midden onderbeen"
+   },
+   "axial": 230
+  },
+  {
+   "names": {
+    "en": "Ankle",
+    "de": "Sprunggelenk",
+    "es": "Tobillo",
+    "ar": "الكاحل",
+    "fr": "Cheville",
+    "it": "Caviglia",
+    "nl": "Enkel"
+   },
+   "axial": 80
+  },
+  {
+   "names": {
+    "en": "Midfoot",
+    "de": "Mittelfuß",
+    "es": "Mediopié",
+    "ar": "منتصف القدم",
+    "fr": "Médio-pied",
+    "it": "Mesopiede",
+    "nl": "Middenvoet"
+   },
+   "axial": 30
+  }
+ ]
+}
