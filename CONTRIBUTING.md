@@ -23,7 +23,8 @@ wrong.
    `"dir": "rtl"` for right-to-left scripts. The scan is never mirrored.
 3. Add `<code>` to the `names` of each structure in `pipeline/structures.json`, and to the key
    levels and title in `pipeline/cases/<id>.json`. Then rebuild the cases.
-4. Run `npm test`. It checks that no language file has keys that `en.json` lacks.
+4. Run `npm test`. CI fails unless every language has every UI string from `en.json` (same
+   `{placeholders}`) and every structure, ECG, case and key-level name.
 
 ## Drop, recolour or regroup a structure
 
