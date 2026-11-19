@@ -1,31 +1,38 @@
 [
  {
   "code": "en",
-  "name": "English"
+  "name": "English",
+  "flag": "🇬🇧"
  },
  {
   "code": "de",
-  "name": "Deutsch"
+  "name": "Deutsch",
+  "flag": "🇩🇪"
  },
  {
   "code": "es",
-  "name": "Español"
+  "name": "Español",
+  "flag": "🇪🇸"
  },
  {
   "code": "ar",
   "name": "العربية",
-  "dir": "rtl"
+  "dir": "rtl",
+  "flag": "🇸🇦"
  },
  {
   "code": "fr",
-  "name": "Français"
+  "name": "Français",
+  "flag": "🇫🇷"
  },
  {
   "code": "it",
-  "name": "Italiano"
+  "name": "Italiano",
+  "flag": "🇮🇹"
  },
  {
   "code": "nl",
-  "name": "Nederlands"
+  "name": "Nederlands",
+  "flag": "🇳🇱"
  }
 ]

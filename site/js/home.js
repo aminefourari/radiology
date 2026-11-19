@@ -17,7 +17,7 @@ async function setLang(lang) {
 const langs = await loadLanguages();
 const codes = langs.map((l) => l.code);
 const fromHash = new URLSearchParams(location.hash.slice(1)).get("lang");
-sel.replaceChildren(...langs.map((l) => new Option(l.name, l.code)));
+sel.replaceChildren(...langs.map((l) => new Option(`${l.flag} ${l.name}`, l.code)));
 sel.onchange = () => setLang(sel.value);
 if (REPO_URL) Object.assign(document.getElementById("repo-link"), { hidden: false, href: REPO_URL });
 await setLang(codes.includes(fromHash) ? fromHash : pickLang(codes, navigator.languages || [navigator.language]));

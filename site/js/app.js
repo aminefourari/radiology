@@ -120,21 +120,19 @@ function showError(e) {
 
 // ---------- static UI ----------
 function buildStatic() {
-  $("lang-select").replaceChildren(...langs.map((l) => new Option(l.name, l.code)));
+  $("lang-select").replaceChildren(...langs.map((l) => new Option(`${l.flag} ${l.name}`, l.code)));
   $("lang-select").onchange = (e) => setLang(e.target.value);
-  $("sys-all").onclick = () => { st.sys = caseSystems(); update(); };
-  $("sys-none").onclick = () => { st.sys = []; update(); };
+  $("sys-toggle").onclick = () => { st.sys = st.sys.length ? [] : caseSystems(); update(); };
   $("zoom-in").onclick = () => setZoom(st.zoom * 1.25);
   $("zoom-out").onclick = () => setZoom(st.zoom / 1.25);
   $("zoom-fit").onclick = () => { ui.pan = { x: 0, y: 0 }; setZoom(1); };
   $("move").onclick = () => { ui.move = !ui.move; update(); };
-  $("focus").onclick = () => toggleFocus(true);
+  $("focus").onclick = () => toggleFocus(!document.body.classList.contains("focus"));
   $("prev").onclick = () => step(-1);
   $("next").onclick = () => step(1);
   $("slider").oninput = (e) => { st.slice = Number(e.target.value); update(); };
   $("win-select").onchange = (e) => { ui.win = e.target.value; update(); };
   $("btn-structures").onclick = () => $("dlg-structures").showModal();
-  $("btn-settings").onclick = () => $("dlg-settings").showModal();
   document.querySelectorAll("[data-close]").forEach((b) => (b.onclick = () => b.closest("dialog").close()));
   document.querySelectorAll("dialog").forEach((d) => d.addEventListener("click", (e) => e.target === d && d.close()));
   $("opacity").oninput = (e) => { ui.opacity = Number(e.target.value); update(); };
@@ -263,19 +261,13 @@ function step(d) {
 
 function setZoom(z) {
   st.zoom = Math.min(8, Math.max(0.25, z));
-  if (st.zoom <= 1) ui.pan = { x: 0, y: 0 };
+  if (st.zoom <= 1) { ui.pan = { x: 0, y: 0 }; ui.move = false; }
   update();
 }
 
 function toggleFocus(on) {
   document.body.classList.toggle("focus", on);
   $("focus").setAttribute("aria-pressed", String(on));
-  let exit = document.querySelector(".exit-focus");
-  if (on && !exit) {
-    exit = Object.assign(document.createElement("button"), { className: "btn small exit-focus", textContent: t("ctl.exitFocus") });
-    exit.onclick = () => toggleFocus(false);
-    $("viewer").append(exit);
-  } else if (!on && exit) exit.remove();
   update();
 }
 
@@ -311,10 +303,12 @@ function syncControls() {
   document.querySelectorAll(".sys").forEach((b) => b.setAttribute("aria-pressed", String(st.sys.includes(b.dataset.sys))));
   document.querySelectorAll("#plane-group .btn").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.plane === st.plane)));
   document.querySelectorAll("#region-bar .btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.case === st.case)));
-  $("zoom-val").textContent = `${Math.round(st.zoom * 100)}%`;
+  $("zoom-fit").hidden = st.zoom === 1 && !ui.pan.x && !ui.pan.y;
+  $("move").hidden = st.zoom <= 1;
   $("move").setAttribute("aria-pressed", String(ui.move));
   $("viewer").classList.toggle("moving", ui.move);
   if (!data) return;
+  $("sys-toggle").textContent = t(st.sys.length ? "ctl.none" : "ctl.all");
   const n = sliceCount(data.meta.dims, st.plane);
   Object.assign($("slider"), { max: n - 1, value: st.slice });
   $("slice-val").textContent = `${t(`plane.${st.plane}`)} ${st.slice + 1} / ${n}`;
@@ -441,7 +435,7 @@ function bindViewer() {
     if (n) { wheelAcc -= n * 40; step(n); }
   }, { passive: false });
   v.addEventListener("pointerdown", (e) => {
-    if (!data || e.target.closest(".popup, .exit-focus")) return;
+    if (!data || e.target.closest(".popup")) return;
     v.setPointerCapture(e.pointerId);
     drag = { x: e.clientX, y: e.clientY, pan: { ...ui.pan }, slice: st.slice, moved: false, panning: ui.move || e.button === 1 || e.shiftKey || (st.zoom > 1 && e.pointerType === "mouse") };
   });
