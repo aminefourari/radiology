@@ -1,19 +1,1757 @@
 [
- {"key": "nsr", "atlasDx": "normal", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90}},
- {"key": "sbrad", "atlasDx": "sbrad", "model": {"duration": 6000, "sinus": {"cycle": 1400}, "avDelay": 90}},
- {"key": "stach", "atlasDx": "stach", "model": {"duration": 3000, "sinus": {"cycle": 500}, "avDelay": 80}},
- {"key": "1avb", "atlasDx": "1avb", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 220}},
- {"key": "mob1", "atlasDx": "2avb", "model": {"duration": 6400, "sinus": {"cycle": 800}, "avDelay": 110, "wenckebach": {"inc": 80, "every": 4}}},
- {"key": "mob2", "atlasDx": "2avb", "model": {"duration": 6400, "sinus": {"cycle": 800}, "avDelay": 90, "block": {"level": "his", "pattern": [1, 1, 1, 0]}}},
- {"key": "3avb", "atlasDx": "3avb", "model": {"duration": 8000, "sinus": {"cycle": 800}, "avDelay": 90, "block": {"level": "his", "pattern": [0]}, "escape": {"site": "ventricle", "cycle": 1700}}},
- {"key": "3avb_node", "atlasDx": "3avb", "hidden": true, "model": {"duration": 8000, "sinus": {"cycle": 800}, "avDelay": 90, "block": {"level": "node", "pattern": [0]}, "escape": {"site": "junction", "cycle": 1300}}},
- {"key": "rbbb", "atlasDx": "rbbb", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "cut": ["rbb"]}},
- {"key": "lbbb", "atlasDx": "lbbb", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "cut": ["lbb"]}},
- {"key": "wpw", "atlasDx": "wpw", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "accessory": true}},
- {"key": "avnrt", "atlasDx": "psvt", "model": {"duration": 4000, "avDelay": 90, "reentry": {"circuit": "avnrt", "cycle": 340}}},
- {"key": "avrt", "atlasDx": "psvt", "model": {"duration": 4000, "avDelay": 90, "reentry": {"circuit": "avrt", "cycle": 330}}},
- {"key": "aflt", "atlasDx": "aflt", "model": {"duration": 4000, "reentry": {"circuit": "flutter", "cycle": 200, "conduct": 2}, "avDelay": 90}},
- {"key": "afib", "atlasDx": "afib", "model": {"duration": 8000, "avDelay": 90, "af": {"seed": 7, "avRefractory": 330}}},
- {"key": "pvc", "atlasDx": "pvc", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "ectopic": [{"site": "pvc", "t": 1450}]}},
- {"key": "vt", "atlasDx": null, "model": {"duration": 4000, "sinus": {"cycle": 700}, "avDelay": 90, "reentry": {"circuit": "vt", "cycle": 330}}}
+ {
+  "key": "nsr",
+  "title": {
+   "en": "Normal sinus rhythm",
+   "de": "Normaler Sinusrhythmus",
+   "es": "Ritmo sinusal normal",
+   "ar": "نظم جيبي طبيعي",
+   "fr": "Rythme sinusal normal",
+   "it": "Ritmo sinusale normale",
+   "nl": "Normaal sinusritme"
+  },
+  "why": {
+   "en": [
+    "The SA node fires about 75 times a minute. The wave spreads through both atria from top right to bottom left: that moving front is the P wave.",
+    "The AV node holds the impulse back for about 0.1 s so the ventricles can fill. Too little tissue is active to show: the flat PR segment.",
+    "The His bundle, bundle branches and Purkinje fibres carry the impulse fast to the inner wall of both ventricles. The septum goes first, left to right: the small q in I and V6, the small r in V1.",
+    "Then the thick left ventricle depolarises from inside out, towards V5–V6 and away from V1: tall R in V6, deep S in V1.",
+    "The outer wall recovers first, so recovery runs in reverse: the T wave points the same way as the QRS."
+   ],
+   "de": [
+    "Der Sinusknoten feuert etwa 75-mal pro Minute. Die Erregung läuft von rechts oben nach links unten durch beide Vorhöfe: Diese wandernde Front ist die P-Welle.",
+    "Der AV-Knoten hält den Impuls etwa 0,1 s zurück, damit sich die Kammern füllen. Zu wenig Gewebe ist aktiv, um sichtbar zu sein: die flache PR-Strecke.",
+    "His-Bündel, Tawara-Schenkel und Purkinje-Fasern leiten den Impuls schnell zur Innenwand beider Kammern. Das Septum kommt zuerst, von links nach rechts: das kleine q in I und V6, das kleine r in V1.",
+    "Dann wird die dicke linke Kammer von innen nach außen erregt, auf V5–V6 zu und von V1 weg: hohes R in V6, tiefes S in V1.",
+    "Die Außenwand erholt sich zuerst, die Repolarisation läuft also umgekehrt: Die T-Welle zeigt in dieselbe Richtung wie der QRS-Komplex."
+   ],
+   "es": [
+    "El nodo sinusal dispara unas 75 veces por minuto. La onda recorre ambas aurículas de arriba a la derecha hacia abajo a la izquierda: ese frente en movimiento es la onda P.",
+    "El nodo AV retiene el impulso unos 0,1 s para que se llenen los ventrículos. Hay muy poco tejido activo para verse: el segmento PR plano.",
+    "El haz de His, sus ramas y las fibras de Purkinje llevan el impulso rápido a la pared interna de ambos ventrículos. El tabique va primero, de izquierda a derecha: la pequeña q en I y V6, la pequeña r en V1.",
+    "Luego el grueso ventrículo izquierdo se despolariza de dentro hacia fuera, hacia V5–V6 y alejándose de V1: R alta en V6, S profunda en V1.",
+    "La pared externa se recupera primero, así que la recuperación va al revés: la onda T apunta en el mismo sentido que el QRS."
+   ],
+   "ar": [
+    "تطلق العقدة الجيبية نحو 75 نبضة في الدقيقة. تنتشر الموجة في الأذينين من أعلى اليمين إلى أسفل اليسار: هذه الجبهة المتحركة هي الموجة P.",
+    "تحبس العقدة الأذينية البطينية النبضة نحو 0.1 ثانية لتمتلئ البطينات. النسيج النشط قليل جدًا فلا يظهر: قطعة PR المسطحة.",
+    "تنقل حزمة هيس وفرعاها وألياف بركنجي النبضة بسرعة إلى الجدار الداخلي للبطينين. يبدأ الحاجز أولًا من اليسار إلى اليمين: الموجة q الصغيرة في I وV6، والموجة r الصغيرة في V1.",
+    "ثم يزول استقطاب البطين الأيسر السميك من الداخل إلى الخارج، نحو V5–V6 وبعيدًا عن V1: موجة R عالية في V6 وموجة S عميقة في V1.",
+    "يتعافى الجدار الخارجي أولًا، فيجري التعافي بالعكس: تتجه الموجة T في اتجاه QRS نفسه."
+   ],
+   "fr": [
+    "Le nœud sinusal décharge environ 75 fois par minute. L'onde parcourt les deux oreillettes de haut à droite vers bas à gauche : ce front en mouvement, c'est l'onde P.",
+    "Le nœud AV retient l'influx environ 0,1 s pour laisser les ventricules se remplir. Trop peu de tissu est actif pour être visible : le segment PR plat.",
+    "Le faisceau de His, ses branches et les fibres de Purkinje portent l'influx vite jusqu'à la paroi interne des deux ventricules. Le septum part en premier, de gauche à droite : le petit q en I et V6, le petit r en V1.",
+    "Puis l'épais ventricule gauche se dépolarise de l'intérieur vers l'extérieur, vers V5–V6 et en s'éloignant de V1 : grande onde R en V6, onde S profonde en V1.",
+    "La paroi externe récupère en premier, la repolarisation se fait donc à l'envers : l'onde T pointe dans le même sens que le QRS."
+   ],
+   "it": [
+    "Il nodo del seno scarica circa 75 volte al minuto. L'onda attraversa entrambi gli atri dall'alto a destra verso il basso a sinistra: questo fronte in movimento è l'onda P.",
+    "Il nodo AV trattiene l'impulso per circa 0,1 s perché i ventricoli si riempiano. Troppo poco tessuto è attivo per vedersi: il tratto PR piatto.",
+    "Il fascio di His, le sue branche e le fibre di Purkinje portano l'impulso rapidamente alla parete interna dei due ventricoli. Il setto parte per primo, da sinistra a destra: la piccola q in I e V6, la piccola r in V1.",
+    "Poi lo spesso ventricolo sinistro si depolarizza dall'interno verso l'esterno, verso V5–V6 e lontano da V1: R alta in V6, S profonda in V1.",
+    "La parete esterna si recupera per prima, quindi la ripolarizzazione procede al contrario: l'onda T punta nella stessa direzione del QRS."
+   ],
+   "nl": [
+    "De sinusknoop vuurt ongeveer 75 keer per minuut. De golf trekt door beide boezems van rechtsboven naar linksonder: dat bewegende front is de P-top.",
+    "De AV-knoop houdt de prikkel ongeveer 0,1 s vast zodat de kamers kunnen vullen. Te weinig weefsel is actief om zichtbaar te zijn: het vlakke PR-segment.",
+    "De bundel van His, de bundeltakken en de Purkinjevezels brengen de prikkel snel naar de binnenwand van beide kamers. Het septum gaat eerst, van links naar rechts: de kleine q in I en V6, de kleine r in V1.",
+    "Dan depolariseert de dikke linkerkamer van binnen naar buiten, naar V5–V6 toe en van V1 af: hoge R in V6, diepe S in V1.",
+    "De buitenwand herstelt eerst, dus het herstel loopt omgekeerd: de T-top wijst dezelfde kant op als het QRS-complex."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Upright P before every QRS, PR 120–200 ms",
+    "Narrow QRS (< 120 ms), small septal q in I, V5, V6",
+    "Upright T in I, II, V4–V6"
+   ],
+   "de": [
+    "Positive P-Welle vor jedem QRS, PR 120–200 ms",
+    "Schmaler QRS (< 120 ms), kleines septales q in I, V5, V6",
+    "Positive T-Welle in I, II, V4–V6"
+   ],
+   "es": [
+    "P positiva antes de cada QRS, PR 120–200 ms",
+    "QRS estrecho (< 120 ms), pequeña q septal en I, V5, V6",
+    "T positiva en I, II, V4–V6"
+   ],
+   "ar": [
+    "موجة P موجبة قبل كل QRS، وPR بين 120 و200 مللي ثانية",
+    "QRS ضيق (< 120 مللي ثانية) مع q حاجزية صغيرة في I وV5 وV6",
+    "موجة T موجبة في I وII وV4–V6"
+   ],
+   "fr": [
+    "Onde P positive avant chaque QRS, PR 120–200 ms",
+    "QRS fin (< 120 ms), petit q septal en I, V5, V6",
+    "Onde T positive en I, II, V4–V6"
+   ],
+   "it": [
+    "Onda P positiva prima di ogni QRS, PR 120–200 ms",
+    "QRS stretto (< 120 ms), piccola q settale in I, V5, V6",
+    "Onda T positiva in I, II, V4–V6"
+   ],
+   "nl": [
+    "Positieve P-top voor elk QRS, PR 120–200 ms",
+    "Smal QRS (< 120 ms), kleine septale q in I, V5, V6",
+    "Positieve T-top in I, II, V4–V6"
+   ]
+  },
+  "atlasEcg": 687,
+  "atlasDx": "normal",
+  "model": {
+   "duration": 4000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90
+  }
+ },
+ {
+  "key": "sbrad",
+  "title": {
+   "en": "Sinus bradycardia",
+   "de": "Sinusbradykardie",
+   "es": "Bradicardia sinusal",
+   "ar": "بطء القلب الجيبي",
+   "fr": "Bradycardie sinusale",
+   "it": "Bradicardia sinusale",
+   "nl": "Sinusbradycardie"
+  },
+  "why": {
+   "en": [
+    "Same pathway as normal sinus rhythm; only the SA node fires more slowly (here about 43/min): athletes, sleep, beta-blockers.",
+    "Every beat still starts in the SA node, so every QRS has its normal P before it.",
+    "The long gaps are electrical silence: the whole heart is at rest and the baseline is flat."
+   ],
+   "de": [
+    "Derselbe Weg wie beim normalen Sinusrhythmus; nur feuert der Sinusknoten langsamer (hier etwa 43/min): Sportler, Schlaf, Betablocker.",
+    "Jeder Schlag beginnt weiterhin im Sinusknoten, daher hat jeder QRS seine normale P-Welle davor.",
+    "Die langen Pausen sind elektrische Stille: Das ganze Herz ruht, die Grundlinie ist flach."
+   ],
+   "es": [
+    "El mismo recorrido que el ritmo sinusal normal; solo que el nodo sinusal dispara más despacio (aquí unos 43/min): deportistas, sueño, betabloqueantes.",
+    "Cada latido sigue empezando en el nodo sinusal, así que cada QRS tiene su P normal delante.",
+    "Las pausas largas son silencio eléctrico: todo el corazón está en reposo y la línea de base es plana."
+   ],
+   "ar": [
+    "المسار نفسه كما في النظم الجيبي الطبيعي، لكن العقدة الجيبية تطلق أبطأ (هنا نحو 43 في الدقيقة): الرياضيون، النوم، حاصرات بيتا.",
+    "ما زالت كل ضربة تبدأ من العقدة الجيبية، لذا يسبق كل QRS موجة P طبيعية.",
+    "الفترات الطويلة صمت كهربائي: القلب كله في راحة وخط الأساس مسطح."
+   ],
+   "fr": [
+    "Même trajet que le rythme sinusal normal ; seul le nœud sinusal décharge plus lentement (ici environ 43/min) : sportifs, sommeil, bêtabloquants.",
+    "Chaque battement part toujours du nœud sinusal, donc chaque QRS a son onde P normale devant lui.",
+    "Les longues pauses sont un silence électrique : tout le cœur est au repos et la ligne de base est plate."
+   ],
+   "it": [
+    "Stesso percorso del ritmo sinusale normale; solo il nodo del seno scarica più lentamente (qui circa 43/min): atleti, sonno, betabloccanti.",
+    "Ogni battito parte ancora dal nodo del seno, quindi ogni QRS ha davanti la sua onda P normale.",
+    "Le lunghe pause sono silenzio elettrico: tutto il cuore è a riposo e la linea di base è piatta."
+   ],
+   "nl": [
+    "Dezelfde route als bij normaal sinusritme; alleen vuurt de sinusknoop trager (hier ongeveer 43/min): sporters, slaap, bètablokkers.",
+    "Elke slag begint nog steeds in de sinusknoop, dus elk QRS heeft zijn normale P-top ervoor.",
+    "De lange pauzes zijn elektrische stilte: het hele hart rust en de basislijn is vlak."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Rate < 60/min",
+    "Normal P, PR and QRS",
+    "Long flat baseline between beats"
+   ],
+   "de": [
+    "Frequenz < 60/min",
+    "Normale P-Welle, PR und QRS",
+    "Lange flache Grundlinie zwischen den Schlägen"
+   ],
+   "es": [
+    "Frecuencia < 60/min",
+    "P, PR y QRS normales",
+    "Línea de base larga y plana entre latidos"
+   ],
+   "ar": [
+    "المعدل < 60 في الدقيقة",
+    "P وPR وQRS طبيعية",
+    "خط أساس طويل مسطح بين الضربات"
+   ],
+   "fr": [
+    "Fréquence < 60/min",
+    "P, PR et QRS normaux",
+    "Longue ligne de base plate entre les battements"
+   ],
+   "it": [
+    "Frequenza < 60/min",
+    "P, PR e QRS normali",
+    "Lunga linea di base piatta tra i battiti"
+   ],
+   "nl": [
+    "Frequentie < 60/min",
+    "Normale P-top, PR en QRS",
+    "Lange vlakke basislijn tussen de slagen"
+   ]
+  },
+  "atlasEcg": 611,
+  "atlasDx": "sbrad",
+  "model": {
+   "duration": 6000,
+   "sinus": {
+    "cycle": 1400
+   },
+   "avDelay": 90
+  }
+ },
+ {
+  "key": "stach",
+  "title": {
+   "en": "Sinus tachycardia",
+   "de": "Sinustachykardie",
+   "es": "Taquicardia sinusal",
+   "ar": "تسرع القلب الجيبي",
+   "fr": "Tachycardie sinusale",
+   "it": "Tachicardia sinusale",
+   "nl": "Sinustachycardie"
+  },
+  "why": {
+   "en": [
+    "The SA node fires faster (here 120/min): fever, pain, exercise, blood loss.",
+    "Conduction is normal, so every QRS still follows its own P.",
+    "At high rates the T wave runs close to the next P."
+   ],
+   "de": [
+    "Der Sinusknoten feuert schneller (hier 120/min): Fieber, Schmerz, Belastung, Blutverlust.",
+    "Die Leitung ist normal, daher folgt jeder QRS weiterhin seiner eigenen P-Welle.",
+    "Bei hoher Frequenz rückt die T-Welle nahe an die nächste P-Welle heran."
+   ],
+   "es": [
+    "El nodo sinusal dispara más rápido (aquí 120/min): fiebre, dolor, ejercicio, hemorragia.",
+    "La conducción es normal, así que cada QRS sigue a su propia P.",
+    "A frecuencias altas la onda T se acerca a la P siguiente."
+   ],
+   "ar": [
+    "تطلق العقدة الجيبية أسرع (هنا 120 في الدقيقة): الحمى، الألم، الجهد، فقدان الدم.",
+    "التوصيل طبيعي، لذا يتبع كل QRS موجة P الخاصة به.",
+    "عند المعدلات العالية تقترب الموجة T من موجة P التالية."
+   ],
+   "fr": [
+    "Le nœud sinusal décharge plus vite (ici 120/min) : fièvre, douleur, effort, hémorragie.",
+    "La conduction est normale, donc chaque QRS suit toujours sa propre onde P.",
+    "À fréquence élevée, l'onde T se rapproche de l'onde P suivante."
+   ],
+   "it": [
+    "Il nodo del seno scarica più in fretta (qui 120/min): febbre, dolore, sforzo, perdita di sangue.",
+    "La conduzione è normale, quindi ogni QRS segue ancora la propria onda P.",
+    "A frequenze alte l'onda T si avvicina all'onda P successiva."
+   ],
+   "nl": [
+    "De sinusknoop vuurt sneller (hier 120/min): koorts, pijn, inspanning, bloedverlies.",
+    "De geleiding is normaal, dus elk QRS volgt nog steeds zijn eigen P-top.",
+    "Bij hoge frequentie komt de T-top dicht bij de volgende P-top."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Rate > 100/min",
+    "Normal P before every QRS",
+    "Narrow QRS"
+   ],
+   "de": [
+    "Frequenz > 100/min",
+    "Normale P-Welle vor jedem QRS",
+    "Schmaler QRS"
+   ],
+   "es": [
+    "Frecuencia > 100/min",
+    "P normal antes de cada QRS",
+    "QRS estrecho"
+   ],
+   "ar": [
+    "المعدل > 100 في الدقيقة",
+    "موجة P طبيعية قبل كل QRS",
+    "QRS ضيق"
+   ],
+   "fr": [
+    "Fréquence > 100/min",
+    "Onde P normale avant chaque QRS",
+    "QRS fin"
+   ],
+   "it": [
+    "Frequenza > 100/min",
+    "Onda P normale prima di ogni QRS",
+    "QRS stretto"
+   ],
+   "nl": [
+    "Frequentie > 100/min",
+    "Normale P-top voor elk QRS",
+    "Smal QRS"
+   ]
+  },
+  "atlasEcg": 2277,
+  "atlasDx": "stach",
+  "model": {
+   "duration": 3000,
+   "sinus": {
+    "cycle": 500
+   },
+   "avDelay": 80
+  }
+ },
+ {
+  "key": "1avb",
+  "title": {
+   "en": "First-degree AV block",
+   "de": "AV-Block I. Grades",
+   "es": "Bloqueo AV de primer grado",
+   "ar": "إحصار أذيني بطيني من الدرجة الأولى",
+   "fr": "Bloc AV du premier degré",
+   "it": "Blocco AV di primo grado",
+   "nl": "Eerstegraads AV-blok"
+  },
+  "why": {
+   "en": [
+    "The AV node conducts every impulse, but slowly (here about 0.3 s instead of 0.1 s).",
+    "While the impulse crawls through the node, too little tissue is active to show: a long, flat PR segment.",
+    "Below the node conduction is normal, so the QRS stays narrow."
+   ],
+   "de": [
+    "Der AV-Knoten leitet jeden Impuls, aber langsam (hier etwa 0,3 s statt 0,1 s).",
+    "Während der Impuls durch den Knoten kriecht, ist zu wenig Gewebe aktiv, um sichtbar zu sein: eine lange, flache PR-Strecke.",
+    "Unterhalb des Knotens ist die Leitung normal, daher bleibt der QRS schmal."
+   ],
+   "es": [
+    "El nodo AV conduce todos los impulsos, pero despacio (aquí unos 0,3 s en lugar de 0,1 s).",
+    "Mientras el impulso avanza lentamente por el nodo, hay muy poco tejido activo para verse: un segmento PR largo y plano.",
+    "Por debajo del nodo la conducción es normal, así que el QRS sigue estrecho."
+   ],
+   "ar": [
+    "توصل العقدة الأذينية البطينية كل نبضة، لكن ببطء (هنا نحو 0.3 ثانية بدلًا من 0.1).",
+    "بينما تزحف النبضة عبر العقدة يكون النسيج النشط قليلًا فلا يظهر: قطعة PR طويلة ومسطحة.",
+    "التوصيل تحت العقدة طبيعي، لذا يبقى QRS ضيقًا."
+   ],
+   "fr": [
+    "Le nœud AV conduit chaque influx, mais lentement (ici environ 0,3 s au lieu de 0,1 s).",
+    "Pendant que l'influx traverse lentement le nœud, trop peu de tissu est actif pour être visible : un segment PR long et plat.",
+    "Sous le nœud, la conduction est normale, donc le QRS reste fin."
+   ],
+   "it": [
+    "Il nodo AV conduce ogni impulso, ma lentamente (qui circa 0,3 s invece di 0,1 s).",
+    "Mentre l'impulso attraversa lentamente il nodo, troppo poco tessuto è attivo per vedersi: un tratto PR lungo e piatto.",
+    "Sotto il nodo la conduzione è normale, quindi il QRS resta stretto."
+   ],
+   "nl": [
+    "De AV-knoop geleidt elke prikkel, maar traag (hier ongeveer 0,3 s in plaats van 0,1 s).",
+    "Terwijl de prikkel door de knoop kruipt, is te weinig weefsel actief om zichtbaar te zijn: een lang, vlak PR-segment.",
+    "Onder de knoop is de geleiding normaal, dus het QRS blijft smal."
+   ]
+  },
+  "looks": {
+   "en": [
+    "PR > 200 ms, the same every beat",
+    "Every P is followed by a QRS",
+    "Narrow QRS"
+   ],
+   "de": [
+    "PR > 200 ms, bei jedem Schlag gleich",
+    "Auf jede P-Welle folgt ein QRS",
+    "Schmaler QRS"
+   ],
+   "es": [
+    "PR > 200 ms, igual en cada latido",
+    "Cada P va seguida de un QRS",
+    "QRS estrecho"
+   ],
+   "ar": [
+    "PR > 200 مللي ثانية، ثابت في كل ضربة",
+    "يلي كل موجة P مركب QRS",
+    "QRS ضيق"
+   ],
+   "fr": [
+    "PR > 200 ms, identique à chaque battement",
+    "Chaque onde P est suivie d'un QRS",
+    "QRS fin"
+   ],
+   "it": [
+    "PR > 200 ms, uguale a ogni battito",
+    "Ogni onda P è seguita da un QRS",
+    "QRS stretto"
+   ],
+   "nl": [
+    "PR > 200 ms, bij elke slag gelijk",
+    "Op elke P-top volgt een QRS",
+    "Smal QRS"
+   ]
+  },
+  "atlasEcg": 3948,
+  "atlasDx": "1avb",
+  "model": {
+   "duration": 4000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 220
+  }
+ },
+ {
+  "key": "mob1",
+  "title": {
+   "en": "Second-degree AV block, Mobitz I (Wenckebach)",
+   "de": "AV-Block II. Grades, Mobitz I (Wenckebach)",
+   "es": "Bloqueo AV de segundo grado, Mobitz I (Wenckebach)",
+   "ar": "إحصار أذيني بطيني من الدرجة الثانية، موبيتز I (وينكباخ)",
+   "fr": "Bloc AV du deuxième degré, Mobitz I (Wenckebach)",
+   "it": "Blocco AV di secondo grado, Mobitz I (Wenckebach)",
+   "nl": "Tweedegraads AV-blok, Mobitz I (Wenckebach)"
+  },
+  "why": {
+   "en": [
+    "The AV node tires: each impulse finds it a little less recovered and crosses it more slowly.",
+    "The PR grows beat by beat until one P meets a node that is still refractory and is not conducted.",
+    "The pause lets the node recover; the next PR is short again and the cycle repeats (here 4 P waves for 3 QRS).",
+    "The block is in the node, so the QRS is narrow."
+   ],
+   "de": [
+    "Der AV-Knoten ermüdet: Jeder Impuls trifft ihn etwas weniger erholt an und durchquert ihn langsamer.",
+    "Die PR-Zeit wächst von Schlag zu Schlag, bis eine P-Welle auf einen noch refraktären Knoten trifft und nicht übergeleitet wird.",
+    "In der Pause erholt sich der Knoten; die nächste PR-Zeit ist wieder kurz und der Zyklus beginnt neu (hier 4 P-Wellen auf 3 QRS).",
+    "Der Block liegt im Knoten, daher ist der QRS schmal."
+   ],
+   "es": [
+    "El nodo AV se fatiga: cada impulso lo encuentra algo menos recuperado y lo cruza más despacio.",
+    "El PR se alarga latido a latido hasta que una P encuentra el nodo todavía refractario y no se conduce.",
+    "La pausa deja que el nodo se recupere; el PR siguiente vuelve a ser corto y el ciclo se repite (aquí 4 ondas P por 3 QRS).",
+    "El bloqueo está en el nodo, así que el QRS es estrecho."
+   ],
+   "ar": [
+    "تتعب العقدة الأذينية البطينية: تجدها كل نبضة أقل تعافيًا قليلًا فتعبرها أبطأ.",
+    "يطول PR ضربة بعد ضربة حتى تصادف موجة P عقدة ما زالت في فترة الحران فلا تُوصَّل.",
+    "تسمح الوقفة للعقدة بالتعافي، فيعود PR التالي قصيرًا وتتكرر الدورة (هنا 4 موجات P مقابل 3 QRS).",
+    "الإحصار داخل العقدة، لذا يكون QRS ضيقًا."
+   ],
+   "fr": [
+    "Le nœud AV se fatigue : chaque influx le trouve un peu moins récupéré et le traverse plus lentement.",
+    "Le PR s'allonge battement après battement, jusqu'à ce qu'une onde P trouve le nœud encore réfractaire et ne soit pas conduite.",
+    "La pause laisse le nœud récupérer ; le PR suivant est de nouveau court et le cycle recommence (ici 4 ondes P pour 3 QRS).",
+    "Le bloc est dans le nœud, donc le QRS est fin."
+   ],
+   "it": [
+    "Il nodo AV si affatica: ogni impulso lo trova un po' meno recuperato e lo attraversa più lentamente.",
+    "Il PR si allunga battito dopo battito finché un'onda P trova il nodo ancora refrattario e non viene condotta.",
+    "La pausa permette al nodo di recuperare; il PR successivo torna corto e il ciclo si ripete (qui 4 onde P per 3 QRS).",
+    "Il blocco è nel nodo, quindi il QRS è stretto."
+   ],
+   "nl": [
+    "De AV-knoop raakt vermoeid: elke prikkel vindt hem iets minder hersteld en gaat er trager doorheen.",
+    "De PR-tijd groeit slag na slag, tot een P-top de knoop nog refractair aantreft en niet wordt voortgeleid.",
+    "De pauze laat de knoop herstellen; de volgende PR-tijd is weer kort en de cyclus herhaalt zich (hier 4 P-toppen op 3 QRS).",
+    "Het blok zit in de knoop, dus het QRS is smal."
+   ]
+  },
+  "looks": {
+   "en": [
+    "PR lengthens beat by beat, then a P with no QRS",
+    "Grouped beats",
+    "Narrow QRS"
+   ],
+   "de": [
+    "PR verlängert sich von Schlag zu Schlag, dann eine P-Welle ohne QRS",
+    "Gruppierte Schläge",
+    "Schmaler QRS"
+   ],
+   "es": [
+    "El PR se alarga latido a latido, luego una P sin QRS",
+    "Latidos agrupados",
+    "QRS estrecho"
+   ],
+   "ar": [
+    "يطول PR مع كل ضربة ثم موجة P بلا QRS",
+    "ضربات مجمّعة",
+    "QRS ضيق"
+   ],
+   "fr": [
+    "Le PR s'allonge à chaque battement, puis une onde P sans QRS",
+    "Battements groupés",
+    "QRS fin"
+   ],
+   "it": [
+    "Il PR si allunga a ogni battito, poi un'onda P senza QRS",
+    "Battiti a gruppi",
+    "QRS stretto"
+   ],
+   "nl": [
+    "PR wordt elke slag langer, dan een P-top zonder QRS",
+    "Gegroepeerde slagen",
+    "Smal QRS"
+   ]
+  },
+  "atlasEcg": 14009,
+  "atlasDx": "2avb",
+  "model": {
+   "duration": 6400,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 110,
+   "wenckebach": {
+    "inc": 80,
+    "every": 4
+   }
+  }
+ },
+ {
+  "key": "mob2",
+  "title": {
+   "en": "Second-degree AV block, Mobitz II",
+   "de": "AV-Block II. Grades, Mobitz II",
+   "es": "Bloqueo AV de segundo grado, Mobitz II",
+   "ar": "إحصار أذيني بطيني من الدرجة الثانية، موبيتز II",
+   "fr": "Bloc AV du deuxième degré, Mobitz II",
+   "it": "Blocco AV di secondo grado, Mobitz II",
+   "nl": "Tweedegraads AV-blok, Mobitz II"
+  },
+  "why": {
+   "en": [
+    "The block is below the AV node, in the His bundle: tissue that either conducts or doesn't.",
+    "Conducted beats all have the same PR: there is no warning.",
+    "Then a P is suddenly not conducted (here every fourth).",
+    "Because the disease is below the node it can progress to complete heart block: this is the dangerous one."
+   ],
+   "de": [
+    "Der Block liegt unterhalb des AV-Knotens, im His-Bündel: Gewebe, das entweder leitet oder nicht.",
+    "Übergeleitete Schläge haben alle dieselbe PR-Zeit: Es gibt keine Vorwarnung.",
+    "Dann wird plötzlich eine P-Welle nicht übergeleitet (hier jede vierte).",
+    "Weil die Erkrankung unterhalb des Knotens liegt, kann sie in einen kompletten AV-Block übergehen: Das ist die gefährliche Form."
+   ],
+   "es": [
+    "El bloqueo está por debajo del nodo AV, en el haz de His: un tejido que conduce o no conduce.",
+    "Los latidos conducidos tienen todos el mismo PR: no hay aviso.",
+    "De pronto una P no se conduce (aquí una de cada cuatro).",
+    "Como la enfermedad está por debajo del nodo, puede progresar a bloqueo completo: es la forma peligrosa."
+   ],
+   "ar": [
+    "الإحصار تحت العقدة الأذينية البطينية، في حزمة هيس: نسيج إما يوصل وإما لا يوصل.",
+    "للضربات الموصَّلة كلها PR نفسه: لا يوجد إنذار مسبق.",
+    "ثم فجأة لا تُوصَّل موجة P (هنا واحدة من كل أربع).",
+    "لأن المرض تحت العقدة قد يتطور إلى إحصار كامل: هذا هو الشكل الخطير."
+   ],
+   "fr": [
+    "Le bloc est sous le nœud AV, dans le faisceau de His : un tissu qui conduit ou ne conduit pas.",
+    "Les battements conduits ont tous le même PR : il n'y a aucun signe annonciateur.",
+    "Puis une onde P n'est soudain pas conduite (ici une sur quatre).",
+    "Comme l'atteinte est sous le nœud, elle peut évoluer vers un bloc complet : c'est la forme dangereuse."
+   ],
+   "it": [
+    "Il blocco è sotto il nodo AV, nel fascio di His: un tessuto che conduce oppure no.",
+    "I battiti condotti hanno tutti lo stesso PR: non c'è alcun preavviso.",
+    "Poi un'onda P improvvisamente non viene condotta (qui una ogni quattro).",
+    "Poiché la malattia è sotto il nodo, può evolvere verso il blocco completo: è la forma pericolosa."
+   ],
+   "nl": [
+    "Het blok zit onder de AV-knoop, in de bundel van His: weefsel dat geleidt of niet.",
+    "Voortgeleide slagen hebben allemaal dezelfde PR-tijd: er is geen waarschuwing.",
+    "Dan wordt een P-top plotseling niet voortgeleid (hier elke vierde).",
+    "Omdat de aandoening onder de knoop zit, kan ze overgaan in een totaal AV-blok: dit is de gevaarlijke vorm."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Constant PR in conducted beats",
+    "Sudden P without a QRS",
+    "Often a wide QRS in real patients (bundle branch disease)"
+   ],
+   "de": [
+    "Konstante PR-Zeit bei übergeleiteten Schlägen",
+    "Plötzlich eine P-Welle ohne QRS",
+    "Bei Patienten oft breiter QRS (Schenkelerkrankung)"
+   ],
+   "es": [
+    "PR constante en los latidos conducidos",
+    "P súbita sin QRS",
+    "En pacientes, a menudo QRS ancho (enfermedad de las ramas)"
+   ],
+   "ar": [
+    "PR ثابت في الضربات الموصَّلة",
+    "موجة P مفاجئة بلا QRS",
+    "عند المرضى غالبًا QRS عريض (مرض الحزم)"
+   ],
+   "fr": [
+    "PR constant dans les battements conduits",
+    "Onde P soudaine sans QRS",
+    "Chez les patients, souvent un QRS large (atteinte des branches)"
+   ],
+   "it": [
+    "PR costante nei battiti condotti",
+    "Onda P improvvisa senza QRS",
+    "Nei pazienti spesso QRS largo (malattia delle branche)"
+   ],
+   "nl": [
+    "Constante PR-tijd bij voortgeleide slagen",
+    "Plotseling een P-top zonder QRS",
+    "Bij patiënten vaak een breed QRS (bundeltakziekte)"
+   ]
+  },
+  "atlasEcg": 14009,
+  "atlasDx": "2avb",
+  "model": {
+   "duration": 6400,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90,
+   "block": {
+    "level": "his",
+    "pattern": [
+     1,
+     1,
+     1,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "key": "3avb",
+  "title": {
+   "en": "Complete (third-degree) heart block",
+   "de": "AV-Block III. Grades (kompletter AV-Block)",
+   "es": "Bloqueo AV completo (de tercer grado)",
+   "ar": "إحصار أذيني بطيني كامل (من الدرجة الثالثة)",
+   "fr": "Bloc AV complet (du troisième degré)",
+   "it": "Blocco AV completo (di terzo grado)",
+   "nl": "Totaal (derdegraads) AV-blok"
+  },
+  "why": {
+   "en": [
+    "No atrial impulse gets through the His bundle; the atria keep the sinus rate.",
+    "Something below the block must take over: here a ventricular escape focus near the apex, about 35/min.",
+    "The escape beat spreads slowly through muscle, not the Purkinje system: wide QRS.",
+    "Atria and ventricles beat independently and the P waves march through. If the block is in the AV node instead, a junctional escape gives a narrow QRS at 40–60/min."
+   ],
+   "de": [
+    "Kein Vorhofimpuls gelangt durch das His-Bündel; die Vorhöfe behalten die Sinusfrequenz.",
+    "Etwas unterhalb des Blocks muss übernehmen: hier ein ventrikulärer Ersatzrhythmus nahe der Herzspitze, etwa 35/min.",
+    "Der Ersatzschlag breitet sich langsam über die Muskulatur aus, nicht über das Purkinje-System: breiter QRS.",
+    "Vorhöfe und Kammern schlagen unabhängig, die P-Wellen wandern durch. Liegt der Block stattdessen im AV-Knoten, gibt ein junktionaler Ersatzrhythmus einen schmalen QRS mit 40–60/min."
+   ],
+   "es": [
+    "Ningún impulso auricular atraviesa el haz de His; las aurículas mantienen la frecuencia sinusal.",
+    "Algo por debajo del bloqueo debe tomar el relevo: aquí un foco de escape ventricular cerca de la punta, unos 35/min.",
+    "El latido de escape se propaga despacio por el músculo, no por el sistema de Purkinje: QRS ancho.",
+    "Aurículas y ventrículos laten por separado y las ondas P desfilan entre los QRS. Si el bloqueo está en el nodo AV, un escape de la unión da un QRS estrecho a 40–60/min."
+   ],
+   "ar": [
+    "لا تعبر أي نبضة أذينية حزمة هيس، ويحافظ الأذينان على المعدل الجيبي.",
+    "يجب أن يتولى شيء تحت الإحصار القيادة: هنا بؤرة هروب بطينية قرب القمة، نحو 35 في الدقيقة.",
+    "تنتشر ضربة الهروب ببطء عبر العضلة لا عبر شبكة بركنجي: QRS عريض.",
+    "ينبض الأذينان والبطينان كلٌّ على حدة وتمر موجات P عبر المركبات. وإذا كان الإحصار في العقدة الأذينية البطينية فإن هروبًا وصليًا يعطي QRS ضيقًا بمعدل 40–60 في الدقيقة."
+   ],
+   "fr": [
+    "Aucun influx auriculaire ne franchit le faisceau de His ; les oreillettes gardent la fréquence sinusale.",
+    "Quelque chose sous le bloc doit prendre le relais : ici un foyer d'échappement ventriculaire près de la pointe, environ 35/min.",
+    "Le battement d'échappement se propage lentement dans le muscle, pas par le réseau de Purkinje : QRS large.",
+    "Oreillettes et ventricules battent indépendamment et les ondes P défilent à travers. Si le bloc est plutôt dans le nœud AV, un échappement jonctionnel donne un QRS fin à 40–60/min."
+   ],
+   "it": [
+    "Nessun impulso atriale supera il fascio di His; gli atri mantengono la frequenza sinusale.",
+    "Qualcosa sotto il blocco deve subentrare: qui un focus di scappamento ventricolare vicino all'apice, circa 35/min.",
+    "Il battito di scappamento si diffonde lentamente nel muscolo, non nel sistema di Purkinje: QRS largo.",
+    "Atri e ventricoli battono indipendentemente e le onde P scorrono attraverso i QRS. Se invece il blocco è nel nodo AV, uno scappamento giunzionale dà un QRS stretto a 40–60/min."
+   ],
+   "nl": [
+    "Geen enkele boezemprikkel komt door de bundel van His; de boezems houden de sinusfrequentie.",
+    "Iets onder het blok moet het overnemen: hier een ventriculair escaperitme bij de apex, ongeveer 35/min.",
+    "De escapeslag verspreidt zich traag via de spier, niet via het Purkinjesysteem: breed QRS.",
+    "Boezems en kamers kloppen onafhankelijk en de P-toppen schuiven erdoorheen. Zit het blok in de AV-knoop, dan geeft een junctioneel escaperitme een smal QRS van 40–60/min."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Regular P waves and regular QRS, no relation between them",
+    "Slow ventricular rate (< 40/min)",
+    "Wide escape QRS"
+   ],
+   "de": [
+    "Regelmäßige P-Wellen und regelmäßige QRS, ohne Beziehung zueinander",
+    "Langsame Kammerfrequenz (< 40/min)",
+    "Breiter Ersatz-QRS"
+   ],
+   "es": [
+    "Ondas P regulares y QRS regulares, sin relación entre sí",
+    "Frecuencia ventricular lenta (< 40/min)",
+    "QRS de escape ancho"
+   ],
+   "ar": [
+    "موجات P منتظمة وQRS منتظمة بلا علاقة بينهما",
+    "معدل بطيني بطيء (< 40 في الدقيقة)",
+    "QRS هروب عريض"
+   ],
+   "fr": [
+    "Ondes P régulières et QRS réguliers, sans lien entre eux",
+    "Fréquence ventriculaire lente (< 40/min)",
+    "QRS d'échappement large"
+   ],
+   "it": [
+    "Onde P regolari e QRS regolari, senza relazione tra loro",
+    "Frequenza ventricolare lenta (< 40/min)",
+    "QRS di scappamento largo"
+   ],
+   "nl": [
+    "Regelmatige P-toppen en regelmatige QRS, zonder verband",
+    "Trage kamerfrequentie (< 40/min)",
+    "Breed escape-QRS"
+   ]
+  },
+  "atlasEcg": 4827,
+  "atlasDx": "3avb",
+  "model": {
+   "duration": 8000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90,
+   "block": {
+    "level": "his",
+    "pattern": [
+     0
+    ]
+   },
+   "escape": {
+    "site": "ventricle",
+    "cycle": 1700
+   }
+  }
+ },
+ {
+  "key": "3avb_node",
+  "hidden": true,
+  "title": {
+   "en": "Complete heart block in the AV node",
+   "de": "Kompletter AV-Block im AV-Knoten",
+   "es": "Bloqueo AV completo en el nodo AV",
+   "ar": "إحصار كامل في العقدة الأذينية البطينية",
+   "fr": "Bloc AV complet dans le nœud AV",
+   "it": "Blocco AV completo nel nodo AV",
+   "nl": "Totaal AV-blok in de AV-knoop"
+  },
+  "why": {
+   "en": [
+    "The AV node conducts nothing; the atria keep the sinus rate.",
+    "Tissue just below the block (the AV junction and His bundle) takes over at 40–60/min.",
+    "That escape enters the normal conduction system, so the QRS is narrow."
+   ],
+   "de": [
+    "Der AV-Knoten leitet nichts; die Vorhöfe behalten die Sinusfrequenz.",
+    "Gewebe direkt unterhalb des Blocks (AV-Junktion und His-Bündel) übernimmt mit 40–60/min.",
+    "Dieser Ersatzrhythmus nutzt das normale Leitungssystem, daher ist der QRS schmal."
+   ],
+   "es": [
+    "El nodo AV no conduce nada; las aurículas mantienen la frecuencia sinusal.",
+    "El tejido justo por debajo del bloqueo (la unión AV y el haz de His) toma el relevo a 40–60/min.",
+    "Ese escape entra en el sistema de conducción normal, así que el QRS es estrecho."
+   ],
+   "ar": [
+    "لا توصل العقدة الأذينية البطينية شيئًا، ويحافظ الأذينان على المعدل الجيبي.",
+    "يتولى النسيج تحت الإحصار مباشرة (الوصل الأذيني البطيني وحزمة هيس) القيادة بمعدل 40–60 في الدقيقة.",
+    "يدخل هذا الهروب جهاز التوصيل الطبيعي، لذا يكون QRS ضيقًا."
+   ],
+   "fr": [
+    "Le nœud AV ne conduit plus rien ; les oreillettes gardent la fréquence sinusale.",
+    "Le tissu juste sous le bloc (la jonction AV et le faisceau de His) prend le relais à 40–60/min.",
+    "Cet échappement emprunte le système de conduction normal, donc le QRS est fin."
+   ],
+   "it": [
+    "Il nodo AV non conduce nulla; gli atri mantengono la frequenza sinusale.",
+    "Il tessuto appena sotto il blocco (la giunzione AV e il fascio di His) subentra a 40–60/min.",
+    "Questo scappamento entra nel sistema di conduzione normale, quindi il QRS è stretto."
+   ],
+   "nl": [
+    "De AV-knoop geleidt niets meer; de boezems houden de sinusfrequentie.",
+    "Weefsel net onder het blok (de AV-junctie en de bundel van His) neemt het over met 40–60/min.",
+    "Dat escaperitme gebruikt het normale geleidingssysteem, dus het QRS is smal."
+   ]
+  },
+  "looks": {
+   "en": [
+    "P and QRS unrelated",
+    "Regular narrow escape rhythm at 40–60/min"
+   ],
+   "de": [
+    "P-Wellen und QRS ohne Beziehung",
+    "Regelmäßiger schmaler Ersatzrhythmus mit 40–60/min"
+   ],
+   "es": [
+    "P y QRS sin relación",
+    "Ritmo de escape regular y estrecho a 40–60/min"
+   ],
+   "ar": [
+    "لا علاقة بين P وQRS",
+    "نظم هروب منتظم وضيق بمعدل 40–60 في الدقيقة"
+   ],
+   "fr": [
+    "Ondes P et QRS sans lien",
+    "Rythme d'échappement régulier et fin à 40–60/min"
+   ],
+   "it": [
+    "Onde P e QRS senza relazione",
+    "Ritmo di scappamento regolare e stretto a 40–60/min"
+   ],
+   "nl": [
+    "P-toppen en QRS zonder verband",
+    "Regelmatig smal escaperitme van 40–60/min"
+   ]
+  },
+  "atlasEcg": 4827,
+  "atlasDx": "3avb",
+  "model": {
+   "duration": 8000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90,
+   "block": {
+    "level": "node",
+    "pattern": [
+     0
+    ]
+   },
+   "escape": {
+    "site": "junction",
+    "cycle": 1300
+   }
+  }
+ },
+ {
+  "key": "rbbb",
+  "title": {
+   "en": "Right bundle branch block",
+   "de": "Rechtsschenkelblock",
+   "es": "Bloqueo de rama derecha",
+   "ar": "إحصار الحزمة اليمنى",
+   "fr": "Bloc de branche droit",
+   "it": "Blocco di branca destra",
+   "nl": "Rechterbundeltakblok"
+  },
+  "why": {
+   "en": [
+    "The right bundle is cut, so only the left bundle carries the impulse.",
+    "The septum and left ventricle activate on time: the start of the QRS looks normal.",
+    "The right ventricle is reached late, slowly through muscle from the left. Nothing opposes its late rightward, forward wave: the R′ in V1 and the broad S in I and V6.",
+    "Late activation means late recovery: the T points away from that last deflection."
+   ],
+   "de": [
+    "Der rechte Schenkel ist unterbrochen, nur der linke leitet den Impuls.",
+    "Septum und linke Kammer werden rechtzeitig erregt: Der Anfang des QRS sieht normal aus.",
+    "Die rechte Kammer wird spät erreicht, langsam über die Muskulatur von links. Nichts wirkt ihrer späten Erregung nach rechts vorne entgegen: das R′ in V1 und das breite S in I und V6.",
+    "Späte Erregung bedeutet späte Erholung: Die T-Welle zeigt von dieser letzten Zacke weg."
+   ],
+   "es": [
+    "La rama derecha está cortada, así que solo la izquierda conduce el impulso.",
+    "El tabique y el ventrículo izquierdo se activan a tiempo: el inicio del QRS parece normal.",
+    "El ventrículo derecho se alcanza tarde, despacio por el músculo desde la izquierda. Nada se opone a su onda tardía hacia la derecha y adelante: la R′ en V1 y la S ancha en I y V6.",
+    "Activación tardía significa recuperación tardía: la T apunta en contra de esa última deflexión."
+   ],
+   "ar": [
+    "الحزمة اليمنى مقطوعة، فلا يحمل النبضة إلا الحزمة اليسرى.",
+    "يتنشط الحاجز والبطين الأيسر في موعدهما: يبدو بداية QRS طبيعية.",
+    "يُبلغ البطين الأيمن متأخرًا، ببطء عبر العضلة من اليسار. لا شيء يعاكس موجته المتأخرة نحو اليمين والأمام: الموجة R′ في V1 والموجة S العريضة في I وV6.",
+    "التنشيط المتأخر يعني تعافيًا متأخرًا: تتجه T عكس هذا الانحراف الأخير."
+   ],
+   "fr": [
+    "La branche droite est coupée, seule la gauche conduit l'influx.",
+    "Le septum et le ventricule gauche s'activent à l'heure : le début du QRS paraît normal.",
+    "Le ventricule droit est atteint en retard, lentement par le muscle depuis la gauche. Rien ne s'oppose à son onde tardive vers la droite et l'avant : l'onde R′ en V1 et la large onde S en I et V6.",
+    "Activation tardive, récupération tardive : l'onde T s'oppose à cette dernière déflexion."
+   ],
+   "it": [
+    "La branca destra è interrotta, solo la sinistra conduce l'impulso.",
+    "Il setto e il ventricolo sinistro si attivano in tempo: l'inizio del QRS sembra normale.",
+    "Il ventricolo destro viene raggiunto tardi, lentamente attraverso il muscolo da sinistra. Nulla si oppone alla sua onda tardiva verso destra e in avanti: la R′ in V1 e la S larga in I e V6.",
+    "Attivazione tardiva significa recupero tardivo: la T si oppone a quest'ultima deflessione."
+   ],
+   "nl": [
+    "De rechterbundeltak is onderbroken, alleen de linker geleidt de prikkel.",
+    "Septum en linkerkamer worden op tijd geactiveerd: het begin van het QRS ziet er normaal uit.",
+    "De rechterkamer wordt laat bereikt, traag via de spier vanaf links. Niets werkt haar late golf naar rechts en naar voren tegen: de R′ in V1 en de brede S in I en V6.",
+    "Late activatie betekent laat herstel: de T-top wijst weg van die laatste uitslag."
+   ]
+  },
+  "looks": {
+   "en": [
+    "QRS ≥ 120 ms",
+    "rSR′ (\"M\") in V1",
+    "Wide S in I and V6"
+   ],
+   "de": [
+    "QRS ≥ 120 ms",
+    "rSR′ (\"M\") in V1",
+    "Breites S in I und V6"
+   ],
+   "es": [
+    "QRS ≥ 120 ms",
+    "rSR′ (\"M\") en V1",
+    "S ancha en I y V6"
+   ],
+   "ar": [
+    "QRS ≥ 120 مللي ثانية",
+    "rSR′ (شكل \"M\") في V1",
+    "موجة S عريضة في I وV6"
+   ],
+   "fr": [
+    "QRS ≥ 120 ms",
+    "rSR′ (en « M ») en V1",
+    "Onde S large en I et V6"
+   ],
+   "it": [
+    "QRS ≥ 120 ms",
+    "rSR′ (a \"M\") in V1",
+    "S larga in I e V6"
+   ],
+   "nl": [
+    "QRS ≥ 120 ms",
+    "rSR′ (\"M\") in V1",
+    "Brede S in I en V6"
+   ]
+  },
+  "atlasEcg": 5212,
+  "atlasDx": "rbbb",
+  "model": {
+   "duration": 4000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90,
+   "cut": [
+    "rbb"
+   ]
+  }
+ },
+ {
+  "key": "lbbb",
+  "title": {
+   "en": "Left bundle branch block",
+   "de": "Linksschenkelblock",
+   "es": "Bloqueo de rama izquierda",
+   "ar": "إحصار الحزمة اليسرى",
+   "fr": "Bloc de branche gauche",
+   "it": "Blocco di branca sinistra",
+   "nl": "Linkerbundeltakblok"
+  },
+  "why": {
+   "en": [
+    "The left bundle is cut; the impulse reaches the right ventricle first.",
+    "The septum is activated right to left, so the small septal q in I and V6 disappears.",
+    "The big left ventricle is then activated slowly through muscle, from right to left: broad R in I and V6, deep S or QS in V1.",
+    "Recovery follows the abnormal sequence: the T is opposite to the QRS (discordant)."
+   ],
+   "de": [
+    "Der linke Schenkel ist unterbrochen; der Impuls erreicht zuerst die rechte Kammer.",
+    "Das Septum wird von rechts nach links erregt, daher fehlt das kleine septale q in I und V6.",
+    "Die große linke Kammer wird dann langsam über die Muskulatur erregt, von rechts nach links: breites R in I und V6, tiefes S oder QS in V1.",
+    "Die Erholung folgt der abnormen Abfolge: Die T-Welle ist dem QRS entgegengesetzt (diskordant)."
+   ],
+   "es": [
+    "La rama izquierda está cortada; el impulso llega primero al ventrículo derecho.",
+    "El tabique se activa de derecha a izquierda, así que desaparece la pequeña q septal en I y V6.",
+    "El gran ventrículo izquierdo se activa luego despacio por el músculo, de derecha a izquierda: R ancha en I y V6, S profunda o QS en V1.",
+    "La recuperación sigue la secuencia anormal: la T es opuesta al QRS (discordante)."
+   ],
+   "ar": [
+    "الحزمة اليسرى مقطوعة، فتصل النبضة إلى البطين الأيمن أولًا.",
+    "يتنشط الحاجز من اليمين إلى اليسار، فتختفي الموجة q الحاجزية الصغيرة في I وV6.",
+    "ثم يتنشط البطين الأيسر الكبير ببطء عبر العضلة من اليمين إلى اليسار: موجة R عريضة في I وV6، وموجة S عميقة أو QS في V1.",
+    "يتبع التعافي التسلسل غير الطبيعي: تكون T عكس QRS (غير متوافقة)."
+   ],
+   "fr": [
+    "La branche gauche est coupée ; l'influx atteint d'abord le ventricule droit.",
+    "Le septum s'active de droite à gauche, donc le petit q septal en I et V6 disparaît.",
+    "Le gros ventricule gauche s'active ensuite lentement par le muscle, de droite à gauche : onde R large en I et V6, onde S profonde ou QS en V1.",
+    "La récupération suit la séquence anormale : l'onde T est opposée au QRS (discordante)."
+   ],
+   "it": [
+    "La branca sinistra è interrotta; l'impulso raggiunge prima il ventricolo destro.",
+    "Il setto si attiva da destra a sinistra, quindi la piccola q settale in I e V6 scompare.",
+    "Il grande ventricolo sinistro si attiva poi lentamente attraverso il muscolo, da destra a sinistra: R larga in I e V6, S profonda o QS in V1.",
+    "Il recupero segue la sequenza anomala: la T è opposta al QRS (discordante)."
+   ],
+   "nl": [
+    "De linkerbundeltak is onderbroken; de prikkel bereikt eerst de rechterkamer.",
+    "Het septum wordt van rechts naar links geactiveerd, dus de kleine septale q in I en V6 verdwijnt.",
+    "De grote linkerkamer wordt daarna traag via de spier geactiveerd, van rechts naar links: brede R in I en V6, diepe S of QS in V1.",
+    "Het herstel volgt de abnormale volgorde: de T-top is tegengesteld aan het QRS (discordant)."
+   ]
+  },
+  "looks": {
+   "en": [
+    "QRS ≥ 120 ms",
+    "Broad R with no q in I, V5, V6",
+    "QS or rS in V1; T opposite to the QRS"
+   ],
+   "de": [
+    "QRS ≥ 120 ms",
+    "Breites R ohne q in I, V5, V6",
+    "QS oder rS in V1; T dem QRS entgegengesetzt"
+   ],
+   "es": [
+    "QRS ≥ 120 ms",
+    "R ancha sin q en I, V5, V6",
+    "QS o rS en V1; T opuesta al QRS"
+   ],
+   "ar": [
+    "QRS ≥ 120 مللي ثانية",
+    "موجة R عريضة بلا q في I وV5 وV6",
+    "QS أو rS في V1، وT عكس QRS"
+   ],
+   "fr": [
+    "QRS ≥ 120 ms",
+    "Onde R large sans q en I, V5, V6",
+    "QS ou rS en V1 ; T opposée au QRS"
+   ],
+   "it": [
+    "QRS ≥ 120 ms",
+    "R larga senza q in I, V5, V6",
+    "QS o rS in V1; T opposta al QRS"
+   ],
+   "nl": [
+    "QRS ≥ 120 ms",
+    "Brede R zonder q in I, V5, V6",
+    "QS of rS in V1; T tegengesteld aan het QRS"
+   ]
+  },
+  "atlasEcg": 1564,
+  "atlasDx": "lbbb",
+  "model": {
+   "duration": 4000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90,
+   "cut": [
+    "lbb"
+   ]
+  }
+ },
+ {
+  "key": "wpw",
+  "title": {
+   "en": "Wolff–Parkinson–White (pre-excitation)",
+   "de": "Wolff-Parkinson-White (Präexzitation)",
+   "es": "Wolff-Parkinson-White (preexcitación)",
+   "ar": "متلازمة وولف باركنسون وايت (الاستثارة المسبقة)",
+   "fr": "Wolff-Parkinson-White (préexcitation)",
+   "it": "Wolff-Parkinson-White (preeccitazione)",
+   "nl": "Wolff-Parkinson-White (pre-excitatie)"
+  },
+  "why": {
+   "en": [
+    "An extra strand of muscle, an accessory pathway, joins the left atrium to the left ventricle and skips the AV node delay.",
+    "Part of the ventricle starts early and slowly, through ordinary muscle: the slurred start of the QRS (delta wave) and a short PR.",
+    "Moments later the normal route arrives and activates the rest quickly: the QRS is a fusion of both.",
+    "The same pathway can carry impulses backwards and close a re-entry circuit (see AVRT)."
+   ],
+   "de": [
+    "Ein zusätzlicher Muskelstrang, eine akzessorische Leitungsbahn, verbindet den linken Vorhof mit der linken Kammer und umgeht die Verzögerung im AV-Knoten.",
+    "Ein Teil der Kammer beginnt früh und langsam über normale Muskulatur: der träge QRS-Beginn (Delta-Welle) und eine kurze PR-Zeit.",
+    "Kurz danach kommt der normale Weg an und erregt den Rest schnell: Der QRS ist eine Verschmelzung aus beidem.",
+    "Dieselbe Bahn kann Impulse rückwärts leiten und einen Kreiserregungskreis schließen (siehe AVRT)."
+   ],
+   "es": [
+    "Un haz muscular extra, una vía accesoria, une la aurícula izquierda con el ventrículo izquierdo y se salta el retraso del nodo AV.",
+    "Parte del ventrículo empieza pronto y despacio, por músculo ordinario: el inicio empastado del QRS (onda delta) y un PR corto.",
+    "Poco después llega la vía normal y activa el resto rápidamente: el QRS es una fusión de ambos.",
+    "La misma vía puede conducir impulsos hacia atrás y cerrar un circuito de reentrada (ver TRAV)."
+   ],
+   "ar": [
+    "حزمة عضلية إضافية، مسار ملحق، تصل الأذين الأيسر بالبطين الأيسر وتتجاوز تأخير العقدة الأذينية البطينية.",
+    "يبدأ جزء من البطين مبكرًا وببطء عبر العضلة العادية: البداية المنحدرة لـ QRS (موجة دلتا) وPR قصير.",
+    "بعد لحظات يصل المسار الطبيعي وينشط الباقي بسرعة: QRS اندماج للاثنين.",
+    "يمكن للمسار نفسه أن يحمل النبضات إلى الخلف ويغلق دارة عودة (انظر AVRT)."
+   ],
+   "fr": [
+    "Un faisceau musculaire supplémentaire, une voie accessoire, relie l'oreillette gauche au ventricule gauche et court-circuite le délai du nœud AV.",
+    "Une partie du ventricule démarre tôt et lentement, par le muscle ordinaire : le début empâté du QRS (onde delta) et un PR court.",
+    "Peu après, la voie normale arrive et active le reste rapidement : le QRS est une fusion des deux.",
+    "La même voie peut conduire à rebours et fermer un circuit de réentrée (voir TRAV)."
+   ],
+   "it": [
+    "Un fascio muscolare in più, una via accessoria, collega l'atrio sinistro al ventricolo sinistro e salta il ritardo del nodo AV.",
+    "Una parte del ventricolo parte presto e lentamente, attraverso il muscolo ordinario: l'inizio impastato del QRS (onda delta) e un PR corto.",
+    "Poco dopo arriva la via normale e attiva rapidamente il resto: il QRS è una fusione dei due.",
+    "La stessa via può condurre gli impulsi all'indietro e chiudere un circuito di rientro (vedi AVRT)."
+   ],
+   "nl": [
+    "Een extra spierbundel, een accessoire baan, verbindt de linkerboezem met de linkerkamer en slaat de vertraging in de AV-knoop over.",
+    "Een deel van de kamer begint vroeg en traag, via gewone spier: het trage begin van het QRS (deltagolf) en een korte PR-tijd.",
+    "Even later komt de normale route aan en activeert de rest snel: het QRS is een samensmelting van beide.",
+    "Dezelfde baan kan prikkels terug geleiden en een re-entrycircuit sluiten (zie AVRT)."
+   ]
+  },
+  "looks": {
+   "en": [
+    "PR < 120 ms",
+    "Delta wave: slurred QRS upstroke",
+    "Wide QRS with the T opposite to it"
+   ],
+   "de": [
+    "PR < 120 ms",
+    "Delta-Welle: träger QRS-Anstieg",
+    "Breiter QRS mit entgegengesetzter T-Welle"
+   ],
+   "es": [
+    "PR < 120 ms",
+    "Onda delta: subida empastada del QRS",
+    "QRS ancho con la T opuesta"
+   ],
+   "ar": [
+    "PR < 120 مللي ثانية",
+    "موجة دلتا: صعود منحدر لـ QRS",
+    "QRS عريض مع T معاكسة له"
+   ],
+   "fr": [
+    "PR < 120 ms",
+    "Onde delta : montée empâtée du QRS",
+    "QRS large avec une onde T opposée"
+   ],
+   "it": [
+    "PR < 120 ms",
+    "Onda delta: salita impastata del QRS",
+    "QRS largo con la T opposta"
+   ],
+   "nl": [
+    "PR < 120 ms",
+    "Deltagolf: trage QRS-opstoot",
+    "Breed QRS met een tegengestelde T-top"
+   ]
+  },
+  "atlasEcg": 9823,
+  "atlasDx": "wpw",
+  "model": {
+   "duration": 4000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90,
+   "accessory": true
+  }
+ },
+ {
+  "key": "avnrt",
+  "title": {
+   "en": "AV nodal re-entrant tachycardia (AVNRT)",
+   "de": "AV-Knoten-Reentry-Tachykardie (AVNRT)",
+   "es": "Taquicardia por reentrada intranodal (TRNAV)",
+   "ar": "تسرع القلب بعودة الدخول في العقدة الأذينية البطينية (AVNRT)",
+   "fr": "Tachycardie par réentrée intranodale (TRIN)",
+   "it": "Tachicardia da rientro nodale (AVNRT)",
+   "nl": "AV-nodale re-entrytachycardie (AVNRT)"
+  },
+  "why": {
+   "en": [
+    "The AV node has two routes: a slow pathway and a fast one.",
+    "An early beat goes down the slow pathway while the fast one is still recovering, comes back up the fast one, and goes round again.",
+    "Each lap sends one impulse down to the ventricles and one up to the atria at the same time.",
+    "So the P wave is hidden in the QRS, or shows as a small pseudo-r′ at its end in V1."
+   ],
+   "de": [
+    "Der AV-Knoten hat zwei Wege: eine langsame und eine schnelle Bahn.",
+    "Ein früher Schlag läuft die langsame Bahn hinab, während die schnelle sich noch erholt, kehrt über die schnelle zurück und kreist erneut.",
+    "Jede Runde schickt gleichzeitig einen Impuls hinab zu den Kammern und einen hinauf zu den Vorhöfen.",
+    "Daher ist die P-Welle im QRS versteckt oder erscheint an dessen Ende als kleines Pseudo-r′ in V1."
+   ],
+   "es": [
+    "El nodo AV tiene dos caminos: una vía lenta y una rápida.",
+    "Un latido precoz baja por la vía lenta mientras la rápida aún se recupera, vuelve a subir por la rápida y da otra vuelta.",
+    "Cada vuelta envía a la vez un impulso hacia los ventrículos y otro hacia las aurículas.",
+    "Por eso la onda P queda oculta en el QRS, o aparece al final como una pequeña pseudo-r′ en V1."
+   ],
+   "ar": [
+    "للعقدة الأذينية البطينية طريقان: مسار بطيء ومسار سريع.",
+    "تنزل ضربة مبكرة عبر المسار البطيء بينما السريع ما زال يتعافى، ثم تعود صاعدة عبر السريع وتدور من جديد.",
+    "ترسل كل دورة في الوقت نفسه نبضة نزولًا إلى البطينين ونبضة صعودًا إلى الأذينين.",
+    "لذلك تختفي الموجة P داخل QRS، أو تظهر في نهايته كموجة r′ كاذبة صغيرة في V1."
+   ],
+   "fr": [
+    "Le nœud AV a deux chemins : une voie lente et une voie rapide.",
+    "Un battement précoce descend par la voie lente pendant que la rapide récupère encore, remonte par la rapide, et refait un tour.",
+    "Chaque tour envoie en même temps un influx vers les ventricules et un autre vers les oreillettes.",
+    "Ainsi l'onde P est cachée dans le QRS, ou apparaît à sa fin comme un petit pseudo-r′ en V1."
+   ],
+   "it": [
+    "Il nodo AV ha due vie: una lenta e una rapida.",
+    "Un battito precoce scende per la via lenta mentre la rapida si sta ancora recuperando, risale per la rapida e fa un altro giro.",
+    "Ogni giro invia contemporaneamente un impulso verso i ventricoli e uno verso gli atri.",
+    "Così l'onda P è nascosta nel QRS, o compare alla sua fine come una piccola pseudo-r′ in V1."
+   ],
+   "nl": [
+    "De AV-knoop heeft twee routes: een trage en een snelle baan.",
+    "Een vroege slag gaat via de trage baan naar beneden terwijl de snelle nog herstelt, komt via de snelle terug omhoog en gaat opnieuw rond.",
+    "Elke ronde stuurt tegelijk een prikkel naar de kamers en een naar de boezems.",
+    "Daarom zit de P-top verstopt in het QRS, of verschijnt aan het einde als een kleine pseudo-r′ in V1."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Regular narrow tachycardia, 150–250/min",
+    "No P wave before the QRS",
+    "Sometimes a pseudo-r′ in V1"
+   ],
+   "de": [
+    "Regelmäßige Schmalkomplextachykardie, 150–250/min",
+    "Keine P-Welle vor dem QRS",
+    "Manchmal ein Pseudo-r′ in V1"
+   ],
+   "es": [
+    "Taquicardia regular de QRS estrecho, 150–250/min",
+    "Sin onda P antes del QRS",
+    "A veces una pseudo-r′ en V1"
+   ],
+   "ar": [
+    "تسرع منتظم بمركبات ضيقة، 150–250 في الدقيقة",
+    "لا موجة P قبل QRS",
+    "أحيانًا r′ كاذبة في V1"
+   ],
+   "fr": [
+    "Tachycardie régulière à QRS fins, 150–250/min",
+    "Pas d'onde P avant le QRS",
+    "Parfois un pseudo-r′ en V1"
+   ],
+   "it": [
+    "Tachicardia regolare a QRS stretto, 150–250/min",
+    "Nessuna onda P prima del QRS",
+    "A volte una pseudo-r′ in V1"
+   ],
+   "nl": [
+    "Regelmatige smalcomplextachycardie, 150–250/min",
+    "Geen P-top voor het QRS",
+    "Soms een pseudo-r′ in V1"
+   ]
+  },
+  "atlasEcg": 7889,
+  "atlasDx": "psvt",
+  "model": {
+   "duration": 4000,
+   "avDelay": 90,
+   "reentry": {
+    "circuit": "avnrt",
+    "cycle": 340
+   }
+  }
+ },
+ {
+  "key": "avrt",
+  "title": {
+   "en": "Atrioventricular re-entrant tachycardia (AVRT)",
+   "de": "AV-Reentry-Tachykardie (AVRT)",
+   "es": "Taquicardia por reentrada auriculoventricular (TRAV)",
+   "ar": "تسرع القلب بعودة الدخول الأذينية البطينية (AVRT)",
+   "fr": "Tachycardie par réentrée auriculo-ventriculaire (TRAV)",
+   "it": "Tachicardia da rientro atrioventricolare (AVRT)",
+   "nl": "Atrioventriculaire re-entrytachycardie (AVRT)"
+  },
+  "why": {
+   "en": [
+    "The circuit is large: down the AV node, through the ventricles, back up an accessory pathway to the atria, and down the node again.",
+    "The ventricles are activated through the normal system, so the QRS is narrow (no delta wave during the tachycardia).",
+    "The atria are reached only after the ventricles and the pathway: a retrograde P sits after the QRS, in the ST segment."
+   ],
+   "de": [
+    "Der Kreis ist groß: durch den AV-Knoten hinab, durch die Kammern, über eine akzessorische Bahn zurück zu den Vorhöfen und wieder durch den Knoten.",
+    "Die Kammern werden über das normale System erregt, daher ist der QRS schmal (keine Delta-Welle während der Tachykardie).",
+    "Die Vorhöfe werden erst nach den Kammern und der Bahn erreicht: Eine retrograde P-Welle liegt nach dem QRS, in der ST-Strecke."
+   ],
+   "es": [
+    "El circuito es grande: baja por el nodo AV, recorre los ventrículos, sube por una vía accesoria hasta las aurículas y vuelve a bajar por el nodo.",
+    "Los ventrículos se activan por el sistema normal, así que el QRS es estrecho (sin onda delta durante la taquicardia).",
+    "Las aurículas se alcanzan solo después de los ventrículos y la vía: una P retrógrada aparece tras el QRS, en el segmento ST."
+   ],
+   "ar": [
+    "الدارة كبيرة: نزولًا عبر العقدة الأذينية البطينية، عبر البطينين، ثم صعودًا عبر مسار ملحق إلى الأذينين، ثم نزولًا عبر العقدة من جديد.",
+    "يتنشط البطينان عبر الجهاز الطبيعي، لذا يكون QRS ضيقًا (لا موجة دلتا أثناء التسرع).",
+    "لا يُبلغ الأذينان إلا بعد البطينين والمسار: تقع موجة P راجعة بعد QRS، في قطعة ST."
+   ],
+   "fr": [
+    "Le circuit est grand : il descend par le nœud AV, traverse les ventricules, remonte par une voie accessoire jusqu'aux oreillettes, puis redescend par le nœud.",
+    "Les ventricules sont activés par le système normal, donc le QRS est fin (pas d'onde delta pendant la tachycardie).",
+    "Les oreillettes ne sont atteintes qu'après les ventricules et la voie : une onde P rétrograde se place après le QRS, dans le segment ST."
+   ],
+   "it": [
+    "Il circuito è ampio: scende per il nodo AV, attraversa i ventricoli, risale per una via accessoria fino agli atri e riscende per il nodo.",
+    "I ventricoli si attivano attraverso il sistema normale, quindi il QRS è stretto (nessuna onda delta durante la tachicardia).",
+    "Gli atri vengono raggiunti solo dopo i ventricoli e la via: un'onda P retrograda si trova dopo il QRS, nel tratto ST."
+   ],
+   "nl": [
+    "Het circuit is groot: via de AV-knoop naar beneden, door de kamers, via een accessoire baan terug naar de boezems en weer door de knoop.",
+    "De kamers worden via het normale systeem geactiveerd, dus het QRS is smal (geen deltagolf tijdens de tachycardie).",
+    "De boezems worden pas na de kamers en de baan bereikt: een retrograde P-top staat na het QRS, in het ST-segment."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Regular narrow tachycardia",
+    "Retrograde P more than 70 ms after the QRS",
+    "No delta wave during the tachycardia"
+   ],
+   "de": [
+    "Regelmäßige Schmalkomplextachykardie",
+    "Retrograde P-Welle mehr als 70 ms nach dem QRS",
+    "Keine Delta-Welle während der Tachykardie"
+   ],
+   "es": [
+    "Taquicardia regular de QRS estrecho",
+    "P retrógrada más de 70 ms después del QRS",
+    "Sin onda delta durante la taquicardia"
+   ],
+   "ar": [
+    "تسرع منتظم بمركبات ضيقة",
+    "موجة P راجعة بعد QRS بأكثر من 70 مللي ثانية",
+    "لا موجة دلتا أثناء التسرع"
+   ],
+   "fr": [
+    "Tachycardie régulière à QRS fins",
+    "Onde P rétrograde plus de 70 ms après le QRS",
+    "Pas d'onde delta pendant la tachycardie"
+   ],
+   "it": [
+    "Tachicardia regolare a QRS stretto",
+    "Onda P retrograda più di 70 ms dopo il QRS",
+    "Nessuna onda delta durante la tachicardia"
+   ],
+   "nl": [
+    "Regelmatige smalcomplextachycardie",
+    "Retrograde P-top meer dan 70 ms na het QRS",
+    "Geen deltagolf tijdens de tachycardie"
+   ]
+  },
+  "atlasEcg": 7889,
+  "atlasDx": "psvt",
+  "model": {
+   "duration": 4000,
+   "avDelay": 90,
+   "reentry": {
+    "circuit": "avrt",
+    "cycle": 330
+   }
+  }
+ },
+ {
+  "key": "aflt",
+  "title": {
+   "en": "Atrial flutter (typical)",
+   "de": "Vorhofflattern (typisch)",
+   "es": "Flutter auricular (típico)",
+   "ar": "الرفرفة الأذينية (النموذجية)",
+   "fr": "Flutter auriculaire (typique)",
+   "it": "Flutter atriale (tipico)",
+   "nl": "Boezemflutter (typisch)"
+  },
+  "why": {
+   "en": [
+    "One wavefront circles the right atrium around the tricuspid valve, about 300 times a minute.",
+    "Part of the route is a narrow, slow strip of muscle between the valve and the inferior vena cava (the cavotricuspid isthmus). It lets the rest of the circuit recover before the front comes round again.",
+    "The front climbs the septum and runs down the free wall, moving away from II, III and aVF: negative flutter waves, one after another like a sawtooth.",
+    "The AV node can't conduct 300/min; here every second wave gets through (2:1), so the ventricles beat at 150/min."
+   ],
+   "de": [
+    "Eine Erregungsfront kreist im rechten Vorhof um die Trikuspidalklappe, etwa 300-mal pro Minute.",
+    "Ein Teil des Weges ist ein schmaler, langsam leitender Muskelstreifen zwischen Klappe und unterer Hohlvene (der cavotrikuspidale Isthmus). Er lässt den Rest des Kreises sich erholen, bevor die Front wiederkommt.",
+    "Die Front steigt am Septum auf und läuft an der freien Wand hinab, weg von II, III und aVF: negative Flatterwellen, eine nach der anderen wie ein Sägezahn.",
+    "Der AV-Knoten kann keine 300/min leiten; hier kommt jede zweite Welle durch (2:1), die Kammern schlagen mit 150/min."
+   ],
+   "es": [
+    "Un único frente gira por la aurícula derecha alrededor de la válvula tricúspide, unas 300 veces por minuto.",
+    "Parte del recorrido es una franja estrecha y lenta de músculo entre la válvula y la vena cava inferior (el istmo cavotricuspídeo). Permite que el resto del circuito se recupere antes de que el frente vuelva.",
+    "El frente sube por el tabique y baja por la pared libre, alejándose de II, III y aVF: ondas de flutter negativas, una tras otra como dientes de sierra.",
+    "El nodo AV no puede conducir 300/min; aquí pasa una de cada dos ondas (2:1) y los ventrículos laten a 150/min."
+   ],
+   "ar": [
+    "جبهة موجة واحدة تدور في الأذين الأيمن حول الصمام ثلاثي الشرفات، نحو 300 مرة في الدقيقة.",
+    "جزء من المسار شريط عضلي ضيق وبطيء بين الصمام والوريد الأجوف السفلي (البرزخ الأجوفي ثلاثي الشرفات). يسمح لبقية الدارة بالتعافي قبل أن تعود الجبهة.",
+    "تصعد الجبهة على الحاجز وتنزل على الجدار الحر، مبتعدة عن II وIII وaVF: موجات رفرفة سالبة متتالية كأسنان المنشار.",
+    "لا تستطيع العقدة الأذينية البطينية توصيل 300 في الدقيقة؛ هنا تمر موجة من كل اثنتين (2:1)، فينبض البطينان بمعدل 150 في الدقيقة."
+   ],
+   "fr": [
+    "Un seul front tourne dans l'oreillette droite autour de la valve tricuspide, environ 300 fois par minute.",
+    "Une partie du trajet est une bande de muscle étroite et lente entre la valve et la veine cave inférieure (l'isthme cavo-tricuspide). Elle laisse le reste du circuit récupérer avant le retour du front.",
+    "Le front monte le long du septum et descend la paroi libre, en s'éloignant de II, III et aVF : des ondes de flutter négatives, l'une après l'autre en dents de scie.",
+    "Le nœud AV ne peut pas conduire 300/min ; ici une onde sur deux passe (2:1), les ventricules battent à 150/min."
+   ],
+   "it": [
+    "Un unico fronte gira nell'atrio destro attorno alla valvola tricuspide, circa 300 volte al minuto.",
+    "Parte del percorso è una striscia di muscolo stretta e lenta tra la valvola e la vena cava inferiore (l'istmo cavo-tricuspidale). Permette al resto del circuito di recuperare prima che il fronte ritorni.",
+    "Il fronte sale lungo il setto e scende lungo la parete libera, allontanandosi da II, III e aVF: onde di flutter negative, una dopo l'altra a dente di sega.",
+    "Il nodo AV non può condurre 300/min; qui passa un'onda su due (2:1), quindi i ventricoli battono a 150/min."
+   ],
+   "nl": [
+    "Eén golffront draait in de rechterboezem rond de tricuspidalisklep, ongeveer 300 keer per minuut.",
+    "Een deel van de route is een smalle, trage spierstrook tussen de klep en de onderste holle ader (de cavotricuspidale isthmus). Die laat de rest van het circuit herstellen voordat het front terugkomt.",
+    "Het front klimt langs het septum en loopt langs de vrije wand naar beneden, weg van II, III en aVF: negatieve fluttergolven, de een na de ander als een zaagtand.",
+    "De AV-knoop kan geen 300/min geleiden; hier komt elke tweede golf door (2:1), dus de kamers kloppen met 150/min."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Sawtooth flutter waves at ~300/min, negative in II, III, aVF",
+    "Regular QRS at 150/min (2:1)",
+    "Narrow QRS"
+   ],
+   "de": [
+    "Sägezahnartige Flatterwellen mit ~300/min, negativ in II, III, aVF",
+    "Regelmäßige QRS mit 150/min (2:1)",
+    "Schmaler QRS"
+   ],
+   "es": [
+    "Ondas de flutter en dientes de sierra a ~300/min, negativas en II, III, aVF",
+    "QRS regulares a 150/min (2:1)",
+    "QRS estrecho"
+   ],
+   "ar": [
+    "موجات رفرفة كأسنان المنشار بنحو 300 في الدقيقة، سالبة في II وIII وaVF",
+    "QRS منتظمة بمعدل 150 في الدقيقة (2:1)",
+    "QRS ضيق"
+   ],
+   "fr": [
+    "Ondes de flutter en dents de scie à ~300/min, négatives en II, III, aVF",
+    "QRS réguliers à 150/min (2:1)",
+    "QRS fin"
+   ],
+   "it": [
+    "Onde di flutter a dente di sega a ~300/min, negative in II, III, aVF",
+    "QRS regolari a 150/min (2:1)",
+    "QRS stretto"
+   ],
+   "nl": [
+    "Zaagtandvormige fluttergolven van ~300/min, negatief in II, III, aVF",
+    "Regelmatige QRS van 150/min (2:1)",
+    "Smal QRS"
+   ]
+  },
+  "atlasEcg": 449,
+  "atlasDx": "aflt",
+  "model": {
+   "duration": 4000,
+   "reentry": {
+    "circuit": "flutter",
+    "cycle": 200,
+    "conduct": 2
+   },
+   "avDelay": 90
+  }
+ },
+ {
+  "key": "afib",
+  "title": {
+   "en": "Atrial fibrillation",
+   "de": "Vorhofflimmern",
+   "es": "Fibrilación auricular",
+   "ar": "الرجفان الأذيني",
+   "fr": "Fibrillation auriculaire",
+   "it": "Fibrillazione atriale",
+   "nl": "Boezemfibrilleren"
+  },
+  "why": {
+   "en": [
+    "There is no organised atrial wave: many small wavelets wander through the atria and keep colliding.",
+    "So there is no P wave, just a low, irregular baseline.",
+    "The AV node is bombarded at random and conducts whenever it has recovered: the ventricular rhythm is irregularly irregular.",
+    "Conduction below the node is normal: narrow QRS."
+   ],
+   "de": [
+    "Es gibt keine geordnete Vorhoferregung: Viele kleine Erregungswellen wandern durch die Vorhöfe und stoßen ständig zusammen.",
+    "Daher gibt es keine P-Welle, nur eine flache, unruhige Grundlinie.",
+    "Der AV-Knoten wird zufällig bombardiert und leitet, sobald er sich erholt hat: Der Kammerrhythmus ist absolut unregelmäßig.",
+    "Unterhalb des Knotens ist die Leitung normal: schmaler QRS."
+   ],
+   "es": [
+    "No hay una onda auricular organizada: muchas ondas pequeñas vagan por las aurículas y chocan sin cesar.",
+    "Por eso no hay onda P, solo una línea de base baja e irregular.",
+    "El nodo AV recibe impulsos al azar y conduce cuando se ha recuperado: el ritmo ventricular es irregularmente irregular.",
+    "Por debajo del nodo la conducción es normal: QRS estrecho."
+   ],
+   "ar": [
+    "لا توجد موجة أذينية منظمة: موجات صغيرة كثيرة تتجول في الأذينين وتتصادم باستمرار.",
+    "لذلك لا توجد موجة P، بل خط أساس منخفض وغير منتظم.",
+    "تُقصف العقدة الأذينية البطينية عشوائيًا وتوصل كلما تعافت: النظم البطيني غير منتظم على نحو عشوائي.",
+    "التوصيل تحت العقدة طبيعي: QRS ضيق."
+   ],
+   "fr": [
+    "Il n'y a pas d'onde auriculaire organisée : de nombreuses petites ondes errent dans les oreillettes et se heurtent sans cesse.",
+    "Il n'y a donc pas d'onde P, seulement une ligne de base basse et irrégulière.",
+    "Le nœud AV est bombardé au hasard et conduit dès qu'il a récupéré : le rythme ventriculaire est irrégulièrement irrégulier.",
+    "Sous le nœud, la conduction est normale : QRS fin."
+   ],
+   "it": [
+    "Non c'è un'onda atriale organizzata: molte piccole onde vagano negli atri e si scontrano di continuo.",
+    "Per questo non c'è l'onda P, solo una linea di base bassa e irregolare.",
+    "Il nodo AV viene bombardato a caso e conduce ogni volta che si è recuperato: il ritmo ventricolare è irregolarmente irregolare.",
+    "Sotto il nodo la conduzione è normale: QRS stretto."
+   ],
+   "nl": [
+    "Er is geen georganiseerde boezemgolf: veel kleine golfjes dwalen door de boezems en botsen steeds op elkaar.",
+    "Daarom is er geen P-top, alleen een lage, onregelmatige basislijn.",
+    "De AV-knoop wordt willekeurig bestookt en geleidt zodra hij hersteld is: het kamerritme is volstrekt onregelmatig.",
+    "Onder de knoop is de geleiding normaal: smal QRS."
+   ]
+  },
+  "looks": {
+   "en": [
+    "No P waves; irregular baseline",
+    "Irregularly irregular RR intervals",
+    "Narrow QRS"
+   ],
+   "de": [
+    "Keine P-Wellen; unruhige Grundlinie",
+    "Absolut unregelmäßige RR-Abstände",
+    "Schmaler QRS"
+   ],
+   "es": [
+    "Sin ondas P; línea de base irregular",
+    "Intervalos RR irregularmente irregulares",
+    "QRS estrecho"
+   ],
+   "ar": [
+    "لا موجات P؛ خط أساس غير منتظم",
+    "فواصل RR غير منتظمة على نحو عشوائي",
+    "QRS ضيق"
+   ],
+   "fr": [
+    "Pas d'onde P ; ligne de base irrégulière",
+    "Intervalles RR irrégulièrement irréguliers",
+    "QRS fin"
+   ],
+   "it": [
+    "Nessuna onda P; linea di base irregolare",
+    "Intervalli RR irregolarmente irregolari",
+    "QRS stretto"
+   ],
+   "nl": [
+    "Geen P-toppen; onregelmatige basislijn",
+    "Volstrekt onregelmatige RR-intervallen",
+    "Smal QRS"
+   ]
+  },
+  "atlasEcg": 8215,
+  "atlasDx": "afib",
+  "model": {
+   "duration": 8000,
+   "avDelay": 90,
+   "af": {
+    "seed": 7,
+    "avRefractory": 330
+   }
+  }
+ },
+ {
+  "key": "pvc",
+  "title": {
+   "en": "Premature ventricular complex (PVC)",
+   "de": "Ventrikuläre Extrasystole (VES)",
+   "es": "Extrasístole ventricular",
+   "ar": "انقباض بطيني مبكر",
+   "fr": "Extrasystole ventriculaire",
+   "it": "Extrasistole ventricolare",
+   "nl": "Ventriculaire extrasystole (VES)"
+  },
+  "why": {
+   "en": [
+    "A spot in the left ventricular wall fires on its own, before the next sinus beat.",
+    "Its wave spreads through muscle, not the Purkinje system: an early, wide QRS with no P before it.",
+    "Recovery follows that abnormal sequence: the T is opposite to the QRS.",
+    "The next sinus P arrives while the conduction system is still refractory and is blocked: a compensatory pause."
+   ],
+   "de": [
+    "Eine Stelle in der linken Kammerwand feuert von selbst, vor dem nächsten Sinusschlag.",
+    "Ihre Welle breitet sich über die Muskulatur aus, nicht über das Purkinje-System: ein früher, breiter QRS ohne P-Welle davor.",
+    "Die Erholung folgt dieser abnormen Abfolge: Die T-Welle ist dem QRS entgegengesetzt.",
+    "Die nächste Sinus-P-Welle trifft auf ein noch refraktäres Leitungssystem und wird blockiert: eine kompensatorische Pause."
+   ],
+   "es": [
+    "Un punto de la pared del ventrículo izquierdo dispara por su cuenta, antes del siguiente latido sinusal.",
+    "Su onda se propaga por el músculo, no por el sistema de Purkinje: un QRS precoz y ancho sin P delante.",
+    "La recuperación sigue esa secuencia anormal: la T es opuesta al QRS.",
+    "La siguiente P sinusal llega cuando el sistema de conducción aún está refractario y se bloquea: una pausa compensadora."
+   ],
+   "ar": [
+    "تطلق نقطة في جدار البطين الأيسر من تلقاء نفسها، قبل الضربة الجيبية التالية.",
+    "تنتشر موجتها عبر العضلة لا عبر شبكة بركنجي: QRS مبكر وعريض بلا موجة P قبله.",
+    "يتبع التعافي هذا التسلسل غير الطبيعي: تكون T عكس QRS.",
+    "تصل موجة P الجيبية التالية والجهاز التوصيلي ما زال في فترة الحران فتُحصر: وقفة تعويضية."
+   ],
+   "fr": [
+    "Un point de la paroi du ventricule gauche décharge de lui-même, avant le battement sinusal suivant.",
+    "Son onde se propage par le muscle, pas par le réseau de Purkinje : un QRS précoce et large sans onde P devant.",
+    "La récupération suit cette séquence anormale : l'onde T est opposée au QRS.",
+    "L'onde P sinusale suivante arrive alors que le système de conduction est encore réfractaire et elle est bloquée : un repos compensateur."
+   ],
+   "it": [
+    "Un punto della parete del ventricolo sinistro scarica da solo, prima del battito sinusale successivo.",
+    "La sua onda si diffonde attraverso il muscolo, non il sistema di Purkinje: un QRS precoce e largo senza onda P davanti.",
+    "Il recupero segue questa sequenza anomala: la T è opposta al QRS.",
+    "L'onda P sinusale successiva arriva quando il sistema di conduzione è ancora refrattario e viene bloccata: una pausa compensatoria."
+   ],
+   "nl": [
+    "Een plek in de wand van de linkerkamer vuurt uit zichzelf, vóór de volgende sinusslag.",
+    "De golf verspreidt zich via de spier, niet via het Purkinjesysteem: een vroeg, breed QRS zonder P-top ervoor.",
+    "Het herstel volgt die abnormale volgorde: de T-top is tegengesteld aan het QRS.",
+    "De volgende sinus-P-top komt aan terwijl het geleidingssysteem nog refractair is en wordt geblokkeerd: een compensatoire pauze."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Early wide QRS with no P before it",
+    "T opposite to the QRS",
+    "Full compensatory pause"
+   ],
+   "de": [
+    "Früher, breiter QRS ohne P-Welle davor",
+    "T dem QRS entgegengesetzt",
+    "Vollständig kompensatorische Pause"
+   ],
+   "es": [
+    "QRS precoz y ancho sin P delante",
+    "T opuesta al QRS",
+    "Pausa compensadora completa"
+   ],
+   "ar": [
+    "QRS مبكر وعريض بلا موجة P قبله",
+    "T عكس QRS",
+    "وقفة تعويضية كاملة"
+   ],
+   "fr": [
+    "QRS précoce et large sans onde P devant",
+    "Onde T opposée au QRS",
+    "Repos compensateur complet"
+   ],
+   "it": [
+    "QRS precoce e largo senza onda P davanti",
+    "T opposta al QRS",
+    "Pausa compensatoria completa"
+   ],
+   "nl": [
+    "Vroeg, breed QRS zonder P-top ervoor",
+    "T tegengesteld aan het QRS",
+    "Volledig compensatoire pauze"
+   ]
+  },
+  "atlasEcg": 1993,
+  "atlasDx": "pvc",
+  "model": {
+   "duration": 4000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90,
+   "ectopic": [
+    {
+     "site": "pvc",
+     "t": 1450
+    }
+   ]
+  }
+ },
+ {
+  "key": "vt",
+  "title": {
+   "en": "Ventricular tachycardia (monomorphic)",
+   "de": "Ventrikuläre Tachykardie (monomorph)",
+   "es": "Taquicardia ventricular (monomorfa)",
+   "ar": "تسرع القلب البطيني (أحادي الشكل)",
+   "fr": "Tachycardie ventriculaire (monomorphe)",
+   "it": "Tachicardia ventricolare (monomorfa)",
+   "nl": "Ventriculaire tachycardie (monomorf)"
+  },
+  "why": {
+   "en": [
+    "A scar in the left ventricle has a channel of surviving muscle; a wave circles the scar and leaves it through the same exit every lap (here 180/min).",
+    "Each lap activates the ventricles from that exit, through muscle: a wide QRS, the same shape every beat.",
+    "The atria keep their own sinus rate, unrelated to the QRS: AV dissociation.",
+    "A regular wide-complex tachycardia is VT until proven otherwise."
+   ],
+   "de": [
+    "Eine Narbe in der linken Kammer enthält einen Kanal überlebender Muskulatur; eine Welle kreist um die Narbe und verlässt sie in jeder Runde durch denselben Ausgang (hier 180/min).",
+    "Jede Runde erregt die Kammern von diesem Ausgang aus über die Muskulatur: ein breiter QRS, jeder Schlag gleich geformt.",
+    "Die Vorhöfe behalten ihre eigene Sinusfrequenz, ohne Bezug zum QRS: AV-Dissoziation.",
+    "Eine regelmäßige Breitkomplextachykardie ist eine VT, bis das Gegenteil bewiesen ist."
+   ],
+   "es": [
+    "Una cicatriz en el ventrículo izquierdo tiene un canal de músculo superviviente; una onda gira alrededor de la cicatriz y sale por la misma salida en cada vuelta (aquí 180/min).",
+    "Cada vuelta activa los ventrículos desde esa salida, por el músculo: un QRS ancho, con la misma forma en cada latido.",
+    "Las aurículas mantienen su propia frecuencia sinusal, sin relación con el QRS: disociación AV.",
+    "Una taquicardia regular de QRS ancho es una TV mientras no se demuestre lo contrario."
+   ],
+   "ar": [
+    "في البطين الأيسر ندبة فيها قناة من العضلة الناجية؛ تدور موجة حول الندبة وتخرج منها من المخرج نفسه في كل دورة (هنا 180 في الدقيقة).",
+    "تنشّط كل دورة البطينين من ذلك المخرج عبر العضلة: QRS عريض بالشكل نفسه في كل ضربة.",
+    "يحافظ الأذينان على معدلهما الجيبي الخاص بلا علاقة بـ QRS: انفصال أذيني بطيني.",
+    "تسرع القلب المنتظم ذو المركبات العريضة هو تسرع بطيني حتى يثبت العكس."
+   ],
+   "fr": [
+    "Une cicatrice dans le ventricule gauche contient un canal de muscle survivant ; une onde tourne autour de la cicatrice et en sort par la même sortie à chaque tour (ici 180/min).",
+    "Chaque tour active les ventricules depuis cette sortie, par le muscle : un QRS large, de même forme à chaque battement.",
+    "Les oreillettes gardent leur propre fréquence sinusale, sans lien avec le QRS : dissociation AV.",
+    "Une tachycardie régulière à QRS larges est une TV jusqu'à preuve du contraire."
+   ],
+   "it": [
+    "Una cicatrice nel ventricolo sinistro contiene un canale di muscolo sopravvissuto; un'onda gira attorno alla cicatrice e ne esce dalla stessa uscita a ogni giro (qui 180/min).",
+    "Ogni giro attiva i ventricoli da quell'uscita, attraverso il muscolo: un QRS largo, con la stessa forma a ogni battito.",
+    "Gli atri mantengono la propria frequenza sinusale, senza relazione con il QRS: dissociazione AV.",
+    "Una tachicardia regolare a QRS largo è una TV fino a prova contraria."
+   ],
+   "nl": [
+    "Een litteken in de linkerkamer bevat een kanaal van overlevende spier; een golf draait rond het litteken en verlaat het elke ronde via dezelfde uitgang (hier 180/min).",
+    "Elke ronde activeert de kamers vanaf die uitgang, via de spier: een breed QRS, bij elke slag dezelfde vorm.",
+    "De boezems houden hun eigen sinusfrequentie, zonder verband met het QRS: AV-dissociatie.",
+    "Een regelmatige breedcomplextachycardie is een VT tot het tegendeel bewezen is."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Regular wide QRS (≥ 140 ms) at > 120/min",
+    "Every beat the same shape",
+    "P waves unrelated to the QRS (AV dissociation)"
+   ],
+   "de": [
+    "Regelmäßiger breiter QRS (≥ 140 ms) mit > 120/min",
+    "Jeder Schlag gleich geformt",
+    "P-Wellen ohne Bezug zum QRS (AV-Dissoziation)"
+   ],
+   "es": [
+    "QRS ancho regular (≥ 140 ms) a > 120/min",
+    "Todos los latidos con la misma forma",
+    "Ondas P sin relación con el QRS (disociación AV)"
+   ],
+   "ar": [
+    "QRS عريض منتظم (≥ 140 مللي ثانية) بمعدل > 120 في الدقيقة",
+    "كل الضربات بالشكل نفسه",
+    "موجات P بلا علاقة بـ QRS (انفصال أذيني بطيني)"
+   ],
+   "fr": [
+    "QRS large régulier (≥ 140 ms) à > 120/min",
+    "Tous les battements de même forme",
+    "Ondes P sans lien avec le QRS (dissociation AV)"
+   ],
+   "it": [
+    "QRS largo regolare (≥ 140 ms) a > 120/min",
+    "Tutti i battiti della stessa forma",
+    "Onde P senza relazione con il QRS (dissociazione AV)"
+   ],
+   "nl": [
+    "Regelmatig breed QRS (≥ 140 ms) van > 120/min",
+    "Elke slag dezelfde vorm",
+    "P-toppen zonder verband met het QRS (AV-dissociatie)"
+   ]
+  },
+  "atlasEcg": null,
+  "atlasDx": null,
+  "model": {
+   "duration": 4000,
+   "sinus": {
+    "cycle": 700
+   },
+   "avDelay": 90,
+   "reentry": {
+    "circuit": "vt",
+    "cycle": 330
+   }
+  }
+ }
 ]

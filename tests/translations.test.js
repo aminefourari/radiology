@@ -20,6 +20,14 @@ function dataNames() {
     (e.clues || []).forEach((c, i) => out.push([`ecg ${e.id} clue ${i}`, c.text]));
     for (const [step, o] of Object.entries(e.override || {})) if (o.note) out.push([`ecg ${e.id} override ${step}`, o.note]);
   }
+  for (const r of read("site/heart/rhythms.json")) {
+    out.push([`rhythm ${r.key} title`, r.title]);
+    for (const part of ["why", "looks"]) {
+      const n = r[part]?.en?.length ?? 0;
+      for (let i = 0; i < n; i++) out.push([`rhythm ${r.key} ${part} ${i}`, Object.fromEntries(Object.entries(r[part]).map(([l, a]) => [l, a[i]]))]);
+      if (!n) out.push([`rhythm ${r.key} ${part}`, {}]);
+    }
+  }
   for (const f of readdirSync(new URL("../pipeline/cases/", import.meta.url)).filter((f) => f.endsWith(".json"))) {
     const c = read(`pipeline/cases/${f}`);
     if (c.title) out.push([`case ${f} title`, c.title]);
@@ -89,4 +97,21 @@ test("UI strings: every case region and every CT window has a name in en.json", 
     ...Object.keys(WINDOWS).map((w) => `win.${w}`),
   ];
   assert.deepEqual(keys.filter((k) => !(k in en)), []);
+});
+
+test("heart page: every rhythm has a title, 3–6 why points and 2–5 ECG bullets, same count in every language", () => {
+  for (const r of read("site/heart/rhythms.json")) {
+    assert.ok(r.why?.en?.length >= 3 && r.why.en.length <= 6, `${r.key} why`);
+    assert.ok(r.looks?.en?.length >= 2 && r.looks.en.length <= 5, `${r.key} looks`);
+    for (const lang of LANGS) {
+      assert.equal(r.why[lang]?.length, r.why.en.length, `${r.key} why ${lang}`);
+      assert.equal(r.looks[lang]?.length, r.looks.en.length, `${r.key} looks ${lang}`);
+    }
+  }
+});
+
+test("heart page: a caption for every event the simulator emits", () => {
+  const need = ["rest", "P", "P.retro", "P.flutter", "P.af", "AV", "blocked", "pre", "QRS", "QRS.ventricular", "QRS.junction", "ST", "T",
+    "reentry.flutter", "reentry.avnrt", "reentry.avrt", "reentry.vt"].map((k) => `heart.cap.${k}`);
+  assert.deepEqual(need.filter((k) => !(k in en)), []);
 });

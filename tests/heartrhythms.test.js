@@ -239,3 +239,12 @@ test("ladder: AVNRT and AVRT show retrograde conduction; Mobitz I a blocked impu
   for (const k of ["avnrt", "avrt"]) assert.ok(ladderLines(sim(k).events).some((l) => l.retro), k);
   assert.ok(ladderLines(sim("mob1").events).some((l) => l.blocked));
 });
+
+test("\"See this tracing\" links to the first atlas example of the rhythm's diagnosis, and that ECG exists", async () => {
+  const { existsSync } = await import("node:fs");
+  const first = Object.fromEntries(read("pipeline/ecgs.json").map((d) => [d.dx, d.examples[0].id]));
+  for (const r of read("site/heart/rhythms.json")) {
+    assert.equal(r.atlasEcg, r.atlasDx ? first[r.atlasDx] : null, r.key);
+    if (r.atlasEcg != null) assert.ok(existsSync(new URL(`../site/ecg/${r.atlasEcg}.json`, import.meta.url)), `${r.key}: ecg ${r.atlasEcg}`);
+  }
+});
