@@ -166,3 +166,14 @@ test("APD comes from the reference (normal) activation: an abnormal sequence giv
   const repNormal = repolarise(g, normal);
   assert.ok(Math.abs(repNormal[0] - rep[0] + (abnormal[0] - normal[0])) < 1e-9);
 });
+
+test("retrograde Purkinje entry: only when asked, and with a junction delay", () => {
+  // Muscle line 0..20 (1 mm), Purkinje copies of vertices 0..20 (region 0) — a fast parallel lane.
+  const json = gridGraph(21, 1);
+  json.purkinje = Array(21).fill(0);
+  const g = loadGraph(json, { radius: 1.5, purkinjeRadius: 1.5 });
+  const plain = activate(g, [{ v: 0, t: 0 }]);
+  const retro = activate(g, [{ v: 0, t: 0 }], { retrograde: true });
+  assert.ok(Math.abs(plain[20] - 40) < 1e-6, "without it: muscle only");
+  assert.ok(retro[20] < 30 && retro[20] > 10, `with it: ${retro[20]} ms`);
+});

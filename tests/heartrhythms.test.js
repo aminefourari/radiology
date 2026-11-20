@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { loadGraph, simulate, wrapTime } from "../site/js/heartsim.js";
+import { eventAt, loadGraph, simulate, wrapTime } from "../site/js/heartsim.js";
 import { axisDeg, netArea, peaks, qrsShape, upstrokeMs } from "../site/js/heartmeasure.js";
 
 const read = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url), "utf8"));
@@ -177,7 +177,7 @@ test("Complete heart block: no P–QRS relation, slow wide ventricular escape", 
   assert.equal(of(s, "AV").length, 0);
   assert.ok(rateOf(s) < 60000 / 800 && rateOf(s) < 40, `ventricular rate ${rateOf(s)}`);
   const q = mid(of(s, "QRS"));
-  assert.ok(q.t1 - q.t0 >= 120, `escape QRS ${q.t1 - q.t0}`);
+  assert.ok(q.t1 - q.t0 >= 120 && q.t1 - q.t0 <= 200, `escape QRS ${q.t1 - q.t0}`);
   const lag = of(s, "QRS").map((qq) => qq.t0 - of(s, "P").filter((p) => p.t0 < qq.t0).at(-1).t0);
   assert.ok(Math.max(...lag) - Math.min(...lag) > 100, `P–QRS intervals ${lag}`);
 });
@@ -218,7 +218,7 @@ test("AF: no regular atrial activity, irregularly irregular RR", () => {
 test("PVC: early wide beat without a premature P, then a compensatory pause", () => {
   const s = sim("pvc");
   const v = of(s, "QRS").find((e) => e.origin === "ectopic");
-  assert.ok(v.t1 - v.t0 >= 120, `PVC QRS ${v.t1 - v.t0}`);
+  assert.ok(v.t1 - v.t0 >= 120 && v.t1 - v.t0 <= 200, `PVC QRS ${v.t1 - v.t0}`);
   assert.ok(!of(s, "P").some((p) => p.t0 > v.t0 - 200 && p.t0 < v.t0), "no P just before the PVC");
   const Q = of(s, "QRS"), i = Q.indexOf(v);
   assert.ok(Math.abs(Q[i + 1].t0 - Q[i - 1].t0 - 1600) <= 30, `pause ${Q[i + 1].t0 - Q[i - 1].t0}`);
@@ -227,7 +227,7 @@ test("PVC: early wide beat without a premature P, then a compensatory pause", ()
 test("VT: regular wide tachycardia ≥ 120/min with AV dissociation", () => {
   const s = sim("vt"), q = mid(of(s, "QRS"));
   assert.ok(rateOf(s) >= 120 && cv(rr(s)) < 0.02, `rate ${rateOf(s)}`);
-  assert.ok(q.t1 - q.t0 >= 140, `QRS ${q.t1 - q.t0}`);
+  assert.ok(q.t1 - q.t0 >= 140 && q.t1 - q.t0 <= 220, `QRS ${q.t1 - q.t0}`);
   const P = of(s, "P");
   const atrialCycle = (P.at(-1).t0 - P[0].t0) / (P.length - 1);
   assert.ok(Math.abs(atrialCycle - mid(rr(s))) > 100, "atria at their own rate");
@@ -247,4 +247,21 @@ test("\"See this tracing\" links to the first atlas example of the rhythm's diag
     assert.equal(r.atlasEcg, r.atlasDx ? first[r.atlasDx] : null, r.key);
     if (r.atlasEcg != null) assert.ok(existsSync(new URL(`../site/ecg/${r.atlasEcg}.json`, import.meta.url)), `${r.key}: ecg ${r.atlasEcg}`);
   }
+});
+
+test("captions: a visible wave wins over the AV delay; flutter shows its circuit between flutter waves", () => {
+  const n = sim("nsr"), p = of(n, "P")[1];
+  assert.equal(eventAt(n, p.t1 - 5).type, "P", "late in the P wave the caption is still the P wave");
+  assert.equal(eventAt(n, p.t1 + 5).type, "AV");
+  const f = sim("aflt");
+  const types = new Set();
+  for (let t = 0; t < f.duration; t += 5) types.add(eventAt(f, t)?.type);
+  assert.ok(types.has("reentry") && !types.has("AV"), [...types].join());
+  const a = sim("afib");
+  for (let t = 0; t < a.duration; t += 5) assert.notEqual(eventAt(a, t)?.type, "AV", `AF caption at ${t}`);
+});
+
+test("RBBB text names the V1 pattern the simulation draws (rSr′), in every language", () => {
+  const r = rhythms.rbbb;
+  for (const [lang, items] of Object.entries(r.looks)) assert.ok(items.some((x) => x.includes("rSr′")), lang);
 });

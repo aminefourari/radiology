@@ -1,6 +1,6 @@
 // heart.html wiring: one simulation drives the tracing, the ladder, the caption and the 3D heart.
 import { LEADS, eventAt, leadAxes, loadGraph, simulate, vertexState, wrapTime } from "./heartsim.js";
-import { applyWhatIf, formatHash, parseHash } from "./heartstate.js";
+import { applyWhatIf, formatHash, parseHash, toggleWhatIf } from "./heartstate.js";
 import { ladderLines } from "./ladder.js";
 import { ROW_MM, panels, paperMm, pathData, tracePoints, waveBands } from "./ecgplot.js";
 import { applyDir, loadLanguages, loadStrings, localized, saveLang, startLang, t } from "./i18n.js";
@@ -68,7 +68,7 @@ async function boot() {
     const lead = e.target.closest?.("text")?.dataset.lead;
     if (lead) { ui.lead = lead; draw(); renderChestHint(); }
   };
-  for (const box of document.querySelectorAll("[data-w]")) box.onchange = () => { st.whatIf[box.dataset.w] = box.checked; load(); };
+  for (const box of document.querySelectorAll("[data-w]")) box.onchange = () => { st.whatIf = toggleWhatIf(st.whatIf, box.dataset.w, box.checked); load(); };
   $("av-delay").oninput = (e) => { st.whatIf.avDelay = +e.target.value; $("av-out").textContent = `${e.target.value} ms`; };
   $("av-delay").onchange = () => load();
   $("whatif-reset").onclick = () => { st.whatIf = parseHash("", picker).whatIf; load(); };

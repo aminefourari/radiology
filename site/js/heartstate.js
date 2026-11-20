@@ -9,12 +9,13 @@ export function parseHash(hash, rhythmKeys) {
   const rhythm = rhythmKeys.includes(h.get("rhythm")) ? h.get("rhythm") : "nsr";
   const view = VIEWS.includes(h.get("view")) ? h.get("view") : "outside";
   const speed = SPEEDS.includes(Number(h.get("speed"))) && h.has("speed") ? Number(h.get("speed")) : 0.2;
-  const t = Math.max(0, Number(h.get("t")) || 0);
+  const t = Number(h.get("t")) > 0 && Number.isFinite(Number(h.get("t"))) ? Number(h.get("t")) : 0;
   const whatIf = { ...WHAT_IF };
   if (rhythm === "nsr") {
     for (const k of ["cutRbb", "cutLbb", "blockNode", "accessory", "extraBeat"]) whatIf[k] = h.get(k) === "1";
     const pr = Number(h.get("avDelay"));
     if (pr >= 120 && pr <= 400) whatIf.avDelay = pr;
+    for (const k of ["blockNode", "accessory"]) if (whatIf[k]) Object.assign(whatIf, toggleWhatIf(whatIf, k, true));
   }
   return { rhythm, view, speed, t, whatIf };
 }
@@ -30,23 +31,36 @@ export function formatHash({ rhythm, view, speed, t, whatIf }) {
   return s ? `#${s}` : "";
 }
 
-// The normal-heart model with the learner's changes, and the rhythm the heart now has.
+// What-ifs the model can't combine: blocking the AV node or adding an accessory pathway excludes the
+// other AV-conduction changes. Turning one on turns its conflicts off.
+const CONFLICTS = { blockNode: ["cutRbb", "cutLbb", "accessory"], accessory: ["cutRbb", "cutLbb", "blockNode"],
+  cutRbb: ["blockNode", "accessory"], cutLbb: ["blockNode", "accessory"] };
+
+export function toggleWhatIf(w, key, on) {
+  const out = { ...w, [key]: on };
+  if (on) for (const k of CONFLICTS[key] ?? []) out[k] = false;
+  return out;
+}
+
+// The normal-heart model with the learner's changes, and the rhythm the heart now has: the most important
+// change wins (complete block, then pre-excitation, bundle branch block, long PR, extra beat).
 export function applyWhatIf(base, w) {
   const m = structuredClone(base);
-  const becomes = [];
+  const named = [];
   if (w.cutRbb && w.cutLbb) {
-    Object.assign(m, { block: { level: "his", pattern: [0] }, escape: { site: "ventricle", cycle: 1700 } });
-    becomes.push("3avb");
-  } else if (w.cutRbb) { m.cut = ["rbb"]; becomes.push("rbbb"); } else if (w.cutLbb) { m.cut = ["lbb"]; becomes.push("lbbb"); }
-  if (w.avDelay !== WHAT_IF.avDelay) {
-    m.avDelay = base.avDelay + (w.avDelay - WHAT_IF.avDelay);
-    if (w.avDelay > 200) becomes.push("1avb");
-  }
+    Object.assign(m, { cut: ["rbb", "lbb"], block: { level: "his", pattern: [0] }, escape: { site: "ventricle", cycle: 1700 } });
+    named.push("3avb");
+  } else if (w.cutRbb) { m.cut = ["rbb"]; named.push("rbbb"); } else if (w.cutLbb) { m.cut = ["lbb"]; named.push("lbbb"); }
   if (w.blockNode) {
     Object.assign(m, { block: { level: "node", pattern: [0] }, escape: { site: "junction", cycle: 1300 } });
-    becomes.push("3avb_node");
+    named.unshift("3avb_node");
   }
-  if (w.accessory) { m.accessory = true; becomes.push("wpw"); }
-  if (w.extraBeat) { m.ectopic = [{ site: "pvc", t: 1450 }]; becomes.push("pvc"); }
-  return becomes.length ? { model: m, becomes: becomes[0] } : { model: base, becomes: "nsr" };
+  if (w.accessory) { m.accessory = true; named.unshift("wpw"); }
+  if (w.avDelay !== WHAT_IF.avDelay) {
+    m.avDelay = base.avDelay + (w.avDelay - WHAT_IF.avDelay);
+    if (w.avDelay > 200 && !w.blockNode && !w.accessory && !(w.cutRbb && w.cutLbb)) named.push("1avb");
+  }
+  if (w.extraBeat) { m.ectopic = [{ site: "pvc", t: 1450 }]; named.push("pvc"); }
+  const changed = JSON.stringify(m) !== JSON.stringify(base);
+  return { model: changed ? m : base, becomes: named[0] ?? "nsr" };
 }

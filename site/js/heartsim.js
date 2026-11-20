@@ -8,6 +8,7 @@ export const CONDUCTION = 4; // chamber id of Purkinje and conduction-line nodes
 const LINE_TISSUE = { his: TISSUE.his, lbb: TISSUE.purkinje, laf: TISSUE.purkinje, lpf: TISSUE.purkinje, rbb: TISSUE.purkinje };
 const LINE_REGION = { lbb: 0, laf: 1, lpf: 2, rbb: 3 }; // Purkinje region each bundle feeds
 const PMJ_MM = 2; // Purkinje–muscle junction: one-way, a short fixed delay
+const RETRO_PMJ_MS = 10; // muscle → Purkinje (retrograde) at the junction: slower, used only for ventricular-origin beats
 
 const groupOf = (c) => (c <= 1 ? 0 : 1); // atria / ventricles: no muscle edge crosses the AV ring
 
@@ -122,8 +123,13 @@ export function loadGraph(json, { radius = 5, purkinjeRadius = 6, lineStep = 2 }
   const put = (a, b, d, t) => { const k = fill[a]++; nbr[k] = b; len[k] = d; tissue[k] = t; };
   for (const [a, b, d, t, oneway] of edges) { put(a, b, d, t); if (!oneway) put(b, a, d, t); }
 
+  // Retrograde junction edges (muscle → its Purkinje copy), kept apart: only beats that start in the ventricular
+  // muscle (PVC, VT, escape) use them; conducted beats, incl. bundle branch block, don't.
+  const retro = new Map();
+  for (const [v, id] of purkNode) retro.set(v, id);
+
   return {
-    n, nMesh, pos: Float32Array.from(pos), area: Float32Array.from(area), chamber: Uint8Array.from(chamber),
+    n, nMesh, pos: Float32Array.from(pos), retro, area: Float32Array.from(area), chamber: Uint8Array.from(chamber),
     start, nbr, len, tissue, lineNodes, purkinje: purkNode,
     landmarks: json.landmarks, electrodes: json.electrodes, centre: json.centre,
   };
@@ -168,7 +174,7 @@ class Heap {
 // Earliest activation time per vertex from timed sources (Dijkstra). cut: vertices that don't conduct;
 // allow: optional Uint8Array indexed by chamber id, 1 = the impulse may enter; refractoryUntil: optional
 // Float32Array, a vertex can't activate before it.
-export function activate(g, sources, { cut = new Set(), velocity = VELOCITY, allow = null, refractoryUntil = null, maxTime = Infinity } = {}) {
+export function activate(g, sources, { cut = new Set(), velocity = VELOCITY, allow = null, refractoryUntil = null, maxTime = Infinity, retrograde = false } = {}) {
   const act = new Float64Array(g.n).fill(Infinity); // Float64: rounding would let zero-length edges re-relax forever
   const ok = (v, t) => !cut.has(v) && (!allow || allow[g.chamber[v]]) && (!refractoryUntil || t >= refractoryUntil[v]);
   const heap = new Heap();
@@ -180,6 +186,11 @@ export function activate(g, sources, { cut = new Set(), velocity = VELOCITY, all
       const v = g.nbr[k];
       const tv = t + g.len[k] / velocity[g.tissue[k]];
       if (tv < act[v] && ok(v, tv)) { act[v] = tv; heap.push(tv, v); }
+    }
+    const p = retrograde ? g.retro.get(u) : undefined;
+    if (p !== undefined) {
+      const tp = t + RETRO_PMJ_MS;
+      if (tp < act[p] && ok(p, tp)) { act[p] = tp; heap.push(tp, p); }
     }
   }
   return act;
@@ -346,7 +357,10 @@ export function simulate(g, model) {
     // The scar blocks conduction; the exit (where the circuit leaves the scar) and its neighbours stay excitable.
     const exit = new Set([lm.vt_exit]);
     for (let k = g.start[lm.vt_exit]; k < g.start[lm.vt_exit + 1]; k++) exit.add(g.nbr[k]);
-    for (const v of lm.vt_scar) if (!exit.has(v)) cut.add(v);
+    for (const v of lm.vt_scar) {
+      if (!exit.has(v)) cut.add(v);
+      if (g.retro.has(v)) cut.add(g.retro.get(v)); // the scar's Purkinje fibres are dead too
+    }
   }
   const ref = reference(g);
   const atrialRefractory = new Float64Array(g.n).fill(-Infinity);
@@ -442,7 +456,7 @@ export function simulate(g, model) {
   // 4. Spread each ventricular impulse; tissue is refractory until it has recovered from the previous beat.
   const refractory = new Float64Array(g.n).fill(-Infinity);
   for (const s of kept) {
-    const act = activate(g, s.sources, { allow: VENTRICLES, cut, refractoryUntil: refractory });
+    const act = activate(g, s.sources, { allow: VENTRICLES, cut, refractoryUntil: refractory, retrograde: ["ectopic", "ventricle", "vt"].includes(s.kind) });
     const [lo, hi] = meshSpan(g, act, VENTRICLES);
     if (!Number.isFinite(lo)) continue;
     const repol = repolarise(g, act, { reference: ref });
@@ -470,7 +484,7 @@ export function simulate(g, model) {
   const vectors = heartVectors(g, wavefronts, D);
   const leads = leadSignals(g, wavefronts, D, { vectors, gain: LEAD_GAIN });
   events.sort((a, b) => a.t0 - b.t0 || a.t1 - b.t1);
-  return { duration: D, fs: 500, wavefronts, vectors, leads, events };
+  return { duration: D, fs: 500, wavefronts, vectors, leads, events, af: !!model.af };
 }
 
 // mV per unit of heart vector: sets the NSR R wave in V5 to about 1.5 mV.
@@ -496,12 +510,21 @@ export function vertexState(sim, t, out) {
   return out;
 }
 
-// The innermost event covering t (shortest wins), for the caption.
+// The event to caption at time t: what is visible wins (pre-excitation, QRS, P, T, a re-entry circuit), then the
+// quieter phases (blocked impulse, AV delay, ST); among equals the shortest. In atrial fibrillation the baseline is
+// never quiet, so fibrillation is the caption whenever nothing ventricular is happening.
+const CAPTION_ORDER = ["pre", "QRS", "P", "T", "reentry", "blocked", "AV", "ST", "PR"];
 export function eventAt(sim, t) {
-  let best = null;
-  for (const e of sim.events) if (e.t0 <= t && t < e.t1 && (!best || e.t1 - e.t0 < best.t1 - best.t0)) best = e;
+  let best = null, rank = Infinity;
+  for (const e of sim.events) {
+    if (!(e.t0 <= t && t < e.t1)) continue;
+    const r = CAPTION_ORDER.indexOf(e.type);
+    if (r < rank || (r === rank && e.t1 - e.t0 < best.t1 - best.t0)) { best = e; rank = r; }
+  }
+  if (sim.af && (!best || rank > CAPTION_ORDER.indexOf("T"))) return AF_EVENT;
   return best;
 }
+const AF_EVENT = Object.freeze({ type: "P", origin: "af", t0: 0, t1: 0 });
 
 function seeded(seed) {
   let a = seed >>> 0;
