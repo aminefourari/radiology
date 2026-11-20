@@ -264,16 +264,18 @@ def heart():
     split, mid = on_septum(0.3), pos[on_septum(0.5)]
     rv_mid = int(rv_ids[np.linalg.norm(pos[rv_ids] - mid, axis=1).argmin()])
     hint = {k: nearest(n, p) for k, (n, p) in lm["hints"].items()}
-    lines = {"his": [avnode, his_end], "lbb": [his_end, split], "laf": [split, hint["laf_end"]],
-             "lpf": [split, hint["lpf_end"]], "rbb": [his_end, rv_mid, hint["rbb_end"]]}
+    lines = {"his": [avnode, his_end], "lbb": [his_end, split], "rbb": [his_end, rv_mid, hint["rbb_end"]]}
 
-    # Purkinje regions: apical 3/4 of the endocardium. 0 LV septal (main LBB), 1 anterior fascicle,
-    # 2 posterior fascicle, 3 right ventricle; -1 none.
+    # Purkinje regions (endocardium from 10 % of the way base→apex): 0 LV septum (main LBB), 1 anterosuperior LV
+    # (anterior fascicle), 2 posteroinferior LV (posterior fascicle), 3 right ventricle; -1 none.
     purk = np.full(len(pos), -1)
     lv_p = lv_endo[frac[lv_endo] > 0.1]
-    ends = pos[[split, hint["laf_end"], hint["lpf_end"]]]
-    purk[lv_p] = np.linalg.norm(pos[lv_p][:, None] - ends[None], axis=2).argmin(1)
+    up = np.array([0, 0.5, 1.0]) - (np.array([0, 0.5, 1.0]) @ axis) / (axis @ axis) * axis
+    side = (pos[lv_p] - cav) @ up
+    purk[lv_p] = np.where(np.isin(lv_p, sept_endo), 0, np.where(side > 0, 1, 2))
     purk[rv_ids[frac[rv_ids] > 0.1]] = 3
+    region_end = lambda r: int(lv_p[purk[lv_p] == r][np.linalg.norm(pos[lv_p[purk[lv_p] == r]] - pos[lv_p[purk[lv_p] == r]].mean(0), axis=1).argmin()])
+    lines["laf"], lines["lpf"] = [split, region_end(1)], [split, region_end(2)]
 
     # Flutter circuit: the tricuspid ring ordered so the septal side (towards the LV) is climbed.
     tc = pos[tri_ring].mean(0)

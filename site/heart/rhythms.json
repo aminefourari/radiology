@@ -1,7 +1,19 @@
 [
  {"key": "nsr", "atlasDx": "normal", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90}},
+ {"key": "sbrad", "atlasDx": "sbrad", "model": {"duration": 6000, "sinus": {"cycle": 1400}, "avDelay": 90}},
+ {"key": "stach", "atlasDx": "stach", "model": {"duration": 3000, "sinus": {"cycle": 500}, "avDelay": 80}},
+ {"key": "1avb", "atlasDx": "1avb", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 220}},
+ {"key": "mob1", "atlasDx": "2avb", "model": {"duration": 6400, "sinus": {"cycle": 800}, "avDelay": 110, "wenckebach": {"inc": 80, "every": 4}}},
+ {"key": "mob2", "atlasDx": "2avb", "model": {"duration": 6400, "sinus": {"cycle": 800}, "avDelay": 90, "block": {"level": "his", "pattern": [1, 1, 1, 0]}}},
+ {"key": "3avb", "atlasDx": "3avb", "model": {"duration": 8000, "sinus": {"cycle": 800}, "avDelay": 90, "block": {"level": "his", "pattern": [0]}, "escape": {"site": "ventricle", "cycle": 1700}}},
+ {"key": "3avb_node", "atlasDx": "3avb", "hidden": true, "model": {"duration": 8000, "sinus": {"cycle": 800}, "avDelay": 90, "block": {"level": "node", "pattern": [0]}, "escape": {"site": "junction", "cycle": 1300}}},
  {"key": "rbbb", "atlasDx": "rbbb", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "cut": ["rbb"]}},
  {"key": "lbbb", "atlasDx": "lbbb", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "cut": ["lbb"]}},
  {"key": "wpw", "atlasDx": "wpw", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "accessory": true}},
- {"key": "aflt", "atlasDx": "aflt", "model": {"duration": 4000, "reentry": {"circuit": "flutter", "cycle": 200, "conduct": 2}, "avDelay": 90}}
+ {"key": "avnrt", "atlasDx": "psvt", "model": {"duration": 4000, "avDelay": 90, "reentry": {"circuit": "avnrt", "cycle": 340}}},
+ {"key": "avrt", "atlasDx": "psvt", "model": {"duration": 4000, "avDelay": 90, "reentry": {"circuit": "avrt", "cycle": 330}}},
+ {"key": "aflt", "atlasDx": "aflt", "model": {"duration": 4000, "reentry": {"circuit": "flutter", "cycle": 200, "conduct": 2}, "avDelay": 90}},
+ {"key": "afib", "atlasDx": "afib", "model": {"duration": 8000, "avDelay": 90, "af": {"seed": 7, "avRefractory": 330}}},
+ {"key": "pvc", "atlasDx": "pvc", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "ectopic": [{"site": "pvc", "t": 1450}]}},
+ {"key": "vt", "atlasDx": null, "model": {"duration": 4000, "sinus": {"cycle": 700}, "avDelay": 90, "reentry": {"circuit": "vt", "cycle": 330}}}
 ]

@@ -310,7 +310,8 @@ const VENTRICLES = Uint8Array.from([0, 0, 1, 1, 1]);
 const ATRIAL_WEIGHT = 0.06, ATRIAL_REPOL_WEIGHT = 0.015; // thin atrial walls: small P, smaller Ta
 const ATRIAL_APD = { apd: 200, slope: 0.3 };
 const ATRIAL_REFRACTORY = 150, VENTRICULAR_GUARD = 30; // ms the atria / a just-recovered vertex stay inexcitable
-const HIS_REFRACTORY = 380; // after a ventricular beat the His–Purkinje system won't conduct (concealed PVC → pause)
+const HIS_REFRACTORY = 380;
+const RETRO_PATHWAY_MS = 35; // ventricular end → atrial end of the accessory pathway, retrograde (AVRT) // after a ventricular beat the His–Purkinje system won't conduct (concealed PVC → pause)
 
 const meshSpan = (g, act, allow) => {
   let lo = Infinity, hi = -Infinity;
@@ -341,7 +342,12 @@ export function simulate(g, model) {
   const rand = seeded(model.af?.seed ?? 1);
   const atrial = [], ventricular = [], events = [];
   const cut = new Set((model.cut ?? []).flatMap((c) => (c === "lbb" ? ["lbb", "laf", "lpf"] : [c])).flatMap((c) => g.lineNodes[c].slice(1)));
-  if (model.reentry?.circuit === "vt") for (const v of lm.vt_scar) cut.add(v);
+  if (model.reentry?.circuit === "vt") {
+    // The scar blocks conduction; the exit (where the circuit leaves the scar) and its neighbours stay excitable.
+    const exit = new Set([lm.vt_exit]);
+    for (let k = g.start[lm.vt_exit]; k < g.start[lm.vt_exit + 1]; k++) exit.add(g.nbr[k]);
+    for (const v of lm.vt_scar) if (!exit.has(v)) cut.add(v);
+  }
   const ref = reference(g);
   const atrialRefractory = new Float64Array(g.n).fill(-Infinity);
 
@@ -454,7 +460,7 @@ export function simulate(g, model) {
     events.push({ type: "T", t0: Math.max(hi, r0 - 80), t1: r1 + 60, beat });
     if (model.reentry?.circuit === "avrt") {
       const tv = act[lm.accessory[1]];
-      if (Number.isFinite(tv)) retro.push({ sources: [{ v: lm.accessory[0], t: tv + 15 }], kind: "retro" });
+      if (Number.isFinite(tv)) retro.push({ sources: [{ v: lm.accessory[0], t: tv + RETRO_PATHWAY_MS }], kind: "retro" });
     }
     if (model.reentry && model.reentry.circuit !== "flutter") events.push({ type: "reentry", t0: s.t, t1: s.t + model.reentry.cycle, beat, circuit: model.reentry.circuit });
   }

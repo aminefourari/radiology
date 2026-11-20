@@ -137,3 +137,99 @@ test("NSR: leads are in mV — R in V5 about 1.5 mV, P under 0.25 mV in II", () 
   assert.ok(r > 1 && r < 2, `R V5 ${r} mV`);
   assert.ok(maxAbs(s, "II", p) < 0.25 && maxAbs(s, "II", p) > 0.05, `P II ${maxAbs(s, "II", p)} mV`);
 });
+
+const pr = (s) => of(s, "QRS").map((q) => { const p = of(s, "PR").find((e) => e.beat === q.beat); return p ? p.t1 - p.t0 : null; });
+const cv = (xs) => { const m = xs.reduce((a, x) => a + x, 0) / xs.length; return Math.sqrt(xs.reduce((a, x) => a + (x - m) ** 2, 0) / xs.length) / m; };
+const rateOf = (s) => 60000 / (rr(s).reduce((a, x) => a + x, 0) / rr(s).length);
+
+test("sinus bradycardia < 60/min and tachycardia > 100/min, PR normal", () => {
+  assert.ok(rateOf(sim("sbrad")) < 60);
+  assert.ok(rateOf(sim("stach")) > 100);
+  for (const k of ["sbrad", "stach"]) for (const x of pr(sim(k))) assert.ok(x >= 120 && x <= 200, `${k} PR ${x}`);
+});
+
+test("1st-degree AV block: PR > 200 ms and every P conducted", () => {
+  const s = sim("1avb");
+  for (const x of pr(s)) assert.ok(x > 200, `PR ${x}`);
+  assert.equal(of(s, "blocked").length, 0);
+  assert.equal(of(s, "P").length, of(s, "QRS").length);
+});
+
+test("Mobitz I: PR lengthens beat by beat, then a P is not conducted", () => {
+  const s = sim("mob1");
+  const seq = of(s, "P").map((p) => { const b = of(s, "blocked").find((e) => e.beat === p.beat); if (b) return "x"; const q = of(s, "PR").find((e) => e.t0 === p.t0); return q ? q.t1 - q.t0 : null; }).filter((x) => x != null);
+  const firstBlock = seq.indexOf("x");
+  assert.ok(firstBlock >= 2, `sequence ${seq}`);
+  const run = seq.slice(0, firstBlock);
+  assert.ok(run.every((x, i) => i === 0 || x > run[i - 1] + 10), `PRs ${run}`);
+});
+
+test("Mobitz II: constant PR, then a P blocked below the node", () => {
+  const s = sim("mob2");
+  const prs = pr(s);
+  assert.ok(Math.max(...prs) - Math.min(...prs) < 3, `PRs ${prs}`);
+  const b = of(s, "blocked");
+  assert.ok(b.length > 0 && b.every((e) => e.level === "his"));
+});
+
+test("Complete heart block: no P–QRS relation, slow wide ventricular escape", () => {
+  const s = sim("3avb");
+  assert.equal(of(s, "AV").length, 0);
+  assert.ok(rateOf(s) < 60000 / 800 && rateOf(s) < 40, `ventricular rate ${rateOf(s)}`);
+  const q = mid(of(s, "QRS"));
+  assert.ok(q.t1 - q.t0 >= 120, `escape QRS ${q.t1 - q.t0}`);
+  const lag = of(s, "QRS").map((qq) => qq.t0 - of(s, "P").filter((p) => p.t0 < qq.t0).at(-1).t0);
+  assert.ok(Math.max(...lag) - Math.min(...lag) > 100, `P–QRS intervals ${lag}`);
+});
+
+test("Block in the AV node: narrow junctional escape at 40–60/min", () => {
+  const s = sim("3avb_node"), q = mid(of(s, "QRS"));
+  assert.ok(q.t1 - q.t0 < 120, `QRS ${q.t1 - q.t0}`);
+  assert.ok(rateOf(s) >= 40 && rateOf(s) <= 60, `rate ${rateOf(s)}`);
+  assert.equal(of(s, "AV").length, 0);
+});
+
+test("AVNRT: regular narrow tachycardia 150–250/min, atria and ventricles activated together", () => {
+  const s = sim("avnrt");
+  assert.ok(rateOf(s) >= 150 && rateOf(s) <= 250, `rate ${rateOf(s)}`);
+  assert.ok(cv(rr(s)) < 0.02);
+  const q = mid(of(s, "QRS"));
+  assert.ok(q.t1 - q.t0 < 120);
+  const p = of(s, "P").reduce((best, e) => (Math.abs(e.t0 - q.t0) < Math.abs(best.t0 - q.t0) ? e : best));
+  assert.ok(Math.abs(p.t0 - q.t0) <= 40, `P ${p.t0} vs QRS ${q.t0}`);
+});
+
+test("AVRT: regular narrow tachycardia, retrograde P 70–150 ms after QRS onset", () => {
+  const s = sim("avrt"), q = mid(of(s, "QRS"));
+  assert.ok(rateOf(s) >= 150 && rateOf(s) <= 250 && cv(rr(s)) < 0.02);
+  assert.ok(q.t1 - q.t0 < 120);
+  const p = of(s, "P").find((e) => e.t0 > q.t0);
+  assert.ok(p.t0 - q.t0 >= 70 && p.t0 - q.t0 <= 150, `RP ${p.t0 - q.t0}`);
+});
+
+test("AF: no regular atrial activity, irregularly irregular RR", () => {
+  const s = sim("afib");
+  assert.ok(cv(rr(s)) > 0.1, `RR CV ${cv(rr(s))}`);
+  const P = of(s, "P");
+  assert.ok(cv(P.slice(1).map((e, i) => e.t0 - P[i].t0)) > 0.15, "atrial activity is not a repeating P");
+  for (const x of of(s, "QRS")) assert.ok(x.t1 - x.t0 < 120);
+});
+
+test("PVC: early wide beat without a premature P, then a compensatory pause", () => {
+  const s = sim("pvc");
+  const v = of(s, "QRS").find((e) => e.origin === "ectopic");
+  assert.ok(v.t1 - v.t0 >= 120, `PVC QRS ${v.t1 - v.t0}`);
+  assert.ok(!of(s, "P").some((p) => p.t0 > v.t0 - 200 && p.t0 < v.t0), "no P just before the PVC");
+  const Q = of(s, "QRS"), i = Q.indexOf(v);
+  assert.ok(Math.abs(Q[i + 1].t0 - Q[i - 1].t0 - 1600) <= 30, `pause ${Q[i + 1].t0 - Q[i - 1].t0}`);
+});
+
+test("VT: regular wide tachycardia ≥ 120/min with AV dissociation", () => {
+  const s = sim("vt"), q = mid(of(s, "QRS"));
+  assert.ok(rateOf(s) >= 120 && cv(rr(s)) < 0.02, `rate ${rateOf(s)}`);
+  assert.ok(q.t1 - q.t0 >= 140, `QRS ${q.t1 - q.t0}`);
+  const P = of(s, "P");
+  const atrialCycle = (P.at(-1).t0 - P[0].t0) / (P.length - 1);
+  assert.ok(Math.abs(atrialCycle - mid(rr(s))) > 100, "atria at their own rate");
+  assert.equal(of(s, "AV").length, 0);
+});
