@@ -1,6 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { activate, heartVectors, LEADS, leadAxes, leadSignals, loadGraph, repolarise } from "../site/js/heartsim.js";
+import { activate, heartVectors, LEADS, leadAxes, leadSignals, loadGraph, repolarise, TISSUE, VELOCITY } from "../site/js/heartsim.js";
+
+const VV = VELOCITY[TISSUE.ventricle]; // ventricular muscle, mm/ms
 
 // A flat nx × ny grid in the x/y plane, every vertex the same chamber; no conduction system.
 export function gridGraph(nx, ny, mm = 1, chamber = 3) {
@@ -16,7 +18,7 @@ const line = () => loadGraph(gridGraph(21, 1), { radius: 1.5 });
 test("activation spreads at the tissue velocity", () => {
   const act = activate(line(), [{ v: 0, t: 0 }]);
   assert.equal(act[0], 0);
-  assert.ok(Math.abs(act[20] - 40) <= 1, `vertex 20 at ${act[20]} ms, expected ~40 (20 mm at 0.5 mm/ms)`);
+  assert.ok(Math.abs(act[20] - 20 / VV) <= 1, `vertex 20 at ${act[20]} ms, expected ~${20 / VV} (20 mm at ${VV} mm/ms)`);
 });
 
 test("a cut vertex blocks conduction beyond it", () => {
@@ -27,7 +29,7 @@ test("a cut vertex blocks conduction beyond it", () => {
 
 test("two sources meet in the middle", () => {
   const act = activate(line(), [{ v: 0, t: 0 }, { v: 20, t: 0 }]);
-  assert.ok(Math.abs(act[10] - 20) <= 1);
+  assert.ok(Math.abs(act[10] - 10 / VV) <= 1);
   assert.ok(act[5] < act[10] && act[15] < act[10]);
 });
 
@@ -123,7 +125,7 @@ test("explicit links join distant vertices as ventricular muscle", () => {
   const json = gridGraph(2, 1, 10); // 10 mm apart: beyond the radius
   json.links = [[0, 1]];
   const act = activate(loadGraph(json, { radius: 5 }), [{ v: 0, t: 0 }]);
-  assert.ok(Math.abs(act[1] - 20) < 1e-9);
+  assert.ok(Math.abs(act[1] - 10 / VV) < 1e-9);
 });
 
 test("chamber weights scale each chamber's share of the heart vector", () => {
@@ -139,7 +141,7 @@ test("recovery directions mirror activation when recovery runs in exact reverse"
   const g = loadGraph(json, { radius: 1.5 });
   const act = activate(g, [{ v: 0, t: 0 }]);
   const repol = act.map((t) => 500 - t);
-  const a = heartVectors(g, [{ act, repol: act.map(() => Infinity), weight: 1 }], 600);
+  const a = heartVectors(g, [{ act, repol: act.map(() => Infinity), weight: 1 }], 600, { scaled: false });
   const r = heartVectors(g, [{ act: act.map(() => Infinity), repol, weight: 1 }], 600, { repolFront: 12 });
   const sum = (h, t0, t1) => [0, 1].map((q) => { let s = 0; for (let t = t0; t < t1; t++) s += h[t * 3 + q]; return s; });
   const [qa, ra] = [sum(a, 0, 100), sum(r, 400, 520)];
@@ -161,8 +163,8 @@ test("APD comes from the reference (normal) activation: an abnormal sequence giv
   const abnormal = activate(g, [{ v: 20, t: 0 }]); // the reverse sequence
   const rep = repolarise(g, abnormal, { reference: normal });
   assert.ok(rep[0] > rep[20], "the last-activated end recovers last");
-  assert.ok(Math.abs(rep[0] - abnormal[0] - 290) < 1e-9, "vertex 0 activates first normally: full APD");
-  assert.ok(Math.abs(rep[20] - abnormal[20] - (290 - 1.2 * normal[20])) < 1e-9, "vertex 20 keeps its normal (shorter) APD");
+  assert.ok(Math.abs(rep[0] - abnormal[0] - 310) < 1e-9, "vertex 0 activates first normally: full APD");
+  assert.ok(Math.abs(rep[20] - abnormal[20] - (310 - 1.2 * normal[20])) < 1e-9, "vertex 20 keeps its normal (shorter) APD");
   const repNormal = repolarise(g, normal);
   assert.ok(Math.abs(repNormal[0] - rep[0] + (abnormal[0] - normal[0])) < 1e-9);
 });
@@ -174,6 +176,6 @@ test("retrograde Purkinje entry: only when asked, and with a junction delay", ()
   const g = loadGraph(json, { radius: 1.5, purkinjeRadius: 1.5 });
   const plain = activate(g, [{ v: 0, t: 0 }]);
   const retro = activate(g, [{ v: 0, t: 0 }], { retrograde: true });
-  assert.ok(Math.abs(plain[20] - 40) < 1e-6, "without it: muscle only");
+  assert.ok(Math.abs(plain[20] - 20 / VV) < 1e-6, "without it: muscle only");
   assert.ok(retro[20] < 30 && retro[20] > 10, `with it: ${retro[20]} ms`);
 });

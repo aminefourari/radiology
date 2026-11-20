@@ -4,10 +4,11 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { eventAt, loadGraph, simulate, wrapTime } from "../site/js/heartsim.js";
+import { buildHeart } from "../site/js/heartshape.js";
 import { axisDeg, netArea, peaks, qrsShape, upstrokeMs } from "../site/js/heartmeasure.js";
 
 const read = (p) => JSON.parse(readFileSync(new URL(`../${p}`, import.meta.url), "utf8"));
-const g = loadGraph(read("site/heart/heart-graph.json"));
+const g = loadGraph(buildHeart().json, { radius: 3.5 });
 const rhythms = Object.fromEntries(read("site/heart/rhythms.json").map((r) => [r.key, r]));
 const cache = {};
 const sim = (key) => (cache[key] ??= simulate(g, rhythms[key].model));
@@ -83,6 +84,14 @@ test("NSR: V1 rS, V6 qR with a septal q, transition at V3–V4", () => {
 test("NSR: T upright in I, II, V5, V6", () => {
   const s = sim("nsr"), t = tOf(s, mid(of(s, "QRS")));
   for (const l of ["I", "II", "V5", "V6"]) assert.ok(area(s, l, t, 0) > 0, `T in ${l}`);
+});
+
+test("LAFB: axis ≤ −45°, qR in aVL, rS in II/III/aVF, QRS < 120 ms", () => {
+  const s = sim("lafb"), q = mid(of(s, "QRS"));
+  assert.ok(axisDeg(s.leads, ...win(s, q)) <= -45, `axis ${axisDeg(s.leads, ...win(s, q))}`);
+  assert.match(shape(s, "aVL", q), /^[qQ]R/); // the initial inferior forces give a q, often a large one
+  for (const l of ["II", "III", "aVF"]) assert.ok(area(s, l, q) < 0, `net ${l}`);
+  assert.ok(q.t1 - q.t0 < 120, `QRS ${q.t1 - q.t0}`);
 });
 
 test("RBBB: QRS ≥ 120 ms, rsr′/rSR′ in V1, wide terminal S in I and V6", () => {

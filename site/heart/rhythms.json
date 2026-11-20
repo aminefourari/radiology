@@ -1032,6 +1032,45 @@
   }
  },
  {
+  "key": "lafb",
+  "title": {
+   "en": "Left anterior fascicular block",
+   "de": "Linksanteriorer Hemiblock",
+   "es": "Bloqueo fascicular anterior izquierdo",
+   "ar": "حصار الحزيمة الأمامية اليسرى",
+   "fr": "Bloc fasciculaire antérieur gauche",
+   "it": "Emiblocco anteriore sinistro",
+   "nl": "Linker anterieur fasciculair blok"
+  },
+  "why": {
+   "en": [
+    "The left bundle splits into an anterior and a posterior fascicle. Here the anterior one is blocked (✕).",
+    "The impulse reaches the left ventricle only through the posterior fascicle, low on the inferior wall. The first forces point down and to the right: small r waves in II, III and aVF, a small q in I and aVL.",
+    "The anterior and lateral wall, high on the left, is reached late, through the muscle. Those late forces point up and to the left, with nothing to oppose them: deep S waves in II, III and aVF, a tall R in aVL.",
+    "The muscle detour is short, so the QRS stays under 120 ms. The axis, not the width, gives it away."
+   ]
+  },
+  "looks": {
+   "en": [
+    "Left axis deviation, −45° or beyond",
+    "qR in I and aVL, rS in II, III and aVF",
+    "QRS under 120 ms"
+   ]
+  },
+  "atlasDx": "lafb",
+  "atlasEcg": 4619,
+  "model": {
+   "duration": 8000,
+   "sinus": {
+    "cycle": 800
+   },
+   "avDelay": 90,
+   "cut": [
+    "laf"
+   ]
+  }
+ },
+ {
   "key": "wpw",
   "title": {
    "en": "Wolff–Parkinson–White (pre-excitation)",

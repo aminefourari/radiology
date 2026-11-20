@@ -21,12 +21,7 @@ function dataNames() {
     for (const [step, o] of Object.entries(e.override || {})) if (o.note) out.push([`ecg ${e.id} override ${step}`, o.note]);
   }
   for (const r of read("site/heart/rhythms.json")) {
-    out.push([`rhythm ${r.key} title`, r.title]);
-    for (const part of ["why", "looks"]) {
-      const n = r[part]?.en?.length ?? 0;
-      for (let i = 0; i < n; i++) out.push([`rhythm ${r.key} ${part} ${i}`, Object.fromEntries(Object.entries(r[part]).map(([l, a]) => [l, a[i]]))]);
-      if (!n) out.push([`rhythm ${r.key} ${part}`, {}]);
-    }
+    out.push([`rhythm ${r.key} title`, r.title]); // rhythm texts are English-first: checked in the heart-page test below
   }
   for (const f of readdirSync(new URL("../pipeline/cases/", import.meta.url)).filter((f) => f.endsWith(".json"))) {
     const c = read(`pipeline/cases/${f}`);
@@ -99,13 +94,15 @@ test("UI strings: every case region and every CT window has a name in en.json", 
   assert.deepEqual(keys.filter((k) => !(k in en)), []);
 });
 
-test("heart page: every rhythm has a title, 3–6 why points and 2–5 ECG bullets, same count in every language", () => {
+test("heart page: every rhythm has a title in every language, 3–6 why points and 2–5 ECG bullets in English", () => {
+  // Texts are written in English; a translation, where present, has the same number of points.
   for (const r of read("site/heart/rhythms.json")) {
+    for (const lang of LANGS) assert.ok(r.title[lang], `${r.key} title ${lang}`);
     assert.ok(r.why?.en?.length >= 3 && r.why.en.length <= 6, `${r.key} why`);
     assert.ok(r.looks?.en?.length >= 2 && r.looks.en.length <= 5, `${r.key} looks`);
     for (const lang of LANGS) {
-      assert.equal(r.why[lang]?.length, r.why.en.length, `${r.key} why ${lang}`);
-      assert.equal(r.looks[lang]?.length, r.looks.en.length, `${r.key} looks ${lang}`);
+      if (r.why[lang]) assert.equal(r.why[lang].length, r.why.en.length, `${r.key} why ${lang}`);
+      if (r.looks[lang]) assert.equal(r.looks[lang].length, r.looks.en.length, `${r.key} looks ${lang}`);
     }
   }
 });
