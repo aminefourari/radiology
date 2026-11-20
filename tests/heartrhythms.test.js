@@ -233,3 +233,9 @@ test("VT: regular wide tachycardia ≥ 120/min with AV dissociation", () => {
   assert.ok(Math.abs(atrialCycle - mid(rr(s))) > 100, "atria at their own rate");
   assert.equal(of(s, "AV").length, 0);
 });
+
+test("ladder: AVNRT and AVRT show retrograde conduction; Mobitz I a blocked impulse", async () => {
+  const { ladderLines } = await import("../site/js/ladder.js");
+  for (const k of ["avnrt", "avrt"]) assert.ok(ladderLines(sim(k).events).some((l) => l.retro), k);
+  assert.ok(ladderLines(sim("mob1").events).some((l) => l.blocked));
+});

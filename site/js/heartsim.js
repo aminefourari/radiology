@@ -372,7 +372,7 @@ export function simulate(g, model) {
     for (let v = 0; v < g.n; v++) if (Number.isFinite(act[v])) atrialRefractory[v] = act[v] + ATRIAL_REFRACTORY;
     const w = { act, repol: repolarise(g, act, ATRIAL_APD), weight: ATRIAL_WEIGHT, repolWeight: ATRIAL_REPOL_WEIGHT, kind: "atrial", beat: atrial.length, t0: lo, t1: hi };
     atrial.push(w);
-    events.push({ type: "P", t0: lo, t1: hi, beat: w.beat });
+    events.push({ type: "P", t0: lo, t1: hi, beat: w.beat, origin: src.kind });
     if (src.kind === "flutter") events.push({ type: "reentry", t0, t1: t0 + model.reentry.cycle, beat: w.beat, circuit: "flutter" });
     return w;
   };
