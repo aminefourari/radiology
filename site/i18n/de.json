@@ -49,6 +49,7 @@
  "nav.ct": "CT-Atlas",
  "ecg.title": "EKG-Atlas",
  "ecg.pick": "EKG",
+ "ecg.example": "Beispiel",
  "ecg.speed": "Vorschub",
  "ecg.gain": "Verstärkung",
  "ecg.calipers": "Messzirkel",

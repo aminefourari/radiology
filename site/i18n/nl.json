@@ -49,6 +49,7 @@
  "nav.ct": "CT-atlas",
  "ecg.title": "ECG-atlas",
  "ecg.pick": "ECG",
+ "ecg.example": "Voorbeeld",
  "ecg.speed": "Snelheid",
  "ecg.gain": "Versterking",
  "ecg.calipers": "Passer",

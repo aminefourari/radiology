@@ -49,6 +49,7 @@
  "nav.ct": "Atlas de TC",
  "ecg.title": "Atlas de ECG",
  "ecg.pick": "ECG",
+ "ecg.example": "Ejemplo",
  "ecg.speed": "Velocidad",
  "ecg.gain": "Ganancia",
  "ecg.calipers": "Compás",

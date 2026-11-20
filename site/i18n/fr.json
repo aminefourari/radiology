@@ -49,6 +49,7 @@
  "nav.ct": "Atlas TDM",
  "ecg.title": "Atlas d'ECG",
  "ecg.pick": "ECG",
+ "ecg.example": "Exemple",
  "ecg.speed": "Vitesse",
  "ecg.gain": "Amplitude",
  "ecg.calipers": "Compas",
