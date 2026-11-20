@@ -273,5 +273,6 @@
  "heart.cat.preexcitation": "Pre-excitatie",
  "heart.cat.ventricular": "Ventriculaire ritmes",
  "heart.cat.paced": "Gepacete ritmes",
- "heart.cat.other": "Repolarisatie en afleidingen"
+ "heart.cat.other": "Repolarisatie en afleidingen",
+ "heart.cap.reentry.antidromic": "Re-entry andersom: omlaag via de accessoire baan, terug omhoog via de AV-knoop."
 }

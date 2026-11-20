@@ -173,6 +173,16 @@ export async function createHeartView(container, { json, grid, g, surface }) {
       }
       render();
     },
-    dispose() { ro.disconnect(); renderer.dispose(); renderer.domElement.remove(); },
+    dispose() {
+      ro.disconnect();
+      controls.dispose();
+      scene.traverse((o) => {
+        o.geometry?.dispose();
+        for (const m of [o.material].flat().filter(Boolean)) { m.map?.dispose(); m.dispose(); }
+      });
+      renderer.dispose();
+      renderer.forceContextLoss();
+      renderer.domElement.remove();
+    },
   };
 }

@@ -273,5 +273,6 @@
  "heart.cat.preexcitation": "الاستثارة المسبقة",
  "heart.cat.ventricular": "النظم البطينية",
  "heart.cat.paced": "نظم الناظمة",
- "heart.cat.other": "إعادة الاستقطاب والاتجاهات"
+ "heart.cat.other": "إعادة الاستقطاب والاتجاهات",
+ "heart.cap.reentry.antidromic": "إعادة دخول بالاتجاه المعاكس: نزولًا عبر المسار الإضافي وصعودًا عبر العقدة الأذينية البطينية."
 }

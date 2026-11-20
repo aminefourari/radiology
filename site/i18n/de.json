@@ -273,5 +273,6 @@
  "heart.cat.preexcitation": "Präexzitation",
  "heart.cat.ventricular": "Ventrikuläre Rhythmen",
  "heart.cat.paced": "Schrittmacherrhythmen",
- "heart.cat.other": "Repolarisation und Ableitungen"
+ "heart.cat.other": "Repolarisation und Ableitungen",
+ "heart.cap.reentry.antidromic": "Kreiserregung in Gegenrichtung: über die akzessorische Bahn hinab, über den AV-Knoten zurück."
 }

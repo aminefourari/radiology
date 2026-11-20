@@ -117,7 +117,7 @@ test("heart page: a label for every rhythm category, clock origin and new captio
   const { CATEGORIES } = await import("../site/js/heartstate.js");
   const need = [...CATEGORIES.map((c) => `heart.cat.${c}`),
     ...["sinus", "atrial", "junction", "ventricle", "pacing"].map((o) => `heart.clock.${o}`),
-    ...["vf", "sablock", "P.atrial", "P.paced", "QRS.paced", "QRS.fusion", "QRS.antidromic"].map((k) => `heart.cap.${k}`)];
+    ...["vf", "sablock", "P.atrial", "P.paced", "QRS.paced", "QRS.fusion", "QRS.antidromic", "reentry.antidromic"].map((k) => `heart.cap.${k}`)];
   assert.deepEqual(need.filter((k) => !(k in en)), []);
   for (const r of read("site/heart/rhythms.json")) assert.ok(CATEGORIES.includes(r.category), r.key);
 });

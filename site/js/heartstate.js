@@ -2,7 +2,7 @@
 
 export const MODES = ["closeup", "strip", "12"];
 export const HEART_MODES = ["slice", "3d", "torso"];
-export const SECTIONS = ["4ch", "sax"];
+export const SECTIONS = ["outside", "4ch", "sax"];
 export const COLOURS = ["state", "time"];
 export const SPEEDS = [0.1, 0.2, 0.5, 1];
 export const CATEGORIES = ["sinus", "atrial", "junctional", "avblock", "bundle", "preexcitation", "ventricular", "paced", "other"];

@@ -273,5 +273,6 @@
  "heart.cat.preexcitation": "Preexcitación",
  "heart.cat.ventricular": "Ritmos ventriculares",
  "heart.cat.paced": "Ritmos de marcapasos",
- "heart.cat.other": "Repolarización y derivaciones"
+ "heart.cat.other": "Repolarización y derivaciones",
+ "heart.cap.reentry.antidromic": "Reentrada en sentido inverso: baja por la vía accesoria y sube por el nodo AV."
 }

@@ -43,7 +43,7 @@
     <div class="trace-card">
       <div id="lead-pickers" class="lead-pickers" dir="ltr"></div>
       <div id="paper" class="paper" dir="ltr">
-        <svg id="trace" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ECG"></svg>
+        <svg id="trace" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ECG" data-t-aria="heart.mode"></svg>
         <svg id="ladder" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ladder diagram" data-t-aria="heart.ladder"></svg>
       </div>
       <div class="trace-foot">
@@ -59,7 +59,7 @@
     </div>
 
     <div class="playbar" dir="ltr">
-      <button id="play" class="btn" aria-pressed="false" data-t="heart.play">Play</button>
+      <button id="play" class="btn" aria-pressed="false">Play</button>
       <button id="replay" class="btn" data-t="heart.replay">Replay</button>
       <input id="scrub" type="range" min="0" step="1" value="0" aria-label="Time" data-t-aria="heart.time">
       <span id="clock" class="clock"></span>

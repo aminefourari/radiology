@@ -29,11 +29,13 @@ export function timeColour(ms) {
   return stops.at(-1)[1];
 }
 
+let instances = 0;
 export function createSchematic(container, { json, grid, g }) {
+  const uid = `sch${++instances}`;
   const wrap = document.createElement("div");
   wrap.className = "schematic";
   const canvas = document.createElement("canvas");
-  const svg = el("svg", { class: "schematic-svg", role: "img" });
+  const svg = el("svg", { class: "schematic-svg", role: "img", "aria-label": tr("heart.heart") });
   wrap.append(canvas, svg);
   container.append(wrap);
   const ctx = canvas.getContext("2d");
@@ -150,8 +152,8 @@ export function createSchematic(container, { json, grid, g }) {
       const [x, y] = P(p);
       sites.append(el("circle", { cx: x, cy: y, r: 3.4 }), el("text", { x, y }, String(n)));
     });
-    const arrow = el("line", { class: "front-arrow", "marker-end": "url(#arrowhead)", x1: 0, y1: 0, x2: 0, y2: 0, visibility: "hidden" });
-    const defs = el("defs", {}, el("marker", { id: "arrowhead", viewBox: "0 0 10 10", refX: 8, refY: 5, markerWidth: 5, markerHeight: 5, orient: "auto-start-reverse" }, el("path", { d: "M0 0L10 5L0 10z" })));
+    const arrow = el("line", { class: "front-arrow", "marker-end": `url(#arrowhead-${uid})`, x1: 0, y1: 0, x2: 0, y2: 0, visibility: "hidden" });
+    const defs = el("defs", {}, el("marker", { id: `arrowhead-${uid}`, viewBox: "0 0 10 10", refX: 8, refY: 5, markerWidth: 5, markerHeight: 5, orient: "auto-start-reverse" }, el("path", { d: "M0 0L10 5L0 10z" })));
     const note = !sax && opts.conduction ? el("text", { x: -plane.half + 2, y: plane.half - 3, class: "note" }, tr("heart.projected")) : "";
     svg.replaceChildren(defs, labels, lineG, texts, cuts, sites, arrow, note);
     overlay = { segs, dots, arrow };

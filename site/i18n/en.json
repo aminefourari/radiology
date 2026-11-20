@@ -273,5 +273,6 @@
  "heart.cat.preexcitation": "Pre-excitation",
  "heart.cat.ventricular": "Ventricular rhythms",
  "heart.cat.paced": "Paced rhythms",
- "heart.cat.other": "Repolarisation and leads"
+ "heart.cat.other": "Repolarisation and leads",
+ "heart.cap.reentry.antidromic": "Re-entry the other way: down the accessory pathway, back up the AV node."
 }

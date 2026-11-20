@@ -20,7 +20,7 @@ const SIDES = ["a", "b"];
 
 let heart, graph, axes, rhythms, byKey;
 let st = null;
-const ui = { playing: false, waves: [], last: 0, events: [], ppm: 3, schematics: [], views: [], viewKind: null, apCache: new Map() };
+const ui = { stageGen: 0, stageKey: null, raf: 0, drawnWin: {}, playing: false, waves: [], last: 0, events: [], ppm: 3, schematics: [], views: [], viewKind: null, apCache: new Map() };
 const sims = new Map(); // model JSON → simulation
 const current = { a: null, b: null }; // { key, model, sim }
 
@@ -38,6 +38,7 @@ const h = (tag, attrs = {}, ...kids) => {
 };
 const sides = () => (st.compare ? SIDES : ["a"]);
 const timeOf = (side) => wrapTime(current[side].sim, st.t);
+const longest = () => Math.max(...sides().map((s) => current[s].sim.duration));
 
 async function boot() {
   let langs;
@@ -61,7 +62,11 @@ async function boot() {
   $("compare-on").onchange = (e) => { st.compare = e.target.checked ? (st.rhythm === "nsr" ? "rbbb" : "nsr") : null; load(); };
   $("ladder-on").onchange = (e) => { st.ladder = e.target.checked; draw(); saveHash(); };
   segmented("mode", (v) => { st.mode = v; draw(); });
-  segmented("heart-mode", (v) => { st.heart = v; if (v === "slice" && st.section === "outside") st.section = "4ch"; setupStage(); });
+  segmented("heart-mode", (v) => {
+    st.heart = v;
+    if (v === "slice" && st.section === "outside") st.section = "4ch";
+    if (`${v === "slice" ? "slice" : "3d"}|${sides().length}` !== ui.stageKey) setupStage(); else applyHeartOptions();
+  });
   segmented("section", (v) => { st.section = v; applyHeartOptions(); });
   segmented("colour", (v) => { st.colour = v; applyHeartOptions(); renderLegend(); });
   $("level").oninput = (e) => { st.level = +e.target.value; applyHeartOptions(); };
@@ -83,7 +88,7 @@ async function boot() {
   document.addEventListener("keydown", (e) => {
     if (e.target.closest("input, select, textarea, button, dialog")) return;
     if (e.key === " ") { e.preventDefault(); setPlaying(!ui.playing); }
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") { st.t = wrapTime(current.a.sim, st.t + (e.key === "ArrowRight" ? 10 : -10)); frame(); }
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") { const n = longest(); st.t = ((st.t + (e.key === "ArrowRight" ? 10 : -10)) % n + n) % n; frame(); }
   });
   new ResizeObserver(() => draw()).observe($("paper"));
   matchMedia("(prefers-color-scheme: light)").addEventListener?.("change", () => ui.schematics.forEach((s) => s.retheme()));
@@ -108,7 +113,9 @@ async function setLang(lang) {
   document.querySelectorAll("[data-t]").forEach((n) => (n.textContent = t(n.dataset.t)));
   document.querySelectorAll("[data-t-aria]").forEach((n) => n.setAttribute("aria-label", t(n.dataset.tAria)));
   document.title = t("heart.title");
-  if (current.a) { renderText(); renderLeadPickers(); renderLegend(); ui.schematics.forEach((s) => s.relabel()); renderAp(); draw(); }
+  $("play").textContent = t(ui.playing ? "heart.pause" : "heart.play");
+  ui.apCache.clear();
+  if (current.a) { syncControls(); renderText(); renderLeadPickers(); renderLegend(); ui.schematics.forEach((s) => s.relabel()); renderAp(); draw(); }
 }
 
 function simFor(key) {
@@ -121,16 +128,19 @@ function simFor(key) {
 function load() {
   current.a = simFor(st.rhythm);
   current.b = st.compare ? simFor(st.compare) : null;
-  const longest = Math.max(...sides().map((s) => current[s].sim.duration));
-  st.t = wrapTime(current.a.sim, st.t);
-  $("scrub").max = String(longest - 1);
+  st.t = ((st.t % longest()) + longest()) % longest();
+  $("scrub").max = String(longest() - 1);
   ui.apCache.clear();
+  ui.cursors = [];
+  ui.apWindow = null;
+  ui.drawnWin = {};
   syncControls();
   renderText();
   renderLeadPickers();
   renderLegend();
-  setupStage();
+  const stageKey = `${st.heart === "slice" ? "slice" : "3d"}|${sides().length}`;
   draw();
+  if (stageKey !== ui.stageKey) setupStage(); else applyHeartOptions();
   saveHash();
 }
 
@@ -164,18 +174,17 @@ function setPlaying(on) {
   $("play").textContent = t(on ? "heart.pause" : "heart.play");
   $("play").setAttribute("aria-pressed", on);
   saveHash();
-  if (on) { ui.last = performance.now(); requestAnimationFrame(tick); }
+  cancelAnimationFrame(ui.raf);
+  if (on) { ui.last = performance.now(); ui.raf = requestAnimationFrame(tick); }
 }
 
 function tick(now) {
   if (!ui.playing) return;
-  const longest = Math.max(...sides().map((s) => current[s].sim.duration));
-  const before = closeupWindow(timeOf("a"), current.a.sim.duration)[0];
-  st.t = ((st.t + (now - ui.last) * st.speed) % longest + longest) % longest;
+  const n = longest();
+  st.t = ((st.t + (now - ui.last) * st.speed) % n + n) % n;
   ui.last = now;
-  if (st.mode === "closeup" && closeupWindow(timeOf("a"), current.a.sim.duration)[0] !== before) draw();
-  else frame();
-  requestAnimationFrame(tick);
+  frame();
+  ui.raf = requestAnimationFrame(tick);
 }
 
 // ---------------------------------------------------------------------------------------------------------
@@ -201,6 +210,7 @@ const xOf = (r, ms) => ((ms - r.x0) / 1000) * r.speed;
 
 function draw() {
   if (!current.a) return;
+  ui.drawnWin = Object.fromEntries(sides().map((side) => [side, closeupWindow(timeOf(side), current[side].sim.duration)[0]]));
   const rs = rows();
   const w = Math.max(...rs.map((r) => xOf(r, r.t1))), nRows = Math.max(...rs.map((r) => r.row)) + 1, hgt = nRows * ROW_MM;
   ui.ppm = Math.min(MAX_PPM, Math.max(MIN_PPM, $("paper").clientWidth / w));
@@ -305,10 +315,12 @@ function renderLeadPickers() {
 
 async function setupStage() {
   const want = st.heart === "slice" ? "slice" : "3d";
+  const gen = ++ui.stageGen;
+  ui.stageKey = `${want}|${sides().length}`;
   for (const s of ui.schematics) s.dispose();
   ui.schematics = [];
-  if (want !== "slice") for (const v of ui.views) v.dispose();
-  if (want === "slice") ui.views = [];
+  for (const v of ui.views) v.dispose();
+  ui.views = [];
   ui.viewKind = want;
   $("stage-b").hidden = !st.compare;
   $("split").hidden = $("tag-a").hidden = $("tag-b").hidden = !st.compare;
@@ -327,8 +339,11 @@ async function setupStage() {
   try {
     const { createHeartView } = await import("./heartview.js");
     ui.surface ??= (await import("./heartshape.js")).surface(heart.grid);
-    ui.views = [];
-    for (const side of sides()) ui.views.push(await createHeartView($(`stage-${side}`), { json: heart.json, grid: heart.grid, g: graph, surface: ui.surface }));
+    if (gen !== ui.stageGen) return;
+    const made = [];
+    for (const side of sides()) made.push(await createHeartView($(`stage-${side}`), { json: heart.json, grid: heart.grid, g: graph, surface: ui.surface }));
+    if (gen !== ui.stageGen) { made.forEach((v) => v.dispose()); return; }
+    ui.views = made;
     msg.remove();
     applyHeartOptions();
   } catch (e) {
@@ -383,6 +398,8 @@ function applySplit() {
 const stateBuf = { a: null, b: null };
 function frame() {
   if (!current.a) return;
+  // The close-up shows one page per rhythm: turn the page when the time leaves it (playing, scrubbing, keys, replay).
+  if (st.mode === "closeup" && sides().some((side) => closeupWindow(timeOf(side), current[side].sim.duration)[0] !== ui.drawnWin?.[side])) { draw(); return; }
   $("scrub").value = String(Math.round(st.t));
   $("clock").textContent = `${(st.t / 1000).toFixed(2)} s`;
   for (const c of ui.cursors ?? []) {
@@ -431,7 +448,7 @@ function renderAp() {
   const box = $("ap");
   if (!current.a) return;
   const { sim } = current.a, [t0, t1] = closeupWindow(timeOf("a"), sim.duration);
-  const key = `${JSON.stringify(current.a.model)}|${t0}`;
+  const key = `${JSON.stringify(current.a.model)}|${t0}|${st.lang}`;
   if (ui.apCache.get("key") === key && box.childElementCount) return;
   ui.apCache.set("key", key);
   const W = 120, H = 34, y = (mv) => ((20 - mv) / 110) * H, x = (ms) => ((ms - t0) / (t1 - t0)) * W;
@@ -475,13 +492,13 @@ function drawVectors() {
         g.append(el("text", { x: x * 56, y: y * 56 + 2 }, l));
       }
       svg._loop = el("path", { class: "loop" });
-      svg._arrow = el("line", { class: "vec", "marker-end": "url(#vhead)" });
-      svg.replaceChildren(el("defs", {}, el("marker", { id: "vhead", viewBox: "0 0 10 10", refX: 8, refY: 5, markerWidth: 5, markerHeight: 5, orient: "auto" }, el("path", { d: "M0 0L10 5L0 10z" }))), g, svg._loop, svg._arrow);
+      svg._arrow = el("line", { class: "vec", "marker-end": `url(#vhead-${plane})` });
+      svg.replaceChildren(el("defs", {}, el("marker", { id: `vhead-${plane}`, viewBox: "0 0 10 10", refX: 8, refY: 5, markerWidth: 5, markerHeight: 5, orient: "auto" }, el("path", { d: "M0 0L10 5L0 10z" }))), g, svg._loop, svg._arrow);
       svg._axes = true;
     }
     const { loop, now } = vectorLoop(sim, ms, plane, gain);
-    // Screen y grows downwards: frontal "up" (superior) is negative y; horizontal "anterior" is drawn downwards.
-    const fy = (p) => (plane === "frontal" ? -p[1] : -p[1]);
+    // Screen y grows downwards: frontal "up" (superior) and horizontal "posterior" are drawn upwards.
+    const fy = (p) => -p[1];
     svg._loop.setAttribute("d", loop.map((p, k) => `${k ? "L" : "M"}${p[0].toFixed(1)} ${fy(p).toFixed(1)}`).join(""));
     svg._arrow.setAttribute("x1", 0); svg._arrow.setAttribute("y1", 0);
     svg._arrow.setAttribute("x2", now[0].toFixed(1)); svg._arrow.setAttribute("y2", fy(now).toFixed(1));

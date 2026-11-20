@@ -371,6 +371,7 @@ function sinusTimes(model, D, resets) {
   let t = sn.start ?? 20, k = 0;
   while (t < D) {
     if (sn.arrest && t >= sn.arrest[0] && t < sn.arrest[1]) t = sn.arrest[1]; // an arrested node restarts afresh, off its old rhythm
+    if (t >= D) break;
     out.push({ t, k });
     let c = sn.cycles ? sn.cycles[Math.min(k, sn.cycles.length - 1)] : sn.cycle;
     if (sn.modulate) c *= 1 + sn.modulate.depth * Math.sin((2 * Math.PI * t) / sn.modulate.period);
@@ -412,7 +413,7 @@ export function simulate(g, model) {
     fire(t, "sinus");
     if (!pat(model.sinus.exitBlock, k)) { events.push({ type: "sablock", t0: t, t1: t + 40 }); continue; }
     const site = sites ? sites[k % sites.length] : "sa";
-    atrialSources.push({ sources: [{ v: lm[site], t: t + (site === "sa" ? 0 : 0) }], kind: site === "sa" ? "sinus" : "atrial" });
+    atrialSources.push({ sources: [{ v: lm[site], t }], kind: site === "sa" ? "sinus" : "atrial" });
   }
   for (const a of prem) { fire(a.t, "atrial"); atrialSources.push({ sources: [{ v: lm[a.site], t: a.t }], kind: "atrial", blocked: a.blocked, aberrant: a.aberrant }); }
   if (model.focus) {
@@ -503,21 +504,14 @@ export function simulate(g, model) {
   const junction = g.lineNodes.his[0];
   const retroDelay = model.retroDelay ?? 30;
   const site = (name) => (name === "junction" ? junction : name === "ventricle" ? lm.apex : lm[name]);
-  if (model.escape) {
-    const e = model.escape;
-    // An escape pacemaker fires one cycle after the last beat that reached the ventricles; with `onlyIfPause` it waits for
-    // a pause in the existing beats, otherwise it runs on its own clock (AV dissociation).
-    const times = [];
-    if (e.onlyIfPause) {
-      const ts = ventricularStarts.map((s) => s.t).sort((a, b) => a - b);
-      for (let i = 0; i <= ts.length; i++) for (let t = (ts[i - 1] ?? 0) + e.cycle; t < Math.min(ts[i] ?? D, D) - 150; t += e.cycle) times.push(t);
-    } else for (let t = e.start ?? 300; t < D; t += e.cycle) times.push(t);
-    for (const t of times) {
-      fire(t, e.site === "junction" ? "junction" : "ventricle");
-      ventricularStarts.push({ sources: [{ v: site(e.site), t }], t, kind: e.site === "junction" ? "junction" : "ventricle" });
-      if (e.site === "junction" && e.retro !== false) retro.push({ sources: [{ v: lm.avnode, t: t + retroDelay }], kind: "retro" });
-    }
-  }
+  const escapeAt = (e, t) => {
+    fire(t, e.site === "junction" ? "junction" : "ventricle");
+    if (e.site === "junction" && e.retro !== false) retro.push({ sources: [{ v: lm.avnode, t: t + retroDelay }], kind: "retro" });
+    return { sources: [{ v: site(e.site), t }], t, kind: e.site === "junction" ? "junction" : "ventricle" };
+  };
+  // An escape pacemaker on its own clock (AV dissociation). One that waits for a pause is scheduled below, once every
+  // other beat is known.
+  if (model.escape && !model.escape.onlyIfPause) for (let t = model.escape.start ?? 300; t < D; t += model.escape.cycle) ventricularStarts.push(escapeAt(model.escape, t));
   for (const j of model.junctional ?? []) {
     fire(j.t, "junction");
     ventricularStarts.push({ sources: [{ v: junction, t: j.t }], t: j.t, kind: "junction" });
@@ -590,6 +584,31 @@ export function simulate(g, model) {
       continue;
     }
     kept.push(s);
+  }
+
+  // Pause-triggered escape: fires one escape cycle after the last beat that reached the ventricles, if nothing else has.
+  // A demand (VVI) pacemaker senses it and restarts its own timer, so its next spike is inhibited.
+  if (model.escape?.onlyIfPause) {
+    const e = model.escape, ts = kept.filter((x) => x.kind !== "vf").map((x) => x.t);
+    const add = [];
+    for (let i = 0; i <= ts.length; i++) for (let t = (ts[i - 1] ?? 0) + e.cycle; t < Math.min(ts[i] ?? D, D) - 150; t += e.cycle) add.push(escapeAt(e, t));
+    if (add.length && pace && pace.mode !== "aai") {
+      const interval = 60000 / pace.rate;
+      for (const x of add) {
+        for (let i = events.length - 1; i >= 0; i--) {
+          const ev = events[i];
+          if (ev.type === "spike" && ev.chamber === "V" && ev.t0 > x.t && ev.t0 < x.t + interval) {
+            events.splice(i, 1);
+            const f = events.findIndex((y) => y.type === "fire" && y.origin === "pacing" && y.t0 === ev.t0);
+            if (f >= 0) events.splice(f, 1);
+            const k = kept.findIndex((y) => y.kind === "paced" && y.t === ev.t0);
+            if (k >= 0) kept.splice(k, 1);
+          }
+        }
+      }
+    }
+    kept.push(...add);
+    kept.sort((a, b) => a.t - b.t);
   }
 
   // 4. Spread each ventricular impulse; tissue is refractory until it has recovered from the previous beat.
