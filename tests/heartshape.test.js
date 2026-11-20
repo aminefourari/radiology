@@ -53,3 +53,35 @@ test("tissueAt: cavities inside, walls around, nothing in the AV gap", () => {
   assert.equal(tissueAt([-29, 0, -30]).wall, 3);
   assert.deepEqual(tissueAt([0, 0, 1.5]), { wall: -1, cavity: -1 });
 });
+
+import { planeProject, sectionPlane, slicePlane, surface } from "../site/js/heartshape.js";
+
+test("four-chamber slice: every mapped pixel is a wall voxel, and all four chambers appear", () => {
+  const pl = sectionPlane("4ch"), m = slicePlane(grid, pl, 160);
+  const seen = new Set();
+  for (let i = 0; i < m.node.length; i++) if (m.node[i] >= 0) seen.add(json.chamber[m.node[i]]);
+  assert.deepEqual([...seen].sort(), [0, 1, 2, 3]);
+  for (const c of [1, 2, 3, 4]) assert.ok(m.cavity.includes(c), `cavity ${c - 1}`);
+  assert.ok(m.edge.some((x) => x > 0));
+});
+
+test("mid short-axis slice: LV and RV, no atria", () => {
+  const m = slicePlane(grid, sectionPlane("sax", 0.5), 120);
+  const seen = new Set();
+  for (const v of m.node) if (v >= 0) seen.add(json.chamber[v]);
+  assert.deepEqual([...seen].sort(), [2, 3]);
+});
+
+test("the SA node projects inside the RA's half of the four-chamber picture (viewer's left, top)", () => {
+  const pl = sectionPlane("4ch");
+  const [x, y] = planeProject(pl, grid.local[json.landmarks.sa]);
+  const [xl, yl] = planeProject(pl, grid.local[json.landmarks.apex]);
+  assert.ok(x < 0 && y < 0, `SA at ${x}, ${y}`);
+  assert.ok(xl > 0 && yl > 0, `apex at ${xl}, ${yl}`);
+});
+
+test("surface: closed-ish mesh with every vertex on a wall voxel", () => {
+  const s = surface(grid);
+  assert.ok(s.indices.length / 3 > 2000, `${s.indices.length / 3} triangles`);
+  assert.ok(s.vertexNode.every((v) => v >= 0));
+});

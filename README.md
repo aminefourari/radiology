@@ -37,18 +37,21 @@ the community. If you spot a mistake, use "Report a problem" on the structure.
 
 **How the ECG is made** (`heart.html`)
 
-- A 3D heart depolarises and recovers in step with a simulated 12-lead ECG, a ladder diagram and a
-  live caption, so each deflection has a visible cause.
-- 16 rhythms: normal and sinus brady/tachycardia; 1st-degree, Mobitz I, Mobitz II and complete
-  heart block; right and left bundle branch block; WPW; AVNRT and AVRT; atrial flutter and
-  fibrillation; PVC; ventricular tachycardia. Each has a numbered "why", what it looks like on the
-  ECG, and a link to a real tracing in the ECG atlas.
-- Outside, four-chamber, short-axis and in-the-chest views (electrodes, heart vector, lead axis).
-- What-ifs on the normal heart: cut a bundle, lengthen the AV delay, block the AV node, add an
-  accessory pathway or an early beat.
-- The tracing comes from the model, not a template: activation spreads over the heart mesh at
-  real conduction speeds; the moving fronts add up to the heart vector; each lead is its
-  projection. Tests check every rhythm against the ECG criteria it teaches.
+- A heart and 12-lead ECG simulator: a textbook four-chamber heart fills with colour as each wave of
+  depolarisation and recovery passes, in step with the tracing, a ladder diagram, a live caption and a
+  clock ("463 ms after the SA node fires").
+- 75 rhythms in 9 categories, searchable: sinus, atrial (AF, flutter 2:1/3:1/4:1/variable, focal and
+  multifocal AT, PACs), AV nodal and junctional (AVNRT, AVRT, junctional rhythms), AV blocks (1st degree to
+  complete), bundle branch and fascicular blocks (RBBB, LBBB, LAFB, bifascicular), pre-excitation,
+  ventricular (PVCs, VT, torsades, VF), paced rhythms, and repolarisation/lead changes. Each has a "why",
+  what it looks like on the ECG, clinical takeaways, and a real atlas tracing where one exists.
+- Close-up (three chosen leads at 100 mm/s), rhythm strip and 12-lead views; compare two rhythms with a
+  split slider; slice (four-chamber or short axis), 3D and torso views; electrical-state or activation-time
+  colouring; action potentials at three sites; frontal and horizontal vector loops.
+- The tracing comes from the model, not a template: activation spreads through an idealised heart (built in
+  the browser) at real conduction speeds; the moving fronts add up to the heart vector; each lead is its
+  projection. Tests check every rhythm against the ECG criteria it teaches; rhythms the model can't show
+  honestly (LPFB, reverse flutter) are left out.
 
 **Languages:** English, Deutsch, Español, العربية, Français, Italiano, Nederlands.
 Scans are always shown radiologically (patient right on the viewer's left), in every language.
@@ -108,6 +111,6 @@ Adding a case, fixing a label or translation, adding a language: see
   (ECGDeli and GE 12SL) come from [PTB-XL+](https://doi.org/10.13026/g6h6-7g88), CC BY 4.0.
   P bands are hidden for AF, flutter, SVT and 2nd/3rd-degree AV block. Clues are teaching notes
   reviewed by the community: use "Report a problem" next to any clue.
-- **Heart model** (`site/heart/`): [Z-Anatomy](https://github.com/Z-Anatomy/Models-of-human-anatomy),
-  CC BY-SA 4.0, from BodyParts3D (DBCLS, CC BY-SA 2.1 JP); see `site/heart/LICENSE.txt`.
+- **Heart model:** an idealised schematic heart generated in the browser (`site/js/heartshape.js`); no
+  external anatomy data.
 - **Code:** [MIT](LICENSE).

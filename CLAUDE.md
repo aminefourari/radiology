@@ -16,9 +16,10 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
   `.venv/bin/python pipeline/make_atlas.py export` (Blender → `site/atlas/*.glb` + `index.json`), then
   `make_atlas.py link` (validates `pipeline/atlas_map.json` into `index.json`), then
   `make_atlas.py fit site/cases/<id> ...` (per-case plane fit `atlaslink.json`; rerun after rebuilding a case)
-- Heart page (Z-Anatomy, needs Blender): `.venv/bin/python pipeline/make_atlas.py heart` (Blender → `site/heart/heart.glb`
-  + `heart-graph.json`; landmark hints in `pipeline/heart_landmarks.json`). Rhythms live in `site/heart/rhythms.json`;
-  `tests/heartrhythms.test.js` checks each one against its ECG criteria on the shipped graph — rerun after any change.
+- Heart page: no build step — the idealised heart is generated in the browser by `site/js/heartshape.js` (shape,
+  orientation and Purkinje territories in `SHAPE`, found by search so NSR/RBBB/LBBB/LAFB meet their criteria). Rhythms
+  live in `site/heart/rhythms.json`; `tests/heartrhythms.test.js` and `tests/heartcatalogue.test.js` check each one
+  against its ECG criteria — rerun after any change to the shape, engine or a model.
 - Build ECGs: `.venv/bin/python pipeline/make_ecg.py` (records listed in `pipeline/ecgs.json`, PTB-XL)
 
 ## Layout
@@ -26,9 +27,10 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
 - `pipeline/` — `caselib.py` (pure helpers), `make_case.py` (CLI), `atlaslib.py` + `atlas_export.py` + `make_atlas.py` + `atlas_map.json` (3D atlas), `structures.json`
   (structure → system/colour/names catalogue), `cases/<id>.json` (curated key levels),
   `make_ecg.py` + `ecgs.json` (PTB-XL ECG list)
-- `site/` — static site: `index.html` (landing, `js/home.js`; redirects old `#case=` links), `ct.html` (CT), `ecg.html` (ECG, `js/ecgapp.js` + `js/ecgplot.js` + `js/ecglearn.js` for the reading steps and Learn mode), `ecg/` (ECG JSON, µV ints), `heart.html` (heart electrophysiology: `js/heartapp.js`, `js/heartview.js` (three.js),
-  DOM-free `js/heartsim.js` (activation, heart vector, leads, rhythm engine), `js/heartmeasure.js`, `js/ladder.js`,
-  `js/heartstate.js`), `heart/` (heart GLB, simulation graph, rhythms + texts), `style.css`, `js/*.js` (ES modules), `i18n/*.json`,
+- `site/` — static site: `index.html` (landing, `js/home.js`; redirects old `#case=` links), `ct.html` (CT), `ecg.html` (ECG, `js/ecgapp.js` + `js/ecgplot.js` + `js/ecglearn.js` for the reading steps and Learn mode), `ecg/` (ECG JSON, µV ints), `heart.html` (heart & ECG simulator: `js/heartapp.js`, DOM `js/heartschematic.js` (slice view),
+  `js/heartpicker.js`, `js/heartview.js` (three.js 3D/torso); DOM-free `js/heartshape.js` (idealised heart, slices, surface),
+  `js/heartsim.js` (activation, heart vector, leads, rhythm engine), `js/heartplots.js`, `js/heartmeasure.js`, `js/ladder.js`,
+  `js/heartstate.js`), `heart/` (rhythms + texts), `style.css`, `js/*.js` (ES modules), `i18n/*.json`,
   `cases/` (generated case data, committed), `atlas/` (3D atlas GLBs + index, CC BY-SA 4.0)
 - `tests/` — Node tests for `site/js` modules
 - `data/` — downloaded datasets (gitignored)
@@ -38,7 +40,8 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
 - Volumes: RAS+ arrays `[x,y,z]`; on disk C-order `[z][y][x]`, little-endian, gzipped.
   `meta.dims = [X,Y,Z]`. CT int16 HU, labels uint8 (0 = background).
 - Display is radiological: patient right on viewer's left, in every language (never mirror for RTL).
-- `site/js` modules other than the `*app.js` files, `view3d.js` and `heartview.js` (three.js) must stay DOM-free so Node can test them.
+- `site/js` modules other than the `*app.js` files, `view3d.js`, `heartview.js`, `heartschematic.js` and `heartpicker.js` must stay DOM-free so Node can test them.
+- Heart rhythm texts: titles in all 7 languages; why/looks/takeaways in English (other languages fall back).
 - Heart simulation: a rhythm's teaching feature (R′ in V1, delta wave, flutter polarity…) must come from the vector model,
   never a hand-drawn template; a rhythm that can't pass its criteria is left out, not faked.
 - No backend, no build step, no npm dependencies. One CDN library: three.js 0.170.0 (import map in

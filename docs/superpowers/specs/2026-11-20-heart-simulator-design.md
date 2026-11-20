@@ -155,6 +155,11 @@ A row that can't pass is cut and listed in the PR. The picker shows the shipped 
 | 77 | lareversal | LA/RA electrode reversal | lead I inverted (P, QRS, T negative); II and III swapped; aVR and aVL swapped; aVF unchanged; by lead algebra on the NSR leads, labelled as such |
 | 78 | highv12 | V1–V2 placed one space too high | V1/V2 show rSr′ and a negative P, from electrode positions moved up 20 mm |
 
+**Changed at build time:**
+- Compare in 3D overlays two views behind the split, the same way as the schematic, not scissor viewports.
+- 12-lead compare stacks A's 3×4 grid above B's.
+- LBBB's axis comes out at about −50°. LBBB with left axis is common; its criteria are about morphology, not axis.
+
 **Cut at build time:**
 - `lpfb` and `rbbb_lpfb`. An orientation search over frontal angle, tilt, roll and fascicle territories found no heart
   that gives LPFB ≥ +90° while LBBB keeps a monophasic R in I/V5/V6. The best was +68°, and LBBB and its spin-offs

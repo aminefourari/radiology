@@ -194,7 +194,7 @@ export function buildHeart(S = SHAPE) {
   for (let i = 0; i < 3; i++) centre[i] /= nv;
 
   const json = {
-    pos: ras.flat(), chamber, area: new Array(n).fill(VOXEL ** 3), purkinje, lines, links,
+    pos: ras.flat(), chamber, area: new Array(n).fill(VOXEL ** 3), purkinje, lines, links, bachmannIds: bachmann,
     landmarks: L, electrodes: electrodes(centre).precordial, limbs: electrodes(centre).limbs, centre,
   };
   return { json, grid, bachmann };
@@ -214,4 +214,118 @@ export function electrodes(c, T = TORSO) {
   };
   const limbs = { RA: [cx + 190, cy, c[2] + 180], LA: [cx - 190, cy, c[2] + 180], RL: [cx + 90, cy, c[2] - 420], LL: [cx - 90, cy, c[2] - 420] };
   return { precordial, limbs };
+}
+
+// ---------------------------------------------------------------------------------------------------------
+// Views of the shape: schematic slices (pixel → voxel maps) and a smooth surface for 3D.
+
+const voxelAt = (grid, p) => {
+  const ijk = [0, 1, 2].map((k) => Math.round((p[k] - grid.lo[k]) / grid.step));
+  if (ijk.some((x, k) => x < 0 || x >= grid.dims[k])) return -1;
+  return grid.index[ijk[0] + grid.dims[0] * (ijk[1] + grid.dims[1] * ijk[2])];
+};
+// The wall voxel under a point, or the nearest one within one voxel (slices cut between lattice planes).
+function nearestVoxel(grid, p) {
+  const v = voxelAt(grid, p);
+  if (v >= 0) return v;
+  let best = -1, bd = Infinity;
+  for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) for (let dz = -1; dz <= 1; dz++) {
+    const q = [p[0] + dx * grid.step, p[1] + dy * grid.step, p[2] + dz * grid.step];
+    const u = voxelAt(grid, q);
+    if (u < 0) continue;
+    const d = Math.hypot(...grid.local[u].map((x, k) => x - p[k]));
+    if (d < bd) { bd = d; best = u; }
+  }
+  return best;
+}
+
+// Section planes in the local frame. A screen point (x right, y down, mm from the centre) is origin + x·ex + y·ey.
+// Four-chamber: the plane through the long axis and both ventricles (v = 0), right heart on the viewer's left and
+// the apex down and to the right, as textbooks draw it. Short axis: across the ventricles at `level` (0 apex … 1 base),
+// seen from the apex, RV on the left, anterior up.
+const TILT_4CH = (35 * Math.PI) / 180;
+export function sectionPlane(section, level = 0.5) {
+  if (section === "sax") {
+    const w = -72 + 66 * level;
+    return { section, level, origin: [12, 0, w], ex: [-1, 0, 0], ey: [0, -1, 0], half: 52 };
+  }
+  const c = Math.cos(TILT_4CH), s = Math.sin(TILT_4CH);
+  return { section: "4ch", level, origin: [20, 0, -14], ex: [-c, 0, -s], ey: [s, 0, -c], half: 82 };
+}
+export const planePoint = (pl, x, y) => [0, 1, 2].map((k) => pl.origin[k] + x * pl.ex[k] + y * pl.ey[k]);
+// Local point → screen mm (the out-of-plane part is dropped: a projection).
+export const planeProject = (pl, p) => { const d = p.map((x, k) => x - pl.origin[k]); return [dot(d, pl.ex), dot(d, pl.ey)]; };
+
+// Pixel maps for one slice drawn at size × size px: wall voxel per pixel (-1 none), wall coverage (anti-aliasing),
+// cavity chamber + 1 (0 none) and outline strength, from 2×2 subsamples of the analytic shape.
+export function slicePlane(grid, pl, size, S = SHAPE) {
+  const n = size * size, mmPerPx = (2 * pl.half) / size;
+  const node = new Int32Array(n).fill(-1), alpha = new Float32Array(n), cavity = new Uint8Array(n), edge = new Float32Array(n);
+  const sub = [[-0.25, -0.25], [0.25, -0.25], [-0.25, 0.25], [0.25, 0.25]];
+  for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) {
+    const i = py * size + px;
+    const x = (px + 0.5) * mmPerPx - pl.half, y = (py + 0.5) * mmPerPx - pl.half;
+    let wall = 0, cav = 0, cavId = 0;
+    const kinds = new Set();
+    for (const [sx, sy] of sub) {
+      const t = tissueAt(planePoint(pl, x + sx * mmPerPx, y + sy * mmPerPx), S);
+      if (t.wall >= 0) { wall++; kinds.add("w"); } else if (t.cavity >= 0) { cav++; cavId = t.cavity + 1; kinds.add(`c${t.cavity}`); } else kinds.add("o");
+    }
+    alpha[i] = wall / 4;
+    if (cav) cavity[i] = cavId;
+    if (kinds.size > 1) edge[i] = 1;
+    if (wall) node[i] = nearestVoxel(grid, planePoint(pl, x, y));
+  }
+  return { size, mmPerPx, node, alpha, cavity, edge };
+}
+
+// Surface for 3D: naive surface nets on the wall occupancy (box-blurred), vertices in RAS, each with its nearest voxel.
+export function surface(grid) {
+  const [X, Y, Z] = grid.dims, at = (i, j, k) => i + X * (j + Y * k);
+  const occ = new Float32Array(X * Y * Z);
+  for (let i = 0; i < occ.length; i++) occ[i] = grid.index[i] >= 0 ? 1 : 0;
+  const f = new Float32Array(occ.length);
+  for (let k = 0; k < Z; k++) for (let j = 0; j < Y; j++) for (let i = 0; i < X; i++) {
+    let s = 0, c = 0;
+    for (let dk = -1; dk <= 1; dk++) for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) {
+      const a = i + di, b = j + dj, d = k + dk;
+      if (a < 0 || b < 0 || d < 0 || a >= X || b >= Y || d >= Z) { c++; continue; }
+      s += occ[at(a, b, d)]; c++;
+    }
+    f[at(i, j, k)] = s / c;
+  }
+  const ISO = 0.35, vid = new Int32Array(X * Y * Z).fill(-1), pos = [], vertexNode = [];
+  const corners = [[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1]];
+  const edges = [[0, 1], [2, 3], [4, 5], [6, 7], [0, 2], [1, 3], [4, 6], [5, 7], [0, 4], [1, 5], [2, 6], [3, 7]];
+  for (let k = 0; k < Z - 1; k++) for (let j = 0; j < Y - 1; j++) for (let i = 0; i < X - 1; i++) {
+    const v = corners.map(([a, b, d]) => f[at(i + a, j + b, k + d)]);
+    if (v.every((x) => x > ISO) || v.every((x) => x <= ISO)) continue;
+    const p = [0, 0, 0];
+    let m = 0;
+    for (const [a, b] of edges) {
+      if ((v[a] > ISO) === (v[b] > ISO)) continue;
+      const t = (ISO - v[a]) / (v[b] - v[a]);
+      for (let q = 0; q < 3; q++) p[q] += corners[a][q] + t * (corners[b][q] - corners[a][q]);
+      m++;
+    }
+    const local = p.map((x, q) => grid.lo[q] + ([i, j, k][q] + x / m) * grid.step);
+    vid[at(i, j, k)] = pos.length / 3;
+    pos.push(...toRas(grid.ax, local));
+    vertexNode.push(nearestVoxel(grid, local));
+  }
+  const idx = [];
+  // One quad per lattice edge that crosses the surface, joining the four cells around it.
+  for (let k = 1; k < Z - 1; k++) for (let j = 1; j < Y - 1; j++) for (let i = 1; i < X - 1; i++) {
+    const inside = f[at(i, j, k)] > ISO;
+    for (const [dir, c] of [[0, [[0, -1, -1], [0, 0, -1], [0, 0, 0], [0, -1, 0]]], [1, [[-1, 0, -1], [0, 0, -1], [0, 0, 0], [-1, 0, 0]]], [2, [[-1, -1, 0], [0, -1, 0], [0, 0, 0], [-1, 0, 0]]]]) {
+      const n = [i + (dir === 0), j + (dir === 1), k + (dir === 2)];
+      if (n[0] >= X || n[1] >= Y || n[2] >= Z || (f[at(...n)] > ISO) === inside) continue;
+      const q = c.map(([a, b, d]) => vid[at(i + a, j + b, k + d)]);
+      if (q.some((x) => x < 0)) continue;
+      // Winding so normals point out of the wall (towards the outside value). Flipped for dir 1 (odd permutation).
+      const flip = (inside !== (dir === 1));
+      if (flip) idx.push(q[0], q[1], q[2], q[0], q[2], q[3]); else idx.push(q[0], q[2], q[1], q[0], q[3], q[2]);
+    }
+  }
+  return { positions: Float32Array.from(pos), indices: Uint32Array.from(idx), vertexNode: Int32Array.from(vertexNode) };
 }

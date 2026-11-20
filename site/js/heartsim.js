@@ -1,5 +1,5 @@
 // Cardiac activation simulator for the "How the ECG is made" page. DOM-free, deterministic.
-// Graph: heart mesh vertices (RAS mm) + a Purkinje layer + conduction lines, built from heart-graph.json.
+// Graph: wall voxels of the idealised heart (RAS mm, from heartshape.js) + a Purkinje layer + conduction lines.
 
 // Conduction velocity in mm/ms by tissue code.
 export const TISSUE = { atrium: 0, avnode: 1, his: 2, purkinje: 3, ventricle: 4, accessory: 5, bachmann: 6 };
@@ -575,7 +575,7 @@ export function simulate(g, model) {
     // Ventricular fibrillation: short-lived wavelets at random sites, each blocked where the muscle is still refractory.
     const vv = [];
     for (let v = 0; v < g.nMesh; v++) if (g.chamber[v] >= 2) vv.push(v);
-    for (let t = model.vf.start ?? 0; t < D; t += 25 + rand() * 35) ventricularStarts.push({ sources: [{ v: vv[Math.floor(rand() * vv.length)], t }], t, kind: "vf", reach: 90 });
+    for (let t = model.vf.start ?? 0; t < D; t += 8 + rand() * 14) ventricularStarts.push({ sources: [{ v: vv[Math.floor(rand() * vv.length)], t }], t, kind: "vf", reach: 90 });
   }
 
   // Ectopic and escape beats conceal the next sinus impulse: drop conducted beats that land in refractoriness.
@@ -618,7 +618,7 @@ export function simulate(g, model) {
     // tachycardia would find the ventricles still refractory.
     const rr = Number.isFinite(lastRr) ? s.t - lastRr : Math.min(800, (kept.find((x) => x.t > s.t && x.kind !== "vf")?.t ?? Infinity) - s.t); // first beat: its own cycle
     lastRr = s.kind === "vf" ? lastRr : s.t;
-    const scale = Math.min(1.15, Math.max(0.6, Math.sqrt(rr / 800)));
+    const scale = s.kind === "vf" ? 0.55 : Math.min(1.15, Math.max(0.6, Math.sqrt(rr / 800))); // fibrillating muscle runs at its shortest APD
     const repol = repolarise(g, act, { reference: ref, ...apd, apd: (apd.apd ?? 310) * scale });
     for (let v = 0; v < g.n; v++) if (Number.isFinite(act[v])) refractory[v] = repol[v] + VENTRICULAR_GUARD;
     const beat = ventricular.length;
@@ -683,8 +683,9 @@ export function vertexState(sim, t, out) {
 // The event to caption at time t: what is visible wins (pre-excitation, QRS, P, T, a re-entry circuit), then the
 // quieter phases (blocked impulse, AV delay, ST); among equals the shortest. In atrial fibrillation the baseline is
 // never quiet, so fibrillation is the caption whenever nothing ventricular is happening.
-const CAPTION_ORDER = ["pre", "QRS", "P", "T", "reentry", "blocked", "AV", "ST", "PR"];
+const CAPTION_ORDER = ["pre", "QRS", "P", "T", "reentry", "blocked", "sablock", "AV", "ST", "PR"];
 export function eventAt(sim, t) {
+  if (sim.vf) return VF_EVENT;
   let best = null, rank = Infinity;
   for (const e of sim.events) {
     if (!(e.t0 <= t && t < e.t1)) continue;
@@ -695,6 +696,7 @@ export function eventAt(sim, t) {
   return best;
 }
 const AF_EVENT = Object.freeze({ type: "P", origin: "af", t0: 0, t1: 0 });
+const VF_EVENT = Object.freeze({ type: "vf", t0: 0, t1: 0 });
 
 function seeded(seed) {
   let a = seed >>> 0;

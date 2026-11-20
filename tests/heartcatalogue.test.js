@@ -306,6 +306,11 @@ test("VF: no QRS events, irregular deflections, never quiet", () => {
   const pk = peaks(II, 500, II.length);
   const gaps = pk.slice(1).map((p, i) => p.i - pk[i].i);
   assert.ok(pk.length > 20 && cv(gaps) > 0.2, `${pk.length} peaks, CV ${cv(gaps)}`);
+  // No isoelectric line: over any 200 ms the signal keeps moving.
+  for (let i = 500; i + 100 < II.length; i += 100) {
+    const w = II.slice(i, i + 100);
+    assert.ok(Math.max(...w) - Math.min(...w) > 0.1, `flat at ${i * 2} ms`);
+  }
 });
 
 // Paced
