@@ -1,72 +1,46 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { applyWhatIf, formatHash, parseHash, toggleWhatIf } from "../site/js/heartstate.js";
+import { clockLabel, closeupWindow, DEFAULTS, filterRhythms, formatHash, parseHash } from "../site/js/heartstate.js";
 
-const KEYS = ["nsr", "rbbb", "afib"];
-const NSR = { duration: 4000, sinus: { cycle: 800 }, avDelay: 90 };
+const KEYS = ["nsr", "rbbb", "afib", "lafb"];
 
-test("parseHash falls back to defaults for unknown or bad values", () => {
-  const s = parseHash("#rhythm=foo&view=bar&t=-5&speed=3", KEYS);
-  assert.deepEqual([s.rhythm, s.view, s.speed, s.t], ["nsr", "outside", 0.2, 0]);
+test("parseHash: defaults for unknown or bad values; old what-if keys ignored", () => {
+  const s = parseHash("#rhythm=foo&mode=bar&t=-5&speed=3&cutLbb=1&whatif=1&leads=I,XX,V6", KEYS);
+  assert.deepEqual(s, DEFAULTS);
   assert.equal(parseHash("#t=Infinity", KEYS).t, 0);
-  assert.deepEqual(s.whatIf, { cutRbb: false, cutLbb: false, avDelay: 160, blockNode: false, accessory: false, extraBeat: false });
-});
-
-test("what-ifs only apply to the normal heart", () => {
-  assert.equal(parseHash("#rhythm=rbbb&cutLbb=1", KEYS).whatIf.cutLbb, false);
-  assert.equal(parseHash("#rhythm=nsr&cutLbb=1", KEYS).whatIf.cutLbb, true);
 });
 
 test("formatHash round-trips and omits defaults", () => {
-  const h = "#rhythm=nsr&view=4ch&speed=0.5&t=1200&cutRbb=1&avDelay=250";
-  assert.deepEqual(parseHash(formatHash(parseHash(h, KEYS)), KEYS), parseHash(h, KEYS));
-  assert.equal(formatHash(parseHash("", KEYS)), "");
+  assert.equal(formatHash(DEFAULTS), "");
+  const st = { ...DEFAULTS, rhythm: "lafb", compare: "nsr", mode: "12", ladder: false, heart: "torso", section: "sax", level: 0.3,
+    colour: "time", conduction: false, vector: false, speed: 1, t: 463.4, leads: ["II", "aVL", "V2"], split: 0.25 };
+  assert.deepEqual(parseHash(formatHash(st), KEYS), { ...st, t: 463 });
 });
 
-test("applyWhatIf names what the heart has become", () => {
-  const off = parseHash("", KEYS).whatIf;
-  assert.deepEqual(applyWhatIf(NSR, off), { model: NSR, becomes: "nsr" });
-  const r = applyWhatIf(NSR, { ...off, cutRbb: true });
-  assert.equal(r.becomes, "rbbb");
-  assert.deepEqual(r.model.cut, ["rbb"]);
-  const d = applyWhatIf(NSR, { ...off, avDelay: 250 });
-  assert.equal(d.becomes, "1avb");
-  assert.ok(d.model.avDelay > NSR.avDelay);
-  assert.equal(applyWhatIf(NSR, { ...off, blockNode: true }).becomes, "3avb_node");
-  assert.equal(applyWhatIf(NSR, { ...off, accessory: true }).model.accessory, true);
-  assert.equal(applyWhatIf(NSR, { ...off, extraBeat: true }).model.ectopic.length, 1);
-  const both = applyWhatIf(NSR, { ...off, cutRbb: true, cutLbb: true });
-  assert.equal(both.becomes, "3avb");
-  assert.equal(both.model.escape.site, "ventricle");
-  assert.equal(applyWhatIf(NSR, { ...off, blockNode: true }).model.escape.site, "junction");
+const list = [
+  { key: "lafb", title: { en: "Left anterior fascicular block", fr: "Bloc fasciculaire antérieur gauche" } },
+  { key: "nsr", title: { en: "Normal sinus rhythm", fr: "Rythme sinusal normal" } },
+  { key: "pac", title: { en: "Premature atrial complex", fr: "Extrasystole auriculaire" } },
+];
+test("filterRhythms: key, English or page language, case and accents ignored, every word must match", () => {
+  assert.deepEqual(filterRhythms(list, "lafb", "fr").map((r) => r.key), ["lafb"]);
+  assert.deepEqual(filterRhythms(list, "Fascicular", "fr").map((r) => r.key), ["lafb"]);
+  assert.deepEqual(filterRhythms(list, "anterieur", "fr").map((r) => r.key), ["lafb"]);
+  assert.deepEqual(filterRhythms(list, "sinus normal", "en").map((r) => r.key), ["nsr"]);
+  assert.deepEqual(filterRhythms(list, "zzz", "en"), []);
+  assert.equal(filterRhythms(list, "  ", "en").length, 3);
 });
 
-test("the PR slider changes the model anywhere in its range, not only above 200 ms", () => {
-  const off = parseHash("", KEYS).whatIf;
-  const r = applyWhatIf(NSR, { ...off, avDelay: 130 });
-  assert.equal(r.becomes, "nsr");
-  assert.equal(r.model.avDelay, NSR.avDelay - 30);
+test("clockLabel: time since the latest impulse origin; null in AF/VF", () => {
+  const sim = { events: [{ type: "fire", t0: 20, t1: 20, origin: "sinus" }, { type: "P", t0: 25, t1: 100 }, { type: "fire", t0: 820, t1: 820, origin: "sinus" }] };
+  assert.deepEqual(clockLabel(sim, 483), { ms: 463, origin: "sinus" });
+  assert.deepEqual(clockLabel(sim, 900), { ms: 80, origin: "sinus" });
+  assert.equal(clockLabel(sim, 10), null);
+  assert.equal(clockLabel({ ...sim, vf: true }, 483), null);
 });
 
-test("what-ifs the model can't combine switch each other off", () => {
-  const off = parseHash("", KEYS).whatIf;
-  const a = toggleWhatIf({ ...off, cutRbb: true, accessory: true }, "blockNode", true);
-  assert.deepEqual([a.blockNode, a.cutRbb, a.accessory], [true, false, false]);
-  const b = toggleWhatIf({ ...off, blockNode: true, cutLbb: true }, "accessory", true);
-  assert.deepEqual([b.accessory, b.blockNode, b.cutLbb], [true, false, false]);
-  const c = toggleWhatIf({ ...off, cutRbb: true }, "cutLbb", true);
-  assert.deepEqual([c.cutRbb, c.cutLbb], [true, true]);
-  assert.equal(toggleWhatIf(off, "cutRbb", true).blockNode, false);
-  // A hand-made hash with a conflict is cleaned the same way.
-  assert.deepEqual(Object.entries(parseHash("#blockNode=1&accessory=1&cutRbb=1", KEYS).whatIf).filter(([, v]) => v === true).map(([k]) => k), ["blockNode"]);
-});
-
-test("the name shown is the most important change; a long PR is not named when it can't show", () => {
-  const off = parseHash("", KEYS).whatIf;
-  assert.equal(applyWhatIf(NSR, { ...off, avDelay: 300, extraBeat: true }).becomes, "1avb");
-  assert.equal(applyWhatIf(NSR, { ...off, cutLbb: true, avDelay: 300 }).becomes, "lbbb");
-  assert.equal(applyWhatIf(NSR, { ...off, accessory: true, avDelay: 300 }).becomes, "wpw");
-  assert.equal(applyWhatIf(NSR, { ...off, blockNode: true, avDelay: 300 }).becomes, "3avb_node");
-  const both = applyWhatIf(NSR, { ...off, cutRbb: true, cutLbb: true }).model;
-  assert.deepEqual(both.cut, ["rbb", "lbb"]);
+test("closeupWindow pages through the strip", () => {
+  assert.deepEqual(closeupWindow(100, 8000), [0, 1200]);
+  assert.deepEqual(closeupWindow(1300, 8000), [1200, 2400]);
+  assert.deepEqual(closeupWindow(7999, 8000), [6800, 8000]);
 });

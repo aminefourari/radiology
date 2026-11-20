@@ -1,9 +1,9 @@
 // Cardiac activation simulator for the "How the ECG is made" page. DOM-free, deterministic.
-// Graph: heart mesh vertices (RAS mm) + a Purkinje layer + conduction lines, built from heart-graph.json.
+// Graph: wall voxels of the idealised heart (RAS mm, from heartshape.js) + a Purkinje layer + conduction lines.
 
 // Conduction velocity in mm/ms by tissue code.
-export const TISSUE = { atrium: 0, avnode: 1, his: 2, purkinje: 3, ventricle: 4, accessory: 5 };
-export const VELOCITY = [1.3, 0.05, 2.5, 1.5, 0.5, 1.0];
+export const TISSUE = { atrium: 0, avnode: 1, his: 2, purkinje: 3, ventricle: 4, accessory: 5, bachmann: 6 };
+export const VELOCITY = [1.0, 0.05, 2.5, 1.5, 0.55, 1.0, 1.8];
 export const CONDUCTION = 4; // chamber id of Purkinje and conduction-line nodes (0 RA, 1 LA, 2 RV, 3 LV)
 const LINE_TISSUE = { his: TISSUE.his, lbb: TISSUE.purkinje, laf: TISSUE.purkinje, lpf: TISSUE.purkinje, rbb: TISSUE.purkinje };
 const LINE_REGION = { lbb: 0, laf: 1, lpf: 2, rbb: 3 }; // Purkinje region each bundle feeds
@@ -48,7 +48,7 @@ export function loadGraph(json, { radius = 5, purkinjeRadius = 6, lineStep = 2 }
     edges.push([a, b, d, groupOf(chamber[a]) ? TISSUE.ventricle : TISSUE.atrium, false]);
   }
   // Explicit links across walls thicker than the radius (LV free wall, septum).
-  for (const [a, b] of json.links ?? []) edges.push([a, b, dist(json.pos, a, b), TISSUE.ventricle, false]);
+  for (const [a, b, t = TISSUE.ventricle] of json.links ?? []) edges.push([a, b, dist(json.pos, a, b), t, false]);
 
   // Purkinje layer: one node per Purkinje-region vertex, linked within its region, one-way into the muscle.
   const purkNode = new Map(), purkRegion = [];
@@ -174,7 +174,7 @@ class Heap {
 // Earliest activation time per vertex from timed sources (Dijkstra). cut: vertices that don't conduct;
 // allow: optional Uint8Array indexed by chamber id, 1 = the impulse may enter; refractoryUntil: optional
 // Float32Array, a vertex can't activate before it.
-export function activate(g, sources, { cut = new Set(), velocity = VELOCITY, allow = null, refractoryUntil = null, maxTime = Infinity, retrograde = false } = {}) {
+export function activate(g, sources, { cut = new Set(), velocity = VELOCITY, allow = null, refractoryUntil = null, maxTime = Infinity, retrograde = false, slow = null, retroMs = RETRO_PMJ_MS } = {}) {
   const act = new Float64Array(g.n).fill(Infinity); // Float64: rounding would let zero-length edges re-relax forever
   const ok = (v, t) => !cut.has(v) && (!allow || allow[g.chamber[v]]) && (!refractoryUntil || t >= refractoryUntil[v]);
   const heap = new Heap();
@@ -184,12 +184,12 @@ export function activate(g, sources, { cut = new Set(), velocity = VELOCITY, all
     if (t > act[u] || t > maxTime) continue;
     for (let k = g.start[u]; k < g.start[u + 1]; k++) {
       const v = g.nbr[k];
-      const tv = t + g.len[k] / velocity[g.tissue[k]];
+      const tv = t + (g.len[k] / velocity[g.tissue[k]]) * (slow?.get(v) ?? 1);
       if (tv < act[v] && ok(v, tv)) { act[v] = tv; heap.push(tv, v); }
     }
     const p = retrograde ? g.retro.get(u) : undefined;
     if (p !== undefined) {
-      const tp = t + RETRO_PMJ_MS;
+      const tp = t + retroMs;
       if (tp < act[p] && ok(p, tp)) { act[p] = tp; heap.push(tp, p); }
     }
   }
@@ -200,7 +200,7 @@ export function activate(g, sources, { cut = new Set(), velocity = VELOCITY, all
 // sequence arrives later, so in sinus rhythm recovery runs roughly in reverse (slope > 1) and the T wave is
 // upright and concordant. In an abnormal sequence (bundle branch block, PVC, VT) the late tissue still
 // recovers late, which gives the discordant T. Without a reference, act is its own reference.
-export function repolarise(g, act, { apd = 290, slope = 1.2, reference = act } = {}) {
+export function repolarise(g, act, { apd = 310, slope = 1.2, reference = act } = {}) {
   let min = Infinity;
   for (const t of reference) if (t < min) min = t;
   return act.map((t, v) => (Number.isFinite(t) ? t + apd - slope * ((Number.isFinite(reference[v]) ? reference[v] : min) - min) : Infinity));
@@ -226,23 +226,35 @@ export function leadAxes(g) {
   return out;
 }
 
-// Unit direction the front travelled through each mesh vertex: the normalised gradient of the arrival times,
-// least-squares over all mesh neighbours (symmetric, so a time field and its mirror give opposite directions).
-// Zero where no neighbour has a finite time.
-function frontDirections(g, times) {
+// Direction the front travelled through each mesh vertex: the least-squares gradient of the arrival times over its mesh
+// neighbours. scaled = false: unit vectors. scaled = true: gradient × the muscle's own velocity, capped at 1 — a vertex the
+// front crosses at muscle speed counts fully, one swept almost at once by the Purkinje network counts little (the front's
+// dipole sweeps a volume in time ∝ 1/velocity, so its time integral is ∝ the gradient). Zero where nothing is defined.
+function frontDirections(g, times, scaled = false) {
   const d = new Float32Array(g.nMesh * 3);
   for (let v = 0; v < g.nMesh; v++) {
     const tv = times[v];
     if (!Number.isFinite(tv)) continue;
-    let x = 0, y = 0, z = 0;
+    let xx = 0, xy = 0, xz = 0, yy = 0, yz = 0, zz = 0, bx = 0, by = 0, bz = 0;
     for (let k = g.start[v]; k < g.start[v + 1]; k++) {
       const u = g.nbr[k];
       if (u >= g.nMesh || !Number.isFinite(times[u])) continue;
-      const w = (times[u] - tv) / (g.len[k] * g.len[k] || 1);
-      x += w * (g.pos[u * 3] - g.pos[v * 3]); y += w * (g.pos[u * 3 + 1] - g.pos[v * 3 + 1]); z += w * (g.pos[u * 3 + 2] - g.pos[v * 3 + 2]);
+      const dx = g.pos[u * 3] - g.pos[v * 3], dy = g.pos[u * 3 + 1] - g.pos[v * 3 + 1], dz = g.pos[u * 3 + 2] - g.pos[v * 3 + 2], dt = times[u] - tv;
+      xx += dx * dx; xy += dx * dy; xz += dx * dz; yy += dy * dy; yz += dy * dz; zz += dz * dz;
+      bx += dx * dt; by += dy * dt; bz += dz * dt;
     }
+    // Solve the 3×3 normal equations (Cramer); fall back to the plain weighted sum when they're singular (sheet-like).
+    const det = xx * (yy * zz - yz * yz) - xy * (xy * zz - yz * xz) + xz * (xy * yz - yy * xz);
+    let x, y, z;
+    if (Math.abs(det) > 1e-6 * (xx + yy + zz) ** 3) {
+      x = (bx * (yy * zz - yz * yz) - xy * (by * zz - yz * bz) + xz * (by * yz - yy * bz)) / det;
+      y = (xx * (by * zz - yz * bz) - bx * (xy * zz - yz * xz) + xz * (xy * bz - by * xz)) / det;
+      z = (xx * (yy * bz - by * yz) - xy * (xy * bz - by * xz) + bx * (xy * yz - yy * xz)) / det;
+    } else { x = bx / (xx + yy + zz || 1); y = by / (xx + yy + zz || 1); z = bz / (xx + yy + zz || 1); }
     const n = Math.hypot(x, y, z);
-    if (n) { d[v * 3] = x / n; d[v * 3 + 1] = y / n; d[v * 3 + 2] = z / n; }
+    if (!n) continue;
+    const s = scaled ? Math.min(1, n * VELOCITY[g.chamber[v] >= 2 ? TISSUE.ventricle : TISSUE.atrium]) / n : 1 / n;
+    d[v * 3] = x * s; d[v * 3 + 1] = y * s; d[v * 3 + 2] = z * s;
   }
   return d;
 }
@@ -256,10 +268,10 @@ export const CHAMBER_WEIGHT = [1, 1, 0.15, 1];
 // direction) spread over a smooth (Hann) window `repolFront` ms wide centred on its repolarisation time —
 // phase 3 of the action potential takes ~100 ms, which is why the T wave is broad and rounded.
 // Wavefronts: {act, repol, weight, repolWeight = weight}.
-export function heartVectors(g, wavefronts, duration, { front = 12, repolFront = 160, repolGain = 1, chamberWeight = CHAMBER_WEIGHT } = {}) {
+export function heartVectors(g, wavefronts, duration, { front = 12, repolFront = 160, repolGain = 1, chamberWeight = CHAMBER_WEIGHT, scaled = true } = {}) {
   const diff = new Float64Array((duration + 1) * 3), imp = new Float64Array(duration * 3);
   for (const { act, repol, weight, repolWeight = weight } of wavefronts) {
-    const da = frontDirections(g, act), dr = frontDirections(g, repol);
+    const da = frontDirections(g, act, scaled), dr = frontDirections(g, repol);
     for (let v = 0; v < g.nMesh; v++) {
       const m = g.area[v] * chamberWeight[g.chamber[v]];
       const t0 = Math.floor(act[v]);
@@ -318,11 +330,12 @@ export function leadSignals(g, wavefronts, duration, { fs = 500, gain = 1, vecto
 
 const ATRIA = Uint8Array.from([1, 1, 0, 0, 0]);
 const VENTRICLES = Uint8Array.from([0, 0, 1, 1, 1]);
-const ATRIAL_WEIGHT = 0.06, ATRIAL_REPOL_WEIGHT = 0.015; // thin atrial walls: small P, smaller Ta
+const ATRIAL_WEIGHT = 0.15, ATRIAL_REPOL_WEIGHT = 0.02; // thin atrial walls: small P, smaller Ta
 const ATRIAL_APD = { apd: 200, slope: 0.3 };
 const ATRIAL_REFRACTORY = 150, VENTRICULAR_GUARD = 30; // ms the atria / a just-recovered vertex stay inexcitable
-const HIS_REFRACTORY = 380;
-const RETRO_PATHWAY_MS = 35; // ventricular end → atrial end of the accessory pathway, retrograde (AVRT) // after a ventricular beat the His–Purkinje system won't conduct (concealed PVC → pause)
+const HIS_REFRACTORY = 380; // after a ventricular beat the His–Purkinje system won't conduct (concealed PVC → pause)
+const AV_REFRACTORY = 300; // the node conducts 1:1 up to ~200/min
+const RETRO_PATHWAY_MS = 35; // ventricular end → atrial end of the accessory pathway, retrograde (AVRT)
 
 const meshSpan = (g, act, allow) => {
   let lo = Infinity, hi = -Infinity;
@@ -347,43 +360,95 @@ function lapSources(g, circuit, t0, cycle, slow = new Set(), slowFactor = 3) {
   return circuit.map((v, i) => { const s = { v, t: t0 + (acc / total) * cycle }; acc += seg[i]; return s; });
 }
 
+const pat = (p, k) => (p ? p[k % p.length] === 1 : true);
+const lineSet = (g, names) => new Set(names.flatMap((c) => (c === "lbb" ? ["lbb", "laf", "lpf"] : [c])).flatMap((c) => g.lineNodes[c].slice(1)));
+
+// One beat's sinus-node schedule: fixed cycle, a repeating list of cycles, or a respiratory modulation; an arrest window
+// silences the node; premature atrial beats reset it (the next sinus beat comes one cycle after them).
+function sinusTimes(model, D, resets) {
+  const sn = model.sinus, out = [];
+  if (!sn) return out;
+  let t = sn.start ?? 20, k = 0;
+  while (t < D) {
+    if (sn.arrest && t >= sn.arrest[0] && t < sn.arrest[1]) t = sn.arrest[1]; // an arrested node restarts afresh, off its old rhythm
+    if (t >= D) break;
+    out.push({ t, k });
+    let c = sn.cycles ? sn.cycles[Math.min(k, sn.cycles.length - 1)] : sn.cycle;
+    if (sn.modulate) c *= 1 + sn.modulate.depth * Math.sin((2 * Math.PI * t) / sn.modulate.period);
+    let next = t + c;
+    const r = resets.find((x) => x > t + 1 && x < next);
+    if (r != null) next = r + c;
+    t = next; k++;
+  }
+  return out;
+}
+
 export function simulate(g, model) {
   const D = model.duration;
   const lm = g.landmarks;
-  const rand = seeded(model.af?.seed ?? 1);
+  const rand = seeded(model.af?.seed ?? model.vf?.seed ?? 1);
   const atrial = [], ventricular = [], events = [];
-  const cut = new Set((model.cut ?? []).flatMap((c) => (c === "lbb" ? ["lbb", "laf", "lpf"] : [c])).flatMap((c) => g.lineNodes[c].slice(1)));
-  if (model.reentry?.circuit === "vt") {
+  const fire = (t, origin) => events.push({ type: "fire", t0: t, t1: t, origin });
+  const cut = lineSet(g, model.cut ?? []);
+  const vtExit = model.reentry?.circuit === "vt" ? lm[model.reentry.exit ?? "vt_exit"] : null;
+  if (model.reentry?.circuit === "vt" && !model.reentry.exit) {
     // The scar blocks conduction; the exit (where the circuit leaves the scar) and its neighbours stay excitable.
-    const exit = new Set([lm.vt_exit]);
-    for (let k = g.start[lm.vt_exit]; k < g.start[lm.vt_exit + 1]; k++) exit.add(g.nbr[k]);
+    const exit = new Set([vtExit]);
+    for (let k = g.start[vtExit]; k < g.start[vtExit + 1]; k++) exit.add(g.nbr[k]);
     for (const v of lm.vt_scar) {
       if (!exit.has(v)) cut.add(v);
       if (g.retro.has(v)) cut.add(g.retro.get(v)); // the scar's Purkinje fibres are dead too
     }
   }
+  const slow = model.slow ? new Map(Object.entries(model.slow).flatMap(([name, f]) => g.lineNodes[name].slice(1).map((v) => [v, f]))) : null;
   const ref = reference(g);
   const atrialRefractory = new Float64Array(g.n).fill(-Infinity);
+  const pace = model.pacing;
 
   // 1. Atrial impulses, in time order.
-  const atrialSources = []; // {sources, kind}
-  if (model.sinus) for (let t = 20; t < D; t += model.sinus.cycle) atrialSources.push({ sources: [{ v: lm.sa, t }], kind: "sinus" });
+  const atrialSources = []; // {sources, kind, ...flags}
+  const prem = (model.atrial ?? []).map((a) => ({ ...a }));
+  const sites = model.sinus?.sites;
+  for (const { t, k } of sinusTimes(model, D, prem.map((a) => a.t))) {
+    fire(t, "sinus");
+    if (!pat(model.sinus.exitBlock, k)) { events.push({ type: "sablock", t0: t, t1: t + 40 }); continue; }
+    const site = sites ? sites[k % sites.length] : "sa";
+    atrialSources.push({ sources: [{ v: lm[site], t }], kind: site === "sa" ? "sinus" : "atrial" });
+  }
+  for (const a of prem) { fire(a.t, "atrial"); atrialSources.push({ sources: [{ v: lm[a.site], t: a.t }], kind: "atrial", blocked: a.blocked, aberrant: a.aberrant }); }
+  if (model.focus) {
+    const f = model.focus;
+    for (let t = f.start ?? 20, k = 0; t < D; t += f.cycles ? f.cycles[k % f.cycles.length] : f.cycle, k++) {
+      fire(t, "atrial");
+      atrialSources.push({ sources: [{ v: lm[f.sites ? f.sites[k % f.sites.length] : f.site], t }], kind: "atrial" });
+    }
+  }
+  if (pace && ["aai", "ddd", "biv"].includes(pace.mode)) {
+    for (let t = 20; t < D; t += 60000 / pace.rate) { fire(t, "pacing"); events.push({ type: "spike", t0: t, t1: t, chamber: "A" }); atrialSources.push({ sources: [{ v: lm.hra, t }], kind: "paced" }); }
+  }
   if (model.reentry?.circuit === "flutter") {
-    for (let t = 0; t < D; t += model.reentry.cycle) atrialSources.push({ sources: lapSources(g, lm.tricuspid_ring, t, model.reentry.cycle, new Set(lm.cti)), kind: "flutter" });
+    const ring = model.reentry.reverse ? [...lm.tricuspid_ring].reverse() : lm.tricuspid_ring;
+    for (let t = 0; t < D; t += model.reentry.cycle) { fire(t, "atrial"); atrialSources.push({ sources: lapSources(g, ring, t, model.reentry.cycle, new Set(lm.cti)), kind: "flutter" }); }
   }
   if (model.af) {
     const atrialVerts = [];
     for (let v = 0; v < g.nMesh; v++) if (g.chamber[v] <= 1) atrialVerts.push(v);
     for (let t = 0; t < D; t += 40 + rand() * 60) atrialSources.push({ sources: [{ v: atrialVerts[Math.floor(rand() * atrialVerts.length)], t }], kind: "af", reach: 70 });
   }
-  const retro = []; // retrograde atrial sources produced by re-entry, added below
+  const retro = []; // retrograde atrial sources produced by junctional and re-entrant beats, added below
   const runAtrial = (src) => {
     const t0 = Math.min(...src.sources.map((s) => s.t));
-    const act = activate(g, src.sources, { allow: ATRIA, refractoryUntil: atrialRefractory, maxTime: src.reach ? t0 + src.reach : Infinity });
+    // Retrograde P waves are run after the anterograde ones, so their refractoriness comes from the beats before them.
+    let refr = atrialRefractory;
+    if (src.kind === "retro") {
+      refr = new Float64Array(g.n).fill(-Infinity);
+      for (const a of atrial) if (a.t0 < t0) for (let v = 0; v < g.n; v++) if (a.act[v] < t0) refr[v] = Math.max(refr[v], a.act[v] + ATRIAL_REFRACTORY);
+    }
+    const act = activate(g, src.sources, { allow: ATRIA, refractoryUntil: refr, maxTime: src.reach ? t0 + src.reach : Infinity });
     if (src.reach) for (let v = 0; v < g.n; v++) if (act[v] > t0 + src.reach) act[v] = Infinity;
     const [lo, hi] = meshSpan(g, act, ATRIA);
     if (!Number.isFinite(lo)) return null;
-    for (let v = 0; v < g.n; v++) if (Number.isFinite(act[v])) atrialRefractory[v] = act[v] + ATRIAL_REFRACTORY;
+    if (src.kind !== "retro") for (let v = 0; v < g.n; v++) if (Number.isFinite(act[v])) atrialRefractory[v] = act[v] + ATRIAL_REFRACTORY;
     const w = { act, repol: repolarise(g, act, ATRIAL_APD), weight: ATRIAL_WEIGHT, repolWeight: ATRIAL_REPOL_WEIGHT, kind: "atrial", beat: atrial.length, t0: lo, t1: hi };
     atrial.push(w);
     events.push({ type: "P", t0: lo, t1: hi, beat: w.beat, origin: src.kind });
@@ -391,10 +456,12 @@ export function simulate(g, model) {
     return w;
   };
 
-  // 2. AV conduction and ventricular impulses.
-  const ventricularStarts = []; // {sources, t, kind}
-  let lastConducted = -Infinity, conductedCount = 0, arrivalCount = 0;
+  // 2. AV conduction (node, and an accessory pathway if present).
+  const ventricularStarts = []; // {sources, t, kind, p?, cut?}
+  let lastConducted = -Infinity, lastAp = -Infinity, arrivalCount = 0;
   const pattern = model.block?.pattern;
+  const ap = model.accessory ? (model.accessory === "ps" ? lm.accessory_ps : lm.accessory) : null;
+  const lastVentricular = () => (ventricularStarts.length ? Math.max(...ventricularStarts.map((s) => s.t)) : -Infinity);
   for (const src of atrialSources.sort((a, b) => a.sources[0].t - b.sources[0].t)) {
     const w = runAtrial(src);
     if (!w) continue;
@@ -408,67 +475,177 @@ export function simulate(g, model) {
       conducts = j < model.wenckebach.every - 1;
       delay += model.wenckebach.inc * j * (1 - j * 0.15);
     }
-    if (model.reentry?.circuit === "flutter") conducts = k % model.reentry.conduct === 0;
+    if (model.reentry?.circuit === "flutter") conducts = model.reentry.conducts ? pat(model.reentry.conducts, k) : k % model.reentry.conduct === 0;
+    if (model.focus?.conduct) conducts = k % model.focus.conduct === 0;
     if (model.af) {
       conducts = ta >= lastConducted + model.af.avRefractory + rand() * 250;
       delay += rand() * 40;
     }
-    if (ta + delay < lastVentricular() + HIS_REFRACTORY) { conducts = false; level = "his"; }
-    if (conducts) {
-      lastConducted = ta; conductedCount++;
-      events.push({ type: "AV", t0: ta, t1: ta + delay, beat: w.beat });
-      const sources = [{ v: g.lineNodes.his[0], t: ta + delay }];
-      if (model.accessory) sources.push({ v: lm.accessory[1], t: w.act[lm.accessory[0]] + 10 });
-      ventricularStarts.push({ sources, t: Math.min(...sources.map((s) => s.t)), kind: model.accessory ? "pre" : "conducted", p: w });
+    if (src.blocked) { conducts = false; level = "node"; }
+    if (pace?.mode === "ddd" || pace?.mode === "vvi" || pace?.mode === "biv") conducts = false; // paced ventricles (AV node ablated)
+    // Over the accessory pathway: conducts whenever the pathway has recovered (pre-excited AF), or every beat.
+    let apStart = null;
+    if (ap && pat(model.accessoryBeats, k)) {
+      const tap = w.act[ap[0]];
+      if (Number.isFinite(tap) && tap >= lastAp + (model.accessoryRefractory ?? 0) && tap + 10 >= lastVentricular() + (model.accessoryRefractory ? model.accessoryRefractory : 0)) apStart = tap + 10;
+    }
+    if (ta + delay < lastVentricular() + AV_REFRACTORY) { if (conducts && !apStart) level = "his"; conducts = false; }
+    if (conducts || apStart != null) {
+      if (conducts) { lastConducted = ta; events.push({ type: "AV", t0: ta, t1: ta + delay, beat: w.beat }); }
+      const sources = conducts ? [{ v: g.lineNodes.his[0], t: ta + delay }] : [];
+      if (apStart != null) { sources.push({ v: ap[1], t: apStart }); lastAp = apStart - 10; }
+      ventricularStarts.push({ sources, t: Math.min(...sources.map((s) => s.t)), kind: apStart != null ? "pre" : "conducted", p: w, cut: src.aberrant, his: conducts ? ta + delay : null });
     } else {
       events.push({ type: "blocked", t0: ta, t1: ta + (level === "his" ? delay : 40), beat: w.beat, level });
     }
   }
-  function lastVentricular() { return ventricularStarts.length ? ventricularStarts.at(-1).t : -Infinity; }
 
   // 3. Ventricular impulses not driven by the atria.
-  if (model.escape) {
-    const v = model.escape.site === "junction" ? g.lineNodes.his[0] : lm.apex;
-    for (let t = 300; t < D; t += model.escape.cycle) ventricularStarts.push({ sources: [{ v, t }], t, kind: model.escape.site });
+  const junction = g.lineNodes.his[0];
+  const retroDelay = model.retroDelay ?? 30;
+  const site = (name) => (name === "junction" ? junction : name === "ventricle" ? lm.apex : lm[name]);
+  const escapeAt = (e, t) => {
+    fire(t, e.site === "junction" ? "junction" : "ventricle");
+    if (e.site === "junction" && e.retro !== false) retro.push({ sources: [{ v: lm.avnode, t: t + retroDelay }], kind: "retro" });
+    return { sources: [{ v: site(e.site), t }], t, kind: e.site === "junction" ? "junction" : "ventricle" };
+  };
+  // An escape pacemaker on its own clock (AV dissociation). One that waits for a pause is scheduled below, once every
+  // other beat is known.
+  if (model.escape && !model.escape.onlyIfPause) for (let t = model.escape.start ?? 300; t < D; t += model.escape.cycle) ventricularStarts.push(escapeAt(model.escape, t));
+  for (const j of model.junctional ?? []) {
+    fire(j.t, "junction");
+    ventricularStarts.push({ sources: [{ v: junction, t: j.t }], t: j.t, kind: "junction" });
+    retro.push({ sources: [{ v: lm.avnode, t: j.t + retroDelay }], kind: "retro" });
   }
-  for (const e of model.ectopic ?? []) ventricularStarts.push({ sources: [{ v: lm[e.site], t: e.t }], t: e.t, kind: "ectopic" });
+  for (const e of model.ectopic ?? []) { fire(e.t, "ventricle"); ventricularStarts.push({ sources: [{ v: lm[e.site], t: e.t }], t: e.t, kind: "ectopic" }); }
+  if (model.run) {
+    const r = model.run;
+    for (let i = 0; i < r.n; i++) { const t = r.t + i * r.cycle; fire(t, "ventricle"); ventricularStarts.push({ sources: [{ v: lm[r.site], t }], t, kind: "vt" }); }
+  }
+  for (const f of model.fusion ?? []) {
+    // A ventricular focus firing just as the conducted impulse arrives: both fronts make one QRS.
+    const s = ventricularStarts.filter((x) => x.kind === "conducted").reduce((b, x) => (!b || Math.abs(x.t - f.t) < Math.abs(b.t - f.t) ? x : b), null);
+    if (s) { s.sources.push({ v: lm[f.site], t: f.t }); s.kind = "fusion"; s.t = Math.min(s.t, f.t); fire(f.t, "ventricle"); }
+  }
   if (model.reentry?.circuit === "vt") {
-    for (let t = 100; t < D; t += model.reentry.cycle) ventricularStarts.push({ sources: [{ v: lm.vt_exit, t }], t, kind: "vt" });
+    for (let t = model.reentry.start ?? 100; t < D; t += model.reentry.cycle) { fire(t, "ventricle"); ventricularStarts.push({ sources: [{ v: vtExit, t }], t, kind: "vt", scar: !model.reentry.exit }); }
+  }
+  if (model.polymorphic) {
+    const p = model.polymorphic;
+    for (let t = p.start, i = 0; t < (p.end ?? D); t += p.cycle, i++) {
+      fire(t, "ventricle");
+      ventricularStarts.push({ sources: [{ v: lm[p.sites[i % p.sites.length]], t }], t, kind: "vt" });
+    }
   }
   if (model.reentry?.circuit === "avnrt" || model.reentry?.circuit === "avrt") {
     for (let t = 100; t < D; t += model.reentry.cycle) {
-      ventricularStarts.push({ sources: [{ v: g.lineNodes.his[0], t }], t, kind: model.reentry.circuit });
-      if (model.reentry.circuit === "avnrt") retro.push({ sources: [{ v: lm.avnode, t: t + 5 }], kind: "retro" });
+      fire(t, "junction");
+      ventricularStarts.push({ sources: [{ v: junction, t }], t, kind: model.reentry.circuit });
+      if (model.reentry.circuit === "avnrt") retro.push({ sources: [{ v: lm.avnode, t: t + (model.reentry.retro ?? 5) }], kind: "retro" });
     }
   }
+  if (model.reentry?.circuit === "antidromic") {
+    // Down the accessory pathway, up the AV node: fully pre-excited QRS, retrograde P late.
+    const p = model.accessory === "ps" ? lm.accessory_ps : lm.accessory;
+    for (let t = 100; t < D; t += model.reentry.cycle) {
+      fire(t, "atrial");
+      ventricularStarts.push({ sources: [{ v: p[1], t }], t, kind: "antidromic" });
+      retro.push({ sources: [{ v: lm.avnode, t: t + model.reentry.retro }], kind: "retro" });
+    }
+  }
+  if (pace && pace.mode !== "aai") {
+    const fail = pace.fail;
+    const atrialPaced = pace.mode === "ddd" || pace.mode === "biv";
+    for (let t = atrialPaced ? 20 + pace.av : 100, k = 0; t < D; t += 60000 / pace.rate, k++) {
+      fire(t, "pacing");
+      events.push({ type: "spike", t0: t, t1: t, chamber: "V" });
+      if (!pat(fail, k)) continue;
+      const sources = [{ v: lm.rv_apex, t }];
+      if (pace.mode === "biv") sources.push({ v: lm.lv_lateral, t });
+      ventricularStarts.push({ sources, t, kind: "paced", scar: true }); // captured muscle reaches the Purkinje network late
+    }
+  }
+  if (model.vf) {
+    // Ventricular fibrillation: short-lived wavelets at random sites, each blocked where the muscle is still refractory.
+    const vv = [];
+    for (let v = 0; v < g.nMesh; v++) if (g.chamber[v] >= 2) vv.push(v);
+    for (let t = model.vf.start ?? 0; t < D; t += 8 + rand() * 14) ventricularStarts.push({ sources: [{ v: vv[Math.floor(rand() * vv.length)], t }], t, kind: "vf", reach: 90 });
+  }
+
   // Ectopic and escape beats conceal the next sinus impulse: drop conducted beats that land in refractoriness.
   ventricularStarts.sort((a, b) => a.t - b.t);
   const kept = [];
   for (const s of ventricularStarts) {
-    if (kept.length && s.t < kept.at(-1).t + HIS_REFRACTORY && s.kind === "conducted") {
+    const prev = kept.filter((x) => x.kind !== "vf").at(-1);
+    const concealing = prev && !["conducted", "pre", "fusion"].includes(prev.kind); // an ectopic/escape beat went up into the His
+    if (s.kind !== "vf" && concealing && s.t < prev.t + HIS_REFRACTORY && (s.kind === "conducted" || (s.kind === "pre" && s.his != null))) {
       const ev = events.find((e) => e.type === "AV" && e.beat === s.p.beat);
-      Object.assign(ev, { type: "blocked", level: "his" });
+      if (ev) Object.assign(ev, { type: "blocked", level: "his" });
       continue;
     }
     kept.push(s);
   }
 
+  // Pause-triggered escape: fires one escape cycle after the last beat that reached the ventricles, if nothing else has.
+  // A demand (VVI) pacemaker senses it and restarts its own timer, so its next spike is inhibited.
+  if (model.escape?.onlyIfPause) {
+    const e = model.escape, ts = kept.filter((x) => x.kind !== "vf").map((x) => x.t);
+    const add = [];
+    for (let i = 0; i <= ts.length; i++) for (let t = (ts[i - 1] ?? 0) + e.cycle; t < Math.min(ts[i] ?? D, D) - 150; t += e.cycle) add.push(escapeAt(e, t));
+    if (add.length && pace && pace.mode !== "aai") {
+      const interval = 60000 / pace.rate;
+      for (const x of add) {
+        for (let i = events.length - 1; i >= 0; i--) {
+          const ev = events[i];
+          if (ev.type === "spike" && ev.chamber === "V" && ev.t0 > x.t && ev.t0 < x.t + interval) {
+            events.splice(i, 1);
+            const f = events.findIndex((y) => y.type === "fire" && y.origin === "pacing" && y.t0 === ev.t0);
+            if (f >= 0) events.splice(f, 1);
+            const k = kept.findIndex((y) => y.kind === "paced" && y.t === ev.t0);
+            if (k >= 0) kept.splice(k, 1);
+          }
+        }
+      }
+    }
+    kept.push(...add);
+    kept.sort((a, b) => a.t - b.t);
+  }
+
   // 4. Spread each ventricular impulse; tissue is refractory until it has recovered from the previous beat.
   const refractory = new Float64Array(g.n).fill(-Infinity);
+  const apd = model.apd ? { apd: model.apd.apd, slope: model.apd.slope ?? 1.2 } : {};
+  let prevT = -Infinity, beatNo = 0, lastRr = -Infinity;
   for (const s of kept) {
-    const act = activate(g, s.sources, { allow: VENTRICLES, cut, refractoryUntil: refractory, retrograde: ["ectopic", "ventricle", "vt"].includes(s.kind) });
+    let beatCut = cut;
+    const extra = [...(s.cut ?? [])];
+    for (const cb of model.cutBeats ?? []) {
+      const hit = cb.beats === "odd" ? beatNo % 2 === 1 : cb.beats === "even" ? beatNo % 2 === 0 : cb.beats.includes(beatNo);
+      if (hit && s.kind === "conducted") extra.push(...cb.cut);
+    }
+    if (model.rateCut && s.kind === "conducted" && s.t - prevT < model.rateCut.rrBelow) extra.push(...model.rateCut.cut);
+    if (extra.length) beatCut = new Set([...cut, ...lineSet(g, extra)]);
+    if (s.kind !== "vf") { prevT = s.t; beatNo++; }
+    // Muscle → Purkinje entry for beats that start in the ventricular muscle. Scar VT leaves the scar through diseased
+    // muscle, so it reaches the Purkinje network later (SCAR_RETRO_MS) and the QRS is wider than a PVC's.
+    const retroEntry = ["ectopic", "ventricle", "vt", "paced", "antidromic", "pre", "fusion", "vf"].includes(s.kind);
+    const t0 = s.t;
+    const act = activate(g, s.sources, { allow: VENTRICLES, cut: beatCut, refractoryUntil: refractory, retrograde: retroEntry, retroMs: s.scar ? SCAR_RETRO_MS : RETRO_PMJ_MS, slow, maxTime: s.reach ? t0 + s.reach : Infinity });
+    if (s.reach) for (let v = 0; v < g.n; v++) if (act[v] > t0 + s.reach) act[v] = Infinity;
     const [lo, hi] = meshSpan(g, act, VENTRICLES);
     if (!Number.isFinite(lo)) continue;
-    const repol = repolarise(g, act, { reference: ref });
+    // Restitution: action potentials shorten at fast rates (APD ∝ √RR, as in Bazett's QT correction), else a 330 ms
+    // tachycardia would find the ventricles still refractory.
+    const rr = Number.isFinite(lastRr) ? s.t - lastRr : Math.min(800, (kept.find((x) => x.t > s.t && x.kind !== "vf")?.t ?? Infinity) - s.t); // first beat: its own cycle
+    lastRr = s.kind === "vf" ? lastRr : s.t;
+    const scale = s.kind === "vf" ? 0.55 : Math.min(1.15, Math.max(0.6, Math.sqrt(rr / 800))); // fibrillating muscle runs at its shortest APD
+    const repol = repolarise(g, act, { reference: ref, ...apd, apd: (apd.apd ?? 310) * scale });
     for (let v = 0; v < g.n; v++) if (Number.isFinite(act[v])) refractory[v] = repol[v] + VENTRICULAR_GUARD;
     const beat = ventricular.length;
     ventricular.push({ act, repol, weight: 1, kind: "ventricular", beat, t0: lo, t1: hi });
-    events.push({ type: "QRS", t0: lo, t1: hi, beat, origin: s.kind });
-    if (s.kind === "pre") {
-      const his = s.sources[0].t;
-      events.push({ type: "pre", t0: lo, t1: Math.max(lo + 10, his + 15), beat });
-    }
-    if (s.kind === "conducted" || s.kind === "pre") events.push({ type: "PR", t0: s.p.t0, t1: lo, beat });
+    if (s.kind === "vf") continue; // no QRS/T events: VF has no discrete complexes
+    events.push({ type: "QRS", t0: lo, t1: hi, beat, origin: s.kind, cut: extra.length ? extra : undefined });
+    if (s.kind === "pre" && s.his != null) events.push({ type: "pre", t0: lo, t1: Math.max(lo + 10, s.his + 15), beat });
+    if ((s.kind === "conducted" || s.kind === "pre" || s.kind === "fusion") && s.p) events.push({ type: "PR", t0: s.p.t0, t1: lo, beat });
     const [r0, r1] = meshSpan(g, repol, VENTRICLES);
     events.push({ type: "ST", t0: hi, t1: Math.max(hi, r0 - 80), beat });
     events.push({ type: "T", t0: Math.max(hi, r0 - 80), t1: r1 + 60, beat });
@@ -481,14 +658,26 @@ export function simulate(g, model) {
   for (const src of retro.sort((a, b) => a.sources[0].t - b.sources[0].t)) runAtrial(src);
 
   const wavefronts = [...atrial, ...ventricular];
-  const vectors = heartVectors(g, wavefronts, D);
-  const leads = leadSignals(g, wavefronts, D, { vectors, gain: LEAD_GAIN });
+  // phase3: how long each cell takes to repolarise (ms); shorter (e.g. high potassium) narrows and peaks the T wave.
+  const vectors = heartVectors(g, wavefronts, D, { repolFront: model.apd?.phase3 ?? 160 });
+  const gl = model.electrodeShift ? { ...g, electrodes: Object.fromEntries(Object.entries(g.electrodes).map(([k, e]) => [k, e.map((x, i) => x + (model.electrodeShift[k]?.[i] ?? 0))])) } : g;
+  const leads = leadSignals(gl, wavefronts, D, { vectors, gain: LEAD_GAIN });
+  if (model.leads === "lareversal") {
+    // Swapping the LA and RA electrodes, by Einthoven's lead algebra: I inverts, II↔III, aVR↔aVL, aVF unchanged.
+    const { I, II, III, aVR, aVL } = leads;
+    Object.assign(leads, { I: I.map((x) => -x), II: III, III: II, aVR: aVL, aVL: aVR });
+  }
+  // Pacing spikes: a device artefact, not heart activity — drawn as a 2 ms pulse in every lead.
+  for (const e of events) if (e.type === "spike") for (const l of LEADS) { const i = Math.round((e.t0 * 500) / 1000); if (i < leads[l].length) leads[l][i] += SPIKE_MV; }
   events.sort((a, b) => a.t0 - b.t0 || a.t1 - b.t1);
-  return { duration: D, fs: 500, wavefronts, vectors, leads, events, af: !!model.af };
+  return { duration: D, fs: 500, wavefronts, vectors, leads, events, af: !!model.af, vf: !!model.vf };
 }
 
+const SPIKE_MV = 1.2;
+const SCAR_RETRO_MS = 40;
+
 // mV per unit of heart vector: sets the NSR R wave in V5 to about 1.5 mV.
-export const LEAD_GAIN = 0.0082;
+export const LEAD_GAIN = 0.0019;
 
 export const wrapTime = (sim, t) => ((t % sim.duration) + sim.duration) % sim.duration;
 
@@ -513,8 +702,9 @@ export function vertexState(sim, t, out) {
 // The event to caption at time t: what is visible wins (pre-excitation, QRS, P, T, a re-entry circuit), then the
 // quieter phases (blocked impulse, AV delay, ST); among equals the shortest. In atrial fibrillation the baseline is
 // never quiet, so fibrillation is the caption whenever nothing ventricular is happening.
-const CAPTION_ORDER = ["pre", "QRS", "P", "T", "reentry", "blocked", "AV", "ST", "PR"];
+const CAPTION_ORDER = ["pre", "QRS", "P", "T", "reentry", "blocked", "sablock", "AV", "ST", "PR"];
 export function eventAt(sim, t) {
+  if (sim.vf) return VF_EVENT;
   let best = null, rank = Infinity;
   for (const e of sim.events) {
     if (!(e.t0 <= t && t < e.t1)) continue;
@@ -525,6 +715,7 @@ export function eventAt(sim, t) {
   return best;
 }
 const AF_EVENT = Object.freeze({ type: "P", origin: "af", t0: 0, t1: 0 });
+const VF_EVENT = Object.freeze({ type: "vf", t0: 0, t1: 0 });
 
 function seeded(seed) {
   let a = seed >>> 0;

@@ -1,66 +1,72 @@
-// Page state for heart.html: URL hash and the what-if toggles. DOM-free.
+// Page state for heart.html: URL hash, rhythm search, the clock under the tracing. DOM-free.
 
-export const VIEWS = ["outside", "4ch", "sax", "chest"];
+export const MODES = ["closeup", "strip", "12"];
+export const HEART_MODES = ["slice", "3d", "torso"];
+export const SECTIONS = ["outside", "4ch", "sax"];
+export const COLOURS = ["state", "time"];
 export const SPEEDS = [0.1, 0.2, 0.5, 1];
-const WHAT_IF = { cutRbb: false, cutLbb: false, avDelay: 160, blockNode: false, accessory: false, extraBeat: false };
+export const CATEGORIES = ["sinus", "atrial", "junctional", "avblock", "bundle", "preexcitation", "ventricular", "paced", "other"];
+const LEADS = ["I", "II", "III", "aVR", "aVL", "aVF", "V1", "V2", "V3", "V4", "V5", "V6"];
+export const DEFAULTS = { rhythm: "nsr", compare: null, mode: "closeup", ladder: true, heart: "slice", section: "4ch", level: 0.5,
+  colour: "state", conduction: true, vector: true, speed: 0.2, t: 0, leads: ["I", "V1", "V6"], split: 0.5 };
 
+const pick = (v, list, d) => (list.includes(v) ? v : d);
+const num = (v, lo, hi, d) => (v != null && v !== "" && Number.isFinite(+v) && +v >= lo && +v <= hi ? +v : d);
+
+// Unknown keys (e.g. the old what-if flags) are ignored; bad values fall back to the defaults.
 export function parseHash(hash, rhythmKeys) {
   const h = new URLSearchParams(hash.replace(/^#/, ""));
-  const rhythm = rhythmKeys.includes(h.get("rhythm")) ? h.get("rhythm") : "nsr";
-  const view = VIEWS.includes(h.get("view")) ? h.get("view") : "outside";
-  const speed = SPEEDS.includes(Number(h.get("speed"))) && h.has("speed") ? Number(h.get("speed")) : 0.2;
-  const t = Number(h.get("t")) > 0 && Number.isFinite(Number(h.get("t"))) ? Number(h.get("t")) : 0;
-  const whatIf = { ...WHAT_IF };
-  if (rhythm === "nsr") {
-    for (const k of ["cutRbb", "cutLbb", "blockNode", "accessory", "extraBeat"]) whatIf[k] = h.get(k) === "1";
-    const pr = Number(h.get("avDelay"));
-    if (pr >= 120 && pr <= 400) whatIf.avDelay = pr;
-    for (const k of ["blockNode", "accessory"]) if (whatIf[k]) Object.assign(whatIf, toggleWhatIf(whatIf, k, true));
-  }
-  return { rhythm, view, speed, t, whatIf };
+  const leads = (h.get("leads") ?? "").split(",");
+  return {
+    rhythm: pick(h.get("rhythm"), rhythmKeys, DEFAULTS.rhythm),
+    compare: pick(h.get("compare"), rhythmKeys, null),
+    mode: pick(h.get("mode"), MODES, DEFAULTS.mode),
+    ladder: h.get("ladder") !== "0",
+    heart: pick(h.get("heart"), HEART_MODES, DEFAULTS.heart),
+    section: pick(h.get("section"), SECTIONS, DEFAULTS.section),
+    level: num(h.get("level"), 0, 1, DEFAULTS.level),
+    colour: pick(h.get("colour"), COLOURS, DEFAULTS.colour),
+    conduction: h.get("conduction") !== "0",
+    vector: h.get("vector") !== "0",
+    speed: SPEEDS.includes(+h.get("speed")) && h.has("speed") ? +h.get("speed") : DEFAULTS.speed,
+    t: num(h.get("t"), 0, 60000, 0),
+    leads: leads.length === 3 && leads.every((l) => LEADS.includes(l)) ? leads : DEFAULTS.leads,
+    split: num(h.get("split"), 0, 1, DEFAULTS.split),
+  };
 }
 
-export function formatHash({ rhythm, view, speed, t, whatIf }) {
+export function formatHash(st) {
   const h = new URLSearchParams();
-  if (rhythm !== "nsr") h.set("rhythm", rhythm);
-  if (view !== "outside") h.set("view", view);
-  if (speed !== 0.2) h.set("speed", speed);
-  if (t) h.set("t", Math.round(t));
-  for (const [k, d] of Object.entries(WHAT_IF)) if (whatIf[k] !== d) h.set(k, typeof d === "boolean" ? "1" : whatIf[k]);
+  for (const [k, d] of Object.entries(DEFAULTS)) {
+    const v = st[k];
+    if (k === "leads" ? v.join() === d.join() : v === d) continue;
+    h.set(k, typeof v === "boolean" ? (v ? "1" : "0") : k === "leads" ? v.join(",") : k === "t" ? Math.round(v) : v);
+  }
   const s = h.toString();
   return s ? `#${s}` : "";
 }
 
-// What-ifs the model can't combine: blocking the AV node or adding an accessory pathway excludes the
-// other AV-conduction changes. Turning one on turns its conflicts off.
-const CONFLICTS = { blockNode: ["cutRbb", "cutLbb", "accessory"], accessory: ["cutRbb", "cutLbb", "blockNode"],
-  cutRbb: ["blockNode", "accessory"], cutLbb: ["blockNode", "accessory"] };
-
-export function toggleWhatIf(w, key, on) {
-  const out = { ...w, [key]: on };
-  if (on) for (const k of CONFLICTS[key] ?? []) out[k] = false;
-  return out;
+// Case- and accent-insensitive match on the title (in the page language and in English) and on the key.
+const fold = (s) => s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+export function filterRhythms(list, query, lang) {
+  const words = fold(query).split(/\s+/).filter(Boolean);
+  return list.filter((r) => {
+    const hay = fold(`${r.key} ${r.title[lang] ?? ""} ${r.title.en}`);
+    return words.every((w) => hay.includes(w));
+  });
 }
 
-// The normal-heart model with the learner's changes, and the rhythm the heart now has: the most important
-// change wins (complete block, then pre-excitation, bundle branch block, long PR, extra beat).
-export function applyWhatIf(base, w) {
-  const m = structuredClone(base);
-  const named = [];
-  if (w.cutRbb && w.cutLbb) {
-    Object.assign(m, { cut: ["rbb", "lbb"], block: { level: "his", pattern: [0] }, escape: { site: "ventricle", cycle: 1700 } });
-    named.push("3avb");
-  } else if (w.cutRbb) { m.cut = ["rbb"]; named.push("rbbb"); } else if (w.cutLbb) { m.cut = ["lbb"]; named.push("lbbb"); }
-  if (w.blockNode) {
-    Object.assign(m, { block: { level: "node", pattern: [0] }, escape: { site: "junction", cycle: 1300 } });
-    named.unshift("3avb_node");
-  }
-  if (w.accessory) { m.accessory = true; named.unshift("wpw"); }
-  if (w.avDelay !== WHAT_IF.avDelay) {
-    m.avDelay = base.avDelay + (w.avDelay - WHAT_IF.avDelay);
-    if (w.avDelay > 200 && !w.blockNode && !w.accessory && !(w.cutRbb && w.cutLbb)) named.push("1avb");
-  }
-  if (w.extraBeat) { m.ectopic = [{ site: "pvc", t: 1450 }]; named.push("pvc"); }
-  const changed = JSON.stringify(m) !== JSON.stringify(base);
-  return { model: changed ? m : base, becomes: named[0] ?? "nsr" };
+// "N ms after the SA node fires": the latest impulse origin at or before t. Null when there is none (AF, VF).
+export function clockLabel(sim, t) {
+  if (sim.af || sim.vf) return null;
+  let best = null;
+  for (const e of sim.events) if (e.type === "fire" && e.t0 <= t && (!best || e.t0 >= best.t0)) best = e;
+  return best ? { ms: Math.round(t - best.t0), origin: best.origin } : null;
+}
+
+// The close-up shows the tracing a page at a time, like a monitor: [t0, t1) containing t.
+export const CLOSEUP_MS = 1200;
+export function closeupWindow(t, duration) {
+  const t0 = Math.min(Math.floor(t / CLOSEUP_MS) * CLOSEUP_MS, Math.max(0, duration - CLOSEUP_MS));
+  return [t0, Math.min(duration, t0 + CLOSEUP_MS)];
 }

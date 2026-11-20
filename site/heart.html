@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>How the ECG is made</title>
-<meta name="description" content="Watch a 3D heart depolarise and recover in step with a simulated 12-lead ECG and a ladder diagram, rhythm by rhythm. Educational use only.">
+<meta name="description" content="A heart and 12-lead ECG simulator: 75 rhythms on a schematic heart, with the electrical activity behind every wave. Educational use only.">
 <meta name="theme-color" content="#0f141b">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,89 +27,97 @@
 </header>
 
 <section class="controls">
-  <select id="rhythm-select" aria-label="Rhythm" data-t-aria="heart.rhythm"></select>
-  <button id="play" class="btn" aria-pressed="false" data-t="heart.play">Play</button>
-  <button id="replay" class="btn" data-t="heart.replay">Replay</button>
-  <label class="window"><span data-t="heart.speed">Speed</span>
-    <select id="speed" dir="ltr"><option value="0.1">0.1×</option><option value="0.2">0.2×</option><option value="0.5">0.5×</option><option value="1">1×</option></select>
-  </label>
-  <div id="waves" class="wave-toggles" role="group" aria-label="Waves" data-t-aria="ecg.waves" dir="ltr">
-    <button class="btn small w-P" aria-pressed="false" data-k="P">P</button>
-    <button class="btn small w-PR" aria-pressed="false" data-k="PR">PR</button>
-    <button class="btn small w-QRS" aria-pressed="false" data-k="QRS">QRS</button>
-    <button class="btn small w-ST" aria-pressed="false" data-k="ST">ST</button>
-    <button class="btn small w-T" aria-pressed="false" data-k="T">T</button>
-    <button class="btn small" aria-pressed="false" data-k="all" data-t="heart.all">All</button>
+  <button id="pick" class="btn picker-btn" type="button"><span class="picker-icon" aria-hidden="true">⌕</span> <span id="pick-label"></span></button>
+  <label class="check"><input type="checkbox" id="compare-on"> <span data-t="heart.compare">Compare</span></label>
+  <button id="pick2" class="btn picker-btn b" type="button" hidden><span class="tag">B</span> <span id="pick2-label"></span></button>
+  <div id="mode" class="segmented" role="radiogroup" aria-label="Tracing" data-t-aria="heart.mode">
+    <button class="btn small" role="radio" data-v="closeup" data-t="heart.mode.closeup">Close-up</button>
+    <button class="btn small" role="radio" data-v="strip" data-t="heart.mode.strip">Rhythm strip</button>
+    <button class="btn small" role="radio" data-v="12" data-t="heart.mode.12">12-lead</button>
   </div>
-  <div id="layout" class="segmented" role="radiogroup" dir="ltr">
-    <button class="btn small" role="radio" data-layout="3x4">3×4</button>
-    <button class="btn small" role="radio" data-layout="12x1">12×1</button>
-  </div>
+  <label class="check"><input type="checkbox" id="ladder-on" checked> <span data-t="heart.ladderToggle">Ladder</span></label>
 </section>
 
 <div class="heart-grid">
   <div class="heart-main">
-    <div class="scrub" dir="ltr">
-      <input id="scrub" type="range" min="0" step="1" value="0" aria-label="Time" data-t-aria="heart.time">
-      <span id="clock" class="clock"></span>
-    </div>
-    <main class="viewer-wrap">
+    <div class="trace-card">
+      <div id="lead-pickers" class="lead-pickers" dir="ltr"></div>
       <div id="paper" class="paper" dir="ltr">
-        <svg id="trace" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ECG"></svg>
+        <svg id="trace" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ECG" data-t-aria="heart.mode"></svg>
         <svg id="ladder" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ladder diagram" data-t-aria="heart.ladder"></svg>
       </div>
-      <p class="hint" data-t="heart.ladder">Ladder diagram</p>
-    </main>
+      <div class="trace-foot">
+        <span id="scale" class="scale"></span>
+        <div id="waves" class="wave-toggles" role="group" aria-label="Waves" data-t-aria="ecg.waves" dir="ltr">
+          <button class="btn small w-P" aria-pressed="false" data-k="P">P</button>
+          <button class="btn small w-PR" aria-pressed="false" data-k="PR">PR</button>
+          <button class="btn small w-QRS" aria-pressed="false" data-k="QRS">QRS</button>
+          <button class="btn small w-ST" aria-pressed="false" data-k="ST">ST</button>
+          <button class="btn small w-T" aria-pressed="false" data-k="T">T</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="playbar" dir="ltr">
+      <button id="play" class="btn" aria-pressed="false">Play</button>
+      <button id="replay" class="btn" data-t="heart.replay">Replay</button>
+      <input id="scrub" type="range" min="0" step="1" value="0" aria-label="Time" data-t-aria="heart.time">
+      <span id="clock" class="clock"></span>
+      <label class="window"><span data-t="heart.speed">Speed</span>
+        <select id="speed"><option value="0.1">0.1×</option><option value="0.2">0.2×</option><option value="0.5">0.5×</option><option value="1">1×</option></select>
+      </label>
+    </div>
+    <p id="since" class="since"></p>
     <p id="caption" class="caption" aria-live="polite"></p>
 
-    <section class="hearts">
-      <div class="heart-pane fixed-pane">
-        <div class="pane-head"><span data-t="heart.view.outside">Outside</span></div>
-        <div id="heart-fixed" class="heart-view"></div>
+    <section class="heart-card">
+      <div class="pane-head">
+        <div id="heart-mode" class="segmented" role="radiogroup" aria-label="Heart" data-t-aria="heart.heart">
+          <button class="btn small" role="radio" data-v="slice" data-t="heart.heart.slice">Slice</button>
+          <button class="btn small" role="radio" data-v="3d" data-t="heart.heart.3d">3D</button>
+          <button class="btn small" role="radio" data-v="torso" data-t="heart.heart.torso">Torso</button>
+        </div>
+        <div id="section" class="segmented" role="radiogroup" aria-label="Section" data-t-aria="heart.section">
+          <button class="btn small" role="radio" data-v="outside" data-t="heart.section.outside">Outside</button>
+          <button class="btn small" role="radio" data-v="4ch" data-t="heart.section.4ch">Four-chamber</button>
+          <button class="btn small" role="radio" data-v="sax" data-t="heart.section.sax">Short axis</button>
+        </div>
+        <label id="level-wrap" class="window"><span data-t="heart.level">Level</span><input id="level" type="range" min="0" max="1" step="0.02"></label>
+        <div id="colour" class="segmented" role="radiogroup" aria-label="Colour" data-t-aria="heart.colour">
+          <button class="btn small" role="radio" data-v="state" data-t="heart.colour.state">Electrical state</button>
+          <button class="btn small" role="radio" data-v="time" data-t="heart.colour.time">Activation time</button>
+        </div>
+        <label class="check"><input type="checkbox" id="conduction-on" checked> <span data-t="heart.conduction">Conduction system</span></label>
+        <label class="check"><input type="checkbox" id="vector-on" checked> <span data-t="heart.vector">Heart vector</span></label>
       </div>
-      <div class="heart-pane">
-        <div class="pane-head">
-          <div id="view-select" class="segmented" role="radiogroup" aria-label="View" data-t-aria="heart.view">
-            <button class="btn small" role="radio" data-view="outside" data-t="heart.view.outside">Outside</button>
-            <button class="btn small" role="radio" data-view="4ch" data-t="heart.view.4ch">Four-chamber cut</button>
-            <button class="btn small" role="radio" data-view="sax" data-t="heart.view.sax">Short-axis cut</button>
-            <button class="btn small" role="radio" data-view="chest" data-t="heart.view.chest">In the chest</button>
+      <div class="heart-body">
+        <div id="heart-stage" class="heart-stage">
+          <div id="stage-a" class="stage-layer"></div>
+          <div id="stage-b" class="stage-layer b" hidden></div>
+          <div id="split" class="split" hidden role="slider" tabindex="0" aria-label="Split" data-t-aria="heart.split" aria-valuemin="0" aria-valuemax="100"><span></span></div>
+          <span id="tag-a" class="stage-tag" hidden>A</span><span id="tag-b" class="stage-tag b" hidden>B</span>
+        </div>
+        <div class="heart-side">
+          <ul id="legend" class="legend"></ul>
+          <h3 class="side-h" data-t="heart.ap">Action potentials</h3>
+          <div id="ap" class="ap-plots" dir="ltr"></div>
+          <div class="vectors" dir="ltr">
+            <figure><svg id="vec-frontal" viewBox="-60 -60 120 120"></svg><figcaption data-t="heart.frontal">Frontal plane</figcaption></figure>
+            <figure><svg id="vec-horizontal" viewBox="-60 -60 120 120"></svg><figcaption data-t="heart.horizontal">Horizontal plane</figcaption></figure>
           </div>
         </div>
-        <div id="heart-main" class="heart-view"></div>
-        <p id="chest-hint" class="hint" hidden></p>
       </div>
-    </section>
-    <ul class="legend">
-      <li><i class="lg-front"></i><span data-t="heart.legend.front">Depolarising</span></li>
-      <li><i class="lg-plateau"></i><span data-t="heart.legend.plateau">Depolarised</span></li>
-      <li><i class="lg-repol"></i><span data-t="heart.legend.repol">Recovering</span></li>
-      <li><i class="lg-rest"></i><span data-t="heart.legend.rest">At rest</span></li>
-    </ul>
-
-    <section id="whatif" class="reading whatif" hidden>
-      <h2 data-t="heart.whatif">What if…</h2>
-      <div class="whatif-row">
-        <label class="check"><input type="checkbox" data-w="cutRbb"> <span data-t="heart.whatif.cutRbb">Cut the right bundle</span></label>
-        <label class="check"><input type="checkbox" data-w="cutLbb"> <span data-t="heart.whatif.cutLbb">Cut the left bundle</span></label>
-        <label class="check"><input type="checkbox" data-w="blockNode"> <span data-t="heart.whatif.blockNode">Block the AV node</span></label>
-        <label class="check"><input type="checkbox" data-w="accessory"> <span data-t="heart.whatif.accessory">Add an accessory pathway</span></label>
-        <label class="check"><input type="checkbox" data-w="extraBeat"> <span data-t="heart.whatif.extraBeat">Add an early beat</span></label>
-        <label class="window"><span data-t="heart.whatif.avDelay">AV node delay (PR)</span>
-          <input id="av-delay" type="range" min="120" max="400" step="10" value="160"><output id="av-out" dir="ltr"></output>
-        </label>
-        <button id="whatif-reset" class="btn small" data-t="heart.whatif.reset">Reset</button>
-      </div>
-      <p id="becomes" class="becomes"></p>
     </section>
   </div>
 
   <aside id="why" class="reading why"></aside>
 </div>
 
+<dialog id="picker" class="picker"></dialog>
+
 <footer class="foot">
   <p data-t="heart.disclaimer">A teaching model. Educational use only.</p>
-  <p><a href="heart/LICENSE.txt" data-t="heart.credit">Heart model: Z-Anatomy (CC BY-SA 4.0), from BodyParts3D</a></p>
+  <p data-t="heart.credit">Heart: an idealised schematic heart built in your browser.</p>
   <p><a id="repo-link" hidden rel="noopener" data-t="footer.code">Source code &amp; error reports</a></p>
 </footer>
 </body>
