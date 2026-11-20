@@ -292,3 +292,56 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .wave-toggles .w-T { --c: #4cb873; }
 .wave-toggles .btn[aria-pressed="true"] { border-color: var(--c); color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--panel)); }
 #ecg-select { max-width: 100%; min-width: 0; }
+
+/* How the ECG is made (heart.html) */
+:root {
+  --heart-rest: #b8746c; --heart-front: #fff3a8; --heart-plateau: #e8a23c; --heart-repol: #5d8fd6;
+  --heart-line: #d9d4c8; --heart-electrode: #4fd1e8;
+}
+.heart-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); gap: 14px; align-items: start; }
+.heart-main { min-width: 0; }
+.scrub { display: flex; gap: 10px; align-items: center; margin-top: 12px; }
+.scrub input { flex: 1; min-width: 0; accent-color: var(--active); }
+.clock { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; white-space: nowrap; }
+#ladder { display: block; border-top: 1px solid #e69a9a; }
+#ladder .bg, #trace .bg { fill: #fff7f4; }
+#ladder line { vector-effect: non-scaling-stroke; }
+#ladder .rows line { stroke: #e69a9a; stroke-width: 1px; }
+#ladder .rows text { font: 600 3.2px var(--mono); fill: #111; }
+#ladder .lines line { stroke: #111; stroke-width: 1.6px; }
+#ladder .lines .retro { stroke: #1f6fd1; }
+#ladder .lines .blocked { stroke: #d12f2f; }
+#trace .cursor, #ladder .cursor { stroke: #1565c0; stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+#trace .leads text { cursor: pointer; }
+#trace .leads text.hl { fill: #1565c0; }
+#trace .w-PR { fill: #7a4fd1; }
+.wave-toggles .w-PR { --c: #a483f0; }
+.caption { min-height: 2.9em; margin: 10px 0 0; padding: 8px 12px; border-inline-start: 3px solid var(--active); background: var(--panel); border-radius: 0 var(--radius) var(--radius) 0; font-family: var(--sans); }
+.hearts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.heart-pane { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: radial-gradient(circle at 50% 45%, #2b333f, #0c1015 75%); display: flex; flex-direction: column; }
+.heart-pane[hidden] { display: none; }
+.pane-head { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 6px 8px; font-size: 12px; color: var(--muted); background: var(--ground); border-bottom: 1px solid var(--line); min-height: 40px; }
+.pane-head .segmented { flex-wrap: wrap; }
+.heart-view { position: relative; height: clamp(260px, 42vw, 420px); }
+.heart-view canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.loading-msg { position: absolute; inset: 0; display: grid; place-content: center; margin: 0; padding: 16px; color: var(--muted); text-align: center; font-family: var(--sans); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 0 0; padding: 0; list-style: none; font-size: 12px; color: var(--muted); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-inline-end: 6px; vertical-align: -1px; }
+.lg-front { background: var(--heart-front); } .lg-plateau { background: var(--heart-plateau); }
+.lg-repol { background: var(--heart-repol); } .lg-rest { background: var(--heart-rest); }
+.whatif-row { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-top: 8px; font-family: var(--sans); }
+.whatif-row input[type="range"] { accent-color: var(--active); }
+.becomes { margin: 8px 0 0; color: var(--active); font-family: var(--sans); }
+.becomes:empty { display: none; }
+.why { margin-top: 12px; font-family: var(--sans); }
+.why h2 { font-size: 15px; }
+.why h3 { margin: 14px 0 4px; font-size: 12px; font-weight: 500; color: var(--muted); }
+.why ol, .why ul { margin: 0; padding-inline-start: 1.3em; }
+.why li { margin: 6px 0; }
+.why .see { display: inline-block; margin-top: 14px; text-decoration: none; }
+@media (max-width: 900px) { .heart-grid { grid-template-columns: 1fr; } }
+@media (max-width: 700px) {
+  .hearts { grid-template-columns: 1fr; }
+  .fixed-pane { display: none; }
+  .heart-view { height: 320px; }
+}

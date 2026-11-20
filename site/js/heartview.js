@@ -15,7 +15,7 @@ function token(name, fallback) {
   return new THREE.Color(v || fallback);
 }
 
-// Nearest graph vertex (restricted to the given chambers) for each point, via a uniform grid.
+// Nearest graph vertex (restricted to the given chambers) for each point (flat xyz world mm), via a uniform grid.
 function nearestMap(g, positions, chambers, cell = 6) {
   const grid = new Map();
   const key = (x, y, z) => `${Math.floor(x / cell)},${Math.floor(y / cell)},${Math.floor(z / cell)}`;
@@ -25,9 +25,9 @@ function nearestMap(g, positions, chambers, cell = 6) {
     if (!grid.has(k)) grid.set(k, []);
     grid.get(k).push(v);
   }
-  const out = new Int32Array(positions.count).fill(-1);
-  for (let i = 0; i < positions.count; i++) {
-    const x = positions.getX(i), y = positions.getY(i), z = positions.getZ(i);
+  const out = new Int32Array(positions.length / 3).fill(-1);
+  for (let i = 0; i < out.length; i++) {
+    const x = positions[i * 3], y = positions[i * 3 + 1], z = positions[i * 3 + 2];
     let best = -1, bd = Infinity;
     for (let r = 1; r <= 3 && best < 0; r++) {
       const cx = Math.floor(x / cell), cy = Math.floor(y / cell), cz = Math.floor(z / cell);
@@ -91,7 +91,9 @@ export async function createHeartView(container, { glbUrl, graph: g, skeletonUrl
     const attr = new THREE.BufferAttribute(new Float32Array(geo.attributes.position.count * 3), 3);
     geo.setAttribute("color", attr);
     o.updateWorldMatrix(true, false);
-    const world = geo.attributes.position.clone().applyMatrix4(o.matrixWorld);
+    // World mm positions. Not attribute.applyMatrix4: gltfpack stores quantized Int16 positions, which would clamp.
+    const p = geo.attributes.position, v = new THREE.Vector3(), world = new Float32Array(p.count * 3);
+    for (let i = 0; i < p.count; i++) v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld).toArray(world, i * 3);
     coloured.push({ attr, map: nearestMap(g, world, chambers) });
   });
   scene.add(gltf.scene);
@@ -194,11 +196,9 @@ export async function createHeartView(container, { glbUrl, graph: g, skeletonUrl
       }
       attr.needsUpdate = true;
     }
-    for (const { ids, mat } of lines) {
-      let s = 0;
-      for (const v of ids) if (states[v] === 1 || (states[v] && !s)) s = states[v];
-      mat.color.copy(lineColor[s]);
-    }
+    // A line shows the state of its middle node, so a cut bundle stays dark even though it shares its first
+    // node with the His bundle.
+    for (const { ids, mat } of lines) mat.color.copy(lineColor[states[ids[Math.floor(ids.length / 2)]]]);
     requestRender();
   }
 

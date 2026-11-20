@@ -101,7 +101,7 @@
   "atlasEcg": 687,
   "atlasDx": "normal",
   "model": {
-   "duration": 4000,
+   "duration": 8000,
    "sinus": {
     "cycle": 800
    },
@@ -196,7 +196,7 @@
   "atlasEcg": 611,
   "atlasDx": "sbrad",
   "model": {
-   "duration": 6000,
+   "duration": 8400,
    "sinus": {
     "cycle": 1400
    },
@@ -291,7 +291,7 @@
   "atlasEcg": 2277,
   "atlasDx": "stach",
   "model": {
-   "duration": 3000,
+   "duration": 8000,
    "sinus": {
     "cycle": 500
    },
@@ -386,7 +386,7 @@
   "atlasEcg": 3948,
   "atlasDx": "1avb",
   "model": {
-   "duration": 4000,
+   "duration": 8000,
    "sinus": {
     "cycle": 800
    },
@@ -488,7 +488,7 @@
   "atlasEcg": 14009,
   "atlasDx": "2avb",
   "model": {
-   "duration": 6400,
+   "duration": 9600,
    "sinus": {
     "cycle": 800
    },
@@ -594,7 +594,7 @@
   "atlasEcg": 14009,
   "atlasDx": "2avb",
   "model": {
-   "duration": 6400,
+   "duration": 9600,
    "sinus": {
     "cycle": 800
    },
@@ -804,7 +804,7 @@
   "atlasEcg": 4827,
   "atlasDx": "3avb",
   "model": {
-   "duration": 8000,
+   "duration": 7800,
    "sinus": {
     "cycle": 800
    },
@@ -916,7 +916,7 @@
   "atlasEcg": 5212,
   "atlasDx": "rbbb",
   "model": {
-   "duration": 4000,
+   "duration": 8000,
    "sinus": {
     "cycle": 800
    },
@@ -1021,7 +1021,7 @@
   "atlasEcg": 1564,
   "atlasDx": "lbbb",
   "model": {
-   "duration": 4000,
+   "duration": 8000,
    "sinus": {
     "cycle": 800
    },
@@ -1126,7 +1126,7 @@
   "atlasEcg": 9823,
   "atlasDx": "wpw",
   "model": {
-   "duration": 4000,
+   "duration": 8000,
    "sinus": {
     "cycle": 800
    },
@@ -1229,7 +1229,7 @@
   "atlasEcg": 7889,
   "atlasDx": "psvt",
   "model": {
-   "duration": 4000,
+   "duration": 8160,
    "avDelay": 90,
    "reentry": {
     "circuit": "avnrt",
@@ -1325,7 +1325,7 @@
   "atlasEcg": 7889,
   "atlasDx": "psvt",
   "model": {
-   "duration": 4000,
+   "duration": 7920,
    "avDelay": 90,
    "reentry": {
     "circuit": "avrt",
@@ -1428,7 +1428,7 @@
   "atlasEcg": 449,
   "atlasDx": "aflt",
   "model": {
-   "duration": 4000,
+   "duration": 8000,
    "reentry": {
     "circuit": "flutter",
     "cycle": 200,
@@ -1635,7 +1635,7 @@
   "atlasEcg": 1993,
   "atlasDx": "pvc",
   "model": {
-   "duration": 4000,
+   "duration": 8000,
    "sinus": {
     "cycle": 800
    },
@@ -1743,7 +1743,7 @@
   "atlasEcg": null,
   "atlasDx": null,
   "model": {
-   "duration": 4000,
+   "duration": 7920,
    "sinus": {
     "cycle": 700
    },

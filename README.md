@@ -35,6 +35,21 @@ the community. If you spot a mistake, use "Report a problem" on the structure.
   diagnosis from four.
 - Quiz mode hides the diagnosis until you open the interpretation.
 
+**How the ECG is made** (`heart.html`)
+
+- A 3D heart depolarises and recovers in step with a simulated 12-lead ECG, a ladder diagram and a
+  live caption, so each deflection has a visible cause.
+- 16 rhythms: normal and sinus brady/tachycardia; 1st-degree, Mobitz I, Mobitz II and complete
+  heart block; right and left bundle branch block; WPW; AVNRT and AVRT; atrial flutter and
+  fibrillation; PVC; ventricular tachycardia. Each has a numbered "why", what it looks like on the
+  ECG, and a link to a real tracing in the ECG atlas.
+- Outside, four-chamber, short-axis and in-the-chest views (electrodes, heart vector, lead axis).
+- What-ifs on the normal heart: cut a bundle, lengthen the AV delay, block the AV node, add an
+  accessory pathway or an early beat.
+- The tracing comes from the model, not a template: activation spreads over the heart mesh at
+  real conduction speeds; the moving fronts add up to the heart vector; each lead is its
+  projection. Tests check every rhythm against the ECG criteria it teaches.
+
 **Languages:** English, Deutsch, Español, العربية, Français, Italiano, Nederlands.
 Scans are always shown radiologically (patient right on the viewer's left), in every language.
 
@@ -93,4 +108,6 @@ Adding a case, fixing a label or translation, adding a language: see
   (ECGDeli and GE 12SL) come from [PTB-XL+](https://doi.org/10.13026/g6h6-7g88), CC BY 4.0.
   P bands are hidden for AF, flutter, SVT and 2nd/3rd-degree AV block. Clues are teaching notes
   reviewed by the community: use "Report a problem" next to any clue.
+- **Heart model** (`site/heart/`): [Z-Anatomy](https://github.com/Z-Anatomy/Models-of-human-anatomy),
+  CC BY-SA 4.0, from BodyParts3D (DBCLS, CC BY-SA 2.1 JP); see `site/heart/LICENSE.txt`.
 - **Code:** [MIT](LICENSE).
