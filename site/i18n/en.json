@@ -49,6 +49,7 @@
  "nav.ct": "CT atlas",
  "ecg.title": "ECG Atlas",
  "ecg.pick": "ECG",
+ "ecg.example": "Example",
  "ecg.speed": "Speed",
  "ecg.gain": "Gain",
  "ecg.calipers": "Calipers",

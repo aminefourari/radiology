@@ -69,6 +69,7 @@ button, select, input, output { font: inherit; color: inherit; }
 /* controls */
 .controls { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; margin-top: 12px; }
 .segmented { display: flex; gap: 6px; }
+.segmented[hidden] { display: none; }
 .window { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 12px; }
 .window select { color: var(--text); font-size: 14px; }
 
