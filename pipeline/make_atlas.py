@@ -193,6 +193,109 @@ def fit(case_dirs):
         print(meta["id"], {k: result[k] for k in "xyz"}, len(used), "landmarks")
 
 
+HEART = os.path.join(ROOT, "site", "heart")
+CHAMBERS = ["right_atrium", "left_atrium", "right_ventricle", "left_ventricle"]  # chamber ids 0..3
+
+
+def heart():
+    """Heart mesh (site/heart/heart.glb) and simulation graph (site/heart/heart-graph.json)."""
+    import numpy as np
+    from heartlib import boundary_loops, components, snap_landmarks, vertex_area
+
+    raw = os.path.join(ROOT, "data", "heart")
+    subprocess.run([BLENDER, "-b", os.path.join(ZA, "Z-Anatomy", "Startup.blend"), "--python",
+                    os.path.join(HERE, "heart_export.py"), "--", raw], check=True)
+    os.makedirs(HEART, exist_ok=True)
+    subprocess.run(["npx", "-y", "gltfpack@1.3.0", "-i", os.path.join(raw, "heart_raw.glb"),
+                    "-o", os.path.join(HEART, "heart.glb"), "-cc", "-kn", "-vp", "16"], check=True)
+    ch = json.load(open(os.path.join(raw, "heart_raw.json")))["chambers"]
+    lm = json.load(open(os.path.join(HERE, "heart_landmarks.json")))
+
+    offs, pos, chamber, area, tris, n = {}, [], [], [], {}, 0
+    for cid, name in enumerate(CHAMBERS):
+        v, t = np.array(ch[name]["verts"]), np.array(ch[name]["tris"])
+        offs[name], n = n, n + len(v)
+        pos.append(v)
+        chamber += [cid] * len(v)
+        area.append(vertex_area(v, t))
+        tris[name] = t
+    pos, chamber, area = np.concatenate(pos), np.array(chamber), np.concatenate(area)
+    vid = lambda name, i: offs[name] + int(i)
+    chv = lambda name: pos[chamber == CHAMBERS.index(name)]
+
+    def nearest(name, p, tol=15.0):
+        return vid(name, snap_landmarks(chv(name), {name: p}, tol)[name])
+
+    # Valve rings: the tricuspid ring is the RA opening that meets the RV, the mitral the LA's that meets the LV.
+    def ring(atrium, ventricle):
+        va, vv = chv(atrium), chv(ventricle)
+        al = [l for l in boundary_loops(tris[atrium]) if len(l) > 10]
+        vl = [l for l in boundary_loops(tris[ventricle]) if len(l) > 10]
+        best = min(((a, b) for a in al for b in vl), key=lambda ab: np.linalg.norm(va[ab[0]].mean(0) - vv[ab[1]].mean(0)))
+        return [vid(atrium, i) for i in best[0]]
+
+    tri_ring, mit_ring = ring("right_atrium", "right_ventricle"), ring("left_atrium", "left_ventricle")
+    mitral_c = pos[mit_ring].mean(0)
+    lv = chamber == 3
+    apex = int(np.nonzero(lv)[0][np.linalg.norm(pos[lv] - mitral_c, axis=1).argmax()])
+    axis = pos[apex] - mitral_c
+    frac = np.clip((pos - mitral_c) @ axis / (axis @ axis), 0, 1)  # 0 base .. 1 apex
+
+    # The LV mesh is two pieces: the inner endocardial shell (incl. the septum's left face) and the outer free
+    # wall. The RV mesh is a thin shell over the septum and free wall, so all of it is RV endocardium-ish.
+    lv_ids = np.nonzero(lv)[0]
+    cav = pos[lv].mean(0)
+    lab = components(len(lv_ids), tris["left_ventricle"])
+    inner = min(np.unique(lab), key=lambda k: np.linalg.norm(pos[lv_ids[lab == k]] - cav, axis=1).mean())
+    lv_endo = lv_ids[lab == inner]
+    rv_ids = np.nonzero(chamber == 2)[0]
+
+    # Conduction system. AV node: the RA tricuspid-ring point nearest the mitral ring; His runs onto the septal
+    # crest (the LV endocardium nearest the node); the RBB runs down the RV septal surface to the moderator band.
+    avnode = tri_ring[int(np.linalg.norm(pos[tri_ring] - mitral_c, axis=1).argmin())]
+    d_rv = np.array([np.linalg.norm(pos[rv_ids] - p, axis=1).min() for p in pos[lv_endo]])
+    sept_endo = lv_endo[d_rv < 12]
+    his_end = int(sept_endo[np.linalg.norm(pos[sept_endo] - pos[avnode], axis=1).argmin()])
+    on_septum = lambda f: int(sept_endo[np.linalg.norm(pos[sept_endo] - (pos[his_end] + f * (pos[apex] - pos[his_end])),
+                                                         axis=1).argmin()])
+    split, mid = on_septum(0.3), pos[on_septum(0.5)]
+    rv_mid = int(rv_ids[np.linalg.norm(pos[rv_ids] - mid, axis=1).argmin()])
+    hint = {k: nearest(n, p) for k, (n, p) in lm["hints"].items()}
+    lines = {"his": [avnode, his_end], "lbb": [his_end, split], "laf": [split, hint["laf_end"]],
+             "lpf": [split, hint["lpf_end"]], "rbb": [his_end, rv_mid, hint["rbb_end"]]}
+
+    # Purkinje regions: apical 3/4 of the endocardium. 0 LV septal (main LBB), 1 anterior fascicle,
+    # 2 posterior fascicle, 3 right ventricle; -1 none.
+    purk = np.full(len(pos), -1)
+    lv_p = lv_endo[frac[lv_endo] > 0.25]
+    ends = pos[[split, hint["laf_end"], hint["lpf_end"]]]
+    purk[lv_p] = np.linalg.norm(pos[lv_p][:, None] - ends[None], axis=2).argmin(1)
+    purk[rv_ids[frac[rv_ids] > 0.25]] = 3
+
+    # Flutter circuit: the tricuspid ring ordered so the septal side (towards the LV) is climbed.
+    tc = pos[tri_ring].mean(0)
+    k = int(np.linalg.norm(pos[tri_ring] - mitral_c, axis=1).argmin())
+    nxt = tri_ring[(k + 1) % len(tri_ring)]
+    if pos[nxt][2] < pos[tri_ring[k]][2]:
+        tri_ring = tri_ring[::-1]
+    low = sorted(tri_ring, key=lambda i: pos[i][2])[: max(3, len(tri_ring) // 6)]
+    vt_scar = [int(i) for i in lv_ids[np.linalg.norm(pos[lv_ids] - pos[hint["vt_exit"]], axis=1) < 9]]
+
+    graph = {
+        "pos": np.round(pos, 1).ravel().tolist(), "chamber": chamber.tolist(), "area": np.round(area, 2).tolist(),
+        "purkinje": purk.tolist(), "lines": lines,
+        "landmarks": {"sa": hint["sa"], "avnode": avnode, "his": his_end, "apex": apex,
+                      "tricuspid_ring": [int(i) for i in tri_ring], "cti": [int(i) for i in low],
+                      "mitral_ring": [int(i) for i in mit_ring],
+                      "accessory": [hint["acc_atrial"], hint["acc_ventricular"]], "pvc": hint["pvc"],
+                      "vt_exit": hint["vt_exit"], "vt_scar": vt_scar},
+        "electrodes": lm["electrodes"], "centre": np.round(pos[chamber >= 2].mean(0), 1).tolist(),
+    }
+    json.dump(graph, open(os.path.join(HEART, "heart-graph.json"), "w"), separators=(",", ":"))
+    print("heart graph", len(pos), "vertices;", "LV endo", len(lv_endo),
+          "purkinje", int((purk >= 0).sum()), "tricuspid ring", len(tri_ring))
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1]
-    fit(sys.argv[2:]) if cmd == "fit" else {"export": export, "map": draft, "link": link}[cmd]()
+    fit(sys.argv[2:]) if cmd == "fit" else {"export": export, "map": draft, "link": link, "heart": heart}[cmd]()
