@@ -200,28 +200,37 @@ async function openEcg(id) {
 
 const dxTitle = (dx) => localized(list.find((e) => e.dx === dx).title, st.lang);
 
-// "Atrial fibrillation · 2" when a diagnosis has several examples.
-function pickerLabel(e) {
-  const same = list.filter((x) => x.dx === e.dx);
-  const title = localized(e.title, st.lang);
-  return same.length > 1 ? `${title} · ${same.indexOf(e) + 1}` : title;
-}
-
 // Picker: grouped by topic normally; a flat numbered list in quiz mode (groups would give it away).
+// Outside quiz/Learn the picker lists diagnoses and the #variant radios choose among their examples.
 function buildPicker() {
   const sel = $("ecg-select");
   sel.hidden = st.learn;
-  if (st.quiz || st.learn) {
+  const blind = st.quiz || st.learn;
+  const cur = list.find((e) => String(e.id) === st.ecg);
+  if (blind) {
     sel.replaceChildren(...list.map((e, i) => new Option(t("ecg.unknown", { n: i + 1 }), e.id)));
   } else {
+    const firsts = [...new Map(list.map((e) => [e.dx, e])).values()];
     sel.replaceChildren(...GROUPS.map((g) => {
       const og = document.createElement("optgroup");
       og.label = t(`ecg.group.${g}`);
-      og.append(...list.filter((e) => e.group === g).map((e) => new Option(pickerLabel(e), e.id)));
+      og.append(...firsts.filter((e) => e.group === g).map((e) => new Option(localized(e.title, st.lang), e.id)));
       return og;
     }).filter((og) => og.children.length));
   }
-  sel.value = st.ecg;
+  sel.value = blind ? st.ecg : String(list.find((e) => e.dx === cur.dx).id);
+  const same = blind ? [] : list.filter((e) => e.dx === cur.dx);
+  const box = $("variant");
+  box.hidden = same.length < 2;
+  box.replaceChildren(...same.map((e, i) => {
+    const b = document.createElement("button");
+    b.className = "btn small";
+    b.setAttribute("role", "radio");
+    b.setAttribute("aria-checked", e === cur);
+    b.textContent = i + 1;
+    b.onclick = () => openEcg(e.id);
+    return b;
+  }));
 }
 
 // Everything language- or quiz-dependent.

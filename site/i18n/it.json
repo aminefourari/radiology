@@ -49,6 +49,7 @@
  "nav.ct": "Atlante TC",
  "ecg.title": "Atlante ECG",
  "ecg.pick": "ECG",
+ "ecg.example": "Esempio",
  "ecg.speed": "Velocità",
  "ecg.gain": "Guadagno",
  "ecg.calipers": "Compasso",
