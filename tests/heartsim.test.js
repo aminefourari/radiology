@@ -118,3 +118,51 @@ test("repolarising in reverse order gives a T wave with the same sign as the QRS
   const qrs = I.slice(0, 50).reduce((a, x) => a + x, 0), t = I.slice(60).reduce((a, x) => a + x, 0);
   assert.ok(qrs > 0 && t > 0, `QRS area ${qrs}, T area ${t}`);
 });
+
+test("explicit links join distant vertices as ventricular muscle", () => {
+  const json = gridGraph(2, 1, 10); // 10 mm apart: beyond the radius
+  json.links = [[0, 1]];
+  const act = activate(loadGraph(json, { radius: 5 }), [{ v: 0, t: 0 }]);
+  assert.ok(Math.abs(act[1] - 20) < 1e-9);
+});
+
+test("chamber weights scale each chamber's share of the heart vector", () => {
+  const { g, wf } = leftward();
+  const full = heartVectors(g, wf, 100, { chamberWeight: [1, 1, 1, 1] });
+  const third = heartVectors(g, wf, 100, { chamberWeight: [1, 1, 1, 1 / 3] }); // grid is chamber 3 (LV)
+  assert.ok(Math.abs(third[3 * 40] - full[3 * 40] / 3) < 1e-3);
+});
+
+test("recovery directions mirror activation when recovery runs in exact reverse", () => {
+  // A 2D grid with a corner source: the front is curved, so one-sided estimates would disagree.
+  const json = gridGraph(15, 15);
+  const g = loadGraph(json, { radius: 1.5 });
+  const act = activate(g, [{ v: 0, t: 0 }]);
+  const repol = act.map((t) => 500 - t);
+  const a = heartVectors(g, [{ act, repol: act.map(() => Infinity), weight: 1 }], 600);
+  const r = heartVectors(g, [{ act: act.map(() => Infinity), repol, weight: 1 }], 600, { repolFront: 12 });
+  const sum = (h, t0, t1) => [0, 1].map((q) => { let s = 0; for (let t = t0; t < t1; t++) s += h[t * 3 + q]; return s; });
+  const [qa, ra] = [sum(a, 0, 100), sum(r, 400, 520)];
+  assert.ok(Math.abs(qa[0] - ra[0]) < 1e-3 * Math.abs(qa[0]) && Math.abs(qa[1] - ra[1]) < 1e-3 * Math.abs(qa[1]), `${qa} vs ${ra}`);
+});
+
+test("the T wave is a smooth hump, not a step", () => {
+  const { g, wf } = leftward();
+  const I = leadSignals(g, wf, 600).I;
+  const t = I.slice(60);
+  const peak = Math.max(...t.map(Math.abs));
+  const jump = Math.max(...t.slice(1).map((x, i) => Math.abs(x - t[i])));
+  assert.ok(jump < 0.08 * peak, `largest step ${jump} vs peak ${peak}`);
+});
+
+test("APD comes from the reference (normal) activation: an abnormal sequence gives a discordant T", () => {
+  const g = line();
+  const normal = activate(g, [{ v: 0, t: 0 }]);
+  const abnormal = activate(g, [{ v: 20, t: 0 }]); // the reverse sequence
+  const rep = repolarise(g, abnormal, { reference: normal });
+  assert.ok(rep[0] > rep[20], "the last-activated end recovers last");
+  assert.ok(Math.abs(rep[0] - abnormal[0] - 290) < 1e-9, "vertex 0 activates first normally: full APD");
+  assert.ok(Math.abs(rep[20] - abnormal[20] - (290 - 1.2 * normal[20])) < 1e-9, "vertex 20 keeps its normal (shorter) APD");
+  const repNormal = repolarise(g, normal);
+  assert.ok(Math.abs(repNormal[0] - rep[0] + (abnormal[0] - normal[0])) < 1e-9);
+});

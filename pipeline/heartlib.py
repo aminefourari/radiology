@@ -83,3 +83,13 @@ def components(n, tris):
         for v in t[1:]:
             par[find(int(v))] = find(int(t[0]))
     return np.array([find(i) for i in range(n)])
+
+
+def nearest_links(src, dst, k=3, max_mm=14.0):
+    """[(i, j)]: each src point i to its k nearest dst points j closer than max_mm."""
+    src, dst = np.asarray(src, float), np.asarray(dst, float)
+    out = []
+    for i, p in enumerate(src):
+        d = np.linalg.norm(dst - p, axis=1)
+        out += [(i, int(j)) for j in np.argsort(d)[:k] if d[j] < max_mm]
+    return out

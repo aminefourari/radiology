@@ -200,7 +200,7 @@ CHAMBERS = ["right_atrium", "left_atrium", "right_ventricle", "left_ventricle"] 
 def heart():
     """Heart mesh (site/heart/heart.glb) and simulation graph (site/heart/heart-graph.json)."""
     import numpy as np
-    from heartlib import boundary_loops, components, snap_landmarks, vertex_area
+    from heartlib import boundary_loops, components, nearest_links, snap_landmarks, vertex_area
 
     raw = os.path.join(ROOT, "data", "heart")
     subprocess.run([BLENDER, "-b", os.path.join(ZA, "Z-Anatomy", "Startup.blend"), "--python",
@@ -249,6 +249,9 @@ def heart():
     inner = min(np.unique(lab), key=lambda k: np.linalg.norm(pos[lv_ids[lab == k]] - cav, axis=1).mean())
     lv_endo = lv_ids[lab == inner]
     rv_ids = np.nonzero(chamber == 2)[0]
+    # Across the LV free wall and the septum (~10 mm, wider than the muscle neighbourhood): explicit links.
+    across = np.concatenate([lv_ids[lab != inner], rv_ids])
+    links = [[int(across[i]), int(lv_endo[j])] for i, j in nearest_links(pos[across], pos[lv_endo], 3, 14.0)]
 
     # Conduction system. AV node: the RA tricuspid-ring point nearest the mitral ring; His runs onto the septal
     # crest (the LV endocardium nearest the node); the RBB runs down the RV septal surface to the moderator band.
@@ -267,10 +270,10 @@ def heart():
     # Purkinje regions: apical 3/4 of the endocardium. 0 LV septal (main LBB), 1 anterior fascicle,
     # 2 posterior fascicle, 3 right ventricle; -1 none.
     purk = np.full(len(pos), -1)
-    lv_p = lv_endo[frac[lv_endo] > 0.25]
+    lv_p = lv_endo[frac[lv_endo] > 0.1]
     ends = pos[[split, hint["laf_end"], hint["lpf_end"]]]
     purk[lv_p] = np.linalg.norm(pos[lv_p][:, None] - ends[None], axis=2).argmin(1)
-    purk[rv_ids[frac[rv_ids] > 0.25]] = 3
+    purk[rv_ids[frac[rv_ids] > 0.1]] = 3
 
     # Flutter circuit: the tricuspid ring ordered so the septal side (towards the LV) is climbed.
     tc = pos[tri_ring].mean(0)
@@ -283,7 +286,7 @@ def heart():
 
     graph = {
         "pos": np.round(pos, 1).ravel().tolist(), "chamber": chamber.tolist(), "area": np.round(area, 2).tolist(),
-        "purkinje": purk.tolist(), "lines": lines,
+        "purkinje": purk.tolist(), "lines": lines, "links": links,
         "landmarks": {"sa": hint["sa"], "avnode": avnode, "his": his_end, "apex": apex,
                       "tricuspid_ring": [int(i) for i in tri_ring], "cti": [int(i) for i in low],
                       "mitral_ring": [int(i) for i in mit_ring],

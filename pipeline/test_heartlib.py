@@ -49,3 +49,10 @@ def test_boundary_loops_are_ordered_rings_largest_first():
 def test_components_labels_each_connected_piece():
     lab = components(5, np.array([[0, 1, 2], [3, 4, 3]]))
     assert lab[0] == lab[1] == lab[2] and lab[3] == lab[4] and lab[0] != lab[3]
+
+
+def test_nearest_links_joins_each_point_to_its_k_nearest_targets_within_reach():
+    from heartlib import nearest_links
+    src = np.array([[0, 0, 0], [100, 0, 0]], float)
+    dst = np.array([[0, 0, 5], [0, 0, 6], [0, 0, 7], [0, 0, 8]], float)
+    assert nearest_links(src, dst, k=2, max_mm=10) == [(0, 0), (0, 1)]

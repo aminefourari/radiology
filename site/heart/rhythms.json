@@ -1,0 +1,7 @@
+[
+ {"key": "nsr", "atlasDx": "normal", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90}},
+ {"key": "rbbb", "atlasDx": "rbbb", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "cut": ["rbb"]}},
+ {"key": "lbbb", "atlasDx": "lbbb", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "cut": ["lbb"]}},
+ {"key": "wpw", "atlasDx": "wpw", "model": {"duration": 4000, "sinus": {"cycle": 800}, "avDelay": 90, "accessory": true}},
+ {"key": "aflt", "atlasDx": "aflt", "model": {"duration": 4000, "reentry": {"circuit": "flutter", "cycle": 200, "conduct": 2}, "avDelay": 90}}
+]
