@@ -253,7 +253,7 @@ test("\"See this tracing\" links to the first atlas example of the rhythm's diag
   const { existsSync } = await import("node:fs");
   const first = Object.fromEntries(read("pipeline/ecgs.json").map((d) => [d.dx, d.examples[0].id]));
   for (const r of read("site/heart/rhythms.json")) {
-    assert.equal(r.atlasEcg, r.atlasDx ? first[r.atlasDx] : null, r.key);
+    assert.equal(r.atlasEcg ?? null, r.atlasDx ? first[r.atlasDx] : null, r.key); // optional: only where the atlas has one
     if (r.atlasEcg != null) assert.ok(existsSync(new URL(`../site/ecg/${r.atlasEcg}.json`, import.meta.url)), `${r.key}: ecg ${r.atlasEcg}`);
   }
 });

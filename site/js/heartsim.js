@@ -330,11 +330,12 @@ export function leadSignals(g, wavefronts, duration, { fs = 500, gain = 1, vecto
 
 const ATRIA = Uint8Array.from([1, 1, 0, 0, 0]);
 const VENTRICLES = Uint8Array.from([0, 0, 1, 1, 1]);
-const ATRIAL_WEIGHT = 0.15, ATRIAL_REPOL_WEIGHT = 0.035; // thin atrial walls: small P, smaller Ta
+const ATRIAL_WEIGHT = 0.15, ATRIAL_REPOL_WEIGHT = 0.02; // thin atrial walls: small P, smaller Ta
 const ATRIAL_APD = { apd: 200, slope: 0.3 };
 const ATRIAL_REFRACTORY = 150, VENTRICULAR_GUARD = 30; // ms the atria / a just-recovered vertex stay inexcitable
-const HIS_REFRACTORY = 380;
-const RETRO_PATHWAY_MS = 35; // ventricular end → atrial end of the accessory pathway, retrograde (AVRT) // after a ventricular beat the His–Purkinje system won't conduct (concealed PVC → pause)
+const HIS_REFRACTORY = 380; // after a ventricular beat the His–Purkinje system won't conduct (concealed PVC → pause)
+const AV_REFRACTORY = 300; // the node conducts 1:1 up to ~200/min
+const RETRO_PATHWAY_MS = 35; // ventricular end → atrial end of the accessory pathway, retrograde (AVRT)
 
 const meshSpan = (g, act, allow) => {
   let lo = Infinity, hi = -Infinity;
@@ -369,8 +370,8 @@ function sinusTimes(model, D, resets) {
   if (!sn) return out;
   let t = sn.start ?? 20, k = 0;
   while (t < D) {
-    const arrested = sn.arrest && t >= sn.arrest[0] && t < sn.arrest[1];
-    if (!arrested) out.push({ t, k });
+    if (sn.arrest && t >= sn.arrest[0] && t < sn.arrest[1]) t = sn.arrest[1]; // an arrested node restarts afresh, off its old rhythm
+    out.push({ t, k });
     let c = sn.cycles ? sn.cycles[Math.min(k, sn.cycles.length - 1)] : sn.cycle;
     if (sn.modulate) c *= 1 + sn.modulate.depth * Math.sin((2 * Math.PI * t) / sn.modulate.period);
     let next = t + c;
@@ -421,7 +422,7 @@ export function simulate(g, model) {
       atrialSources.push({ sources: [{ v: lm[f.sites ? f.sites[k % f.sites.length] : f.site], t }], kind: "atrial" });
     }
   }
-  if (pace && (pace.mode === "aai" || pace.mode === "ddd")) {
+  if (pace && ["aai", "ddd", "biv"].includes(pace.mode)) {
     for (let t = 20; t < D; t += 60000 / pace.rate) { fire(t, "pacing"); events.push({ type: "spike", t0: t, t1: t, chamber: "A" }); atrialSources.push({ sources: [{ v: lm.hra, t }], kind: "paced" }); }
   }
   if (model.reentry?.circuit === "flutter") {
@@ -436,11 +437,17 @@ export function simulate(g, model) {
   const retro = []; // retrograde atrial sources produced by junctional and re-entrant beats, added below
   const runAtrial = (src) => {
     const t0 = Math.min(...src.sources.map((s) => s.t));
-    const act = activate(g, src.sources, { allow: ATRIA, refractoryUntil: atrialRefractory, maxTime: src.reach ? t0 + src.reach : Infinity });
+    // Retrograde P waves are run after the anterograde ones, so their refractoriness comes from the beats before them.
+    let refr = atrialRefractory;
+    if (src.kind === "retro") {
+      refr = new Float64Array(g.n).fill(-Infinity);
+      for (const a of atrial) if (a.t0 < t0) for (let v = 0; v < g.n; v++) if (a.act[v] < t0) refr[v] = Math.max(refr[v], a.act[v] + ATRIAL_REFRACTORY);
+    }
+    const act = activate(g, src.sources, { allow: ATRIA, refractoryUntil: refr, maxTime: src.reach ? t0 + src.reach : Infinity });
     if (src.reach) for (let v = 0; v < g.n; v++) if (act[v] > t0 + src.reach) act[v] = Infinity;
     const [lo, hi] = meshSpan(g, act, ATRIA);
     if (!Number.isFinite(lo)) return null;
-    for (let v = 0; v < g.n; v++) if (Number.isFinite(act[v])) atrialRefractory[v] = act[v] + ATRIAL_REFRACTORY;
+    if (src.kind !== "retro") for (let v = 0; v < g.n; v++) if (Number.isFinite(act[v])) atrialRefractory[v] = act[v] + ATRIAL_REFRACTORY;
     const w = { act, repol: repolarise(g, act, ATRIAL_APD), weight: ATRIAL_WEIGHT, repolWeight: ATRIAL_REPOL_WEIGHT, kind: "atrial", beat: atrial.length, t0: lo, t1: hi };
     atrial.push(w);
     events.push({ type: "P", t0: lo, t1: hi, beat: w.beat, origin: src.kind });
@@ -481,7 +488,7 @@ export function simulate(g, model) {
       const tap = w.act[ap[0]];
       if (Number.isFinite(tap) && tap >= lastAp + (model.accessoryRefractory ?? 0) && tap + 10 >= lastVentricular() + (model.accessoryRefractory ? model.accessoryRefractory : 0)) apStart = tap + 10;
     }
-    if (ta + delay < lastVentricular() + HIS_REFRACTORY) { if (conducts && !apStart) level = "his"; conducts = false; }
+    if (ta + delay < lastVentricular() + AV_REFRACTORY) { if (conducts && !apStart) level = "his"; conducts = false; }
     if (conducts || apStart != null) {
       if (conducts) { lastConducted = ta; events.push({ type: "AV", t0: ta, t1: ta + delay, beat: w.beat }); }
       const sources = conducts ? [{ v: g.lineNodes.his[0], t: ta + delay }] : [];
@@ -498,9 +505,14 @@ export function simulate(g, model) {
   const site = (name) => (name === "junction" ? junction : name === "ventricle" ? lm.apex : lm[name]);
   if (model.escape) {
     const e = model.escape;
-    for (let t = e.start ?? 300; t < D; t += e.cycle) {
-      // An escape fires only if nothing else has reached the ventricles within its cycle.
-      if (e.onlyIfPause && ventricularStarts.some((s) => s.t > t - e.cycle && s.t <= t)) continue;
+    // An escape pacemaker fires one cycle after the last beat that reached the ventricles; with `onlyIfPause` it waits for
+    // a pause in the existing beats, otherwise it runs on its own clock (AV dissociation).
+    const times = [];
+    if (e.onlyIfPause) {
+      const ts = ventricularStarts.map((s) => s.t).sort((a, b) => a - b);
+      for (let i = 0; i <= ts.length; i++) for (let t = (ts[i - 1] ?? 0) + e.cycle; t < Math.min(ts[i] ?? D, D) - 150; t += e.cycle) times.push(t);
+    } else for (let t = e.start ?? 300; t < D; t += e.cycle) times.push(t);
+    for (const t of times) {
       fire(t, e.site === "junction" ? "junction" : "ventricle");
       ventricularStarts.push({ sources: [{ v: site(e.site), t }], t, kind: e.site === "junction" ? "junction" : "ventricle" });
       if (e.site === "junction" && e.retro !== false) retro.push({ sources: [{ v: lm.avnode, t: t + retroDelay }], kind: "retro" });
@@ -549,14 +561,14 @@ export function simulate(g, model) {
   }
   if (pace && pace.mode !== "aai") {
     const fail = pace.fail;
-    const atrialPaced = pace.mode === "ddd";
+    const atrialPaced = pace.mode === "ddd" || pace.mode === "biv";
     for (let t = atrialPaced ? 20 + pace.av : 100, k = 0; t < D; t += 60000 / pace.rate, k++) {
       fire(t, "pacing");
       events.push({ type: "spike", t0: t, t1: t, chamber: "V" });
       if (!pat(fail, k)) continue;
       const sources = [{ v: lm.rv_apex, t }];
       if (pace.mode === "biv") sources.push({ v: lm.lv_lateral, t });
-      ventricularStarts.push({ sources, t, kind: "paced" });
+      ventricularStarts.push({ sources, t, kind: "paced", scar: true }); // captured muscle reaches the Purkinje network late
     }
   }
   if (model.vf) {
@@ -570,7 +582,9 @@ export function simulate(g, model) {
   ventricularStarts.sort((a, b) => a.t - b.t);
   const kept = [];
   for (const s of ventricularStarts) {
-    if (s.kind !== "vf" && kept.length && s.t < kept.filter((x) => x.kind !== "vf").at(-1)?.t + HIS_REFRACTORY && (s.kind === "conducted" || (s.kind === "pre" && s.his != null))) {
+    const prev = kept.filter((x) => x.kind !== "vf").at(-1);
+    const concealing = prev && !["conducted", "pre", "fusion"].includes(prev.kind); // an ectopic/escape beat went up into the His
+    if (s.kind !== "vf" && concealing && s.t < prev.t + HIS_REFRACTORY && (s.kind === "conducted" || (s.kind === "pre" && s.his != null))) {
       const ev = events.find((e) => e.type === "AV" && e.beat === s.p.beat);
       if (ev) Object.assign(ev, { type: "blocked", level: "his" });
       continue;
@@ -625,7 +639,8 @@ export function simulate(g, model) {
   for (const src of retro.sort((a, b) => a.sources[0].t - b.sources[0].t)) runAtrial(src);
 
   const wavefronts = [...atrial, ...ventricular];
-  const vectors = heartVectors(g, wavefronts, D);
+  // phase3: how long each cell takes to repolarise (ms); shorter (e.g. high potassium) narrows and peaks the T wave.
+  const vectors = heartVectors(g, wavefronts, D, { repolFront: model.apd?.phase3 ?? 160 });
   const gl = model.electrodeShift ? { ...g, electrodes: Object.fromEntries(Object.entries(g.electrodes).map(([k, e]) => [k, e.map((x, i) => x + (model.electrodeShift[k]?.[i] ?? 0))])) } : g;
   const leads = leadSignals(gl, wavefronts, D, { vectors, gain: LEAD_GAIN });
   if (model.leads === "lareversal") {

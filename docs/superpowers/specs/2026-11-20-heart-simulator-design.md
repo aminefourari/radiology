@@ -159,6 +159,8 @@ A row that can't pass is cut and listed in the PR. The picker shows the shipped 
 - `lpfb` and `rbbb_lpfb`. An orientation search over frontal angle, tilt, roll and fascicle territories found no heart
   that gives LPFB ≥ +90° while LBBB keeps a monophasic R in I/V5/V6. The best was +68°, and LBBB and its spin-offs
   were kept instead.
+- `afltrev` (reverse typical flutter): reversing the circuit leaves the flutter waves net negative in II/III/aVF in
+  this model, so the teaching feature (positive inferior flutter waves) can't be shown.
 - The NSR axis criterion is the clinical normal (−30° to +90°). The heart gives about +16°.
 
 Duplicate checks: an escape *rhythm* (27, 62) is the whole strip, while a single escape *beat* ends a pause (5).

@@ -167,13 +167,13 @@ export function buildHeart(S = SHAPE) {
     // Ectopic foci and pathways.
     pvc: nearest([-34, 0, -40], [3]),
     rvot: nearest([30, 24, -6], [2]),
-    rv_apex: nearest([40, 6, -50], [2, 3]),
+    rv_apex: nearest([46, 10, -48], [2]), // RV apical free wall (pacing lead tip)
     lv_lateral: nearest([-34, -6, -30], [3]),
     fascicular: nearest(onEndo(postDir, -44), [3]),
     lra: nearest([34, -10, 6], [0]),
     hra: nearest([62, 6, 42], [0]),
     lateral_ra: nearest([70, 0, 22], [0]),
-    la_focus: nearest([-14, -6, 40], [1]),
+    la_focus: nearest([-26, -4, 20], [1]), // lateral LA wall
     accessory: [nearest([-22, 0, 5], [1]), nearest([-30, 0, -3], [3])],
     accessory_ps: [nearest([34, -14, 5], [0]), nearest([26, -20, -3], [2, 3])],
     // Numbered sites for the action-potential plots: RA, mid septum, LV lateral wall (all in the four-chamber plane).
