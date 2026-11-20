@@ -94,7 +94,7 @@ Within A, two ways to get the waveform:
  Caption (aria-live): "Flutter wave: the front is going round the tricuspid ring…"   │ See this tracing →│
 ┌ heart: outside (anterior) ┐ ┌ heart: [Outside|Four-chamber|Short-axis|Chest] ┐  └──────────────────┘
 └───────────────────────────┘ └────────────────────────────────────────────────┘
- What-if (normal heart only): [Cut right bundle] [Cut left bundle] [Cut left anterior fascicle]
+ What-if (normal heart only): [Cut right bundle] [Cut left bundle]
                               [AV delay ───●───] [Block AV node] [Accessory pathway] [Extra beat from LV]
 ```
 
@@ -136,7 +136,7 @@ Within A, two ways to get the waveform:
 | `mob1` | Mobitz I (Wenckebach) | AV delay grows each beat, then one P blocked (4:3) | `2avb` |
 | `mob2` | Mobitz II | fixed PR, sudden block below the node (in His) | `2avb` |
 | `3avb` | Complete heart block | atria at 75/min, ventricles from a ventricular escape at 35/min, no relation | `3avb` |
-| `lafb` | Left anterior fascicular block | anterior fascicle cut; LV activated from the posterior fascicle upward and leftward | `lafb` |
+| ~~`lafb`~~ | Left anterior fascicular block — **cut at build time**: this horizontal heart's ~+5° baseline axis leaves a fascicular block only a ~20° shift, short of the ≤ −45° criterion | anterior fascicle cut; LV activated from the posterior fascicle upward and leftward | `lafb` |
 | `rbbb` | Right bundle branch block | RBB cut; RV activated late from the LV through the septum | `rbbb` |
 | `lbbb` | Left bundle branch block | LBB cut; septum right→left, LV activated late | `lbbb` |
 | `wpw` | WPW (pre-excitation) | left lateral accessory pathway: early ventricular start = delta wave, short PR | `wpw` |
@@ -152,7 +152,7 @@ the pathologies; LAFB was added so the "cut left anterior fascicle" what-if has 
 
 What-ifs apply to NSR only and do not change the rhythm key. Each names what the heart now has
 so the why panel can say "This is now a right bundle branch block": cut RBB → `rbbb`, cut LBB →
-`lbbb`, cut LAF → `lafb`, AV delay > 200 ms → `1avb` (slider 120–400 ms), accessory pathway →
+`lbbb`, AV delay > 200 ms → `1avb` (slider 120–400 ms), accessory pathway →
 `wpw`, extra beat → `pvc`. **Block AV node** gives complete heart block *at the node*, so the
 escape is junctional: narrow QRS at ~45/min. The `3avb` rhythm entry keeps the block below the
 His with a wide ventricular escape at 35/min, and its why panel contrasts the two levels.
