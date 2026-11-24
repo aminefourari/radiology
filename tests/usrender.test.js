@@ -123,3 +123,17 @@ test("labelsOut receives the structure at each sample, 0 outside the volume", ()
   assert.equal(labs[CENTER * FAN.samples + 10], 1);
   assert.equal(labs[CENTER * FAN.samples + FAN.samples - 1], 0);
 });
+
+test("lateral resolution: speckle correlates between neighbouring lines, not distant ones", () => {
+  const out = render(box());
+  const corr = (a, b) => {
+    const xs = [], ys = [];
+    for (let k = 40; k < 300; k++) { xs.push(out[a * FAN.samples + k]); ys.push(out[b * FAN.samples + k]); }
+    const m = (v) => v.reduce((s, x) => s + x, 0) / v.length, mx = m(xs), my = m(ys);
+    let sxy = 0, sxx = 0, syy = 0;
+    xs.forEach((x, i) => { sxy += (x - mx) * (ys[i] - my); sxx += (x - mx) ** 2; syy += (ys[i] - my) ** 2; });
+    return sxy / Math.sqrt(sxx * syy);
+  };
+  assert.ok(corr(CENTER, CENTER + 1) > 0.4, `${corr(CENTER, CENTER + 1)}`);
+  assert.ok(Math.abs(corr(CENTER, CENTER + 12)) < 0.2, `${corr(CENTER, CENTER + 12)}`);
+});

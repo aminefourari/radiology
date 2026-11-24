@@ -8,7 +8,7 @@ export const FAN = { sectorDeg: 60, radiusMm: 50, lines: 192, samples: 384, freq
 
 // Tuning constants (Task 9 sets these by eye against textbook FAST images).
 const SOFT_A = 0.5;      // dB/cm/MHz the time-gain compensation assumes
-const SPEC = 0.3;        // specular gain on interface echoes
+const SPEC = 0.6;        // specular gain on interface echoes
 const REF = 0.25;        // echo amplitude shown as full white at 0 dB gain
 const DR = 50;           // displayed dynamic range, dB
 const REVERB = 0.5;      // each reverberation's amplitude relative to the one before
@@ -65,10 +65,11 @@ export function renderFan(vol, frame, { depthMm, gainDb = 0, amounts, lut, tissu
   const gain = Math.pow(10, gainDb / 20);
   const tgc = new Float32Array(samples);
   for (let k = 0; k < samples; k++) tgc[k] = gain * Math.pow(10, (2 * SOFT_A * f * (sampleDepth(k, depthMm) / 10)) / 20);
-  const lin = new Float32Array(samples);
+  const all = new Float32Array(lines * samples); // linear echo, before lateral blur and compression
 
   for (let i = 0; i < lines; i++) {
     const { origin: o, dir } = fanRay(frame, i, lines);
+    const lin = all.subarray(i * samples, (i + 1) * samples);
     let I = 1, zPrev = -1, gasAt = -1, gasE = 0;
     for (let k = 0; k < samples; k++) {
       const d = sampleDepth(k, depthMm);
@@ -108,11 +109,18 @@ export function renderFan(vol, frame, { depthMm, gainDb = 0, amounts, lut, tissu
         for (let j = -1; j <= 2; j++) if (kk + j < samples) lin[kk + j] += (amp * (j === 0 ? 1 : 0.6) * g0) / tgc[kk + j];
       }
     }
-    // Pulse length: a short blur along the beam, then TGC, gain and log compression.
+    // Pulse length: a short blur along the beam.
     for (let k = 0, prev = lin[0]; k < samples; k++) {
       const cur = lin[k], next = k + 1 < samples ? lin[k + 1] : cur;
-      const v = ((prev + 2 * cur + next) / 4) * tgc[k];
+      lin[k] = (prev + 2 * cur + next) / 4;
       prev = cur;
+    }
+  }
+  // Beam width: lateral resolution is coarser than axial, so speckle smears across neighbouring lines.
+  for (let i = 0; i < lines; i++) {
+    const a = all.subarray(Math.max(0, i - 1) * samples), c = all.subarray(i * samples), b = all.subarray(Math.min(lines - 1, i + 1) * samples);
+    for (let k = 0; k < samples; k++) {
+      const v = ((a[k] + 2 * c[k] + b[k]) / 4) * tgc[k];
       const g = v > 0 ? 1 + (20 * Math.log10(v / REF)) / DR : 0;
       out[i * samples + k] = g <= 0 ? 0 : g >= 1 ? 255 : Math.round(g * 255);
     }
