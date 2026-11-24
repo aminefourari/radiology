@@ -21,6 +21,9 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
   live in `site/heart/rhythms.json`; `tests/heartrhythms.test.js` and `tests/heartcatalogue.test.js` check each one
   against its ECG criteria — rerun after any change to the shape, engine or a model.
 - Build ECGs: `.venv/bin/python pipeline/make_ecg.py` (records listed in `pipeline/ecgs.json`, PTB-XL)
+- FAST trainer fluid: `.venv/bin/python pipeline/make_fluid.py site/cases/s0739-trunk [--png DIR]` writes `fluid.bin.gz`
+  (uint8, `site*4 + level`, sites morison/splenorenal/pelvis/pericardium, level 1 small / 2 large). Rerun after rebuilding
+  the case (make_case rewrites meta.json). `tests/echowindows.test.js` checks each window's target pose on the real case.
 
 ## Layout
 
@@ -30,7 +33,9 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
 - `site/` — static site: `index.html` (landing, `js/home.js`; redirects old `#case=` links), `ct.html` (CT), `ecg.html` (ECG, `js/ecgapp.js` + `js/ecgplot.js` + `js/ecglearn.js` for the reading steps and Learn mode), `ecg/` (ECG JSON, µV ints), `heart.html` (heart & ECG simulator: `js/heartapp.js`, DOM `js/heartschematic.js` (slice view),
   `js/heartpicker.js`, `js/heartview.js` (three.js 3D/torso); DOM-free `js/heartshape.js` (idealised heart, slices, surface),
   `js/heartsim.js` (activation, heart vector, leads, rhythm engine), `js/heartplots.js`, `js/heartmeasure.js`, `js/ladder.js`,
-  `js/heartstate.js`), `heart/` (rhythms + texts), `style.css`, `js/*.js` (ES modules), `i18n/*.json`,
+  `js/heartstate.js`), `heart/` (rhythms + texts), `echo.html` (FAST ultrasound trainer: `js/echoapp.js`; DOM-free
+  `js/usgeom.js` (sampling, probe frame), `js/usbody.js` (skin outline), `js/usrender.js` (pulse-echo model, scan conversion),
+  `js/uswindows.js` (view checks), `js/echostate.js`), `echo/` (`windows.json` target poses + texts, `tissues.json` acoustics), `style.css`, `js/*.js` (ES modules), `i18n/*.json`,
   `cases/` (generated case data, committed), `atlas/` (3D atlas GLBs + index, CC BY-SA 4.0)
 - `tests/` — Node tests for `site/js` modules
 - `data/` — downloaded datasets (gitignored)
@@ -41,6 +46,8 @@ Design: `docs/superpowers/specs/2026-11-18-ct-anatomy-viewer-design.md`.
   `meta.dims = [X,Y,Z]`. CT int16 HU, labels uint8 (0 = background).
 - Display is radiological: patient right on viewer's left, in every language (never mirror for RTL).
 - `site/js` modules other than the `*app.js` files, `view3d.js`, `heartview.js`, `heartschematic.js` and `heartpicker.js` must stay DOM-free so Node can test them.
+- RAS+ means **+x is the patient's right**. Echo probe θ: 0 anterior, +90 patient's left flank; rot +90 = marker to the patient's right;
+  the marker side is the image's left. Ultrasound features (shadows, enhancement, fluid) must come from the physics model, never per view.
 - Heart rhythm texts: titles in all 7 languages; why/looks/takeaways in English (other languages fall back).
 - Heart simulation: a rhythm's teaching feature (R′ in V1, delta wave, flutter polarity…) must come from the vector model,
   never a hand-drawn template; a rhythm that can't pass its criteria is left out, not faked.

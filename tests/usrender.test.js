@@ -116,3 +116,10 @@ test("line 0 is on the marker side and maps to the image left", () => {
   assert.equal(rgba[(100 * W + 100) * 4], 200);
   assert.equal(rgba[3], 255);
 });
+
+test("labelsOut receives the structure at each sample, 0 outside the volume", () => {
+  const labs = new Uint8Array(FAN.lines * FAN.samples);
+  renderFan(box(), frame, opts({ depthMm: 240 }), new Uint8Array(FAN.lines * FAN.samples), labs);
+  assert.equal(labs[CENTER * FAN.samples + 10], 1);
+  assert.equal(labs[CENTER * FAN.samples + FAN.samples - 1], 0);
+});

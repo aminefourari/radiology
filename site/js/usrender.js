@@ -49,7 +49,8 @@ export function sampleDepth(k, depthMm) {
   return ((k + 0.5) * depthMm) / FAN.samples;
 }
 
-export function renderFan(vol, frame, { depthMm, gainDb = 0, amounts, lut, tissues }, out) {
+// labelsOut (optional, Uint8Array lines*samples) receives the structure label at each sample, for overlays.
+export function renderFan(vol, frame, { depthMm, gainDb = 0, amounts, lut, tissues }, out, labelsOut = null) {
   const { lines, samples, freqMHz: f } = FAN;
   const { ct, labels, fluid, dims, spacing } = vol;
   const ds = depthMm / samples, dsCm = ds / 10;
@@ -58,8 +59,9 @@ export function renderFan(vol, frame, { depthMm, gainDb = 0, amounts, lut, tissu
   const FL = T(tissues.fluid), GAS = T(tissues.gas), BONE = T(tissues.bone);
   const byHU = tissues.byHU.map(([hi, t]) => [hi, T(t)]);
   const SOFT = byHU[byHU.length - 1][1];
-  const lutAtt = new Float32Array(256);
-  for (let i = 0; i < 256; i++) lutAtt[i] = lut[i * 4] >= 0 ? att(lut[i * 4 + 1]) : 0;
+  const lutT = [];
+  for (let i = 0; i < 256; i++) lutT.push(lut[i * 4] >= 0 ? [lut[i * 4], att(lut[i * 4 + 1]), lut[i * 4 + 2], lut[i * 4 + 3]] : null);
+  const huHi = byHU.map(([hi]) => hi), huT = byHU.map(([, t]) => t);
   const gain = Math.pow(10, gainDb / 20);
   const tgc = new Float32Array(samples);
   for (let k = 0; k < samples; k++) tgc[k] = gain * Math.pow(10, (2 * SOFT_A * f * (sampleDepth(k, depthMm) / 10)) / 20);
@@ -72,22 +74,22 @@ export function renderFan(vol, frame, { depthMm, gainDb = 0, amounts, lut, tissu
       const d = sampleDepth(k, depthMm);
       const x = o[0] + d * dir[0], y = o[1] + d * dir[1], z = o[2] + d * dir[2];
       const hu = trilinear(ct, dims, spacing, x, y, z, NaN);
-      if (Number.isNaN(hu)) { lin[k] = 0; continue; }
+      if (Number.isNaN(hu)) { lin[k] = 0; if (labelsOut) labelsOut[i * samples + k] = 0; continue; }
+      let lab = -1;
       let b, at, zz, tex, gas = false;
       const fv = fluid ? nearest(fluid, dims, spacing, x, y, z) : 0;
       let t = null;
       if (fv && (fv & 3) <= (amounts[fv >> 2] || 0)) t = FL;
       else if (hu < GAS_HU) { if (d < COUPLING_MM) t = SOFT; else { t = GAS; gas = true; } }
-      if (t) [b, at, zz, tex] = t;
-      else {
-        const lab = nearest(labels, dims, spacing, x, y, z);
-        if (lut[lab * 4] >= 0) { b = lut[lab * 4]; at = lutAtt[lab]; zz = lut[lab * 4 + 2]; tex = lut[lab * 4 + 3]; }
-        else {
-          t = hu > BONE_HU ? BONE : (byHU.find(([hi]) => hu < hi) || byHU[byHU.length - 1])[1];
-          [b, at, zz, tex] = t;
-        }
-        if (zz < 0.01) gas = true; // labelled lung
+      if (!t) {
+        lab = nearest(labels, dims, spacing, x, y, z);
+        if (lut[lab * 4] >= 0) t = lutT[lab];
+        else if (hu > BONE_HU) t = BONE;
+        else { let j = 0; while (j < huHi.length - 1 && hu >= huHi[j]) j++; t = huT[j]; }
+        if (t[2] < 0.01) gas = true; // labelled lung
       }
+      b = t[0]; at = t[1]; zz = t[2]; tex = t[3];
+      if (labelsOut) labelsOut[i * samples + k] = lab >= 0 ? lab : nearest(labels, dims, spacing, x, y, z);
       if (zPrev < 0) zPrev = zz;
       const r = (zz - zPrev) / (zz + zPrev);
       const e = I * (Math.abs(r) * SPEC + b * (1 - tex + tex * speckle(x, y, z)));
