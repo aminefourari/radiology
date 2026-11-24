@@ -1779,5 +1779,14 @@
    },
    "axial": 25
   }
- ]
+ ],
+ "fluid": {
+  "sites": [
+   "morison",
+   "splenorenal",
+   "pelvis",
+   "pericardium"
+  ],
+  "simulated": true
+ }
 }

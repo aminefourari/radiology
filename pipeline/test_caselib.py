@@ -120,3 +120,17 @@ def test_write_volume_is_deterministic(tmp_path):
     time.sleep(1.1)
     write_volume(str(tmp_path / "b.bin.gz"), arr, "<i2")
     assert (tmp_path / "a.bin.gz").read_bytes() == (tmp_path / "b.bin.gz").read_bytes()
+
+
+@pytest.mark.parametrize("value,ok", [(4 * 1 + 1, True), (4 * 4 + 2, True), (3, False), (4 * 5 + 1, False), (4 * 2 + 3, False)])
+def test_validate_case_checks_fluid_values(tmp_path, value, ok):
+    lab = np.zeros((3, 3, 3), np.uint8)
+    make_case_dir(tmp_path, lab, [])
+    fl = np.zeros((3, 3, 3), np.uint8)
+    fl[0, 0, 0] = value
+    write_volume(str(tmp_path / "fluid.bin.gz"), fl, "u1")
+    if ok:
+        validate_case(str(tmp_path))
+    else:
+        with pytest.raises(AssertionError, match="fluid"):
+            validate_case(str(tmp_path))
