@@ -23,7 +23,7 @@ SOURCE = {"name": "TotalSegmentator dataset", "license": "CC BY 4.0",
           "url": "https://doi.org/10.5281/zenodo.6802613"}
 
 
-REGION_ORDER = ["head", "neck", "chest", "abdomen-pelvis", "lower-limb", "upper-limb"]
+REGION_ORDER = ["head", "neck", "chest", "abdomen-pelvis", "trunk", "lower-limb", "upper-limb"]
 
 
 def task_dir(ct_path, case_id, task, device):
@@ -114,7 +114,7 @@ def main(argv=None):
     index.append({"id": a.case_id, "region": case["region"], "title": case.get("title", {"en": a.case_id})})
     write_json(index_path, sorted(index, key=lambda c: (REGION_ORDER.index(c["region"]), c["id"])))
 
-    validate_case(case_dir)
+    validate_case(case_dir, budget_bytes=int(case.get("budgetMB", 25) * 1024 * 1024))
     print(f"{a.case_id}: {ct.shape} @ {out_spacing} mm, {len(structures)} structures")
 
 

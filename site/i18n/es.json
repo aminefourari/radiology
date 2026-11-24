@@ -85,6 +85,7 @@
  "region.neck": "Cuello",
  "region.chest": "Tórax",
  "region.abdomen-pelvis": "Abdomen y pelvis",
+ "region.trunk": "Tórax, abdomen y pelvis",
  "region.lower-limb": "Miembro inferior",
  "region.upper-limb": "Miembro superior",
  "win.brain": "Cerebro",

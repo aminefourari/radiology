@@ -1,0 +1,97 @@
+{
+ "region": "trunk",
+ "title": {
+  "en": "Chest, abdomen & pelvis · CT, normal",
+  "de": "Thorax, Abdomen & Becken · CT, Normalbefund",
+  "es": "Tórax, abdomen y pelvis · TC normal",
+  "ar": "الصدر والبطن والحوض · تصوير مقطعي طبيعي",
+  "fr": "Thorax, abdomen et pelvis · TDM normale",
+  "it": "Torace, addome e pelvi · TC normale",
+  "nl": "Borst, buik en bekken · CT, normaal"
+ },
+ "sex": "M",
+ "zRange": "15:372",
+ "yRange": "34:263",
+ "tasks": [
+  "total",
+  "heartchambers_highres"
+ ],
+ "systems": [
+  "organs",
+  "heart",
+  "lungs",
+  "airway",
+  "digestive",
+  "urinary",
+  "chest-wall",
+  "spine",
+  "pelvis",
+  "arteries",
+  "veins"
+ ],
+ "defaultSystems": [
+  "organs",
+  "heart",
+  "urinary"
+ ],
+ "windows": [
+  "soft",
+  "lung",
+  "bone"
+ ],
+ "exclude": [
+  "small_bowel",
+  "vertebrae_C6",
+  "vertebrae_L2"
+ ],
+ "keyLevels": [
+  {
+   "names": {
+    "en": "Four chambers",
+    "de": "Vierkammerblick",
+    "es": "Cuatro cámaras",
+    "ar": "الحجرات الأربع",
+    "fr": "Quatre cavités",
+    "it": "Quattro camere",
+    "nl": "Vierkamerniveau"
+   },
+   "axial": 297
+  },
+  {
+   "names": {
+    "en": "Hepatorenal space",
+    "de": "Hepatorenaler Raum",
+    "es": "Espacio hepatorrenal",
+    "ar": "الحيز الكبدي الكلوي",
+    "fr": "Espace hépatorénal",
+    "it": "Spazio epatorenale",
+    "nl": "Hepatorenale ruimte"
+   },
+   "axial": 200
+  },
+  {
+   "names": {
+    "en": "Renal hila",
+    "de": "Nierenhili",
+    "es": "Hilios renales",
+    "ar": "السرتان الكلويتان",
+    "fr": "Hiles rénaux",
+    "it": "Ili renali",
+    "nl": "Nierhili"
+   },
+   "axial": 185
+  },
+  {
+   "names": {
+    "en": "Urinary bladder",
+    "de": "Harnblase",
+    "es": "Vejiga urinaria",
+    "ar": "المثانة البولية",
+    "fr": "Vessie",
+    "it": "Vescica urinaria",
+    "nl": "Urineblaas"
+   },
+   "axial": 25
+  }
+ ]
+}

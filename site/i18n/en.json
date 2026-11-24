@@ -85,6 +85,7 @@
  "region.neck": "Neck",
  "region.chest": "Chest",
  "region.abdomen-pelvis": "Abdomen & pelvis",
+ "region.trunk": "Chest, abdomen & pelvis",
  "region.lower-limb": "Lower limb",
  "region.upper-limb": "Upper limb",
  "win.brain": "Brain",

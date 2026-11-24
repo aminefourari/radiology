@@ -85,6 +85,7 @@
  "region.neck": "Hals",
  "region.chest": "Thorax",
  "region.abdomen-pelvis": "Abdomen & Becken",
+ "region.trunk": "Thorax, Abdomen & Becken",
  "region.lower-limb": "Untere Extremität",
  "region.upper-limb": "Obere Extremität",
  "win.brain": "Gehirn",

@@ -85,6 +85,7 @@
  "region.neck": "Cou",
  "region.chest": "Thorax",
  "region.abdomen-pelvis": "Abdomen et pelvis",
+ "region.trunk": "Thorax, abdomen et pelvis",
  "region.lower-limb": "Membre inférieur",
  "region.upper-limb": "Membre supérieur",
  "win.brain": "Cerveau",
