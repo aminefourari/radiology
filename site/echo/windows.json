@@ -1,0 +1,65 @@
+{
+ "case": "s0739-trunk",
+ "windows": [
+  {
+   "key": "ruq",
+   "group": "ruq",
+   "title": { "en": "Right upper quadrant (Morison's pouch)", "de": "Rechter Oberbauch (Morison-Pouch)", "es": "Cuadrante superior derecho (bolsa de Morison)", "ar": "الربع العلوي الأيمن (جيب موريسون)", "fr": "Hypocondre droit (espace de Morison)", "it": "Quadrante superiore destro (tasca di Morison)", "nl": "Rechter bovenkwadrant (Morison-ruimte)" },
+   "where": "Right flank, mid- to posterior axillary line, about the 8th–11th rib spaces. Marker toward the head (coronal plane). The liver is your window.",
+   "see": "Liver on the upper part of the screen, right kidney below it, and between them a thin bright line: the hepatorenal space (Morison's pouch). The diaphragm and lung sit toward the head side (screen left). Free fluid shows as a black stripe between liver and kidney, often first at the liver's inferior tip.",
+   "mistakes": "Rib shadows: slide to an intercostal space or rotate the marker slightly toward the back so the probe lies along the ribs. Too anterior shows bowel gas instead of kidney. Always sweep (fan) through the whole kidney and look at the liver tip and the diaphragm too.",
+   "depth": 160,
+   "target": { "zMm": 300, "theta": -90, "rock": 0, "fan": 0, "rot": 330 },
+   "landmarks": [ { "keys": ["liver"], "minFrac": 0.08 }, { "keys": ["kidney_right"], "minFrac": 0.08 } ],
+   "fluidSite": 1
+  },
+  {
+   "key": "luq",
+   "group": "luq",
+   "title": { "en": "Left upper quadrant (splenorenal)", "de": "Linker Oberbauch (splenorenal)", "es": "Cuadrante superior izquierdo (esplenorrenal)", "ar": "الربع العلوي الأيسر (الطحالي الكلوي)", "fr": "Hypocondre gauche (espace splénorénal)", "it": "Quadrante superiore sinistro (splenorenale)", "nl": "Linker bovenkwadrant (splenorenaal)" },
+   "where": "Left flank, posterior axillary line, higher and further back than on the right. Marker toward the head. Your knuckles should almost touch the bed.",
+   "see": "Spleen on the upper part of the screen, left kidney below it, and the splenorenal space between them. Fluid in the left upper quadrant often collects first above the spleen, under the diaphragm, so look there too.",
+   "mistakes": "Too anterior: the stomach's gas hides everything. The spleen is small and high, so start more posterior and more cranial than you think. Fan through the whole spleen and its tip.",
+   "depth": 160,
+   "target": { "zMm": 300, "theta": 110, "rock": 0, "fan": -10, "rot": 0 },
+   "landmarks": [ { "keys": ["spleen"], "minFrac": 0.06 }, { "keys": ["kidney_left"], "minFrac": 0.07 } ],
+   "fluidSite": 2
+  },
+  {
+   "key": "pelvic-trans",
+   "group": "pelvic",
+   "title": { "en": "Pelvic view, transverse", "de": "Beckenblick, transversal", "es": "Vista pélvica, transversal", "ar": "المنظر الحوضي، مستعرض", "fr": "Vue pelvienne, transversale", "it": "Vista pelvica, trasversale", "nl": "Bekkenbeeld, transversaal" },
+   "where": "Just above the pubic symphysis, midline. Marker toward the patient's right. Tilt the beam down into the pelvis.",
+   "see": "The bladder as a black box with a bright back wall. In a man, free fluid collects behind and above the bladder (rectovesical pouch); in a woman, behind the uterus (pouch of Douglas). It shows as a black band or triangle outside the bladder wall.",
+   "mistakes": "An empty bladder makes this view hard: scan before a catheter goes in. Bowel gas above the bladder: press gently and tilt further down. Don't mistake the seminal vesicles or bowel for fluid: fluid has sharp corners and no wall.",
+   "depth": 160,
+   "target": { "zMm": 50, "theta": -10, "rock": 10, "fan": -20, "rot": 90 },
+   "landmarks": [ { "keys": ["urinary_bladder"], "minFrac": 0.04 } ],
+   "fluidSite": 3
+  },
+  {
+   "key": "pelvic-sag",
+   "group": "pelvic",
+   "title": { "en": "Pelvic view, sagittal", "de": "Beckenblick, sagittal", "es": "Vista pélvica, sagital", "ar": "المنظر الحوضي، سهمي", "fr": "Vue pelvienne, sagittale", "it": "Vista pelvica, sagittale", "nl": "Bekkenbeeld, sagittaal" },
+   "where": "Same spot above the pubis; turn the probe 90° so the marker points to the head.",
+   "see": "The bladder in long axis, with the head side on the screen's left. Fluid sits behind and above the bladder dome.",
+   "mistakes": "Rotate around the probe's axis without sliding it, so you stay over the bladder. Fan side to side: a small collection can sit off the midline.",
+   "depth": 160,
+   "target": { "zMm": 50, "theta": 0, "rock": 0, "fan": -10, "rot": 0 },
+   "landmarks": [ { "keys": ["urinary_bladder"], "minFrac": 0.035 } ],
+   "fluidSite": 3
+  },
+  {
+   "key": "subxiphoid",
+   "group": "subxiphoid",
+   "title": { "en": "Subxiphoid (pericardium)", "de": "Subxiphoidal (Perikard)", "es": "Subxifoidea (pericardio)", "ar": "تحت الرهابة (التامور)", "fr": "Sous-xiphoïdienne (péricarde)", "it": "Sottoxifoidea (pericardio)", "nl": "Subxifoïdaal (pericard)" },
+   "where": "Just below the costal margin, a little to the patient's right of the xiphoid. Marker to the patient's right. Hold the probe almost flat on the belly and aim at the left shoulder, through the left lobe of the liver.",
+   "see": "The liver near the probe, then the heart: the right ventricle nearest the liver, the left ventricle behind it, and the bright pericardium around them. A pericardial effusion is a black stripe between the pericardium and the heart muscle, often first at the back.",
+   "mistakes": "The probe held too upright looks into the abdomen: flatten it. Stomach gas blocks the view: move to the patient's right and use the liver as the window. Don't confuse an epicardial fat pad (anterior, speckled) with fluid.",
+   "depth": 200,
+   "target": { "zMm": 330, "theta": -20, "rock": -20, "fan": 40, "rot": 80 },
+   "landmarks": [ { "keys": ["heart_myocardium", "heart_atrium_left", "heart_atrium_right", "heart_ventricle_left", "heart_ventricle_right"], "minFrac": 0.1 }, { "keys": ["liver"], "minFrac": 0.08 } ],
+   "fluidSite": 4
+  }
+ ]
+}

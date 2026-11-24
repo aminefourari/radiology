@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FAST ultrasound trainer</title>
+<meta name="description" content="Place a virtual ultrasound probe on a real CT body, learn the four FAST windows, and see free fluid appear. Educational use only.">
+<meta name="theme-color" content="#0f141b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="js/echoapp.js"></script>
+</head>
+<body class="echo-page">
+<header class="top">
+  <div class="brand">
+    <h1><a href="./" data-t="echo.title">FAST ultrasound trainer</a></h1>
+  </div>
+  <div id="win" class="segmented" role="radiogroup" aria-label="FAST window" data-t-aria="echo.window">
+    <button class="btn" role="radio" data-v="ruq" data-t="echo.ruq">RUQ</button>
+    <button class="btn" role="radio" data-v="luq" data-t="echo.luq">LUQ</button>
+    <button class="btn" role="radio" data-v="pelvic" data-t="echo.pelvic">Pelvic</button>
+    <button class="btn" role="radio" data-v="subxiphoid" data-t="echo.subxiphoid">Subxiphoid</button>
+  </div>
+  <div class="top-actions">
+    <select id="lang-select" aria-label="Language" data-t-aria="lang.label"></select>
+  </div>
+</header>
+
+<p id="status" class="echo-status" data-t="echo.loading">Loading the case…</p>
+
+<main class="echo" hidden>
+  <section class="card us-card">
+    <div class="pane-head">
+      <span id="marker-dir"></span>
+      <span id="sim-badge" class="sim-badge" hidden data-t="echo.simulated">Simulated fluid</span>
+    </div>
+    <div class="us-wrap">
+      <canvas id="us" width="640" height="440" aria-label="Ultrasound image" data-t-aria="echo.image"></canvas>
+      <span class="marker-dot" aria-hidden="true">●</span>
+      <canvas id="us-labels" width="640" height="440" aria-hidden="true"></canvas>
+      <div id="depth-scale" class="depth-scale" aria-hidden="true"></div>
+    </div>
+    <div class="pane-foot">
+      <div class="meter" aria-hidden="true"><span id="meter-bar"></span></div>
+      <span id="found" class="found"></span>
+    </div>
+  </section>
+
+  <section class="card probe-card">
+    <div class="pane-head"><h2 data-t="echo.probe">Probe</h2></div>
+    <div class="body-maps">
+      <figure><canvas id="front" width="220" height="300"></canvas><figcaption data-t="echo.front">Front</figcaption></figure>
+      <figure><canvas id="ring" width="220" height="180"></canvas><figcaption data-t="echo.around">Around the body</figcaption></figure>
+    </div>
+    <div class="sliders">
+      <label><span data-t="echo.rock">Rock</span> <button class="btn small" data-step="rock:-5" type="button">◀</button>
+        <input type="range" id="rock" min="-60" max="60" step="1"> <button class="btn small" data-step="rock:5" type="button">▶</button> <output id="rock-v"></output></label>
+      <label><span data-t="echo.fan">Fan</span> <button class="btn small" data-step="fan:-5" type="button">◀</button>
+        <input type="range" id="fan" min="-80" max="80" step="1"> <button class="btn small" data-step="fan:5" type="button">▶</button> <output id="fan-v"></output></label>
+      <label><span data-t="echo.rot">Rotate</span> <button class="btn small" data-step="rot:-10" type="button">◀</button>
+        <input type="range" id="rot" min="0" max="359" step="1"> <button class="btn small" data-step="rot:10" type="button">▶</button> <output id="rot-v"></output></label>
+      <label><span data-t="echo.depth">Depth</span> <input type="range" id="depth" min="80" max="240" step="10"> <output id="depth-v"></output></label>
+      <label><span data-t="echo.gain">Gain</span> <input type="range" id="gain" min="-20" max="20" step="1"> <output id="gain-v"></output></label>
+    </div>
+    <div class="probe-actions">
+      <button id="showme" class="btn" type="button" data-t="echo.showme">Show me</button>
+      <label class="check"><input type="checkbox" id="labels"> <span data-t="echo.labels">Labels</span></label>
+    </div>
+    <p class="keys" data-t="echo.keys"></p>
+    <figure class="ref"><canvas id="ref" width="240" height="165"></canvas><figcaption data-t="echo.ct">CT in the beam's plane</figcaption></figure>
+  </section>
+
+  <section class="card text-card">
+    <div class="pane-head">
+      <h2 id="win-title"></h2>
+      <div id="plane" class="segmented" role="radiogroup" hidden>
+        <button class="btn small" role="radio" data-v="pelvic-trans" data-t="echo.trans">Transverse</button>
+        <button class="btn small" role="radio" data-v="pelvic-sag" data-t="echo.sag">Sagittal</button>
+      </div>
+    </div>
+    <div class="win-text">
+      <h3 data-t="echo.where">Where</h3><p id="t-where" lang="en" dir="ltr"></p>
+      <h3 data-t="echo.see">What you should see</h3><p id="t-see" lang="en" dir="ltr"></p>
+      <h3 data-t="echo.mistakes">Common mistakes</h3><p id="t-mistakes" lang="en" dir="ltr"></p>
+    </div>
+  </section>
+
+  <section class="card fluid-card">
+    <div class="pane-head"><h2 data-t="echo.fluid">Free fluid (simulated)</h2></div>
+    <div class="fluid-grid">
+      <label><span data-t="echo.site.morison">Morison's pouch</span> <select data-site="1"></select></label>
+      <label><span data-t="echo.site.splenorenal">Splenorenal</span> <select data-site="2"></select></label>
+      <label><span data-t="echo.site.pelvis">Pelvis</span> <select data-site="3"></select></label>
+      <label><span data-t="echo.site.pericardium">Pericardium</span> <select data-site="4"></select></label>
+    </div>
+    <div class="probe-actions">
+      <button id="all-pos" class="btn small" type="button" data-t="echo.allpositive">All positive</button>
+      <button id="all-neg" class="btn small" type="button" data-t="echo.allnegative">All negative</button>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p data-t="echo.disclaimer">A teaching simulation. Educational use only — not for diagnosis.</p>
+  <p data-t="echo.credit">Data: TotalSegmentator dataset, CC BY 4.0. The ultrasound image is simulated from a CT, and so is the free fluid.</p>
+  <p><a id="repo-link" hidden rel="noopener" data-t="footer.code">Source code &amp; error reports</a></p>
+</footer>
+</body>
+</html>

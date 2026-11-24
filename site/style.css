@@ -479,3 +479,47 @@ body.heart-page { max-width: clamp(960px, calc((100svh - 330px) * 2.15 + 46px), 
   .ap-plots svg { max-height: 110px; }
   .playbar input[type="range"] { order: -1; flex-basis: 100%; }
 }
+
+/* ---- FAST ultrasound trainer (echo.html) ---- */
+body.echo-page { max-width: 1240px; }
+.echo-status { color: var(--muted); }
+.echo { margin-top: 14px; display: grid; gap: 14px; grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+  grid-template-areas: "us probe" "text probe" "text fluid"; align-items: start; }
+.echo[hidden] { display: none; }
+.us-card { grid-area: us; } .probe-card { grid-area: probe; } .text-card { grid-area: text; } .fluid-card { grid-area: fluid; }
+@media (max-width: 820px) {
+  .echo { grid-template-columns: minmax(0, 1fr); grid-template-areas: "us" "probe" "fluid" "text"; }
+}
+/* Images are never mirrored for right-to-left languages: the marker stays on the image's left. */
+.us-wrap, .body-maps, .ref { direction: ltr; }
+.us-wrap { position: relative; background: #000; }
+.us-wrap canvas { display: block; width: 100%; height: auto; }
+#us-labels { position: absolute; inset: 0; pointer-events: none; }
+.marker-dot { position: absolute; top: 8px; left: 10px; color: #4fd1e8; font-size: 14px; }
+.depth-scale { position: absolute; top: 0; bottom: 0; right: 6px; width: 24px; pointer-events: none; }
+.depth-scale span { position: absolute; right: 0; transform: translateY(-50%); font-size: 10px; color: #9fb0c4; }
+.depth-scale span::after { content: " –"; }
+.sim-badge { margin-inline-start: auto; border: 1px solid #4fd1e8; color: #4fd1e8; border-radius: 999px; padding: 1px 8px; }
+.meter { flex: 1; height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; min-width: 80px; }
+.meter span { display: block; height: 100%; width: 0; background: var(--active); transition: width 0.2s; }
+.found { min-width: 18ch; }
+.found.ok { color: #4cb873; font-weight: 600; }
+.body-maps { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px 10px 0; }
+.body-maps figure, .ref { margin: 0; }
+.body-maps canvas { width: 100%; height: auto; touch-action: none; cursor: crosshair; background: #121922; border-radius: 8px; }
+figcaption { font-size: 11px; color: var(--muted); text-align: center; margin-top: 2px; }
+.sliders { display: grid; gap: 4px; padding: 8px 10px; }
+.sliders label { display: grid; grid-template-columns: 7ch auto 1fr auto 6ch; gap: 6px; align-items: center; font-size: 12px; }
+.sliders label:has(> input:nth-child(2)) { grid-template-columns: 7ch 1fr 6ch; }
+.sliders input[type=range] { width: 100%; }
+.sliders output { text-align: end; color: var(--muted); }
+.probe-actions { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; padding: 0 10px 8px; }
+.probe-actions .check { margin: 0; }
+.keys { font-size: 11px; color: var(--muted); padding: 0 10px; margin: 0 0 8px; }
+.ref { padding: 0 10px 10px; }
+.ref canvas { width: 100%; height: auto; border-radius: 8px; background: #000; }
+.win-text { padding: 4px 14px 12px; font-family: var(--sans); }
+.win-text h3 { font-size: 12px; color: var(--active); margin: 10px 0 2px; font-weight: 500; }
+.win-text p { margin: 0; }
+.fluid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; padding: 10px; }
+.fluid-grid label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }

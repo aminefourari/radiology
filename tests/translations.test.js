@@ -20,6 +20,7 @@ function dataNames() {
     (e.clues || []).forEach((c, i) => out.push([`ecg ${e.id} clue ${i}`, c.text]));
     for (const [step, o] of Object.entries(e.override || {})) if (o.note) out.push([`ecg ${e.id} override ${step}`, o.note]);
   }
+  for (const w of read("site/echo/windows.json").windows) out.push([`echo window ${w.key} title`, w.title]);
   for (const r of read("site/heart/rhythms.json")) {
     out.push([`rhythm ${r.key} title`, r.title]); // rhythm texts are English-first: checked in the heart-page test below
   }

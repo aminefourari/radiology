@@ -83,7 +83,16 @@ def validate_case(case_dir, budget_bytes=25 * 1024 * 1024):
     known = {0} | {s["id"] for s in meta["structures"]}
     unknown = set(np.unique(lab).tolist()) - known
     assert not unknown, f"label ids missing from meta: {sorted(unknown)}"
-    total = sum(os.path.getsize(os.path.join(case_dir, n)) for n in ("ct.bin.gz", "labels.bin.gz", "meta.json"))
+    files = ["ct.bin.gz", "labels.bin.gz", "meta.json"]
+    fluid_path = os.path.join(case_dir, "fluid.bin.gz")
+    if os.path.exists(fluid_path):  # FAST trainer: value = site * 4 + level, site 1-4, level 1-2
+        with gzip.open(fluid_path) as f:
+            fl = np.frombuffer(f.read(), np.uint8)
+        assert fl.size == X * Y * Z, "fluid size does not match meta.dims"
+        vals = np.unique(fl[fl > 0])
+        assert all(1 <= v // 4 <= 4 and 1 <= v % 4 <= 2 for v in vals.tolist()), f"bad fluid values: {vals}"
+        files.append("fluid.bin.gz")
+    total = sum(os.path.getsize(os.path.join(case_dir, n)) for n in files)
     assert total <= budget_bytes, f"case is {total / 2**20:.1f} MB, over budget"
 
 

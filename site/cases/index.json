@@ -52,6 +52,19 @@
   }
  },
  {
+  "id": "s0739-trunk",
+  "region": "trunk",
+  "title": {
+   "en": "Chest, abdomen & pelvis · CT, normal",
+   "de": "Thorax, Abdomen & Becken · CT, Normalbefund",
+   "es": "Tórax, abdomen y pelvis · TC normal",
+   "ar": "الصدر والبطن والحوض · تصوير مقطعي طبيعي",
+   "fr": "Thorax, abdomen et pelvis · TDM normale",
+   "it": "Torace, addome e pelvi · TC normale",
+   "nl": "Borst, buik en bekken · CT, normaal"
+  }
+ },
+ {
   "id": "s0783",
   "region": "lower-limb",
   "title": {

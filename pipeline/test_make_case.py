@@ -2,6 +2,7 @@ import json
 import os
 
 import nibabel as nib
+import pytest
 import numpy as np
 
 from caselib import validate_case
@@ -60,3 +61,18 @@ def test_case_file_z_range_crops(tmp_path):
     meta = json.loads((tmp_path / "site" / "cases" / "t2" / "meta.json").read_text(encoding="utf-8"))
     assert meta["dims"][2] == 7
     assert meta["dims"][1] <= 8
+
+
+def test_trunk_region_and_case_budget(tmp_path):
+    src = tmp_path / "src"
+    fake_dataset(src)
+    case_file = tmp_path / "t3.json"
+    base = {"region": "trunk", "title": {"en": "T"}, "tasks": ["total"], "systems": ["organs"],
+            "defaultSystems": ["organs"], "windows": ["soft"], "keyLevels": []}
+    case_file.write_text(json.dumps(base))
+    main([str(src), "t3", "--case-file", str(case_file), "--out", str(tmp_path / "site")])
+    meta = json.loads((tmp_path / "site" / "cases" / "t3" / "meta.json").read_text(encoding="utf-8"))
+    assert meta["region"] == "trunk"
+    case_file.write_text(json.dumps({**base, "budgetMB": 0.000001}))
+    with pytest.raises(AssertionError, match="over budget"):
+        main([str(src), "t3", "--case-file", str(case_file), "--out", str(tmp_path / "site")])
