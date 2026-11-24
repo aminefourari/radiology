@@ -1,0 +1,307 @@
+{
+  "id": "hip",
+  "title": {
+    "en": "Femoral neck fracture (intracapsular)",
+    "de": "Mediale Schenkelhalsfraktur (intrakapsulär)",
+    "es": "Fractura del cuello femoral (intracapsular)",
+    "ar": "كسر عنق الفخذ (داخل المحفظة)",
+    "fr": "Fracture du col du fémur (intracapsulaire)",
+    "it": "Frattura del collo del femore (intracapsulare)",
+    "nl": "Mediale collumfractuur (intracapsulair)"
+  },
+  "classification": {
+    "name": "Garden",
+    "basis": "Read on the AP hip radiograph from the course of the medial (compressive) trabeculae of the head against those of the neck and acetabulum; the lateral view adds posterior tilt. Interobserver agreement for the four grades is poor, so most guidelines and trials use the simplified split: undisplaced (Garden I-II, 'stable') vs displaced (Garden III-IV, 'unstable'). In young patients add Pauwels: angle of the fracture line to the horizontal on the AP view (I <30 degrees, II 30-50, III >50 = vertical, shear-dominant, highest failure risk).",
+    "refs": ["garden1961", "kazley2018", "bartonicek2001", "aaos2021"]
+  },
+  "types": [
+    {
+      "code": "I",
+      "title": {
+        "en": "Incomplete, valgus-impacted",
+        "de": "Inkomplett, valgisch impaktiert",
+        "es": "Incompleta, impactada en valgo",
+        "ar": "غير كامل، منغرس بوضعية الأروح",
+        "fr": "Incomplète, engrenée en valgus",
+        "it": "Incompleta, ingranata in valgo",
+        "nl": "Incompleet, in valgus geïmpacteerd"
+      },
+      "summary": "Lateral cortex broken, medial cortex intact; head tilted into valgus so the medial trabeculae angle upward. Undisplaced (stable) group.",
+      "management": "op",
+      "recommendation": "Older adult: fix in situ with three parallel cannulated screws (or a sliding hip screw), or hemiarthroplasty; RCT and meta-analysis data show far fewer major reoperations after hemiarthroplasty, at the cost of a bigger operation. Favour arthroplasty if posterior tilt on the lateral view is 20 degrees or more, or the hip is arthritic. Non-operative care is an option only for non-ambulant or palliative patients.",
+      "refs": ["aaos2021", "dolatowski2019", "boutros2025", "nielsen2020"],
+      "approach": "crif-traction"
+    },
+    {
+      "code": "II",
+      "title": {
+        "en": "Complete, undisplaced",
+        "de": "Komplett, nicht disloziert",
+        "es": "Completa, no desplazada",
+        "ar": "كامل، غير منزاح",
+        "fr": "Complète, non déplacée",
+        "it": "Completa, composta",
+        "nl": "Compleet, niet-verplaatst"
+      },
+      "summary": "Fracture line crosses the whole neck but the trabecular alignment is preserved on the AP view. Undisplaced (stable) group; check the lateral view for posterior tilt.",
+      "management": "op",
+      "recommendation": "As for Garden I: in situ fixation (cannulated screws in an inverted triangle or a sliding hip screw) or hemiarthroplasty after a shared decision; posterior tilt of 20 degrees or more roughly doubles reoperation after fixation (24.5% vs 10.3%), so arthroplasty is favoured. In young patients fix in situ.",
+      "refs": ["aaos2021", "dolatowski2019", "nielsen2020", "dolatowski2016", "temmesfeld2019", "boutros2025"],
+      "approach": "crif-traction"
+    },
+    {
+      "code": "III",
+      "title": {
+        "en": "Complete, partially displaced",
+        "de": "Komplett, teilweise disloziert",
+        "es": "Completa, parcialmente desplazada",
+        "ar": "كامل، منزاح جزئياً",
+        "fr": "Complète, partiellement déplacée",
+        "it": "Completa, parzialmente scomposta",
+        "nl": "Compleet, gedeeltelijk verplaatst"
+      },
+      "summary": "Complete fracture with the head rotated into varus; the medial trabeculae of the head no longer line up with the acetabular or neck trabeculae, and the posterior retinaculum is still partly attached. Displaced (unstable) group.",
+      "management": "op",
+      "recommendation": "Older adult: cemented arthroplasty, not fixation; hemiarthroplasty by default, total hip replacement for those who walked outdoors with no more than a stick, are fit for it and expected to remain independent beyond 2 years. Young or physiologically young: urgent anatomic closed (or open) reduction and internal fixation to preserve the head.",
+      "refs": ["nice-cg124", "aaos2021", "health2019", "white5-2022", "haidukewych2004"],
+      "approach": "direct-lateral-hardinge"
+    },
+    {
+      "code": "IV",
+      "title": {
+        "en": "Complete, fully displaced",
+        "de": "Komplett, vollständig disloziert",
+        "es": "Completa, totalmente desplazada",
+        "ar": "كامل، منزاح كلياً",
+        "fr": "Complète, totalement déplacée",
+        "it": "Completa, totalmente scomposta",
+        "nl": "Compleet, volledig verplaatst"
+      },
+      "summary": "Complete displacement with no contact between fragments; the head returns to its anatomical position in the acetabulum, so its trabeculae run parallel to the acetabular trabeculae. Highest risk of avascular necrosis and nonunion after fixation.",
+      "management": "op",
+      "recommendation": "Older adult: cemented hemiarthroplasty or total hip replacement (NICE 1.6.3 criteria), surgery on the day of or the day after admission. Young patient: anatomic reduction and fixation as soon as safely possible; accept open reduction if closed reduction is not anatomic, because reduction quality drives nonunion and avascular necrosis.",
+      "refs": ["nice-cg124", "aaos2021", "health2019", "white5-2022", "haidukewych2004", "slobogean2015"],
+      "approach": "direct-lateral-hardinge"
+    }
+  ],
+  "workup": [
+    "AP pelvis plus AP and true cross-table lateral of the hip; cross-table lateral reliably shows displacement and posterior tilt in apparently valgus-impacted fractures.",
+    "Measure posterior tilt on the lateral view in Garden I-II: 20 degrees or more predicts fixation failure.",
+    "Suspected fracture with normal radiographs: MRI; CT if MRI is not available within 24 hours or is contraindicated.",
+    "Young or high-energy patient: Pauwels angle on a traction-internal rotation AP; look for an ipsilateral femoral shaft fracture and other injuries (ATLS).",
+    "Look for pathological fracture (lytic lesion, cancer history) and for hip osteoarthritis, acetabular disease or previous implants: any of these changes the plan (often to total hip replacement or long stem).",
+    "Document pre-fracture mobility (outdoor walking, aids), cognition and independence in daily living: these decide hemiarthroplasty vs total hip replacement.",
+    "Correct anaemia, anticoagulation, volume, electrolytes, diabetes, heart failure, arrhythmia and chest infection without delaying surgery; assess cardiorespiratory reserve before cementing.",
+    "Distal neurovascular status and skin over the trochanter; pre-operative analgesia with paracetamol, opioids and a nerve block if needed."
+  ],
+  "decide": [
+    {
+      "text": "Timing: operate on the day of or the day after admission (NICE); AAOS: within 24-48 hours. Accelerated surgery (median 6 h vs 24 h) did not reduce mortality or major complications in HIP ATTACK, so the target is the next available planned trauma list once correctable comorbidity is treated, not emergency out-of-hours surgery.",
+      "refs": ["nice-cg124", "aaos2021", "hipattack2020"]
+    },
+    {
+      "text": "Displaced fracture in an older adult: arthroplasty rather than fixation (strong recommendation). Fixation is only for those in whom head preservation clearly outweighs the reoperation risk.",
+      "refs": ["aaos2021", "nice-cg124"]
+    },
+    {
+      "text": "Total hip replacement vs hemiarthroplasty: in HEALTH (1495 ambulatory patients aged 50 or over) secondary procedures did not differ (7.9% vs 8.3%), dislocation was higher with THA (4.7% vs 2.4%) and function modestly favoured THA. NICE: consider THA if the patient walked independently outdoors with no more than a stick, is fit for it and is expected to stay independent beyond 2 years. Cognitive impairment raises dislocation risk; evidence is limited.",
+      "refs": ["health2019", "nice-cg124", "aaos2021"]
+    },
+    {
+      "text": "Cement the stem: WHiTE 5 (1225 patients aged 60 or over) showed better quality of life at 4 months and fewer periprosthetic fractures (0.5% vs 2.1%) with cemented hemiarthroplasty, with no mortality penalty. Follow the AAGBI/BOA/BGS cement safety protocol (bone cement implantation syndrome). Unipolar and bipolar heads perform equally.",
+      "refs": ["white5-2022", "nice-cg124", "aaos2021", "aagbi2015"]
+    },
+    {
+      "text": "Undisplaced fracture in an older adult: genuinely contested. Norwegian RCT (219 patients aged 70 or over): no difference in Harris Hip Score at 24 months, but better mobility and fewer major reoperations after hemiarthroplasty (20% after screws, NNH 6.5). A small 2025 RCT and a 2025 meta-analysis (reoperation RR 3.54 with screws) point the same way; screws mean less blood loss, shorter surgery and shorter stay. AAOS rates the choice as a limited option. The Danish SENSE RCT (age 65 or over) has finished but no results were published at review; decide on frailty, posterior tilt and patient goals.",
+      "refs": ["dolatowski2019", "parker2025", "boutros2025", "aaos2021", "sense2020"]
+    },
+    {
+      "text": "Young or physiologically young patient (no agreed age cut-off; active, good bone, no arthritis): preserve the head. Complications are frequent (pooled reoperation 18%, avascular necrosis 14%, nonunion 9%) and rise with displacement and poor reduction. Timing of fixation was not linked to avascular necrosis in meta-analysis, but delay beyond 24 h was linked to nonunion; aim for an urgent, anatomic reduction.",
+      "refs": ["slobogean2015", "haidukewych2004", "papakostidis2015"]
+    },
+    {
+      "text": "Implant for fixation: FAITH (1108 patients aged 50 or over, low-energy) found no difference in 24-month reoperation between sliding hip screw and cancellous screws (20% vs 22%), but more avascular necrosis with the sliding hip screw (9% vs 5%); subgroups (smokers, displaced, basicervical) hinted at a benefit of the sliding hip screw. FAITH-2 (young, n=86) was an underpowered pilot. The Femoral Neck System has only retrospective support, mainly in Pauwels III; treat its advantages as unproven.",
+      "refs": ["faith2017", "faith2-2020", "zhuang2025"]
+    }
+  ],
+  "approaches": [
+    {
+      "id": "crif-traction",
+      "name": "Closed reduction and internal fixation on a traction table (percutaneous lateral approach)",
+      "when": "Garden I-II in older adults chosen for fixation; Garden I-IV in young or physiologically young patients. Convert to open reduction (anterior Smith-Petersen or Watson-Jones) if closed reduction is not anatomic.",
+      "position": "Supine on a fracture (traction) table, perineal post, affected foot in the traction boot, well leg in a leg holder (hemilithotomy or scissored); C-arm from the contralateral side between the legs, giving true AP and lateral without moving the leg. No tourniquet.",
+      "incision": "Lateral thigh, starting at or just above the level of the lesser trochanter on the AP view: 2-4 cm longitudinal incision for cannulated screws, 5-8 cm for a sliding hip screw or Femoral Neck System plate.",
+      "interval": "Split the iliotibial band in line with its fibres, then split or elevate vastus lateralis off the lateral intermuscular septum down to the lateral femoral cortex. The joint is not opened in closed reduction.",
+      "atRisk": [
+        {"key": "vastus_lateralis_muscle_right", "why": "Split in line with its fibres; perforating branches of the profunda femoris lie posteriorly at the septum, so stay anterior and coagulate them if a longer plate exposure is needed."},
+        {"key": "medial_circumflex_femoral_artery_right", "why": "Main supply of the head via the posterosuperior retinacular (lateral epiphyseal) vessels; already at risk from displacement. Avoid repeated forceful manipulation, wires or screws in the posterosuperior head, and joint penetration."},
+        {"key": "femoral_artery_right", "why": "Guidewires that exit the anterior neck cortex or are over-advanced through the head can reach the anterior hip vessels; check every wire on the lateral view and measure length before drilling."}
+      ],
+      "steps": [
+        "Under anaesthesia, reduce gently: Whitman-type (traction in extension, slight abduction, then internal rotation 15-20 degrees) or Leadbetter-type (hip and knee flexed to 90 degrees, traction in line with the femur, internal rotation, then extension and abduction). One or two attempts only; no forceful repeated manipulation.",
+        "Judge reduction on AP and lateral with the Garden alignment index; avoid varus and posterior sag. Undisplaced fractures are fixed in situ, without trying to correct valgus impaction.",
+        "If closed reduction fails in a young patient: open reduction through an anterior (Smith-Petersen or Watson-Jones) approach, joysticks or a Schanz pin in the head, pointed clamp, provisional K-wires, then fixation from the lateral side.",
+        "Cannulated screws: insert three parallel guidewires (guide or freehand) in an inverted triangle: the inferior wire along the calcar, the posterior wire against the posterior neck cortex, the third anterosuperior. Keep the lowest entry above the lower border of the lesser trochanter.",
+        "Measure, drill the near cortex only, insert partially threaded screws with washers so all threads cross the fracture; tips about 5 mm subchondral. Compress sequentially.",
+        "Sliding hip screw / Femoral Neck System alternative: centre-centre or slightly inferior guidewire along the neck axis, add an anti-rotation screw or wire above it before reaming, then plate on the lateral cortex."
+      ],
+      "implants": [
+        "Three partially threaded cannulated screws (6.5-7.3 mm) with washers, inverted triangle; a fourth screw or an off-axis (biplane) configuration for comminution of the posterior cortex.",
+        "Sliding hip screw (130-135 degree plate, 2-hole) plus an anti-rotation cancellous screw: consider for displaced, basicervical or vertical (Pauwels III) patterns and smokers.",
+        "Femoral Neck System (fixed-angle bolt plus anti-rotation screw, 1- or 2-hole plate): an option, with evidence limited to cohort studies."
+      ],
+      "checks": [
+        "Garden alignment index: AP angle between the medial trabeculae of the head and the medial femoral shaft cortex about 160 degrees, lateral angle between head trabeculae and neck axis about 180 degrees; accept 155-180 degrees in both views (outside this range raises avascular necrosis and nonunion risk).",
+        "No varus on AP and no posterior tilt or posterior gap on the lateral view; in young patients aim for an anatomic reduction.",
+        "Inverted triangle: inferior screw within about 3 mm of the inferior (calcar) cortex on AP, posterior screw within about 3 mm of the posterior cortex on lateral; screws parallel in both views.",
+        "Lowest screw entry not below the lesser trochanter (subtrochanteric fracture risk); tips 5 mm short of subchondral bone, no joint penetration (live rotation of the C-arm or an approach-withdraw view).",
+        "Tip-apex distance is a sliding hip screw measure; it does not apply to parallel cannulated screws."
+      ],
+      "refs": ["garden1961", "lindequist1995", "hickey2014", "haidukewych2004", "faith2017", "zhuang2025"]
+    },
+    {
+      "id": "direct-lateral-hardinge",
+      "name": "Direct lateral (Hardinge, transgluteal) approach for hemiarthroplasty",
+      "when": "Default for hemiarthroplasty in Garden III-IV in older adults; NICE (2011) advises an anterolateral rather than posterior approach, which includes this approach. Also usable for total hip replacement.",
+      "position": "Lateral decubitus on a standard table, pelvis held vertical with anterior (pubic) and posterior (sacral) supports; leg draped free. No tourniquet. Fluoroscopy not routinely needed; a post-operative AP pelvis is the check.",
+      "incision": "Longitudinal lateral incision of 10-15 cm centred on the tip of the greater trochanter, in line with the femoral shaft, curving slightly posteriorly proximally.",
+      "interval": "No true internervous plane. Split the iliotibial band and tensor fascia lata in line with the incision. Split gluteus medius in line with its fibres at the junction of its anterior third (or half) and posterior part, continuing distally through the anterior vastus lateralis, so the anterior abductors and vastus lateralis lift off the trochanter as one sleeve with gluteus minimus. Then T- or H-capsulotomy anteriorly.",
+      "atRisk": [
+        {"key": "superior_gluteal_nerve_right", "why": "Runs between gluteus medius and minimus a few cm above the trochanter tip; a proximal split that goes too far denervates the anterior abductors. Keep the split short and place a stay suture at its apex."},
+        {"key": "gluteus_medius_muscle_right", "why": "Detached and repaired: poor repair or nerve injury gives a limp. In an RCT, a positive Trendelenburg test at 1 year was 20% after the direct lateral vs 1.8% after the muscle-sparing anterolateral approach. Repair with strong transosseous or tendon-to-tendon sutures."},
+        {"key": "femoral_nerve_right", "why": "Lies on iliopsoas anterior to the capsule; a retractor levered over the anterior acetabular rim can compress it. Keep anterior retractors on bone, inside the capsule."},
+        {"key": "lateral_circumflex_femoral_artery_right", "why": "Its transverse branch crosses the vastus lateralis origin at the distal end of the split; identify and coagulate it."}
+      ],
+      "steps": [
+        "Tell the anaesthetist before cementing; follow the AAGBI/BOA/BGS cement safety protocol.",
+        "After capsulotomy, externally rotate and adduct the leg into a sterile bag on the opposite side to deliver the neck.",
+        "Neck cut at the level set on the pre-operative template (measured from the lesser trochanter); extract the head with a corkscrew; measure head diameter with gauges and inspect the acetabular cartilage (osteoarthritis = consider total hip replacement).",
+        "Clear the labrum and ligamentum teres remnant; open the canal laterally (avoid varus), broach to the templated size in the native anteversion.",
+        "Trial head matched to the measured native head and trial neck; reduce and check leg length, offset, stability (flexion with internal rotation, extension with external rotation) and soft-tissue tension.",
+        "Cemented stem: lavage and dry the canal, distal plug, retrograde cement with a gun, pressurise, insert stem in neutral; hold until set.",
+        "Definitive head; reduce; repair capsule and abductor sleeve to the trochanter; close the iliotibial band securely."
+      ],
+      "implants": [
+        "Cemented polished taper-slip or composite-beam stem (one standard stem per unit, as NICE recommends) with a unipolar or bipolar head (equivalent outcomes).",
+        "Total hip replacement (cemented stem, cemented or uncemented cup; dual-mobility cup if dislocation risk is high) for patients who meet the NICE criteria or have acetabular disease."
+      ],
+      "checks": [
+        "Leg length equal to the other side (compare lesser trochanters to the inter-teardrop line on the post-operative AP pelvis; intra-operatively compare knees/heels or use a pelvic reference pin).",
+        "Femoral offset restored to match the opposite hip on the template; head size matched to the excised head.",
+        "Stem in neutral on AP and lateral, with a continuous cement mantle and no cement extruded beyond the plug.",
+        "Stable through a full range of motion at trial before final implantation."
+      ],
+      "refs": ["nice-cg124", "aaos2021", "white5-2022", "aagbi2015", "ugland2019", "tellefsen2025"]
+    },
+    {
+      "id": "posterior",
+      "name": "Posterior (posterolateral, Kocher-Langenbeck/Moore) approach for hemiarthroplasty or total hip replacement",
+      "when": "Displaced fractures treated with arthroplasty when the surgeon's routine is posterior, especially total hip replacement. Avoid for hemiarthroplasty in confused or demented patients: register data show about four times the dislocation risk of the direct lateral approach.",
+      "position": "Lateral decubitus with anterior and posterior pelvic supports, pelvis vertical; leg free-draped. No tourniquet.",
+      "incision": "Curved incision 10-15 cm centred on the posterior third of the greater trochanter: distally along the femoral shaft, proximally angled towards the posterior superior iliac spine.",
+      "interval": "No internervous plane: split gluteus maximus in line with its fibres (inferior gluteal nerve, far proximal) and the fascia lata. Internally rotate the hip, release piriformis and the short external rotators (gemelli, obturator internus) close to the trochanter, leaving quadratus femoris and preserving or tagging the capsule as a flap for repair.",
+      "atRisk": [
+        {"key": "sciatic_nerve_right", "why": "Lies on the short external rotators posterior to the joint; keep the hip internally rotated and the knee flexed during release, reflect the rotators over it as a cushion, and avoid retractors behind the posterior acetabular wall."},
+        {"key": "medial_circumflex_femoral_artery_right", "why": "Its ascending branch runs at the upper border of quadratus femoris; cutting quadratus femoris bleeds - stay above it or coagulate."},
+        {"key": "piriformis_muscle_right", "why": "Released with the short rotators; repair it and the capsule to the trochanter through drill holes. Repair reduces dislocation risk."},
+        {"key": "quadratus_femoris_muscle_right", "why": "Preserve where possible; it marks the distal limit of the rotator release and covers the medial circumflex vessels."}
+      ],
+      "steps": [
+        "Tag and release the short external rotators and posterior capsule as one flap.",
+        "Dislocate (or cut the neck in situ and extract the head), measure the head; inspect the acetabulum.",
+        "Neck cut and femoral preparation as for the lateral approach, keeping anteversion correct: retroversion of the stem increases posterior dislocation risk.",
+        "Trial, test posterior stability (flexion 90 degrees with adduction and internal rotation) and leg length/offset.",
+        "Cement the stem per safety protocol; for total hip replacement prepare and implant the cup first, in the surgeon's usual inclination/anteversion target.",
+        "Repair capsule and short external rotators to the trochanter through drill holes; close the fascia lata and gluteus maximus fascia."
+      ],
+      "implants": [
+        "Cemented hemiarthroplasty stem with unipolar or bipolar head, or total hip replacement (consider a dual-mobility cup for higher dislocation risk)."
+      ],
+      "checks": [
+        "Leg length and offset equal to the other side on the post-operative AP pelvis.",
+        "Stem anteversion not reduced; cup position within the surgeon's target zone in THA.",
+        "Posterior stability tested at trial; capsule and rotators repaired."
+      ],
+      "refs": ["tellefsen2025", "nice-cg124", "aaos2021", "health2019"]
+    },
+    {
+      "id": "direct-anterior",
+      "name": "Direct anterior (Smith-Petersen-based) approach for hemiarthroplasty or total hip replacement",
+      "when": "Displaced fractures treated with arthroplasty by surgeons experienced in direct anterior arthroplasty; its anterior interval also serves for open reduction of a young displaced fracture. No approach is favoured by evidence (AAOS); a 2026 meta-analysis found slightly less pain, blood loss and stay with longer surgery and no difference in hip score.",
+      "position": "Supine on a standard table (with a bump under the sacrum or a leg-positioning table/bed break for femoral access) or in lateral decubitus in some techniques; fluoroscopy for cup and leg length checks helpful.",
+      "incision": "Start 2-3 cm distal and 2-3 cm lateral to the anterior superior iliac spine, run 8-10 cm distally and slightly laterally over the tensor fasciae latae muscle belly towards the fibular head.",
+      "interval": "Superficial: open the fascia over tensor fasciae latae and develop the plane medial to it, between tensor fasciae latae (superior gluteal nerve) and sartorius (femoral nerve), staying inside the tensor sheath. Deep: between gluteus medius/minimus laterally and rectus femoris medially; ligate the ascending branch of the lateral circumflex femoral artery, then open the anterior capsule.",
+      "atRisk": [
+        {"key": "lateral_femoral_cutaneous_nerve_right", "why": "Crosses superficial to sartorius near the incision; working inside the tensor sheath and lateral to sartorius protects it. Thigh numbness is the commonest nerve problem of this approach."},
+        {"key": "lateral_circumflex_femoral_artery_right", "why": "Ascending branches cross the deep interval at the base of the neck; ligate or coagulate them before deep dissection."},
+        {"key": "femoral_nerve_right", "why": "Lies medial to the rectus and iliopsoas; anterior acetabular retractors must sit on bone inside the capsule, not over psoas."},
+        {"key": "tensor_fasciae_latae_right", "why": "Retracted laterally during femoral preparation; excess force tears it or injures its superior gluteal nerve branch."}
+      ],
+      "steps": [
+        "Capsulotomy, neck osteotomy in situ (often a double cut, removing a napkin ring) and head extraction with a corkscrew; measure head size.",
+        "Release posterior/superior capsule as needed to elevate the femur; extend, adduct and externally rotate the leg for femoral access.",
+        "Broach and trial; check leg length and offset with fluoroscopy against the opposite side.",
+        "Cement the stem per safety protocol; reduce, repair the capsule, close the tensor fascia."
+      ],
+      "implants": [
+        "Cemented stem with unipolar or bipolar head, or total hip replacement. Femoral access is harder in muscular or obese patients; plan the stem accordingly."
+      ],
+      "checks": [
+        "Fluoroscopic AP pelvis: leg length and offset compared with the contralateral side.",
+        "Stem alignment neutral; no calcar crack (intra-operative femoral fracture is a known risk during femoral elevation)."
+      ],
+      "refs": ["sarkar2026", "aaos2021", "nice-cg124"]
+    }
+  ],
+  "after": {
+    "weightBearing": "Full weight bearing as tolerated immediately after fixation or arthroplasty in older adults; surgery should aim to allow unrestricted weight bearing. After fixation of a displaced fracture in a young patient, protected weight bearing is common practice but is not supported by trial evidence.",
+    "rehab": "Physiotherapy assessment and mobilisation on the day after surgery, then at least daily; orthogeriatric multidisciplinary care, delirium prevention, VTE prophylaxis and bone-health/falls assessment.",
+    "followUp": "Fixation: radiographs at about 6 weeks, 3, 6 and 12 months for loss of reduction, screw back-out, shortening and nonunion; avascular necrosis can appear late (often in the first 2 years, sometimes years later), so review for new groin pain. Arthroplasty: post-operative AP pelvis and lateral, then clinical review for function, leg length and abductor function.",
+    "complications": [
+      "Fixation: nonunion, avascular necrosis (higher with displacement and poor reduction), fixation failure or cut-out, collapse and shortening, lateral thigh pain from prominent screws, subtrochanteric fracture from a low screw entry.",
+      "Arthroplasty: dislocation (higher with the posterior approach and with total hip replacement), periprosthetic fracture (more with uncemented stems), bone cement implantation syndrome, infection, limp after the direct lateral approach, heterotopic ossification.",
+      "General: mortality about one in four in the first year in frail patients, delirium, pneumonia, VTE, pressure ulcers."
+    ],
+    "pitfalls": [
+      "Missing posterior tilt in a Garden I-II fracture because only the AP view was assessed: get a true cross-table lateral.",
+      "Accepting varus or posterior sag after closed reduction; repeated forceful manipulation in a young patient instead of going to open reduction.",
+      "Screws placed centrally without inferior and posterior cortical support, divergent screws, or a lowest entry point below the lesser trochanter.",
+      "Using tip-apex distance targets for parallel cannulated screws: it is a sliding hip screw measure.",
+      "Extending the gluteus medius split too far proximally in the Hardinge approach (superior gluteal nerve).",
+      "Choosing a posterior approach hemiarthroplasty in a patient with dementia or who cannot follow precautions.",
+      "Oversized or undersized hemiarthroplasty head, or leg lengthening from a high neck cut or proud stem.",
+      "Cementing without warning the anaesthetist or in a patient with poor cardiorespiratory reserve without a plan."
+    ],
+    "refs": ["nice-cg124", "aaos2021", "white5-2022", "health2019", "tellefsen2025", "ugland2019", "hickey2014", "slobogean2015", "faith2017", "aagbi2015", "haidukewych2004"]
+  },
+  "refs": [
+    {"id": "nice-cg124", "cite": "National Institute for Health and Care Excellence. Hip fracture: management. Clinical guideline CG124. Published 2011, last updated 6 January 2023.", "year": 2023, "kind": "guideline", "url": "https://www.nice.org.uk/guidance/cg124"},
+    {"id": "aaos2021", "cite": "O'Connor MI, Switzer JA. AAOS Clinical Practice Guideline Summary: Management of Hip Fractures in Older Adults. J Am Acad Orthop Surg 2022;30:e1291-e1296 (guideline adopted December 2021).", "year": 2022, "kind": "guideline", "url": "https://doi.org/10.5435/JAAOS-D-22-00125"},
+    {"id": "aagbi2015", "cite": "Griffiths R, White SM, Moppett IK, et al. Safety guideline: reducing the risk from cemented hemiarthroplasty for hip fracture 2015 (AAGBI, BGS, BOA). Anaesthesia 2015;70:623-626.", "year": 2015, "kind": "guideline", "url": "https://doi.org/10.1111/anae.13036"},
+    {"id": "faith2017", "cite": "FAITH Investigators. Fracture fixation in the operative management of hip fractures (FAITH): an international, multicentre, randomised controlled trial. Lancet 2017;389:1519-1527.", "year": 2017, "kind": "rct", "url": "https://doi.org/10.1016/S0140-6736(17)30066-1"},
+    {"id": "health2019", "cite": "HEALTH Investigators. Total Hip Arthroplasty or Hemiarthroplasty for Hip Fracture. N Engl J Med 2019;381:2199-2208.", "year": 2019, "kind": "rct", "url": "https://doi.org/10.1056/NEJMoa1906190"},
+    {"id": "white5-2022", "cite": "Fernandez MA, Achten J, Parsons N, et al. Cemented or Uncemented Hemiarthroplasty for Intracapsular Hip Fracture. N Engl J Med 2022;386:521-530.", "year": 2022, "kind": "rct", "url": "https://doi.org/10.1056/NEJMoa2108337"},
+    {"id": "hipattack2020", "cite": "HIP ATTACK Investigators. Accelerated surgery versus standard care in hip fracture (HIP ATTACK): an international, randomised, controlled trial. Lancet 2020;395:698-708.", "year": 2020, "kind": "rct", "url": "https://doi.org/10.1016/S0140-6736(20)30058-1"},
+    {"id": "dolatowski2019", "cite": "Dolatowski FC, Frihagen F, Bartels S, et al. Screw Fixation Versus Hemiarthroplasty for Nondisplaced Femoral Neck Fractures in Elderly Patients: A Multicenter Randomized Controlled Trial. J Bone Joint Surg Am 2019;101:136-144.", "year": 2019, "kind": "rct", "url": "https://doi.org/10.2106/JBJS.18.00316"},
+    {"id": "parker2025", "cite": "Parker MJ, Cawley S. Internal fixation or hemiarthroplasty for undisplaced intracapsular hip fractures: a randomized trial. Acta Orthop Belg 2025;91:7-14.", "year": 2025, "kind": "rct", "url": "https://doi.org/10.52628/91.1.12524"},
+    {"id": "boutros2025", "cite": "Boutros M, Awad G, Kattan G, et al. Screw fixation versus hemiarthroplasty for undisplaced femoral neck fractures in the elderly: a meta-analysis. Eur J Orthop Surg Traumatol 2025;36:18.", "year": 2025, "kind": "meta-analysis", "url": "https://doi.org/10.1007/s00590-025-04603-y"},
+    {"id": "sense2020", "cite": "Viberg B, Kold S, Brink O, et al. Is arthroplaSty bEtter than interNal fixation for undiSplaced femoral nEck fracture? A national pragmatic RCT: the SENSE trial (protocol). BMJ Open 2020;10:e038442.", "year": 2020, "kind": "rct", "url": "https://doi.org/10.1136/bmjopen-2020-038442"},
+    {"id": "nielsen2020", "cite": "Nielsen LL, Smidt NS, Erichsen JL, Palm H, Viberg B. Posterior tilt in nondisplaced femoral neck fractures increases the risk of reoperations after osteosynthesis. A systematic review and meta-analysis. Injury 2020;51:2771-2778.", "year": 2020, "kind": "meta-analysis", "url": "https://doi.org/10.1016/j.injury.2020.09.033"},
+    {"id": "dolatowski2016", "cite": "Dolatowski FC, Adampour M, Frihagen F, Stavem K, Erik Utvåg S, Hoelsbrekken SE. Preoperative posterior tilt of at least 20 degrees increased the risk of fixation failure in Garden-I and -II femoral neck fractures. Acta Orthop 2016;87:252-256.", "year": 2016, "kind": "cohort", "url": "https://doi.org/10.3109/17453674.2016.1155253"},
+    {"id": "temmesfeld2019", "cite": "Temmesfeld MJ, Dolatowski FC, Borthne A, et al. Cross-Table Lateral Radiographs Accurately Predict Displacement in Valgus-Impacted Femoral Neck Fractures. JB JS Open Access 2019;4:e0037.", "year": 2019, "kind": "cohort", "url": "https://doi.org/10.2106/JBJS.OA.18.00037"},
+    {"id": "slobogean2015", "cite": "Slobogean GP, Sprague S, Scott T, Bhandari M. Complications following young femoral neck fractures. Injury 2015;46:484-491.", "year": 2015, "kind": "meta-analysis", "url": "https://doi.org/10.1016/j.injury.2014.10.010"},
+    {"id": "haidukewych2004", "cite": "Haidukewych GJ, Rothwell WS, Jacofsky DJ, Torchia ME, Berry DJ. Operative treatment of femoral neck fractures in patients between the ages of fifteen and fifty years. J Bone Joint Surg Am 2004;86:1711-1716.", "year": 2004, "kind": "cohort", "url": "https://doi.org/10.2106/00004623-200408000-00015"},
+    {"id": "papakostidis2015", "cite": "Papakostidis C, Panagiotopoulos A, Piccioli A, Giannoudis PV. Timing of internal fixation of femoral neck fractures. A systematic review and meta-analysis of the final outcome. Injury 2015;46:459-466.", "year": 2015, "kind": "meta-analysis", "url": "https://doi.org/10.1016/j.injury.2014.12.025"},
+    {"id": "faith2-2020", "cite": "Slobogean GP, Sprague S, Bzovsky S, et al. Fixation Using Alternative Implants for the Treatment of Hip Fractures (FAITH-2): The Clinical Outcomes of a Multicenter 2 x 2 Factorial Randomized Controlled Pilot Trial in Young Femoral Neck Fracture Patients. J Orthop Trauma 2020;34:524-532.", "year": 2020, "kind": "rct", "url": "https://doi.org/10.1097/BOT.0000000000001773"},
+    {"id": "zhuang2025", "cite": "Zhuang K, Wu J, Yang Y, Bai T, Li B. Comparison of clinical efficacy between femoral neck system and cannulated screw in Pauwels type III femoral neck fracture: A meta-analysis. J Back Musculoskelet Rehabil 2025;38:71-82.", "year": 2025, "kind": "meta-analysis", "url": "https://doi.org/10.1177/10538127241296340"},
+    {"id": "lindequist1995", "cite": "Lindequist S, Törnkvist H. Quality of reduction and cortical screw support in femoral neck fractures. An analysis of 72 fractures with a new computerized measuring method. J Orthop Trauma 1995;9:215-221.", "year": 1995, "kind": "cohort", "url": "https://doi.org/10.1097/00005131-199506000-00006"},
+    {"id": "hickey2014", "cite": "Hickey B, Jones HM, Jones S. Is distal screw entry point associated with subtrochanteric fracture after intracapsular hip fracture fixation? ANZ J Surg 2014;84:245-248.", "year": 2014, "kind": "cohort", "url": "https://doi.org/10.1111/ans.12498"},
+    {"id": "ugland2019", "cite": "Ugland TO, Haugeberg G, Svenningsen S, et al. High risk of positive Trendelenburg test after using the direct lateral approach to the hip compared with the anterolateral approach: a single-centre, randomized trial in patients with femoral neck fracture. Bone Joint J 2019;101-B:793-799.", "year": 2019, "kind": "rct", "url": "https://doi.org/10.1302/0301-620X.101B7.BJJ-2019-0035.R1"},
+    {"id": "tellefsen2025", "cite": "Tellefsen R, Kristensen TB, Dybvik EH, et al. Surgical approaches in hemiarthroplasty for hip fracture: results of 48,222 hemiarthroplasties in the Norwegian Hip Fracture Register. Bone Jt Open 2025;6:1311-1320.", "year": 2025, "kind": "cohort", "url": "https://doi.org/10.1302/2633-1462.610.BJO-2025-0099.R1"},
+    {"id": "sarkar2026", "cite": "Sarkar MH, Maheshwari S, Vardhan S, et al. Direct anterior versus conventional approaches for hemiarthroplasty in femoral neck fractures: A systematic review and meta-analysis of functional outcomes. J Clin Orthop Trauma 2026;83:103643.", "year": 2026, "kind": "meta-analysis", "url": "https://doi.org/10.1016/j.jcot.2026.103643"},
+    {"id": "garden1961", "cite": "Garden RS. Low-angle fixation in fractures of the femoral neck. J Bone Joint Surg Br 1961;43-B:647-663.", "year": 1961, "kind": "classification", "url": "https://doi.org/10.1302/0301-620X.43B4.647"},
+    {"id": "kazley2018", "cite": "Kazley JM, Banerjee S, Abousayed MM, Rosenbaum AJ. Classifications in Brief: Garden Classification of Femoral Neck Fractures. Clin Orthop Relat Res 2018;476:441-445.", "year": 2018, "kind": "classification", "url": "https://doi.org/10.1007/s11999.0000000000000066"},
+    {"id": "bartonicek2001", "cite": "Bartoníček J. Pauwels' classification of femoral neck fractures: correct interpretation of the original. J Orthop Trauma 2001;15:358-360.", "year": 2001, "kind": "classification", "url": "https://doi.org/10.1097/00005131-200106000-00009"}
+  ],
+  "reviewed": "2026-11"
+}

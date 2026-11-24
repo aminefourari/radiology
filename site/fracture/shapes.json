@@ -1,0 +1,1699 @@
+{
+ "calcaneus": {
+  "bone": "calcaneus_right",
+  "context": [
+   "talus_right",
+   "cuboid_bone_right",
+   "navicular_bone_right",
+   "tibia_right",
+   "fibula_right"
+  ],
+  "fade": [
+   "talus_right",
+   "tibia_right",
+   "fibula_right"
+  ],
+  "camera": {
+   "target": [80, -52, 42],
+   "dir": [1, -0.45, 0.75],
+   "dist": 230
+  },
+  "section": {
+   "p": [80, -52, 46],
+   "n": [0, 1, 0],
+   "up": [0, 0, 1],
+   "size": 76,
+   "label": "Coronal CT through the posterior facet",
+   "left": "R \u00b7 lateral",
+   "right": "medial \u00b7 L"
+  },
+  "cuts": {
+   "A": {
+    "p": [87, -52, 58],
+    "n": [1, 0, -0.3]
+   },
+   "B": {
+    "p": [77, -52, 58],
+    "n": [1, 0, -0.3]
+   },
+   "C": {
+    "p": [67, -52, 58],
+    "n": [1, 0, -0.3]
+   },
+   "D": {
+    "p": [0, 0, 44],
+    "n": [0, 0, 1]
+   },
+   "P": {
+    "p": [0, -68, 0],
+    "n": [0, 1, 0]
+   },
+   "Q": {
+    "p": [0, -38, 0],
+    "n": [0, -1, 0]
+   }
+  },
+  "types": {
+   "I": {
+    "fragments": [
+     {
+      "cuts": [
+       "A",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Lateral facet fragment"
+     },
+     {
+      "cuts": [
+       "-A",
+       "B",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Central facet fragment"
+     }
+    ]
+   },
+   "IIA": {
+    "fragments": [
+     {
+      "cuts": [
+       "A",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Lateral facet fragment",
+      "move": {
+       "t": [1, 0, -5],
+       "axis": [0, 1, 0],
+       "deg": 14,
+       "pivot": [87, -52, 58]
+      }
+     }
+    ]
+   },
+   "IIB": {
+    "fragments": [
+     {
+      "cuts": [
+       "B",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Lateral facet fragment",
+      "move": {
+       "t": [1, 0, -5],
+       "axis": [0, 1, 0],
+       "deg": 14,
+       "pivot": [77, -52, 58]
+      }
+     }
+    ]
+   },
+   "IIC": {
+    "fragments": [
+     {
+      "cuts": [
+       "C",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Lateral facet fragment",
+      "move": {
+       "t": [0.8, 0, -4.0],
+       "axis": [0, 1, 0],
+       "deg": 11.200000000000001,
+       "pivot": [67, -52, 58]
+      }
+     }
+    ]
+   },
+   "IIIAB": {
+    "fragments": [
+     {
+      "cuts": [
+       "A",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Lateral facet fragment",
+      "move": {
+       "t": [1.2, 0, -6.0],
+       "axis": [0, 1, 0],
+       "deg": 16.8,
+       "pivot": [87, -52, 58]
+      }
+     },
+     {
+      "cuts": [
+       "-A",
+       "B",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Central depressed fragment",
+      "move": {
+       "t": [0, 0, -4],
+       "axis": [0, 1, 0],
+       "deg": 6,
+       "pivot": [77, -52, 58]
+      }
+     }
+    ]
+   },
+   "IIIAC": {
+    "fragments": [
+     {
+      "cuts": [
+       "A",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Lateral facet fragment",
+      "move": {
+       "t": [1.2, 0, -6.0],
+       "axis": [0, 1, 0],
+       "deg": 16.8,
+       "pivot": [87, -52, 58]
+      }
+     },
+     {
+      "cuts": [
+       "-A",
+       "C",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Central depressed fragment",
+      "move": {
+       "t": [0, 0, -4],
+       "axis": [0, 1, 0],
+       "deg": 6,
+       "pivot": [67, -52, 58]
+      }
+     }
+    ]
+   },
+   "IIIBC": {
+    "fragments": [
+     {
+      "cuts": [
+       "B",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Lateral facet fragment",
+      "move": {
+       "t": [1.2, 0, -6.0],
+       "axis": [0, 1, 0],
+       "deg": 16.8,
+       "pivot": [77, -52, 58]
+      }
+     },
+     {
+      "cuts": [
+       "-B",
+       "C",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Central depressed fragment",
+      "move": {
+       "t": [0, 0, -4],
+       "axis": [0, 1, 0],
+       "deg": 6,
+       "pivot": [67, -52, 58]
+      }
+     }
+    ]
+   },
+   "IV": {
+    "fragments": [
+     {
+      "cuts": [
+       "A",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Lateral fragment",
+      "move": {
+       "t": [1.4, 0, -7.0],
+       "axis": [0, 1, 0],
+       "deg": 19.599999999999998,
+       "pivot": [87, -52, 58]
+      }
+     },
+     {
+      "cuts": [
+       "-A",
+       "B",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Central fragment",
+      "move": {
+       "t": [0, 0, -6],
+       "axis": [0, 1, 0],
+       "deg": -8,
+       "pivot": [82, -52, 58]
+      }
+     },
+     {
+      "cuts": [
+       "-B",
+       "C",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Medial-central fragment",
+      "move": {
+       "t": [0, 0, -4],
+       "axis": [0, 1, 0],
+       "deg": 10,
+       "pivot": [72, -52, 58]
+      }
+     },
+     {
+      "cuts": [
+       "-C",
+       "D",
+       "P",
+       "Q"
+      ],
+      "name": "Sustentacular fragment",
+      "move": {
+       "t": [-1, 0, -1]
+      }
+     }
+    ]
+   }
+  },
+  "approaches": {
+   "sinus-tarsi": {
+    "incisions": [
+     [
+      [106, -48, 55],
+      [107, -38, 50],
+      [106, -27, 46],
+      [104, -16, 42]
+     ]
+    ]
+   },
+   "extensile-lateral": {
+    "incisions": [
+     [
+      [96, -90, 75],
+      [100, -90, 45],
+      [102, -86, 22],
+      [104, -70, 15],
+      [106, -45, 16],
+      [106, -25, 22]
+     ]
+    ]
+   },
+   "percutaneous-screws": {
+    "incisions": [
+     [
+      [84, -96, 32],
+      [84, -95, 28]
+     ],
+     [
+      [106, -50, 50],
+      [106, -46, 50]
+     ]
+    ]
+   },
+   "primary-subtalar-arthrodesis": {
+    "incisions": [
+     [
+      [106, -48, 55],
+      [107, -38, 50],
+      [106, -27, 46],
+      [104, -16, 42]
+     ]
+    ]
+   }
+  }
+ },
+ "ankle": {
+  "bone": "fibula_right",
+  "context": [
+   "tibia_right",
+   "talus_right",
+   "calcaneus_right",
+   "navicular_bone_right"
+  ],
+  "camera": {
+   "target": [80, -40, 85],
+   "dir": [0.65, 1, 0.3],
+   "dist": 300
+  },
+  "section": {
+   "p": [78, -40, 80],
+   "n": [0, 1, 0],
+   "up": [0, 0, 1],
+   "size": 96,
+   "label": "Coronal section (mortise view)",
+   "left": "R \u00b7 lateral",
+   "right": "medial \u00b7 L"
+  },
+  "cuts": {
+   "WA": {
+    "p": [100, -50, 68],
+    "n": [0, 0, -1]
+   },
+   "WB": {
+    "p": [98, -48, 92],
+    "n": [0, -25, -24]
+   },
+   "WC": {
+    "p": [100, -50, 135],
+    "n": [0, 0.3, -1]
+   },
+   "MMz": {
+    "p": [0, 0, 84],
+    "n": [0, 0, -1]
+   },
+   "MMx": {
+    "p": [62, 0, 0],
+    "n": [-1, 0, 0]
+   },
+   "PMz": {
+    "p": [0, 0, 100],
+    "n": [0, 0, -1]
+   },
+   "PMy": {
+    "p": [0, -47, 0],
+    "n": [0, -1, 0]
+   },
+   "PMx": {
+    "p": [66, 0, 0],
+    "n": [1, 0, 0]
+   }
+  },
+  "types": {
+   "A": {
+    "fragments": [
+     {
+      "cuts": [
+       "WA"
+      ],
+      "name": "Lateral malleolus tip",
+      "move": {
+       "t": [0.5, 0, -1.5],
+       "axis": [0, 1, 0],
+       "deg": -6,
+       "pivot": [100, -50, 68]
+      }
+     }
+    ]
+   },
+   "B-stable": {
+    "fragments": [
+     {
+      "cuts": [
+       "WB"
+      ],
+      "name": "Distal fibula",
+      "move": {
+       "t": [0.4, -0.6, 0.3]
+      }
+     }
+    ]
+   },
+   "B-unstable": {
+    "fragments": [
+     {
+      "cuts": [
+       "WB"
+      ],
+      "name": "Distal fibula (shortened, externally rotated)",
+      "move": {
+       "t": [3, -1, 2],
+       "axis": [0, 0, 1],
+       "deg": -10,
+       "pivot": [100, -45, 90]
+      }
+     },
+     {
+      "cuts": [
+       "MMz",
+       "MMx"
+      ],
+      "name": "Medial malleolus",
+      "move": {
+       "t": [-1, 0, -3],
+       "axis": [0, 1, 0],
+       "deg": 10,
+       "pivot": [58, -35, 84]
+      },
+      "bone": "tibia_right"
+     },
+     {
+      "cuts": [],
+      "name": "Talus (lateral shift)",
+      "move": {
+       "t": [3, 0, 0]
+      },
+      "bone": "talus_right",
+      "color": "bone"
+     }
+    ]
+   },
+   "C": {
+    "fragments": [
+     {
+      "cuts": [
+       "WC"
+      ],
+      "name": "Distal fibula (syndesmosis torn)",
+      "move": {
+       "t": [4, 0, 1],
+       "axis": [0, 0, 1],
+       "deg": -12,
+       "pivot": [100, -48, 130]
+      }
+     },
+     {
+      "cuts": [
+       "MMz",
+       "MMx"
+      ],
+      "name": "Medial malleolus",
+      "move": {
+       "t": [-1, 0, -3],
+       "axis": [0, 1, 0],
+       "deg": 10,
+       "pivot": [58, -35, 84]
+      },
+      "bone": "tibia_right"
+     },
+     {
+      "cuts": [],
+      "name": "Talus (lateral shift)",
+      "move": {
+       "t": [4, 0, 0]
+      },
+      "bone": "talus_right",
+      "color": "bone"
+     }
+    ]
+   },
+   "trimalleolar": {
+    "section": {
+     "p": [78, -40, 80],
+     "n": [1, 0, 0],
+     "up": [0, 0, 1],
+     "size": 96,
+     "label": "Sagittal section (lateral view)",
+     "left": "posterior",
+     "right": "anterior"
+    },
+    "fragments": [
+     {
+      "cuts": [
+       "WB"
+      ],
+      "name": "Distal fibula",
+      "move": {
+       "t": [3, -1, 2],
+       "axis": [0, 0, 1],
+       "deg": -10,
+       "pivot": [100, -45, 90]
+      }
+     },
+     {
+      "cuts": [
+       "MMz",
+       "MMx"
+      ],
+      "name": "Medial malleolus",
+      "move": {
+       "t": [-1, 0, -3],
+       "axis": [0, 1, 0],
+       "deg": 10,
+       "pivot": [58, -35, 84]
+      },
+      "bone": "tibia_right"
+     },
+     {
+      "cuts": [
+       "PMz",
+       "PMy",
+       "PMx"
+      ],
+      "name": "Posterior malleolus",
+      "move": {
+       "t": [0, -1.5, 4]
+      },
+      "bone": "tibia_right"
+     },
+     {
+      "cuts": [],
+      "name": "Talus (posterolateral subluxation)",
+      "move": {
+       "t": [2.5, -3, 1]
+      },
+      "bone": "talus_right",
+      "color": "bone"
+     }
+    ]
+   }
+  },
+  "approaches": {
+   "lateral-fibula": {
+    "incisions": [
+     [
+      [112, -55, 140],
+      [113, -54, 110],
+      [112, -51, 80],
+      [109, -44, 58]
+     ]
+    ]
+   },
+   "medial-malleolus": {
+    "incisions": [
+     [
+      [44, -26, 110],
+      [42, -29, 92],
+      [44, -30, 76],
+      [50, -24, 66]
+     ]
+    ]
+   },
+   "posterolateral-posterior-malleolus": {
+    "incisions": [
+     [
+      [100, -72, 160],
+      [100, -71, 110],
+      [100, -68, 62]
+     ]
+    ]
+   },
+   "syndesmotic-fixation": {
+    "incisions": [
+     [
+      [112, -55, 140],
+      [113, -54, 110],
+      [112, -51, 80],
+      [109, -44, 58]
+     ],
+     [
+      [111, -46, 110],
+      [111, -40, 95],
+      [109, -38, 80]
+     ],
+     [
+      [44, -36, 112],
+      [44, -36, 106]
+     ]
+    ]
+   }
+  }
+ },
+ "plateau": {
+  "bone": "tibia_right",
+  "context": [
+   "femur_right",
+   "fibula_right",
+   "patella_right"
+  ],
+  "fade": [
+   "femur_right",
+   "patella_right"
+  ],
+  "camera": {
+   "target": [76, -25, 410],
+   "dir": [0.55, 1, 0.45],
+   "dist": 330
+  },
+  "section": {
+   "p": [76, -30, 405],
+   "n": [0, 1, 0],
+   "up": [0, 0, 1],
+   "size": 100,
+   "label": "Coronal CT of the plateau",
+   "left": "R \u00b7 lateral",
+   "right": "medial \u00b7 L"
+  },
+  "cuts": {
+   "L1": {
+    "p": [92, -30, 432],
+    "n": [47, 0, 16]
+   },
+   "M1": {
+    "p": [72, -30, 432],
+    "n": [-47, 0, 20]
+   },
+   "Dz": {
+    "p": [0, 0, 419],
+    "n": [0, 0, 1]
+   },
+   "Ya": {
+    "p": [0, -16, 0],
+    "n": [0, -1, 0]
+   },
+   "Yp": {
+    "p": [0, -44, 0],
+    "n": [0, 1, 0]
+   },
+   "X82": {
+    "p": [82, 0, 0],
+    "n": [1, 0, 0]
+   },
+   "X84": {
+    "p": [84, 0, 0],
+    "n": [1, 0, 0]
+   },
+   "X102": {
+    "p": [102, 0, 0],
+    "n": [-1, 0, 0]
+   },
+   "Mz": {
+    "p": [0, 0, 378],
+    "n": [0, 0, 1]
+   }
+  },
+  "types": {
+   "I": {
+    "fragments": [
+     {
+      "cuts": [
+       "L1"
+      ],
+      "name": "Lateral split",
+      "move": {
+       "t": [3, 0, -1],
+       "axis": [0, 1, 0],
+       "deg": 4,
+       "pivot": [100, -30, 395]
+      }
+     }
+    ]
+   },
+   "II": {
+    "fragments": [
+     {
+      "cuts": [
+       "L1"
+      ],
+      "name": "Lateral split",
+      "move": {
+       "t": [3, 0, -1],
+       "axis": [0, 1, 0],
+       "deg": 4,
+       "pivot": [100, -30, 395]
+      }
+     },
+     {
+      "cuts": [
+       "-L1",
+       "X82",
+       "Ya",
+       "Yp",
+       "Dz"
+      ],
+      "name": "Depressed articular segment",
+      "move": {
+       "t": [0, 0, -6]
+      }
+     }
+    ]
+   },
+   "III": {
+    "fragments": [
+     {
+      "cuts": [
+       "X84",
+       "X102",
+       "Ya",
+       "Yp",
+       "Dz"
+      ],
+      "name": "Central depression",
+      "move": {
+       "t": [0, 0, -7]
+      }
+     }
+    ]
+   },
+   "IV": {
+    "fragments": [
+     {
+      "cuts": [
+       "M1"
+      ],
+      "name": "Medial condyle",
+      "move": {
+       "t": [-2, 0, -5],
+       "axis": [0, 1, 0],
+       "deg": -6,
+       "pivot": [52, -30, 388]
+      }
+     }
+    ]
+   },
+   "V": {
+    "fragments": [
+     {
+      "cuts": [
+       "L1"
+      ],
+      "name": "Lateral condyle",
+      "move": {
+       "t": [3, 0, -1],
+       "axis": [0, 1, 0],
+       "deg": 4,
+       "pivot": [100, -30, 395]
+      }
+     },
+     {
+      "cuts": [
+       "M1"
+      ],
+      "name": "Medial condyle",
+      "move": {
+       "t": [-2, 0, -5],
+       "axis": [0, 1, 0],
+       "deg": -6,
+       "pivot": [52, -30, 388]
+      }
+     }
+    ]
+   },
+   "VI": {
+    "fragments": [
+     {
+      "cuts": [
+       "L1",
+       "Mz"
+      ],
+      "name": "Lateral condyle",
+      "move": {
+       "t": [4, 0, -4],
+       "axis": [0, 1, 0],
+       "deg": 5,
+       "pivot": [100, -30, 390]
+      }
+     },
+     {
+      "cuts": [
+       "M1",
+       "Mz"
+      ],
+      "name": "Medial condyle",
+      "move": {
+       "t": [-2, 0, -6]
+      }
+     },
+     {
+      "cuts": [
+       "Mz"
+      ],
+      "name": "Metaphyseal block (dissociated from the shaft)",
+      "move": {
+       "t": [3, -2, -5],
+       "axis": [1, 0, 0],
+       "deg": 6,
+       "pivot": [76, -30, 378]
+      }
+     }
+    ]
+   }
+  },
+  "approaches": {
+   "anterolateral": {
+    "incisions": [
+     [
+      [124, -22, 470],
+      [117, -8, 442],
+      [107, 2, 415],
+      [96, 9, 385],
+      [93, 9, 360]
+     ]
+    ]
+   },
+   "posteromedial": {
+    "incisions": [
+     [
+      [34, -52, 438],
+      [38, -50, 410],
+      [44, -48, 380],
+      [50, -46, 350]
+     ]
+    ]
+   },
+   "posterolateral": {
+    "incisions": [
+     [
+      [129, -30, 470],
+      [129, -37, 440],
+      [127, -45, 410],
+      [124, -49, 390]
+     ]
+    ]
+   },
+   "dual-incision": {
+    "incisions": [
+     [
+      [124, -22, 470],
+      [117, -8, 442],
+      [107, 2, 415],
+      [96, 9, 385],
+      [93, 9, 360]
+     ],
+     [
+      [34, -52, 438],
+      [38, -50, 410],
+      [44, -48, 380],
+      [50, -46, 350]
+     ]
+    ]
+   },
+   "staged-exfix-orif": {
+    "incisions": [
+     [
+      [104, 40, 600],
+      [104, 41, 590]
+     ],
+     [
+      [102, 40, 570],
+      [102, 41, 560]
+     ],
+     [
+      [66, 10, 300],
+      [66, 10, 290]
+     ],
+     [
+      [68, 8, 270],
+      [68, 8, 260]
+     ]
+    ]
+   },
+   "arthroscopic-percutaneous": {
+    "incisions": [
+     [
+      [96, 22, 434],
+      [96, 22, 428]
+     ],
+     [
+      [64, 22, 434],
+      [64, 22, 428]
+     ],
+     [
+      [60, 12, 398],
+      [60, 12, 378]
+     ]
+    ]
+   }
+  }
+ },
+ "radius": {
+  "bone": "radius_right",
+  "context": [
+   "ulna_right",
+   "scaphoid_bone_right",
+   "lunate_bone_right",
+   "triquetrum_bone_right",
+   "pisiform_bone_right",
+   "capitate_bone_right",
+   "hamate_bone_right",
+   "trapezium_bone_right",
+   "trapezoid_bone_right",
+   "first_metacarpal_bone_right",
+   "second_metacarpal_bone_right",
+   "third_metacarpal_bone_right",
+   "fourth_metacarpal_bone_right",
+   "fifth_metacarpal_bone_right"
+  ],
+  "camera": {
+   "target": [266, 8, 878],
+   "dir": [0.75, -1, 0.25],
+   "dist": 230
+  },
+  "section": {
+   "p": [266, 10, 872],
+   "n": [1, 0, 0],
+   "up": [0, 0, 1],
+   "size": 70,
+   "label": "Sagittal section (lateral view)",
+   "left": "dorsal",
+   "right": "volar"
+  },
+  "cuts": {
+   "T880": {
+    "p": [0, 0, 880],
+    "n": [0, 0, -1]
+   },
+   "T872": {
+    "p": [0, 0, 872],
+    "n": [0, 0, -1]
+   },
+   "T884": {
+    "p": [0, 0, 884],
+    "n": [0, 0, -1]
+   },
+   "T890": {
+    "p": [0, 0, 890],
+    "n": [0, 0, -1]
+   },
+   "Ab872": {
+    "p": [0, 0, 872],
+    "n": [0, 0, 1]
+   },
+   "Ab880": {
+    "p": [0, 0, 880],
+    "n": [0, 0, 1]
+   },
+   "Yd": {
+    "p": [0, 8, 0],
+    "n": [0, -1, 0]
+   },
+   "Ym": {
+    "p": [0, 11, 0],
+    "n": [0, 1, 0]
+   },
+   "Xr": {
+    "p": [272, 0, 0],
+    "n": [1, 0, 0]
+   },
+   "S": {
+    "p": [272, 10, 858],
+    "n": [24, 0, -16]
+   },
+   "DB": {
+    "p": [0, 10, 858],
+    "n": [0, -22, -11]
+   },
+   "VB": {
+    "p": [0, 13, 858],
+    "n": [0, 22, -11]
+   }
+  },
+  "types": {
+   "A2-dorsal": {
+    "fragments": [
+     {
+      "cuts": [
+       "T880"
+      ],
+      "name": "Distal fragment (dorsal tilt)",
+      "move": {
+       "t": [1, -2.5, 0],
+       "axis": [1, 0, 0],
+       "deg": -18,
+       "pivot": [270, 20, 880]
+      }
+     }
+    ]
+   },
+   "A2-volar": {
+    "fragments": [
+     {
+      "cuts": [
+       "T880"
+      ],
+      "name": "Distal fragment (volar tilt)",
+      "move": {
+       "t": [0, 2.5, 0],
+       "axis": [1, 0, 0],
+       "deg": 18,
+       "pivot": [270, -1, 880]
+      }
+     }
+    ]
+   },
+   "A3": {
+    "fragments": [
+     {
+      "cuts": [
+       "T872"
+      ],
+      "name": "Distal fragment",
+      "move": {
+       "t": [1.5, -3, 4],
+       "axis": [1, 0, 0],
+       "deg": -20,
+       "pivot": [270, 20, 872]
+      }
+     },
+     {
+      "cuts": [
+       "T884",
+       "Ab872",
+       "Yd"
+      ],
+      "name": "Dorsal metaphyseal comminution",
+      "move": {
+       "t": [0, -4, 1]
+      }
+     },
+     {
+      "cuts": [
+       "T884",
+       "Ab872",
+       "-Yd"
+      ],
+      "name": "Volar metaphyseal fragment",
+      "move": {
+       "t": [1, 1, 0]
+      }
+     }
+    ]
+   },
+   "B1": {
+    "section": {
+     "p": [266, 10, 872],
+     "n": [0, 1, 0],
+     "up": [0, 0, 1],
+     "size": 70,
+     "label": "Coronal section (PA view)",
+     "left": "radial",
+     "right": "ulnar"
+    },
+    "fragments": [
+     {
+      "cuts": [
+       "S"
+      ],
+      "name": "Radial styloid",
+      "move": {
+       "t": [2, 0, 3],
+       "axis": [0, 1, 0],
+       "deg": -8,
+       "pivot": [286, 10, 880]
+      }
+     }
+    ]
+   },
+   "B2": {
+    "fragments": [
+     {
+      "cuts": [
+       "DB"
+      ],
+      "name": "Dorsal rim fragment",
+      "move": {
+       "t": [0, -3, 4]
+      }
+     },
+     {
+      "cuts": [],
+      "name": "Carpus (subluxed dorsally)",
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "scaphoid_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "lunate_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "triquetrum_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "pisiform_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "capitate_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "hamate_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "trapezium_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "trapezoid_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "first_metacarpal_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "second_metacarpal_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "third_metacarpal_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "fourth_metacarpal_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, -3, 4]
+      },
+      "bone": "fifth_metacarpal_bone_right",
+      "color": "bone"
+     }
+    ]
+   },
+   "B3": {
+    "fragments": [
+     {
+      "cuts": [
+       "VB"
+      ],
+      "name": "Volar rim fragment",
+      "move": {
+       "t": [0, 3, 4]
+      }
+     },
+     {
+      "cuts": [],
+      "name": "Carpus (subluxed volarly)",
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "scaphoid_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "lunate_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "triquetrum_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "pisiform_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "capitate_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "hamate_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "trapezium_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "trapezoid_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "first_metacarpal_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "second_metacarpal_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "third_metacarpal_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "fourth_metacarpal_bone_right",
+      "color": "bone"
+     },
+     {
+      "cuts": [],
+      "move": {
+       "t": [0, 3, 4]
+      },
+      "bone": "fifth_metacarpal_bone_right",
+      "color": "bone"
+     }
+    ]
+   },
+   "C1": {
+    "section": {
+     "p": [266, 10, 872],
+     "n": [0, 1, 0],
+     "up": [0, 0, 1],
+     "size": 70,
+     "label": "Coronal section (PA view)",
+     "left": "radial",
+     "right": "ulnar"
+    },
+    "fragments": [
+     {
+      "cuts": [
+       "T880",
+       "Xr"
+      ],
+      "name": "Radial column",
+      "move": {
+       "t": [1, -2, 2],
+       "axis": [1, 0, 0],
+       "deg": -12,
+       "pivot": [278, 20, 880]
+      }
+     },
+     {
+      "cuts": [
+       "T880",
+       "-Xr"
+      ],
+      "name": "Intermediate column (lunate facet)",
+      "move": {
+       "t": [-0.5, -2, 3.5],
+       "axis": [1, 0, 0],
+       "deg": -15,
+       "pivot": [262, 20, 880]
+      }
+     }
+    ]
+   },
+   "C2": {
+    "section": {
+     "p": [266, 10, 872],
+     "n": [0, 1, 0],
+     "up": [0, 0, 1],
+     "size": 70,
+     "label": "Coronal section (PA view)",
+     "left": "radial",
+     "right": "ulnar"
+    },
+    "fragments": [
+     {
+      "cuts": [
+       "T880",
+       "Xr"
+      ],
+      "name": "Radial column",
+      "move": {
+       "t": [1, -2, 3],
+       "axis": [1, 0, 0],
+       "deg": -14,
+       "pivot": [278, 20, 880]
+      }
+     },
+     {
+      "cuts": [
+       "T880",
+       "-Xr"
+      ],
+      "name": "Intermediate column (lunate facet)",
+      "move": {
+       "t": [-0.5, -2, 4.5],
+       "axis": [1, 0, 0],
+       "deg": -17,
+       "pivot": [262, 20, 880]
+      }
+     },
+     {
+      "cuts": [
+       "T890",
+       "Ab880",
+       "Yd"
+      ],
+      "name": "Metaphyseal comminution",
+      "move": {
+       "t": [0, -4, 1]
+      }
+     }
+    ]
+   },
+   "C3": {
+    "section": {
+     "p": [266, 10, 872],
+     "n": [0, 1, 0],
+     "up": [0, 0, 1],
+     "size": 70,
+     "label": "Coronal section (PA view)",
+     "left": "radial",
+     "right": "ulnar"
+    },
+    "fragments": [
+     {
+      "cuts": [
+       "T880",
+       "Xr",
+       "Ym"
+      ],
+      "name": "Radial column, volar",
+      "move": {
+       "t": [1.5, 0.5, 3]
+      }
+     },
+     {
+      "cuts": [
+       "T880",
+       "Xr"
+      ],
+      "name": "Radial column, dorsal",
+      "move": {
+       "t": [1, -3, 3.5]
+      }
+     },
+     {
+      "cuts": [
+       "T880",
+       "-Xr",
+       "Ym"
+      ],
+      "name": "Volar lunate facet",
+      "move": {
+       "t": [-0.5, 1.5, 4.5]
+      }
+     },
+     {
+      "cuts": [
+       "T880",
+       "-Xr"
+      ],
+      "name": "Dorsal lunate facet (die-punch)",
+      "move": {
+       "t": [-0.5, -3, 5]
+      }
+     },
+     {
+      "cuts": [
+       "T890",
+       "Ab880",
+       "Yd"
+      ],
+      "name": "Metaphyseal comminution",
+      "move": {
+       "t": [0, -4, 1]
+      }
+     }
+    ]
+   }
+  },
+  "approaches": {
+   "volar-fcr": {
+    "incisions": [
+     [
+      [273, 34, 858],
+      [272, 33, 885],
+      [270, 30, 935]
+     ]
+    ]
+   },
+   "extended-fcr": {
+    "incisions": [
+     [
+      [276, 34, 855],
+      [272, 33, 885],
+      [269, 29, 955]
+     ]
+    ]
+   },
+   "dorsal": {
+    "incisions": [
+     [
+      [272, -9, 830],
+      [274, -8, 860],
+      [274, -7, 890],
+      [274, -6, 905]
+     ]
+    ]
+   },
+   "kwire": {
+    "incisions": [
+     [
+      [295, 14, 864],
+      [295, 14, 858]
+     ],
+     [
+      [264, -7, 874],
+      [264, -7, 868]
+     ]
+    ]
+   },
+   "bridging": {
+    "incisions": [
+     [
+      [283, -6, 812],
+      [283, -6, 792]
+     ],
+     [
+      [289, 2, 975],
+      [289, 2, 945]
+     ]
+    ]
+   }
+  }
+ },
+ "hip": {
+  "bone": "femur_right",
+  "context": [
+   "hip_bone_right"
+  ],
+  "fade": [
+   "hip_bone_right"
+  ],
+  "camera": {
+   "target": [104, -10, 840],
+   "dir": [0.25, 1, 0.12],
+   "dist": 400
+  },
+  "section": {
+   "p": [100, -9, 846],
+   "n": [0.18, 1, 0],
+   "up": [0, 0, 1],
+   "size": 120,
+   "label": "Coronal section along the neck (AP view)",
+   "left": "R",
+   "right": "L"
+  },
+  "cuts": {
+   "SC": {
+    "p": [100, -8, 850],
+    "n": [0.79, -0.15, -0.59]
+   }
+  },
+  "types": {
+   "I": {
+    "fragments": [
+     {
+      "cuts": [
+       "-SC"
+      ],
+      "name": "Femoral head (valgus impacted)",
+      "move": {
+       "t": [1, 0, -1],
+       "axis": [0, 1, 0],
+       "deg": 12,
+       "pivot": [95, -8, 836]
+      }
+     }
+    ]
+   },
+   "II": {
+    "fragments": [
+     {
+      "cuts": [
+       "-SC"
+      ],
+      "name": "Femoral head (undisplaced)"
+     }
+    ]
+   },
+   "III": {
+    "fragments": [
+     {
+      "cuts": [
+       "-SC"
+      ],
+      "name": "Femoral head (varus, still in continuity)",
+      "move": {
+       "axis": [0, 1, 0],
+       "deg": -15,
+       "pivot": [84, -5, 862]
+      }
+     },
+     {
+      "cuts": [
+       "SC"
+      ],
+      "name": "Shaft (shortened, externally rotated)",
+      "move": {
+       "t": [3, 0, 10],
+       "axis": [0, 0, 1],
+       "deg": -15,
+       "pivot": [112, -15, 800]
+      }
+     }
+    ]
+   },
+   "IV": {
+    "fragments": [
+     {
+      "cuts": [
+       "-SC"
+      ],
+      "name": "Femoral head (realigned in the acetabulum)"
+     },
+     {
+      "cuts": [
+       "SC"
+      ],
+      "name": "Shaft (fully displaced)",
+      "move": {
+       "t": [7, -2, 17],
+       "axis": [0, 0, 1],
+       "deg": -25,
+       "pivot": [112, -15, 800]
+      }
+     }
+    ]
+   }
+  },
+  "approaches": {
+   "crif-traction": {
+    "incisions": [
+     [
+      [161, -8, 818],
+      [163, -8, 793],
+      [163, -8, 770]
+     ]
+    ]
+   },
+   "direct-lateral-hardinge": {
+    "incisions": [
+     [
+      [157, -22, 902],
+      [161, -15, 878],
+      [163, -10, 852],
+      [163, -8, 826],
+      [162, -6, 800]
+     ]
+    ]
+   },
+   "posterior": {
+    "incisions": [
+     [
+      [161, -6, 800],
+      [163, -14, 830],
+      [160, -25, 858],
+      [150, -42, 886],
+      [138, -58, 906]
+     ]
+    ]
+   },
+   "direct-anterior": {
+    "incisions": [
+     [
+      [134, 52, 928],
+      [141, 49, 892],
+      [148, 44, 852]
+     ]
+    ]
+   }
+  }
+ }
+}

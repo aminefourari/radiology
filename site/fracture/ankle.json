@@ -1,0 +1,265 @@
+{
+  "id": "ankle",
+  "title": {
+    "en": "Malleolar ankle fractures",
+    "de": "Sprunggelenkfrakturen (Malleolarfrakturen)",
+    "es": "Fracturas maleolares de tobillo",
+    "ar": "كسور الكاحل (الكسور الكعبية)",
+    "fr": "Fractures malléolaires de la cheville",
+    "it": "Fratture malleolari della caviglia",
+    "nl": "Enkelfracturen (malleolaire fracturen)"
+  },
+  "classification": {
+    "name": "Danis-Weber (AO/OTA 44A/B/C)",
+    "basis": "Read on the AP/mortise view: level of the fibular fracture relative to the syndesmosis (tibial plafond). A below, B at the level of (usually oblique, anteroinferior to posterosuperior on the lateral), C above, implying syndesmotic disruption. Weber says where the fibula broke, not whether the mortise is stable: stability is judged on medial clear space (weight-bearing or stress view) and medial tenderness/fracture. Lauge-Hansen (foot position + deforming force, e.g. supination-external rotation stage 2 to 4, pronation-external rotation, supination-adduction) describes the mechanism and the sequence of injury; SER4 (medial injury) is the unstable Weber B. Posterior malleolus morphology is classified on CT (Bartoníček-Rammelt, by involvement of the fibular notch).",
+    "refs": ["aoota2018", "laugehansen1950", "bartonicek2015"]
+  },
+  "types": [
+    {
+      "code": "A",
+      "title": {
+        "en": "Weber A (infrasyndesmotic)",
+        "de": "Weber A (infrasyndesmal)",
+        "es": "Weber A (infrasindesmal)",
+        "ar": "فيبر A (تحت الارتفاق الظنبوبي الشظوي)",
+        "fr": "Weber A (sous-syndesmotique)",
+        "it": "Weber A (sottosindesmosica)",
+        "nl": "Weber A (infrasyndesmotisch)"
+      },
+      "summary": "Transverse avulsion of the lateral malleolus below the plafond (supination-adduction); syndesmosis intact. A vertical (shear) medial malleolar fracture with plafond impaction may coexist.",
+      "management": "nonop",
+      "recommendation": "Isolated Weber A is stable: boot or brace with immediate weight-bearing as tolerated. Operate only when there is a displaced vertical medial malleolar shear fracture (fix it with an antiglide construct and elevate any medial plafond impaction) or a displaced, large fibular fragment.",
+      "refs": ["nice-ng38", "boast2016", "aosr-malleoli"],
+      "approach": null
+    },
+    {
+      "code": "B-stable",
+      "title": {
+        "en": "Weber B, stable",
+        "de": "Weber B, stabil",
+        "es": "Weber B estable",
+        "ar": "فيبر B مستقر",
+        "fr": "Weber B stable",
+        "it": "Weber B stabile",
+        "nl": "Weber B, stabiel"
+      },
+      "summary": "Isolated transsyndesmotic fibular fracture with a congruent mortise and normal medial clear space on a weight-bearing (or stress) view; no medial fracture.",
+      "management": "nonop",
+      "recommendation": "Treat without surgery: 3 weeks in a cast or removable orthosis with immediate weight-bearing was non-inferior to 6 weeks of casting (CROSSBAT). A weight-bearing radiograph that stays congruent is enough; a positive gravity stress test in such a fracture did not worsen 2-year outcomes, so stress testing adds little.",
+      "refs": ["kortekangas2019", "gregersen2023", "nice-ng38", "boast2016"],
+      "approach": null
+    },
+    {
+      "code": "B-unstable",
+      "title": {
+        "en": "Weber B, unstable (bimalleolar or equivalent)",
+        "de": "Weber B, instabil (bimalleolär oder Äquivalent)",
+        "es": "Weber B inestable (bimaleolar o equivalente)",
+        "ar": "فيبر B غير مستقر (ثنائي الكعب أو ما يعادله)",
+        "fr": "Weber B instable (bimalléolaire ou équivalent)",
+        "it": "Weber B instabile (bimalleolare o equivalente)",
+        "nl": "Weber B, instabiel (bimalleolair of equivalent)"
+      },
+      "summary": "Weber B with medial malleolar fracture (bimalleolar) or deltoid rupture (bimalleolar equivalent, SER4): medial clear space widened or talar shift on weight-bearing or stress views, or mortise incongruent.",
+      "management": "either",
+      "recommendation": "Incongruent mortise or talar shift: ORIF of the fibula (and medial malleolus if fractured), ideally on the day of injury or the next day, then test the syndesmosis. Over 60, close contact casting gives equivalent function at 6 months with fewer wound problems but more malunion and about one in five crossing to surgery (AIM). A mortise that is congruent on static views but stress-positive did as well with 6 weeks of cast as with plating at 2 years (SUPER-FIN, single centre).",
+      "refs": ["boast2016", "nice-ng38", "willett2016", "keene2018", "kortekangas2026"],
+      "approach": "lateral-fibula"
+    },
+    {
+      "code": "C",
+      "title": {
+        "en": "Weber C (suprasyndesmotic)",
+        "de": "Weber C (suprasyndesmal)",
+        "es": "Weber C (suprasindesmal)",
+        "ar": "فيبر C (فوق الارتفاق الظنبوبي الشظوي)",
+        "fr": "Weber C (sus-syndesmotique)",
+        "it": "Weber C (soprasindesmosica)",
+        "nl": "Weber C (suprasyndesmotisch)"
+      },
+      "summary": "Fibular fracture above the syndesmosis (pronation-external rotation) with syndesmotic and medial injury; includes the proximal Maisonneuve fracture.",
+      "management": "op",
+      "recommendation": "Operate: restore fibular length and rotation (plate; for Maisonneuve, reduce the fibula into the incisura without fixing the proximal fracture), fix the medial side if needed, then reduce and stabilise the syndesmosis and confirm reduction. Prefer a suture button or rigorously reduced screw; malreduction is common with clamp-and-screw technique.",
+      "refs": ["boast2016", "aosr-malleoli", "sanders2019", "andersen2018", "ramadanov2021"],
+      "approach": "syndesmotic-fixation"
+    },
+    {
+      "code": "trimalleolar",
+      "title": {
+        "en": "Trimalleolar fracture",
+        "de": "Trimalleolarfraktur",
+        "es": "Fractura trimaleolar",
+        "ar": "كسر ثلاثي الكعوب",
+        "fr": "Fracture trimalléolaire",
+        "it": "Frattura trimalleolare",
+        "nl": "Trimalleolaire fractuur"
+      },
+      "summary": "Lateral and medial injury plus a posterior malleolar fragment (PITFL insertion); often with posterior talar subluxation. Fragment morphology on CT matters more than its size on the lateral view.",
+      "management": "op",
+      "recommendation": "Get a CT. Fix the posterior malleolus directly (posterolateral approach) when it involves the fibular notch, is displaced with an articular step, or the talus subluxes posteriorly; ORIF often restores syndesmotic stability. For medium (5-25%) fragments in AO 44-B3 the only RCT (POSTFIX) found no benefit at 1 year, while observational pooled data favour ORIF: evidence conflicts.",
+      "refs": ["bartonicek2015", "baumbach2019", "franx2025", "miksch2023", "boast2016"],
+      "approach": "posterolateral-posterior-malleolus"
+    }
+  ],
+  "workup": [
+    "Clinical: skin integrity, swelling and blisters, deformity, pulses and sensation documented; reduce and splint a dislocated or deformed ankle immediately, radiographs first unless that delays reduction; repeat neurovascular check and radiographs after reduction.",
+    "Radiographs centred on the ankle: AP, mortise and true lateral. Medial clear space (MCS) should equal the superior clear space; widening means medial instability.",
+    "Isolated Weber B with a congruent mortise: weight-bearing mortise view (at first visit or within 2 weeks) to decide stable vs unstable.",
+    "Proximal fibular tenderness or medial injury without a distal fibular fracture: full-length tibia-fibula views (Maisonneuve).",
+    "CT when the posterior malleolus is involved, in trimalleolar or fracture-dislocation patterns, and to exclude a pilon component; classify the posterior fragment (Bartoníček-Rammelt) and plan the approach.",
+    "Comorbidities that change the plan: diabetes with neuropathy, peripheral vascular disease, smoking, osteoporosis, pre-injury mobility, cognitive state."
+  ],
+  "decide": [
+    {"text": "Stable (Weber A, isolated Weber B congruent on weight-bearing views): no surgery; brace or boot, weight-bear as tolerated from day one; little or no fracture clinic follow-up is needed.", "refs": ["nice-ng38", "boast2016", "kortekangas2019"]},
+    {"text": "Unstable mortise in patients under 60: fixation on the day of injury or the next day; if the soft tissues are already too swollen, splint elevated (or external fixation for gross instability with soft-tissue compromise) and fix when the skin wrinkles.", "refs": ["boast2016", "nice-ng38"]},
+    {"text": "Unstable fracture over 60: close contact casting is an option if reduction can be held (AIM: OMAS equivalent at 6 months and 3 years; infection or wound problems about 10% after ORIF vs 1% with casting; malunion about 15% vs 3%; 19% of the cast group converted to ORIF). Requires a trained casting team and weekly early radiographs.", "refs": ["willett2016", "keene2018", "boast2016"]},
+    {"text": "Weber B congruent on static views but positive on external rotation stress: SUPER-FIN (126 patients, single centre) found 6 weeks of cast non-inferior to plating at 2 years (OMAS 89 vs 87, difference 1.3, 95% CI -4.8 to 7.3) with fewer adverse events; a weight-bearing view is the practical test.", "refs": ["kortekangas2026", "gregersen2023"]},
+    {"text": "Fibular nail vs plate: no functional difference under 65 (White 2022), but in patients 60 or older nails had more complications and reoperations (Stake 2023), so plate remains the default; a nail is reasonable when skin over the fibula is poor.", "refs": ["white2022", "stake2023"]},
+    {"text": "Syndesmosis: test after bony fixation (hook/Cotton and external rotation stress under fluoroscopy) and stabilise only if unstable. Suture button vs screw: similar function in most RCTs, fewer implant problems, malreductions and reoperations with suture buttons. Screws need not be removed routinely (RODEO).", "refs": ["boast2016", "andersen2018", "raeder2020", "sanders2019", "ramadanov2021", "shimozono2019", "sanders2021"]},
+    {"text": "Relative contraindications to open fixation: severe peripheral vascular disease, poor skin, non-ambulant patient; in diabetic neuropathy expect wound and fixation failure, so if fixing use stronger constructs and protect weight-bearing longer.", "refs": ["boast2016"]}
+  ],
+  "approaches": [
+    {
+      "id": "lateral-fibula",
+      "name": "Lateral (or posterolateral) approach to the distal fibula",
+      "when": "Unstable Weber B and Weber C fibular fractures; first step in most bimalleolar and trimalleolar fixations.",
+      "position": "Supine with a bump under the ipsilateral buttock to internally rotate the leg (or lateral decubitus); thigh tourniquet; C-arm from the opposite side, true lateral and mortise views checked before draping.",
+      "incision": "Longitudinal over the posterior border of the fibula centred on the fracture, curving slightly anterior distally toward the tip; a more posterior incision keeps the plate off the skin and away from the superficial peroneal nerve.",
+      "interval": "No internervous plane: the fibula is subcutaneous between the peroneal (superficial fibular nerve) and anterior compartment muscles. Incise periosteum only at the fracture; keep soft-tissue stripping minimal.",
+      "atRisk": [
+        {"key": "superficial_fibular_nerve_right", "why": "Pierces the crural fascia anteriorly about 10 cm above the tip and crosses the field obliquely; identify it in the proximal anterior flap and retract, do not stretch."},
+        {"key": "sural_nerve_right", "why": "Runs behind the fibula with the small saphenous vein; at risk with posterior dissection or a posterolateral plate distally."},
+        {"key": "common_tendon_sheath_of_fibularis_muscles_right", "why": "Peroneal tendons lie directly behind the distal fibula; a posterolateral antiglide plate or long distal screws can irritate them. Keep the distal plate end above the tip and the screws short of the groove."}
+      ],
+      "steps": [
+        "Expose and clean the fracture, remove haematoma; restore length and rotation with pointed reduction clamps (pull out the distal fragment, derotate with a spike or clamp).",
+        "Simple oblique fracture: 3.5 mm (or 2.7 mm) lag screw perpendicular to the fracture, anterior to posterior.",
+        "Protect with a lateral one-third tubular neutralisation plate (at least 3 bicortical screws proximal; distal unicortical cancellous or locking screws, none into the joint), or apply a posterolateral antiglide plate, which buttresses the spike, allows long bicortical distal screws and is useful in osteoporotic bone.",
+        "Comminuted or osteoporotic fracture: bridge with a locking (or precontoured) plate; restore length using the talocrural angle and a continuous tibiofibular line.",
+        "Then address the medial side and test the syndesmosis."
+      ],
+      "implants": ["3.5 mm or 2.7 mm cortical lag screw", "One-third tubular plate (neutralisation or posterolateral antiglide)", "Precontoured or locking distal fibular plate for comminution or osteoporosis", "Fibular intramedullary nail as an option when skin is poor"],
+      "checks": ["Mortise: medial clear space equals superior clear space (about 4 mm or less)", "Fibular length: talocrural angle symmetric with the uninjured side (normal about 8-15 degrees), continuous 'Shenton line' of the ankle and dime sign", "True lateral: fibula not displaced posteriorly, plate and screws extra-articular", "Rotation: comparison images of the intact ankle if in doubt"],
+      "refs": ["aosr-malleoli", "white2022", "stake2023"]
+    },
+    {
+      "id": "medial-malleolus",
+      "name": "Anteromedial approach to the medial malleolus",
+      "when": "Displaced medial malleolar fractures in bimalleolar and trimalleolar injuries; vertical shear fractures (supination-adduction).",
+      "position": "Supine, leg externally rotated or figure-of-four; tourniquet; C-arm for AP, mortise and lateral.",
+      "incision": "Curved longitudinal incision centred on the medial malleolus, slightly anterior, so the anteromedial joint corner can be inspected for impaction and interposed tissue.",
+      "interval": "Subcutaneous bone. Incise periosteum at the fracture, remove interposed periosteum and deltoid fibres, open a small anteromedial capsulotomy to see the articular reduction.",
+      "atRisk": [
+        {"key": "great_saphenous_vein_right", "why": "Runs just anterior to the medial malleolus in the anterior skin flap; mobilise and retract with the flap."},
+        {"key": "saphenous_nerve_right", "why": "Accompanies the vein; injury gives a painful neuroma or numbness over the medial foot."},
+        {"key": "tendon_sheath_of_tibialis_posterior_muscle_right", "why": "Lies immediately behind the malleolus; posterior dissection, drill or screw tips can damage the tendon. Keep screws inside bone."}
+      ],
+      "steps": [
+        "Clear interposed periosteum; reduce with a pointed clamp or a K-wire joystick, check the articular corner directly.",
+        "Transverse or oblique fragment: two parallel guide wires perpendicular to the fracture, then two partially threaded cancellous screws.",
+        "Small or comminuted fragment: tension band wiring.",
+        "Vertical shear fracture: elevate and graft medial plafond impaction, then antiglide plate or horizontal lag screws."
+      ],
+      "implants": ["Two 4.0 mm partially threaded cancellous screws (or cannulated equivalents)", "Tension band (K-wires plus figure-of-eight wire or suture)", "One-third tubular or small fragment antiglide plate for vertical shear"],
+      "checks": ["Mortise: articular surface congruent at the medial gutter, MCS restored", "AP and lateral: screws do not breach the joint or the posterior cortex", "Reduction of any plafond impaction"],
+      "refs": ["aosr-malleoli"]
+    },
+    {
+      "id": "posterolateral-posterior-malleolus",
+      "name": "Posterolateral approach to the posterior malleolus",
+      "when": "Trimalleolar fractures with a posterolateral (Bartoníček 2/3) fragment needing fixation; the same incision gives access to the fibula. A large posteromedial fragment may need a posteromedial approach instead.",
+      "position": "Prone (or lateral decubitus), feet at the end of the table on a bump; thigh tourniquet; C-arm opposite side; check true lateral and mortise before draping.",
+      "incision": "Longitudinal, midway between the posterior border of the fibula and the lateral border of the Achilles tendon, from about 10 cm above the tip to the tip.",
+      "interval": "Between peroneus longus and brevis (superficial fibular nerve) laterally and flexor hallucis longus (tibial nerve) medially. Elevate FHL off the posterior tibia and interosseous membrane medially; the fibula is reached by retracting the peroneals.",
+      "atRisk": [
+        {"key": "sural_nerve_right", "why": "Lies in the subcutaneous fat close to the incision, with the small saphenous vein; find it early and retract it with the medial or lateral flap."},
+        {"key": "small_saphenous_vein_right", "why": "Travels with the sural nerve; marks its position."},
+        {"key": "fibular_artery_right", "why": "Its perforating and posterior branches run on the interosseous membrane deep to FHL; coagulate branches, do not dissect proximally without seeing it."},
+        {"key": "flexor_hallucis_longus_right", "why": "Retracted medially; it shields the posterior tibial artery and tibial nerve, so keep retractors and drills lateral to it."},
+        {"key": "posterior_tibiofibular_ligament_right", "why": "The PITFL inserts on the posterior malleolar fragment; do not detach it, as it is what restores syndesmotic stability once the fragment is fixed."}
+      ],
+      "steps": [
+        "Fix the fibula first through the same incision if needed, or the posterior malleolus first when the fibula is comminuted and the fragment is large (it then sets fibular length).",
+        "Open the fracture like a book (hinge on the PITFL), clear debris and any intercalary impacted fragment, reduce under direct view of the posterior cortex spike.",
+        "Hold with K-wires or a pointed clamp; fix with a posterior buttress plate (antiglide at the fragment apex) or posterior-to-anterior lag screws.",
+        "Re-test the syndesmosis after posterior fixation; often no transsyndesmotic fixation is then needed."
+      ],
+      "implants": ["2.7 or 3.5 mm one-third tubular or precontoured posterior buttress plate", "3.5 or 4.0 mm posterior-to-anterior lag screws for a single large fragment"],
+      "checks": ["True lateral: posterior cortex continuous, no articular step, talus centred under the plafond", "Mortise: fibula seated in the incisura; MCS restored", "Postoperative CT if reduction is uncertain"],
+      "refs": ["aosr-malleoli", "bartonicek2015", "baumbach2019", "franx2025"]
+    },
+    {
+      "id": "syndesmotic-fixation",
+      "name": "Syndesmotic reduction and fixation (suture button or screw)",
+      "when": "Syndesmosis unstable after bony fixation (Weber C, Maisonneuve, some Weber B), or when the posterior malleolus is not fixed.",
+      "position": "As for the fibula (supine, bump under the hip); perfect true lateral and mortise views of the injured ankle, and of the intact ankle for comparison, before fixation.",
+      "incision": "Through the lateral fibular incision; extend anteriorly to see the anterior syndesmosis and incisura when reduction is in doubt; small medial stab for the suture-button button.",
+      "interval": "Clear the incisura of haematoma and interposed tissue under direct view before reducing.",
+      "atRisk": [
+        {"key": "anterior_tibiofibular_ligament_right", "why": "Torn AITFL (or a Chaput/Wagstaffe avulsion) is the window to the incisura; check fibular rotation and translation there by direct sight."},
+        {"key": "great_saphenous_vein_right", "why": "Lies in the path of the medial button or screw tip; make the medial stab incision and spread down to bone."},
+        {"key": "posterior_tibial_artery_right", "why": "With the tibial nerve behind the medial malleolus; a posteriorly directed drill or medial button can reach the neurovascular bundle. Aim from posterolateral fibula to anteromedial tibia."}
+      ],
+      "steps": [
+        "Test after bony fixation: hook (Cotton) test and external rotation stress under fluoroscopy, lateral view to judge anteroposterior translation.",
+        "Reduce the fibula into the incisura by hand or a gentle clamp along the anatomical axis (posterolateral fibula to anteromedial tibia, about 30 degrees anterior), ankle in neutral; avoid overcompression.",
+        "Confirm reduction by direct view of the anterior incisura plus fluoroscopy compared with the intact ankle.",
+        "Fix about 2-4 cm above the joint, parallel to the plafond, angled about 30 degrees anterior: one or two suture buttons, or one or two 3.5/4.5 mm screws through three or four cortices.",
+        "Screws: no routine removal; remove only for symptoms."
+      ],
+      "implants": ["Suture button (one, or two for unstable three-ligament injuries)", "3.5 or 4.5 mm cortical screw, tricortical or quadricortical, one or two"],
+      "checks": ["Mortise and AP: tibiofibular clear space and overlap symmetric with the intact side; MCS normal", "True lateral: fibula not translated anteriorly or posteriorly relative to the tibia", "Talocrural angle symmetric (fibular length)", "Postoperative bilateral CT if syndesmotic reduction is doubtful"],
+      "refs": ["sanders2019", "andersen2018", "raeder2020", "ramadanov2021", "shimozono2019", "sanders2021", "aosr-malleoli"]
+    }
+  ],
+  "after": {
+    "weightBearing": "Non-operative stable fractures: weight-bear as tolerated from day one in a boot or orthosis (3 weeks is enough for stable Weber B). After ORIF: weight-bearing in a boot or cast from 2 weeks was non-inferior to waiting 6 weeks (WAX, 561 patients, no excess complications); most patients can weight-bear as tolerated unless fixation is tenuous, the skin is at risk or there is neuropathy. Close contact casting in the elderly: weight-bearing as tolerated in the cast.",
+    "rehab": "Wound check and removal of sutures at about 2 weeks; then removable boot, early ankle range of motion exercises out of the boot, progressive strengthening, proprioception and gait training; physiotherapy for those not progressing.",
+    "followUp": "Uncertain stability: review within 2 weeks with weight-bearing radiographs. After surgery: clinic within 6 weeks with radiographs to confirm the mortise; give information on expected recovery, return to work and driving, and a route to self-refer. Thromboprophylaxis per local risk assessment.",
+    "complications": [
+      "Wound breakdown and infection (about 10% after ORIF in older adults in AIM)",
+      "Malunion and loss of reduction, especially with casting (malunion about 15% with casting vs 3% with ORIF in AIM)",
+      "Syndesmotic malreduction (39% with two-screw fixation vs 15% with suture button in one RCT)",
+      "Medial or lateral malleolar nonunion (more frequent after casting)",
+      "Implant irritation and removal (more with screws than suture buttons; more with fibular nails in the elderly)",
+      "Superficial peroneal or sural nerve injury",
+      "Post-traumatic osteoarthritis, stiffness, complex regional pain syndrome, venous thromboembolism"
+    ],
+    "pitfalls": [
+      "Calling a fracture stable from a non-weight-bearing view: get the weight-bearing mortise view for isolated Weber B.",
+      "Missing a Maisonneuve injury: palpate the proximal fibula in every medial injury without a distal fibular fracture.",
+      "Short or externally rotated fibula: syndesmotic and medial reduction then fails; check the talocrural angle and compare with the intact ankle.",
+      "Judging the posterior malleolus by its percentage on the lateral view alone: CT shows incisura involvement, impaction and intercalary fragments.",
+      "Clamping the syndesmosis in the wrong direction or overtightening: malreduction; aim along the fibular notch and see the incisura.",
+      "Diabetic neuropathy: high risk of failure with standard constructs and early unprotected weight-bearing.",
+      "Operating through swollen or blistered skin: wait for wrinkles, elevate, or span."
+    ],
+    "refs": ["kortekangas2019", "bretherton2024", "boast2016", "nice-ng38", "willett2016", "sanders2019", "stake2023", "sanders2021"]
+  },
+  "refs": [
+    {"id": "aoota2018", "cite": "Meinberg EG, Agel J, Roberts CS, Karam MD, Kellam JF. Fracture and Dislocation Classification Compendium-2018. J Orthop Trauma 2018;32 Suppl 1.", "year": 2018, "kind": "classification", "url": "https://doi.org/10.1097/BOT.0000000000001063"},
+    {"id": "laugehansen1950", "cite": "Lauge-Hansen N. Fractures of the ankle. II. Combined experimental-surgical and experimental-roentgenologic investigations. Arch Surg 1950;60:957.", "year": 1950, "kind": "classification", "url": "https://doi.org/10.1001/archsurg.1950.01250010980011"},
+    {"id": "bartonicek2015", "cite": "Bartoníček J, Rammelt S, Kostlivý K, et al. Anatomy and classification of the posterior tibial fragment in ankle fractures. Arch Orthop Trauma Surg 2015;135:505-516.", "year": 2015, "kind": "classification", "url": "https://doi.org/10.1007/s00402-015-2171-4"},
+    {"id": "nice-ng38", "cite": "National Institute for Health and Care Excellence. Fractures (non-complex): assessment and management. NICE guideline NG38. 2016 (exceptional surveillance June 2025, guideline not updated).", "year": 2016, "kind": "guideline", "url": "https://www.nice.org.uk/guidance/ng38"},
+    {"id": "boast2016", "cite": "British Orthopaedic Association. BOAST: The Management of Ankle Fractures. August 2016 (current version).", "year": 2016, "kind": "guideline", "url": "https://www.boa.ac.uk/resource/boast-12-pdf.html"},
+    {"id": "aosr-malleoli", "cite": "AO Foundation. AO Surgery Reference: Malleoli (adult trauma), reduction and fixation techniques.", "year": 2024, "kind": "technique", "url": "https://surgeryreference.aofoundation.org/orthopedic-trauma/adult-trauma/malleoli"},
+    {"id": "willett2016", "cite": "Willett K, Keene DJ, Mistry D, et al. Close contact casting vs surgery for initial treatment of unstable ankle fractures in older adults: a randomized clinical trial (AIM). JAMA 2016;316(14):1455-1463.", "year": 2016, "kind": "rct", "url": "https://doi.org/10.1001/jama.2016.14719"},
+    {"id": "keene2018", "cite": "Keene DJ, Lamb SE, Mistry D, et al. Three-year follow-up of a trial of close contact casting vs surgery for initial treatment of unstable ankle fractures in older adults. JAMA 2018;319:1274.", "year": 2018, "kind": "rct", "url": "https://doi.org/10.1001/jama.2018.0811"},
+    {"id": "kortekangas2019", "cite": "Kortekangas T, Haapasalo H, Flinkkilä T, et al. Three week versus six week immobilisation for stable Weber B type ankle fractures: randomised, multicentre, non-inferiority clinical trial (CROSSBAT). BMJ 2019;364:k5432.", "year": 2019, "kind": "rct", "url": "https://doi.org/10.1136/bmj.k5432"},
+    {"id": "kortekangas2026", "cite": "Kortekangas T, et al. Cast immobilisation versus surgery for unstable lateral malleolus fractures (SUPER-FIN): randomised non-inferiority clinical trial. BMJ 2026;392:e085295.", "year": 2026, "kind": "rct", "url": "https://doi.org/10.1136/bmj-2025-085295"},
+    {"id": "gregersen2023", "cite": "Gregersen MG, et al. Concomitant unstable and stable gravity stress tests on weight-bearing stable Weber B ankle fractures treated nonoperatively. J Bone Joint Surg Am 2023;105:1435-1441.", "year": 2023, "kind": "cohort", "url": "https://doi.org/10.2106/JBJS.23.00195"},
+    {"id": "bretherton2024", "cite": "Bretherton CP, Achten J, Jogarah V, et al. Early versus delayed weight-bearing following operatively treated ankle fracture (WAX): a non-inferiority, multicentre, randomised controlled trial. Lancet 2024;403(10446):2787-2797.", "year": 2024, "kind": "rct", "url": "https://doi.org/10.1016/S0140-6736(24)00710-4"},
+    {"id": "white2022", "cite": "White TO, Bugler KE, Olsen L, et al. A prospective, randomized, controlled, two-center, international trial comparing the fibular nail with open reduction and internal fixation for unstable ankle fractures in younger patients. J Orthop Trauma 2022;36(1):36-42.", "year": 2022, "kind": "rct", "url": "https://doi.org/10.1097/BOT.0000000000002140"},
+    {"id": "stake2023", "cite": "Stake IK, Ræder BW, Gregersen MG, et al. Higher complication rate after nail compared with plate fixation of ankle fractures in patients aged 60 years or older: a prospective, randomized controlled trial. Bone Joint J 2023;105-B(1):72-81.", "year": 2023, "kind": "rct", "url": "https://doi.org/10.1302/0301-620X.105B1.BJJ-2022-0595.R1"},
+    {"id": "franx2025", "cite": "Franx AL, Verhage SM, Krijnen P, Twiss ELL, Schipper IB, Hoogendoorn JM. Open reduction and fixation does not improve short-term outcome of medium-sized posterior fragments in AO type B ankle fractures: one-year results of the POSTFIX randomized controlled trial. Bone Joint J 2025;107-B(4):461-469.", "year": 2025, "kind": "rct", "url": "https://doi.org/10.1302/0301-620X.107B4.BJJ-2024-0521.R3"},
+    {"id": "miksch2023", "cite": "Miksch RC, Herterich V, Barg A, Böcker W, Polzer H, Baumbach SF. Open reduction and internal fixation of the posterior malleolus fragment in ankle fractures improves the patient-rated outcome: a systematic review. Foot Ankle Int 2023;44:727-737.", "year": 2023, "kind": "meta-analysis", "url": "https://doi.org/10.1177/10711007231165771"},
+    {"id": "baumbach2019", "cite": "Baumbach SF, Herterich V, Damblemont A, Hieber F, Böcker W, Polzer H. Open reduction and internal fixation of the posterior malleolus fragment frequently restores syndesmotic stability. Injury 2019;50(2):564-570.", "year": 2019, "kind": "cohort", "url": "https://doi.org/10.1016/j.injury.2018.12.025"},
+    {"id": "andersen2018", "cite": "Andersen MR, Frihagen F, Hellund JC, Madsen JE, Figved W. Randomized trial comparing suture button with single syndesmotic screw for syndesmosis injury. J Bone Joint Surg Am 2018;100(1):2-12.", "year": 2018, "kind": "rct", "url": "https://doi.org/10.2106/JBJS.16.01011"},
+    {"id": "raeder2020", "cite": "Ræder BW, Stake IK, Madsen JE, et al. Randomized trial comparing suture button with single 3.5 mm syndesmotic screw for ankle syndesmosis injury: similar results at 2 years. Acta Orthop 2020;91:770-775.", "year": 2020, "kind": "rct", "url": "https://doi.org/10.1080/17453674.2020.1818175"},
+    {"id": "sanders2019", "cite": "Sanders D, Schneider P, Taylor M, Tieszer C, Lawendy AR; Canadian Orthopaedic Trauma Society. Improved reduction of the tibiofibular syndesmosis with TightRope compared with screw fixation: results of a randomized controlled study. J Orthop Trauma 2019;33(11):531-537.", "year": 2019, "kind": "rct", "url": "https://doi.org/10.1097/BOT.0000000000001559"},
+    {"id": "ramadanov2021", "cite": "Ramadanov N, Bueschges S, Dimitrov D. Comparison of outcomes between suture button technique and screw fixation technique in patients with acute syndesmotic diastasis: a meta-analysis of randomized controlled trials. Foot Ankle Orthop 2021;6:24730114211061405.", "year": 2021, "kind": "meta-analysis", "url": "https://doi.org/10.1177/24730114211061405"},
+    {"id": "shimozono2019", "cite": "Shimozono Y, Hurley ET, Myerson CL, et al. Suture button versus syndesmotic screw for syndesmosis injuries: a meta-analysis of randomized controlled trials. Am J Sports Med 2019;47:2764-2771.", "year": 2019, "kind": "meta-analysis", "url": "https://doi.org/10.1177/0363546518804804"},
+    {"id": "sanders2021", "cite": "Sanders FRT, Birnie MF, Dingemans SA, et al. Functional outcome of routine versus on-demand removal of the syndesmotic screw: a multicentre randomized controlled trial (RODEO). Bone Joint J 2021;103-B(11):1709-1716.", "year": 2021, "kind": "rct", "url": "https://doi.org/10.1302/0301-620X.103B11.BJJ-2021-0348.R2"}
+  ],
+  "reviewed": "2026-11"
+}

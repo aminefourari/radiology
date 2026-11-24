@@ -1,0 +1,439 @@
+{
+  "id": "radius",
+  "title": {
+    "en": "Distal radius fractures",
+    "de": "Distale Radiusfrakturen",
+    "es": "Fracturas del radio distal",
+    "ar": "كسور الكعبرة البعيدة",
+    "fr": "Fractures de l'extrémité distale du radius",
+    "it": "Fratture del radio distale",
+    "nl": "Distale radiusfracturen"
+  },
+  "classification": {
+    "name": "AO/OTA 2R3",
+    "basis": "PA and lateral radiographs centred on the wrist; CT for the articular pattern. A = extra-articular (A2 simple, qualified by dorsal or volar tilt; A3 wedge or multifragmentary metaphysis), B = partial articular (B1 radial styloid, B2 dorsal rim, B3 volar rim), C = complete articular (C1 simple articular and metaphyseal, C2 simple articular with multifragmentary metaphysis, C3 multifragmentary articular).",
+    "refs": ["meinberg2018"]
+  },
+  "types": [
+    {
+      "code": "A2-dorsal",
+      "title": {
+        "en": "Extra-articular, dorsally angulated (Colles)",
+        "de": "Extraartikulär, dorsal abgekippt (Colles-Fraktur)",
+        "es": "Extraarticular con angulación dorsal (Colles)",
+        "ar": "خارج المفصل بزاوية ظهرية (كسر كوليس)",
+        "fr": "Extra-articulaire à bascule postérieure (Pouteau-Colles)",
+        "it": "Extra-articolare ad angolazione dorsale (Colles)",
+        "nl": "Extra-articulair, dorsaal gekanteld (Colles)"
+      },
+      "summary": "Simple metaphyseal fracture with dorsal tilt and shortening; joint surface intact.",
+      "management": "either",
+      "recommendation": "Closed reduction and a moulded cast first: in DRAFFT2 K-wires did not improve 12-month PRWE over a cast, although 13% of the cast group needed fixation for loss of position. Under 65, fix if shortening >3 mm or dorsal tilt >10° persists; use K-wires when closed reduction holds, a volar locking plate when it does not (DRAFFT: equal 12-month function, plate gives faster early recovery). At 65 or older, a cast is first line.",
+      "refs": ["drafft2022", "drafft2014", "aaos2020", "nice2016", "boast2017"],
+      "approach": "kwire"
+    },
+    {
+      "code": "A2-volar",
+      "title": {
+        "en": "Extra-articular, volarly angulated (Smith)",
+        "de": "Extraartikulär, palmar abgekippt (Smith-Fraktur)",
+        "es": "Extraarticular con angulación volar (Smith)",
+        "ar": "خارج المفصل بزاوية راحية (كسر سميث)",
+        "fr": "Extra-articulaire à bascule antérieure (Goyrand-Smith)",
+        "it": "Extra-articolare ad angolazione volare (Smith)",
+        "nl": "Extra-articulair, volair gekanteld (Smith)"
+      },
+      "summary": "Extra-articular fracture with the distal fragment displaced and tilted volarly.",
+      "management": "op",
+      "recommendation": "Volar-displaced fractures are unstable in a cast; consider open reduction and a volar plate, which buttresses the fragment as well as fixing it.",
+      "refs": ["boast2017"],
+      "approach": "volar-fcr"
+    },
+    {
+      "code": "A3",
+      "title": {
+        "en": "Extra-articular, metaphyseal multifragmentary",
+        "de": "Extraartikulär, metaphysär mehrfragmentär",
+        "es": "Extraarticular, multifragmentaria metafisaria",
+        "ar": "خارج المفصل، متعددة الشظايا في الكردوس",
+        "fr": "Extra-articulaire, comminution métaphysaire",
+        "it": "Extra-articolare, pluriframmentaria metafisaria",
+        "nl": "Extra-articulair, metafysair multifragmentair"
+      },
+      "summary": "Extra-articular fracture with a wedge or comminuted metaphysis, usually dorsal; prone to collapse after reduction.",
+      "management": "either",
+      "recommendation": "Comminution makes K-wires and casts lose length; if surgery is chosen, a volar locking plate is the usual fixed-angle option. Use bridging fixation when comminution runs into the shaft or bone is too poor to hold screws. At 65 or older, nonoperative treatment gives similar long-term results.",
+      "refs": ["aaos2020", "hanel2006", "crossfire2021"],
+      "approach": "volar-fcr"
+    },
+    {
+      "code": "B1",
+      "title": {
+        "en": "Partial articular, radial styloid (chauffeur)",
+        "de": "Partiell artikulär, Processus styloideus radii (Chauffeur-Fraktur)",
+        "es": "Articular parcial, estiloides radial (fractura del chófer)",
+        "ar": "مفصلي جزئي، الناتئ الإبري الكعبري (كسر السائق)",
+        "fr": "Articulaire partielle, styloïde radiale (fracture du chauffeur)",
+        "it": "Articolare parziale, stiloide radiale (frattura dello chauffeur)",
+        "nl": "Partieel articulair, processus styloideus radii (chauffeursfractuur)"
+      },
+      "summary": "Sagittal split through the scaphoid fossa detaching the radial styloid (radial column).",
+      "management": "either",
+      "recommendation": "Undisplaced: cast. Displaced: it is an articular fracture, so reduce to a step under 2 mm; K-wires or a cannulated screw through a small radial incision when closed reduction is achieved, a radial column or volar plate when it is not.",
+      "refs": ["aaos2020", "nice2016", "rikli1996"],
+      "approach": "kwire"
+    },
+    {
+      "code": "B2",
+      "title": {
+        "en": "Partial articular, dorsal shearing (dorsal Barton)",
+        "de": "Partiell artikulär, dorsale Kantenabscherung (dorsale Barton-Fraktur)",
+        "es": "Articular parcial, cizallamiento dorsal (Barton dorsal)",
+        "ar": "مفصلي جزئي، قص الحافة الظهرية (كسر بارتون الظهري)",
+        "fr": "Articulaire partielle, cisaillement marginal postérieur (Barton postérieur)",
+        "it": "Articolare parziale, frattura marginale dorsale (Barton dorsale)",
+        "nl": "Partieel articulair, dorsale randfractuur (dorsale Barton)"
+      },
+      "summary": "Dorsal rim fragment sheared off with the carpus subluxing dorsally.",
+      "management": "op",
+      "recommendation": "Unstable fracture-subluxation: open reduction and dorsal buttress fixation (low-profile dorsal or fragment-specific plate) through the third–fourth compartment approach. Evidence is technique-level only.",
+      "refs": ["rikli1996", "aoref"],
+      "approach": "dorsal"
+    },
+    {
+      "code": "B3",
+      "title": {
+        "en": "Partial articular, volar shearing (volar Barton)",
+        "de": "Partiell artikulär, palmare Kantenabscherung (palmare Barton-Fraktur)",
+        "es": "Articular parcial, cizallamiento volar (Barton volar)",
+        "ar": "مفصلي جزئي، قص الحافة الراحية (كسر بارتون الراحي)",
+        "fr": "Articulaire partielle, cisaillement marginal antérieur (Barton antérieur)",
+        "it": "Articolare parziale, frattura marginale volare (Barton volare)",
+        "nl": "Partieel articulair, volaire randfractuur (volaire Barton)"
+      },
+      "summary": "Volar rim fragment, often including the volar lunate facet, sheared off with the carpus subluxing volarly.",
+      "management": "op",
+      "recommendation": "Unstable in a cast: volar buttress plate through the FCR approach. The plate must capture the volar lunate facet, or the fragment and carpus displace volarly (Harness); use a distal rim plate or supplementary wire or hook fixation for a small facet fragment.",
+      "refs": ["boast2017", "harness2004"],
+      "approach": "volar-fcr"
+    },
+    {
+      "code": "C1",
+      "title": {
+        "en": "Complete articular, simple articular and metaphyseal",
+        "de": "Vollständig artikulär, einfach artikulär und metaphysär",
+        "es": "Articular completa, articular y metafisaria simple",
+        "ar": "مفصلي كامل، بسيط مفصلياً وكردوسياً",
+        "fr": "Articulaire complète, articulaire et métaphysaire simple",
+        "it": "Articolare completa, articolare e metafisaria semplice",
+        "nl": "Volledig articulair, eenvoudig articulair en metafysair"
+      },
+      "summary": "Simple articular split (often radial styloid plus lunate facet) with a simple metaphyseal fracture.",
+      "management": "either",
+      "recommendation": "Under 65, operate if the step is >2 mm or tilt or shortening exceed the thresholds. If closed manipulation reduces the joint, K-wires; if not, ORIF with a volar locking plate. At 65 or older, a cast is first line.",
+      "refs": ["aaos2020", "nice2016", "drafft2014"],
+      "approach": "volar-fcr"
+    },
+    {
+      "code": "C2",
+      "title": {
+        "en": "Complete articular, simple articular, metaphyseal multifragmentary",
+        "de": "Vollständig artikulär, einfach artikulär, metaphysär mehrfragmentär",
+        "es": "Articular completa, articular simple, metafisaria multifragmentaria",
+        "ar": "مفصلي كامل، بسيط مفصلياً ومتعدد الشظايا كردوسياً",
+        "fr": "Articulaire complète, articulaire simple, métaphysaire plurifragmentaire",
+        "it": "Articolare completa, articolare semplice, metafisaria pluriframmentaria",
+        "nl": "Volledig articulair, eenvoudig articulair, metafysair multifragmentair"
+      },
+      "summary": "Simple articular split with metaphyseal comminution that removes the cortical buttress.",
+      "management": "either",
+      "recommendation": "If surgery is chosen, use a volar locking plate with subchondral distal screws to hold length over the comminuted metaphysis; K-wires alone tend to collapse. Fixation techniques give similar 12-month results; the plate gives earlier recovery.",
+      "refs": ["aaos2020", "wrist2020"],
+      "approach": "volar-fcr"
+    },
+    {
+      "code": "C3",
+      "title": {
+        "en": "Complete articular, articular multifragmentary",
+        "de": "Vollständig artikulär, artikulär mehrfragmentär",
+        "es": "Articular completa, articular multifragmentaria",
+        "ar": "مفصلي كامل، متعدد الشظايا مفصلياً",
+        "fr": "Articulaire complète, articulaire plurifragmentaire",
+        "it": "Articolare completa, articolare pluriframmentaria",
+        "nl": "Volledig articulair, articulair multifragmentair"
+      },
+      "summary": "Comminuted joint surface (die-punch, central impaction, separate volar and dorsal lunate facets), with or without metaphyseal comminution.",
+      "management": "op",
+      "recommendation": "Get a CT. In active patients, the extended FCR approach with a volar locking plate reaches most fragments. Add dorsal or fragment-specific fixation only for a dorsal fragment that cannot be reduced or held from volar: in a 5-year RCT, combined plating had worse motion and PRWE and twice the hardware removal. Use a bridging plate or external fixator when the joint cannot be reconstructed. At 65 or older, the AAOS evidence against routine surgery still applies.",
+      "refs": ["thordardottir2026", "orbay2016", "hanel2006", "aaos2020"],
+      "approach": "extended-fcr"
+    }
+  ],
+  "workup": [
+    "PA and lateral radiographs centred on the wrist; document the mechanism, skin, circulation and median nerve sensation at presentation.",
+    "Measure on PA: radial inclination (normal about 22°), radial height (about 11 mm), ulnar variance (compare with a PA of the other wrist); on lateral: volar tilt (normal about 11°), and the teardrop angle (about 70°; a low angle means the volar lunate facet is displaced).",
+    "Post-reduction films decide management: re-measure shortening, dorsal tilt and articular step against the thresholds (>3 mm, >10°, >2 mm).",
+    "CT for intra-articular fractures before choosing an approach: die-punch or central impaction, size of the volar and dorsal lunate facet fragments, sigmoid notch, dorsal comminution.",
+    "Progressive or severe median nerve symptoms after reduction suggest acute carpal tunnel syndrome, which needs urgent decompression; don't confuse it with stable contusion paraesthesia.",
+    "Look for DRUJ instability, a displaced ulnar styloid base, carpal fractures and a widened scapholunate interval.",
+    "Judge functional demand rather than age alone. In a WRIST secondary analysis, activity level and comorbidities predicted who benefits from surgery better than chronological age did.",
+    "Assess falls risk and bone health and refer to fracture liaison."
+  ],
+  "decide": [
+    {
+      "text": "At 65 or older, surgery does not improve long-term patient-reported outcomes over nonoperative treatment (AAOS, strong). CROSSFIRE, Hassellund, VOLCON and WRIST all found no clinically important difference at 12–24 months. Plating gives faster early recovery and more patient-rated satisfaction. In DRIFT (2025), plating of fractures that would not reduce gave a 9.6-point PRWE benefit, below the 11-point MCID. Consider surgery for active, high-demand patients or severe deformity.",
+      "refs": ["aaos2020", "crossfire2021", "crossfire2022", "hassellund2021", "saving2019", "wrist2021", "drift2025", "bell2025", "jayaram2023"]
+    },
+    {
+      "text": "Under 65, operative treatment improves radiographic and patient-reported outcomes when post-reduction shortening is >3 mm, dorsal tilt >10° or intra-articular step >2 mm (AAOS, moderate). Weigh ulnar variance, step, tilt and the patient's needs.",
+      "refs": ["aaos2020", "boast2017", "ochen2020"]
+    },
+    {
+      "text": "Dorsally displaced fractures: manipulation and a moulded cast first. If fixation is needed, K-wires when the joint is intact or reducible closed; ORIF when it is not (NICE NG38). DRAFFT: K-wires and volar plate equal at 12 months and 5 years. DRAFFT2: K-wires no better than a cast after manipulation. Cochrane on pinning: low-certainty evidence.",
+      "refs": ["nice2016", "drafft2014", "drafft2022", "karantana2020"]
+    },
+    {
+      "text": "Choice of fixation for unstable or complete articular fractures: no significant difference in 12-month radiographic or patient-reported outcomes between techniques; volar locking plates give better function at 3 months (AAOS, strong). In WRIST, external fixation and pinning had pin-site infection rates around 25%.",
+      "refs": ["aaos2020", "wrist2020", "wrist2019"]
+    },
+    {
+      "text": "Volar-displaced fractures (Smith, volar Barton) are unstable and should be considered for open reduction and plate fixation.",
+      "refs": ["boast2017"]
+    },
+    {
+      "text": "Timing: within 72 hours of injury for intra-articular fractures and within 7 days for extra-articular ones; within 72 hours of the decision for re-displacement. Repeat radiographs at 1–2 weeks only where the fracture is unstable and re-displacement would lead to surgery.",
+      "refs": ["nice2016", "boast2017"]
+    },
+    {
+      "text": "Arthroscopic assistance does not change outcomes (AAOS, moderate). Combined volar and dorsal plating of type C fractures should be used sparingly: worse 5-year motion and PRWE, more hardware removal and later return to work than volar plating alone.",
+      "refs": ["aaos2020", "thordardottir2026", "noppa2025"]
+    }
+  ],
+  "approaches": [
+    {
+      "id": "volar-fcr",
+      "name": "Volar FCR (modified Henry) approach, volar locking plate",
+      "when": "A2-volar, B3 and most dorsally displaced A2, A3, C1 and C2 fractures that need open fixation.",
+      "position": "Supine with a radiolucent hand table, arm abducted and supinated, upper-arm tourniquet. C-arm from the end of the table so that PA, true lateral, tilted lateral and skyline views can be taken without moving the limb.",
+      "incision": "Longitudinal over the FCR tendon, from the distal wrist crease 6–8 cm proximally; angle radially across the crease if more distal exposure is needed.",
+      "interval": "Open the FCR sheath and go through its floor with FCR retracted ulnarly (it shields the median nerve); the radial artery lies radial to the sheath. Sweep FPL ulnarly to expose pronator quadratus; release it in an L from its radial and distal borders, staying proximal to the watershed line and leaving the volar radiocarpal ligaments intact.",
+      "atRisk": [
+        {"key": "palmar_branch_of_median_nerve_right", "why": "Runs ulnar to FCR. Stay inside the FCR sheath and do not dissect on its ulnar side."},
+        {"key": "median_nerve_right", "why": "Lies ulnar and deep to FCR, under the FDS and FPL mass; injured by retractors or hooks levered on the ulnar side. Decompress the carpal tunnel separately if acute carpal tunnel symptoms were present before surgery."},
+        {"key": "radial_artery_right", "why": "Radial to the FCR sheath; incise the sheath floor, not its radial wall, and keep the artery with the radial flap."},
+        {"key": "flexor_pollicis_longus_right", "why": "Rubs on a plate left at or beyond the watershed line (Soong grade 1–2) and can rupture late. Place the plate proximal to the line and remove it if a prominent plate is symptomatic."},
+        {"key": "pronator_quadratus_right", "why": "Releasing it from the radial border gives the exposure; repair over the plate is optional because evidence for benefit is weak."},
+        {"key": "radioscaphocapitate_ligament_right", "why": "The volar extrinsic radiocarpal ligaments arise distal to the watershed line. Do not release the volar capsule to see the joint, or the carpus can translate ulnarly; judge the joint on fluoroscopy instead."},
+        {"key": "extensor_pollicis_longus_right", "why": "Distal screws that pass the dorsal cortex near Lister's tubercle cause EPL attrition rupture. Measure, downsize by about 2 mm and check the skyline view."}
+      ],
+      "steps": [
+        "Clear the fracture and haematoma; restore length with traction and the volar cortex as the reduction key. An intrafocal K-wire levered through the fracture corrects dorsal tilt, and a radial styloid wire holds radial height and inclination.",
+        "Hold provisionally with K-wires; leave the volar cortex key-aligned so that the plate's anatomic contour brings back volar tilt.",
+        "Fix the plate to the shaft through the oblong hole and adjust its height on a true lateral: proximal to the watershed line, centred on the radial shaft.",
+        "Reduce the plate to the bone. For residual dorsal tilt, fix distally first parallel to the joint and then bring the plate down to the shaft.",
+        "Fill the distal row with subchondral locking screws or pegs: ulnar screws support the lunate facet, radial screws the styloid. Shorten them 2 mm from the dorsal cortex measurement.",
+        "Test DRUJ stability in pronation, neutral and supination after fixation."
+      ],
+      "implants": [
+        "Anatomic volar locking plate (2.4 mm or 2.5 mm system, fixed or variable angle).",
+        "Smooth pegs or unicortical locking screws in the distal row where dorsal tines are at risk.",
+        "Distal rim or hook plate, or K-wire or tension-band supplementation, for a small volar lunate facet fragment."
+      ],
+      "checks": [
+        "PA: radial inclination about 22°, radial height about 11 mm, ulnar variance restored to match the other side, articular step under 2 mm.",
+        "Tilted lateral (forearm raised about 20–25°, 23° in Soong's study): volar tilt toward the normal 11° and at least neutral, teardrop angle about 70°, distal ulnar-sided screws subchondral and out of the joint.",
+        "Tilted PA or oblique for the radial styloid screw, which the low-angle tilted laterals miss (Soong 2008); several oblique views are needed.",
+        "Dorsal tangential (skyline) view, wrist fully flexed with the beam along the forearm: no screw tip proud of the dorsal cortex, especially in the third and fourth compartments.",
+        "True lateral: plate edge proximal to the volar rim (watershed line), Soong grade 0."
+      ],
+      "refs": ["orbay2000", "soong2011", "soong2008", "riddick2012", "ozer2011", "ozer2012", "medoff2005", "harness2004", "aaos2020"]
+    },
+    {
+      "id": "extended-fcr",
+      "name": "Extended FCR approach (pronation of the proximal fragment)",
+      "when": "C2 and C3 fractures and dorsal comminution needing intrafocal debridement, impacted central fragments, and fractures over 10–14 days old with early callus.",
+      "position": "As for the FCR approach: supine, hand table, tourniquet, C-arm from the end.",
+      "incision": "FCR incision, extended a little proximally.",
+      "interval": "Go through the FCR floor as above, then release the radial septum and the brachioradialis insertion from the radial styloid in the floor of the first compartment. Pronate the proximal fragment out of the way (the 'book' opening) to see the fracture from inside: dorsal comminution, impacted articular fragments, dorsal callus.",
+      "atRisk": [
+        {"key": "superficial_branch_of_radial_nerve_right", "why": "Emerges from under brachioradialis about 9 cm proximal to the styloid and runs radially over the first compartment. Stay deep on bone when releasing brachioradialis and retract with blunt instruments."},
+        {"key": "radial_artery_right", "why": "Mobilise it radially with its venae comitantes before the radial septum release; it is the structure most at risk when pronating the shaft."},
+        {"key": "abductor_pollicis_longus_right", "why": "APL and EPB in the first compartment lie directly over the brachioradialis insertion. Release subperiosteally beneath them without opening their sheath."},
+        {"key": "brachioradialis_muscle_right", "why": "Its pull is the deforming force on the radial styloid; releasing it helps restore radial height. Do not cut far proximally, where the SBRN emerges."}
+      ],
+      "steps": [
+        "Release the radial septum and brachioradialis insertion; pronate the proximal radius to open the fracture.",
+        "Debride the fracture and lift impacted articular fragments against the scaphoid and lunate as a template, under fluoroscopy; graft or fill the metaphyseal defect if needed.",
+        "Supinate back, reduce the shaft to the distal block and hold with K-wires.",
+        "Apply the volar locking plate as in the FCR approach, with subchondral support for each column. Add a separate radial column or dorsal fragment-specific implant only if a fragment cannot be held from volar."
+      ],
+      "implants": [
+        "Volar locking plate.",
+        "Optional radial column plate, dorsal ulnar-corner pin plate, bone graft or substitute for the metaphyseal void."
+      ],
+      "checks": [
+        "Same targets as the FCR approach.",
+        "Articular step and gap under 2 mm on PA and tilted lateral; CT or 3D fluoroscopy if unclear.",
+        "Skyline view for dorsal screw length.",
+        "DRUJ stability and sigmoid notch congruity."
+      ],
+      "refs": ["orbay2016", "wijffels2012", "thordardottir2026", "aaos2020"]
+    },
+    {
+      "id": "dorsal",
+      "name": "Dorsal approach through the third–fourth compartment (fragment-specific or dorsal plate)",
+      "when": "B2 dorsal Barton, dorsal die-punch or dorsal lunate facet fragments that cannot be reduced or held from volar, and the dorsal half of a combined approach for C3.",
+      "position": "Supine, hand table, forearm pronated on the table, tourniquet; C-arm from the end.",
+      "incision": "Longitudinal dorsal incision in line with Lister's tubercle and the third metacarpal, 6–8 cm, centred on the radiocarpal joint.",
+      "interval": "Open the extensor retinaculum over the third compartment and transpose EPL radially. Elevate the fourth compartment subperiosteally ulnarly and the second compartment radially, without opening their sheaths. For articular viewing, use a ligament-sparing dorsal capsulotomy.",
+      "atRisk": [
+        {"key": "extensor_pollicis_longus_right", "why": "Lies in the third compartment against Lister's tubercle. Free and transpose it out of the third compartment, and leave it outside the retinaculum at closure so it does not rub on the plate."},
+        {"key": "posterior_interosseous_nerve_of_forearm_right", "why": "Terminal branch lies in the floor of the fourth compartment on the radial side. It is often divided (PIN neurectomy) during the approach; if it is preserved, protect it."},
+        {"key": "extensor_digitorum_right", "why": "The fourth compartment tendons sit directly on a dorsal plate. Use low-profile plates, keep them under the retinaculum or periosteum, and expect tenosynovitis or rupture if implants are prominent."},
+        {"key": "superficial_branch_of_radial_nerve_right", "why": "Radial skin flap; avoid raising it with sharp dissection or traction near the radial styloid."},
+        {"key": "dorsal_radiocarpal_ligament_right", "why": "Divide it as little as possible during capsulotomy and repair it to avoid dorsal carpal instability."}
+      ],
+      "steps": [
+        "Expose the dorsal rim and Lister's tubercle; remove the tubercle flush if a plate needs to lie flat.",
+        "Reduce the dorsal rim or lunate facet fragment against the carpus under direct vision or through the capsulotomy.",
+        "Buttress with a low-profile dorsal plate (intermediate column) or fragment-specific plates (dorsal ulnar corner and radial column), following the column concept.",
+        "Close the retinaculum with EPL left outside it, subcutaneous."
+      ],
+      "implants": [
+        "Low-profile dorsal plates, 2.0–2.4 mm.",
+        "Fragment-specific implants: radial column plate, dorsal ulnar pin plate, wire forms.",
+        "Lag screws for a single dorsal rim fragment."
+      ],
+      "checks": [
+        "Lateral: carpus reduced under the radius with no dorsal subluxation, dorsal rim congruent, volar tilt about 11°.",
+        "PA: radial inclination about 22°, radial height about 11 mm, articular step under 2 mm.",
+        "No screw entering the joint or the DRUJ."
+      ],
+      "refs": ["rikli1996", "aoref", "thordardottir2026", "azzi2017"]
+    },
+    {
+      "id": "kwire",
+      "name": "Closed reduction and percutaneous K-wire fixation",
+      "when": "A2-dorsal and C1 fractures that reduce closed but will not hold in a cast; displaced B1 radial styloid fractures.",
+      "position": "Supine, hand table, finger-trap traction optional. Tourniquet is usually not needed. Mini or standard C-arm.",
+      "incision": "Stab incisions with blunt spreading down to bone and a drill guide or soft-tissue sleeve. The radial styloid wire goes in through the snuffbox region between the first and second compartments; dorsal wires go in ulnar to Lister's tubercle between the fourth and fifth compartments.",
+      "interval": "Percutaneous. Wires enter between the extensor compartments, not through them.",
+      "atRisk": [
+        {"key": "superficial_branch_of_radial_nerve_right", "why": "Crosses the radial styloid area. Use a mini-open incision with spreading and a sleeve for styloid wires; transfixion causes painful neuroma."},
+        {"key": "extensor_pollicis_longus_right", "why": "Wires next to Lister's tubercle can tether or spear EPL. Keep dorsal wires ulnar to the tubercle and check thumb IP extension before you leave theatre."},
+        {"key": "abductor_pollicis_longus_right", "why": "First-compartment tendons. Enter dorsal to them or between the first and second compartments."}
+      ],
+      "steps": [
+        "Closed reduction: traction, then flexion and ulnar deviation over the distal fragment.",
+        "Intrafocal (Kapandji) wire into the dorsal fracture line, levered to restore volar tilt and then driven into the volar cortex.",
+        "Two radial styloid wires crossing the fracture into the far ulnar cortex of the shaft; a dorsal-ulnar wire for the lunate facet.",
+        "Bend and cut the wires outside the skin, or bury them; protect with a cast; remove at 4–6 weeks."
+      ],
+      "implants": [
+        "Smooth K-wires (1.6–2.0 mm), two or three in total.",
+        "Cannulated screw as an alternative for an isolated styloid fragment."
+      ],
+      "checks": [
+        "PA: radial inclination about 22°, radial height restored to within about 3 mm of the other side's ulnar variance, any step under 2 mm.",
+        "Lateral: dorsal tilt no more than 10°, ideally neutral to the normal volar tilt.",
+        "Wires bicortical but not long; no wire crossing the DRUJ."
+      ],
+      "refs": ["drafft2014", "drafft2022", "nice2016", "karantana2020", "wrist2019"]
+    },
+    {
+      "id": "bridging",
+      "name": "Bridging external fixation or dorsal spanning (bridge) plate",
+      "when": "Unreconstructable C3 or highly comminuted A3 fractures, osteoporotic bone that will not hold distal screws, severe soft-tissue injury or open fractures (staged), and polytrauma where the patient needs to bear weight through a crutch or frame (spanning plate).",
+      "position": "Supine, hand table, tourniquet for the plate; C-arm from the end.",
+      "incision": "External fixator: two short open incisions over the base of the second metacarpal (dorsoradial) and the radial shaft about 10 cm proximal to the styloid, between brachioradialis and ECRL. Spanning plate: distal incision over the second or third metacarpal and proximal incision over the dorsal radial shaft; the plate is tunnelled under the extensors.",
+      "interval": "External fixator: blunt dissection to bone through open incisions with soft-tissue sleeves, proximal to where APL and EPB cross the radius. Spanning plate: tunnel deep to the second compartment (ECRL/ECRB) to the second metacarpal, or through the fourth compartment to the third metacarpal.",
+      "atRisk": [
+        {"key": "superficial_branch_of_radial_nerve_right", "why": "Emerges between brachioradialis and ECRL at the proximal radial pin site. Use an open approach and sleeves for every half-pin; it is the main cause of pin-site neuroma."},
+        {"key": "extensor_carpi_radialis_brevis_right", "why": "The plate tunnel runs beneath the second compartment; keep the plate on bone so it does not trap the wrist extensor tendons."},
+        {"key": "extensor_pollicis_longus_right", "why": "Crosses the plate path near Lister's tubercle. Check that EPL glides freely after tunnelling and is not caught under the plate."},
+        {"key": "extensor_digitorum_right", "why": "With the third-metacarpal plate through the fourth compartment, the plate lies beneath the digital extensors. Check finger flexion and extension for tethering before closing."}
+      ],
+      "steps": [
+        "Ligamentotaxis: longitudinal traction to restore length and radial inclination; correct residual tilt with intrafocal K-wires.",
+        "External fixator: two half-pins in the second metacarpal and two in the radial shaft, joined with a frame; add K-wires for articular fragments.",
+        "Spanning plate: slide the plate from distal to proximal, fix to the metacarpal and then to the radial shaft under traction; add percutaneous or limited open fixation of articular fragments.",
+        "Plan removal: fixator usually at about 6 weeks; spanning plate after union, typically about 12 weeks."
+      ],
+      "implants": [
+        "Wrist-bridging external fixator with 2.5–3.0 mm metacarpal and 3.0–4.0 mm radial half-pins.",
+        "Dorsal distraction (spanning) plate, 2.4–3.5 mm.",
+        "Supplementary K-wires."
+      ],
+      "checks": [
+        "PA: radial height and inclination restored.",
+        "Radiocarpal and midcarpal joint spaces not wider than normal (no over-distraction).",
+        "Lateral: carpus centred under the radius, volar tilt at least neutral.",
+        "Fingers flex fully on the table (over-distraction makes them stiff)."
+      ],
+      "refs": ["hanel2006", "wrist2019", "wrist2020", "aaos2020"]
+    }
+  ],
+  "after": {
+    "weightBearing": "Light use of the hand for daily activities with immediate finger movement. No lifting or weight bearing through the wrist until there are signs of union, usually about 6 weeks. A dorsal spanning plate allows weight bearing through a platform crutch.",
+    "rehab": "Full finger, elbow and shoulder movement from day one. After stable plate fixation, a removable splint and early wrist motion. In a cast, keep the wrist neutral with 3-point moulding, not forced palmar flexion, and consider removing it and mobilising at 4 weeks. A home exercise programme gives results similar to supervised therapy for most patients.",
+    "followUp": "Nonoperative unstable fractures: radiographs at 1–2 weeks, only if re-displacement would change management. Operated fractures: wound review at about 2 weeks and radiographs at about 6 weeks. No routine radiograph when immobilisation is removed unless there is clinical concern. Refer to fracture liaison or falls services.",
+    "complications": [
+      "Median nerve compression or acute carpal tunnel syndrome (18.5% after volar plating in WRIST).",
+      "Pin-site infection after K-wires or external fixation (about 23–26% in WRIST).",
+      "Loss of reduction in a cast after manipulation (13% needed fixation in DRAFFT2).",
+      "FPL rupture from a plate at or beyond the watershed line (Soong grade 1–2).",
+      "EPL rupture: after undisplaced fractures (vascular or attrition, a few weeks after injury) and from dorsal screw tips or dorsal plates.",
+      "Extensor and flexor tenosynovitis needing plate removal, more common with dorsal and combined plating.",
+      "Intra-articular screw penetration.",
+      "Malunion with ulnar-sided wrist pain from a positive ulnar variance.",
+      "Complex regional pain syndrome and stiffness."
+    ],
+    "pitfalls": [
+      "Volar lunate facet fragment not captured by a plate set too proximally, or by too short a distal row: the carpus subluxes volarly with the fragment. Check the teardrop angle and use a rim or hook construct.",
+      "Plate placed distal to the watershed line (Soong 1–2) risks late FPL rupture. Placing it proximal to the line keeps the tendon off the plate; remove a prominent plate after union if symptomatic.",
+      "Dorsal screw tips are hidden on the true lateral because of the dorsal ridge and Lister's tubercle. Use the skyline view and screws 2 mm shorter than measured; tines in the third compartment rupture EPL.",
+      "A 23° tilted lateral shows the ulnar distal screws but not the radial styloid screw; take a PA or tilted PA as well.",
+      "Missing DRUJ instability after fixing the radius: test it before leaving theatre.",
+      "Over-distraction with bridging fixation causes finger stiffness and CRPS-like pain."
+    ],
+    "refs": ["wrist2019", "drafft2022", "soong2011", "soong2008", "riddick2012", "ozer2011", "roth2012", "azzi2017", "harness2004", "thordardottir2026", "boast2017", "aaos2020", "hanel2006"]
+  },
+  "refs": [
+    {"id": "meinberg2018", "cite": "Meinberg EG, Agel J, Roberts CS, Karam MD, Kellam JF. Fracture and Dislocation Classification Compendium-2018. J Orthop Trauma 2018;32 Suppl 1:S1-S170.", "year": 2018, "kind": "classification", "url": "https://doi.org/10.1097/BOT.0000000000001063"},
+    {"id": "aaos2020", "cite": "American Academy of Orthopaedic Surgeons / American Society for Surgery of the Hand. Management of Distal Radius Fractures Evidence-Based Clinical Practice Guideline (2020). Summary: Kamal RN, Shapiro LM. J Am Acad Orthop Surg 2022;30(4):e480-e486.", "year": 2020, "kind": "guideline", "url": "https://doi.org/10.5435/JAAOS-D-21-00719"},
+    {"id": "nice2016", "cite": "National Institute for Health and Care Excellence. Fractures (non-complex): assessment and management. NICE guideline NG38, 2016.", "year": 2016, "kind": "guideline", "url": "https://www.nice.org.uk/guidance/ng38"},
+    {"id": "boast2017", "cite": "British Orthopaedic Association. BOAST: The Management of Distal Radial Fractures. December 2017.", "year": 2017, "kind": "guideline", "url": "https://www.bssh.ac.uk/_userfiles/pages/files/professionals/Radius/BOAST-Management-of-Distal-Radial-Fractures.pdf"},
+    {"id": "drafft2014", "cite": "Costa ML, Achten J, Parsons NR, et al. Percutaneous fixation with Kirschner wires versus volar locking plate fixation in adults with dorsally displaced fracture of distal radius: randomised controlled trial (DRAFFT). BMJ 2014;349:g4807.", "year": 2014, "kind": "rct", "url": "https://doi.org/10.1136/bmj.g4807"},
+    {"id": "drafft2022", "cite": "Costa ML, Achten J, Ooms A, et al. Surgical fixation with K-wires versus casting in adults with fracture of distal radius: DRAFFT2 multicentre randomised clinical trial. BMJ 2022;376:e068041.", "year": 2022, "kind": "rct", "url": "https://doi.org/10.1136/bmj-2021-068041"},
+    {"id": "crossfire2021", "cite": "Lawson A, Naylor JM, Buchbinder R, et al.; CROSSFIRE Study Group. Surgical Plating vs Closed Reduction for Fractures in the Distal Radius in Older Patients: A Randomized Clinical Trial. JAMA Surg 2021;156(3):229-237.", "year": 2021, "kind": "rct", "url": "https://doi.org/10.1001/jamasurg.2020.5672"},
+    {"id": "crossfire2022", "cite": "CROSSFIRE Study Group. Plating vs Closed Reduction for Fractures in the Distal Radius in Older Patients: A Secondary Analysis of a Randomized Clinical Trial (24 months). JAMA Surg 2022;157(7):563-571.", "year": 2022, "kind": "rct", "url": "https://doi.org/10.1001/jamasurg.2022.0809"},
+    {"id": "wrist2019", "cite": "Chung KC, Malay S, Shauver MJ, Kim HM; WRIST Group. Assessment of Distal Radius Fracture Complications Among Adults 60 Years or Older: A Secondary Analysis of the WRIST Randomized Clinical Trial. JAMA Netw Open 2019;2(1):e187053.", "year": 2019, "kind": "rct", "url": "https://doi.org/10.1001/jamanetworkopen.2018.7053"},
+    {"id": "wrist2020", "cite": "Chung KC, Kim HM, Malay S, Shauver MJ; WRIST Group. The Wrist and Radius Injury Surgical Trial: 12-Month Outcomes from a Multicenter International Randomized Clinical Trial. Plast Reconstr Surg 2020;145(6):1054e-1066e.", "year": 2020, "kind": "rct", "url": "https://doi.org/10.1097/PRS.0000000000006829"},
+    {"id": "wrist2021", "cite": "Chung KC, Kim HM, Malay S, Shauver MJ; WRIST Group. Comparison of 24-Month Outcomes After Treatment for Distal Radius Fracture: The WRIST Randomized Clinical Trial. JAMA Netw Open 2021;4(6):e2112710.", "year": 2021, "kind": "rct", "url": "https://doi.org/10.1001/jamanetworkopen.2021.12710"},
+    {"id": "jayaram2023", "cite": "Jayaram M, Wu H, Yoon AP, Kane RL, Wang L, Chung KC. Comparison of Distal Radius Fracture Outcomes in Older Adults Stratified by Chronologic vs Physiologic Age Managed With Casting vs Surgery. JAMA Netw Open 2023;6(2):e2255786.", "year": 2023, "kind": "cohort", "url": "https://doi.org/10.1001/jamanetworkopen.2022.55786"},
+    {"id": "hassellund2021", "cite": "Hassellund SS, Williksen JH, Laane MM, et al. Cast immobilization is non-inferior to volar locking plates in relation to QuickDASH after one year in patients aged 65 years and older: a randomized controlled trial of displaced distal radius fractures. Bone Joint J 2021;103-B(2):247-255.", "year": 2021, "kind": "rct", "url": "https://doi.org/10.1302/0301-620X.103B2.BJJ-2020-0192.R2"},
+    {"id": "saving2019", "cite": "Saving J, Severin Wahlgren S, Olsson K, et al. Nonoperative Treatment Compared with Volar Locking Plate Fixation for Dorsally Displaced Distal Radial Fractures in the Elderly: A Randomized Controlled Trial. J Bone Joint Surg Am 2019;101(11):961-969.", "year": 2019, "kind": "rct", "url": "https://doi.org/10.2106/JBJS.18.00768"},
+    {"id": "drift2025", "cite": "Hevonkorpi TP, Launonen AP, Reito A, et al.; NITEP Group. Nonoperative treatment versus volar locking plating for distal radius fracture in patients aged 65 years or older (DRIFT trial): A randomized controlled trial. PLoS Med 2025;22(9):e1004728.", "year": 2025, "kind": "rct", "url": "https://doi.org/10.1371/journal.pmed.1004728"},
+    {"id": "bell2025", "cite": "Bell KR, Oliver WM, White TO, Molyneux SG, Clement ND, Duckworth AD. Operative management of displaced fractures of the distal radius is associated with improved function but not in older adults: systematic review and meta-analysis of randomized controlled trials. Bone Jt Open 2025;6(10):1330-1342.", "year": 2025, "kind": "meta-analysis", "url": "https://doi.org/10.1302/2633-1462.610.BJO-2025-0098.R1"},
+    {"id": "ochen2020", "cite": "Ochen Y, Peek J, van der Velde D, et al. Operative vs Nonoperative Treatment of Distal Radius Fractures in Adults: A Systematic Review and Meta-analysis. JAMA Netw Open 2020;3(4):e203497.", "year": 2020, "kind": "meta-analysis", "url": "https://doi.org/10.1001/jamanetworkopen.2020.3497"},
+    {"id": "karantana2020", "cite": "Karantana A, Handoll HH, Sabouni A. Percutaneous pinning for treating distal radial fractures in adults. Cochrane Database Syst Rev 2020;2:CD006080.", "year": 2020, "kind": "meta-analysis", "url": "https://doi.org/10.1002/14651858.CD006080.pub3"},
+    {"id": "thordardottir2026", "cite": "Thórdardóttir Á, Sagerfors M, Andersson J, Gavlovská H, Lundqvist E. Volar Plating Versus Combined Plating For AO Type C Distal Radius Fracture: A Randomized Controlled Study Of 135 Patients With A 5-Year Follow-Up. J Hand Surg Am 2026 (online ahead of print).", "year": 2026, "kind": "rct", "url": "https://doi.org/10.1016/j.jhsa.2026.03.005"},
+    {"id": "noppa2025", "cite": "Noppa E, Sagerfors M, Lundqvist E. Return to work after volar or combined plating of type C distal radius fracture: a secondary analysis of a randomised clinical trial. BMC Musculoskelet Disord 2025;27(1):73.", "year": 2025, "kind": "rct", "url": "https://doi.org/10.1186/s12891-025-09447-5"},
+    {"id": "soong2011", "cite": "Soong M, Earp BE, Bishop G, Leung A, Blazar P. Volar locking plate implant prominence and flexor tendon rupture. J Bone Joint Surg Am 2011;93(4):328-335.", "year": 2011, "kind": "cohort", "url": "https://doi.org/10.2106/JBJS.J.00193"},
+    {"id": "soong2008", "cite": "Soong M, Got C, Katarincic J, Akelman E. Fluoroscopic evaluation of intra-articular screw placement during locked volar plating of the distal radius: a cadaveric study. J Hand Surg Am 2008;33(10):1720-1723.", "year": 2008, "kind": "technique", "url": "https://doi.org/10.1016/j.jhsa.2008.07.021"},
+    {"id": "riddick2012", "cite": "Riddick AP, Hickey B, White SP. Accuracy of the skyline view for detecting dorsal cortical penetration during volar distal radius fixation. J Hand Surg Eur Vol 2012;37(5):407-411.", "year": 2012, "kind": "technique", "url": "https://doi.org/10.1177/1753193411426809"},
+    {"id": "ozer2011", "cite": "Ozer K, Toker S. Dorsal tangential view of the wrist to detect screw penetration to the dorsal cortex of the distal radius after volar fixed-angle plating. Hand (N Y) 2011;6(2):190-193.", "year": 2011, "kind": "technique", "url": "https://doi.org/10.1007/s11552-010-9316-2"},
+    {"id": "ozer2012", "cite": "Ozer K, Wolf JM, Watkins B, Hak DJ. Comparison of 4 fluoroscopic views for dorsal cortex screw penetration after volar plating of the distal radius. J Hand Surg Am 2012;37(5):963-967.", "year": 2012, "kind": "technique", "url": "https://doi.org/10.1016/j.jhsa.2012.02.026"},
+    {"id": "medoff2005", "cite": "Medoff RJ. Essential radiographic evaluation for distal radius fractures. Hand Clin 2005;21(3):279-288.", "year": 2005, "kind": "technique", "url": "https://doi.org/10.1016/j.hcl.2005.02.008"},
+    {"id": "harness2004", "cite": "Harness NG, Jupiter JB, Orbay JL, Raskin KB, Fernandez DL. Loss of fixation of the volar lunate facet fragment in fractures of the distal part of the radius. J Bone Joint Surg Am 2004;86(9):1900-1908.", "year": 2004, "kind": "cohort", "url": "https://doi.org/10.2106/00004623-200409000-00007"},
+    {"id": "roth2012", "cite": "Roth KM, Blazar PE, Earp BE, Han R, Leung A. Incidence of extensor pollicis longus tendon rupture after nondisplaced distal radius fractures. J Hand Surg Am 2012;37(5):942-947.", "year": 2012, "kind": "cohort", "url": "https://doi.org/10.1016/j.jhsa.2012.02.006"},
+    {"id": "azzi2017", "cite": "Azzi AJ, Aldekhayel S, Boehm KS, Zadeh T. Tendon Rupture and Tenosynovitis following Internal Fixation of Distal Radius Fractures: A Systematic Review. Plast Reconstr Surg 2017;139(3):717e-724e.", "year": 2017, "kind": "meta-analysis", "url": "https://doi.org/10.1097/PRS.0000000000003076"},
+    {"id": "orbay2000", "cite": "Orbay JL. The treatment of unstable distal radius fractures with volar fixation. Hand Surg 2000;5(2):103-112.", "year": 2000, "kind": "technique", "url": "https://doi.org/10.1142/s0218810400000223"},
+    {"id": "orbay2016", "cite": "Orbay JL, Gray R, Vernon LL, et al. The EFCR Approach and the Radial Septum: Understanding the Anatomy and Improving Volar Exposure for Distal Radius Fractures. Tech Hand Up Extrem Surg 2016;20(4):155-160.", "year": 2016, "kind": "technique", "url": "https://doi.org/10.1097/BTH.0000000000000139"},
+    {"id": "wijffels2012", "cite": "Wijffels MM, Orbay JL, Indriago I, Ring D. The extended flexor carpi radialis approach for partially healed malaligned fractures of the distal radius. Injury 2012;43(7):1204-1208.", "year": 2012, "kind": "cohort", "url": "https://doi.org/10.1016/j.injury.2012.04.002"},
+    {"id": "hanel2006", "cite": "Hanel DP, Lu TS, Weil WM. Bridge plating of distal radius fractures: the Harborview method. Clin Orthop Relat Res 2006;445:91-99.", "year": 2006, "kind": "technique", "url": "https://doi.org/10.1097/01.blo.0000205885.58458.f9"},
+    {"id": "rikli1996", "cite": "Rikli DA, Regazzoni P. Fractures of the distal end of the radius treated by internal fixation and early function. A preliminary report of 20 cases. J Bone Joint Surg Br 1996;78(4):588-592.", "year": 1996, "kind": "technique", "url": "https://pubmed.ncbi.nlm.nih.gov/8682826/"},
+    {"id": "aoref", "cite": "AO Foundation. AO Surgery Reference: Distal forearm (adult trauma), approaches and fixation.", "year": 2026, "kind": "technique", "url": "https://surgeryreference.aofoundation.org/orthopedic-trauma/adult-trauma/distal-forearm"}
+  ],
+  "reviewed": "2026-11"
+}

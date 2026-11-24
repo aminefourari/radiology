@@ -1,0 +1,733 @@
+{
+  "id": "calcaneus",
+  "title": {
+    "en": "Displaced intra-articular calcaneal fracture",
+    "de": "Dislozierte intraartikuläre Kalkaneusfraktur",
+    "es": "Fractura intraarticular desplazada del calcáneo",
+    "ar": "كسر عظم العقب داخل المفصل المتبدّل",
+    "fr": "Fracture articulaire déplacée du calcanéus",
+    "it": "Frattura intra-articolare scomposta del calcagno",
+    "nl": "Verplaatste intra-articulaire calcaneusfractuur"
+  },
+  "classification": {
+    "name": "Sanders",
+    "basis": "Coronal CT reformatted perpendicular to the posterior facet, read on the slice showing the widest undersurface of the talar posterior facet. Lines A (lateral) and B (central) divide the facet into three columns, and line C at its medial edge separates it from the sustentaculum. The type is the number of articular fragments (I undisplaced, II two-part, III three-part with a depressed central piece, IV four-part or comminuted). The letters give the location of the primary line(s) from lateral to medial. Tongue-type vs joint-depression (Essex-Lopresti) is read separately on the lateral radiograph and sagittal CT.",
+    "refs": [
+      "sanders1993",
+      "essexlopresti1952"
+    ]
+  },
+  "types": [
+    {
+      "code": "I",
+      "title": {
+        "en": "Sanders I – undisplaced",
+        "de": "Sanders I – nicht disloziert",
+        "es": "Sanders I – no desplazada",
+        "ar": "ساندرز I – غير متبدّل",
+        "fr": "Sanders I – non déplacée",
+        "it": "Sanders I – composta",
+        "nl": "Sanders I – niet verplaatst"
+      },
+      "summary": "Intra-articular fracture of the posterior facet without displacement, whatever the number of fracture lines.",
+      "management": "nonop",
+      "recommendation": "Non-operative: splint or boot, elevation, early ankle and subtalar motion and protected weight-bearing until union. Sanders treated type I non-operatively; repeat a lateral and axial radiograph at 1-2 weeks to exclude secondary collapse.",
+      "refs": [
+        "sanders1993"
+      ],
+      "approach": null
+    },
+    {
+      "code": "IIA",
+      "title": {
+        "en": "Sanders IIA – two-part, lateral fracture line",
+        "de": "Sanders IIA – Zwei-Fragment-Fraktur, laterale Frakturlinie",
+        "es": "Sanders IIA – dos fragmentos, trazo lateral",
+        "ar": "ساندرز IIA – كسر ثنائي القطع، خط كسر وحشي",
+        "fr": "Sanders IIA – deux fragments, trait latéral",
+        "it": "Sanders IIA – due frammenti, rima laterale",
+        "nl": "Sanders IIA – tweedelig, laterale fractuurlijn"
+      },
+      "summary": "Two-part (split) posterior facet with the primary line through the lateral third (line A); the large medial piece stays with the sustentaculum.",
+      "management": "either",
+      "recommendation": "Non-operative care is a valid default: the two large RCTs found no overall difference in 2-year outcome. If operating (displaced facet, younger patient, light workload, non-smoker), use the sinus tarsi approach: fewer wound complications than the extensile approach with equivalent reduction.",
+      "refs": [
+        "griffin2014",
+        "buckley2002",
+        "purdie2025",
+        "park2021"
+      ],
+      "approach": "sinus-tarsi"
+    },
+    {
+      "code": "IIB",
+      "title": {
+        "en": "Sanders IIB – two-part, central fracture line",
+        "de": "Sanders IIB – Zwei-Fragment-Fraktur, zentrale Frakturlinie",
+        "es": "Sanders IIB – dos fragmentos, trazo central",
+        "ar": "ساندرز IIB – كسر ثنائي القطع، خط كسر مركزي",
+        "fr": "Sanders IIB – deux fragments, trait central",
+        "it": "Sanders IIB – due frammenti, rima centrale",
+        "nl": "Sanders IIB – tweedelig, centrale fractuurlijn"
+      },
+      "summary": "Two-part posterior facet with the primary line through the middle third (line B).",
+      "management": "either",
+      "recommendation": "Same decision as IIA. The central line lies directly under a sinus tarsi window, so STA ORIF (facet lag screws into the sustentaculum plus a sinus tarsi plate or tuberosity screws) is the usual operative choice.",
+      "refs": [
+        "griffin2014",
+        "buckley2002",
+        "fadle2025",
+        "purdie2025"
+      ],
+      "approach": "sinus-tarsi"
+    },
+    {
+      "code": "IIC",
+      "title": {
+        "en": "Sanders IIC – two-part, medial fracture line",
+        "de": "Sanders IIC – Zwei-Fragment-Fraktur, mediale Frakturlinie",
+        "es": "Sanders IIC – dos fragmentos, trazo medial",
+        "ar": "ساندرز IIC – كسر ثنائي القطع، خط كسر إنسي",
+        "fr": "Sanders IIC – deux fragments, trait médial",
+        "it": "Sanders IIC – due frammenti, rima mediale",
+        "nl": "Sanders IIC – tweedelig, mediale fractuurlijn"
+      },
+      "summary": "Two-part fracture with the primary line at the medial edge of the posterior facet (line C), next to the sustentaculum; nearly the whole facet is one large lateral fragment, often a tongue-type pattern.",
+      "management": "either",
+      "recommendation": "The medial line is hard to see from laterally, but a single large facet fragment suits closed or percutaneous reduction: in tongue-type IIC, percutaneous Essex-Lopresti joystick reduction with cannulated screws (Tornetta). Treat it urgently if the displaced tuberosity is tenting the posterior heel skin. Convert to a sinus tarsi approach if the facet cannot be reduced closed.",
+      "refs": [
+        "tornetta1998",
+        "gardner2008",
+        "desa2026",
+        "wilmsen2026"
+      ],
+      "approach": "percutaneous-screws"
+    },
+    {
+      "code": "IIIAB",
+      "title": {
+        "en": "Sanders IIIAB – three-part, lateral and central lines",
+        "de": "Sanders IIIAB – Drei-Fragment-Fraktur, laterale und zentrale Linie",
+        "es": "Sanders IIIAB – tres fragmentos, trazos lateral y central",
+        "ar": "ساندرز IIIAB – كسر ثلاثي القطع، خطان وحشي ومركزي",
+        "fr": "Sanders IIIAB – trois fragments, traits latéral et central",
+        "it": "Sanders IIIAB – tre frammenti, rime laterale e centrale",
+        "nl": "Sanders IIIAB – driedelig, laterale en centrale lijn"
+      },
+      "summary": "Three-part posterior facet (lines A and B) with a depressed central fragment (split-depression).",
+      "management": "either",
+      "recommendation": "If operating, use STA ORIF. Elevate the depressed central fragment to the intact medial (sustentacular) fragment, then reduce the lateral piece and lag both into the sustentaculum. Warn the patient that type III fractures carried four times the long-term subtalar fusion rate of type II in Sanders' 10-20-year series.",
+      "refs": [
+        "sanders2014",
+        "fadle2025",
+        "purdie2025",
+        "attenasio2024"
+      ],
+      "approach": "sinus-tarsi"
+    },
+    {
+      "code": "IIIAC",
+      "title": {
+        "en": "Sanders IIIAC – three-part, lateral and medial lines",
+        "de": "Sanders IIIAC – Drei-Fragment-Fraktur, laterale und mediale Linie",
+        "es": "Sanders IIIAC – tres fragmentos, trazos lateral y medial",
+        "ar": "ساندرز IIIAC – كسر ثلاثي القطع، خطان وحشي وإنسي",
+        "fr": "Sanders IIIAC – trois fragments, traits latéral et médial",
+        "it": "Sanders IIIAC – tre frammenti, rime laterale e mediale",
+        "nl": "Sanders IIIAC – driedelig, laterale en mediale lijn"
+      },
+      "summary": "Three-part posterior facet with lines A and C: a lateral fragment, a large central-medial depressed piece, and the sustentacular fragment.",
+      "management": "either",
+      "recommendation": "If operating, use STA ORIF with the same medial-to-lateral sequence. The fragment next to line C is the hardest to judge from laterally, so confirm it on Broden views. Counsel for a higher subtalar arthritis risk than type II.",
+      "refs": [
+        "sanders2014",
+        "fadle2025",
+        "purdie2025",
+        "rayes2023"
+      ],
+      "approach": "sinus-tarsi"
+    },
+    {
+      "code": "IIIBC",
+      "title": {
+        "en": "Sanders IIIBC – three-part, central and medial lines",
+        "de": "Sanders IIIBC – Drei-Fragment-Fraktur, zentrale und mediale Linie",
+        "es": "Sanders IIIBC – tres fragmentos, trazos central y medial",
+        "ar": "ساندرز IIIBC – كسر ثلاثي القطع، خطان مركزي وإنسي",
+        "fr": "Sanders IIIBC – trois fragments, traits central et médial",
+        "it": "Sanders IIIBC – tre frammenti, rime centrale e mediale",
+        "nl": "Sanders IIIBC – driedelig, centrale en mediale lijn"
+      },
+      "summary": "Three-part posterior facet with lines B and C: the central and medial pieces lie deep, under a large lateral fragment.",
+      "management": "either",
+      "recommendation": "This is the most demanding type III because the depressed fragments are medial. An experienced surgeon can do STA ORIF (retrospective data show alignment equal to ELA in Sanders III-IV). Choose the extensile lateral approach once the fracture is consolidating (beyond about 2-3 weeks) or when wider exposure is needed and the soft tissues allow.",
+      "refs": [
+        "yavuz2026",
+        "sanders2014",
+        "purdie2025",
+        "aosr-ela"
+      ],
+      "approach": "sinus-tarsi"
+    },
+    {
+      "code": "IV",
+      "title": {
+        "en": "Sanders IV – four-part or comminuted",
+        "de": "Sanders IV – Vier-Fragment- oder Trümmerfraktur",
+        "es": "Sanders IV – cuatro fragmentos o conminuta",
+        "ar": "ساندرز IV – كسر رباعي القطع أو مفتت",
+        "fr": "Sanders IV – quatre fragments ou comminutive",
+        "it": "Sanders IV – quattro frammenti o comminuta",
+        "nl": "Sanders IV – vierdelig of comminutief"
+      },
+      "summary": "Four or more articular fragments or a comminuted posterior facet that cannot be reconstructed.",
+      "management": "either",
+      "recommendation": "ORIF rarely restores this facet: in Sanders' series none of 11 was anatomic and 1 of 11 was good or excellent. Primary subtalar arthrodesis, after restoring calcaneal height, length, width and heel alignment, is a reasonable option. A small underpowered RCT found no outcome difference from ORIF alone, but patients bore weight sooner. Low-demand or high-risk hosts can be managed non-operatively with late fusion if needed.",
+      "refs": [
+        "sanders1993",
+        "buckley2014",
+        "almeida2022",
+        "giuliani2026"
+      ],
+      "approach": "primary-subtalar-arthrodesis"
+    }
+  ],
+  "workup": [
+    "Mechanism: axial load (fall from height, vehicle footwell). Look for associated injuries: thoracolumbar spine, contralateral calcaneus, tibial plateau or pilon, talus.",
+    "Radiographs: lateral hindfoot (Böhler and Gissane angles, double density of a depressed facet, tuberosity height), axial Harris view (varus, width, lateral wall blow-out), AP and oblique foot (calcaneocuboid extension), AP ankle (fibular 'fleck' sign of peroneal retinaculum avulsion). Take a lateral of the uninjured heel as the angle template.",
+    "Classify the pattern by Essex-Lopresti on the lateral radiograph or sagittal CT. Tongue-type: the secondary line exits posteriorly through the tuberosity, so the facet stays attached to the tuberosity and suits percutaneous joystick reduction. Joint-depression: the line exits just behind the posterior facet, which is driven down as a separate piece.",
+    "CT of both feet with coronal reformats perpendicular to the posterior facet (Sanders type), axial (anterior process, calcaneocuboid joint, sustentaculum, lateral wall) and sagittal (tongue vs joint depression, tuberosity displacement). Add 3D if planning percutaneous reduction.",
+    "Soft tissue, urgently: posterior heel skin blanching or tenting over a displaced tongue fragment is an emergency. Record blisters (clear vs haemorrhagic) and open wounds (usually medial, from the sustentacular spike). Elevate and assess for the wrinkle sign daily.",
+    "Foot compartment syndrome: pain out of proportion, pain on passive toe dorsiflexion, tense plantar arch. Measure pressures if in doubt; untreated it leads to claw toes.",
+    "Neurovascular: dorsalis pedis and posterior tibial pulses, plantar sensation (tibial nerve), lateral border sensation (sural nerve) before any incision.",
+    "Host factors that change the decision: smoking, diabetes (HbA1c, neuropathy), peripheral vascular disease, compliance with non-weight-bearing, occupation and workers' compensation status, bilateral injury."
+  ],
+  "decide": [
+    {
+      "text": "Operative vs non-operative: two large RCTs (Buckley 2002, n=424; UK Heel Fracture Trial 2014, n=151, mainly extensile ORIF) found no overall difference in 2-year outcome, with more complications and reoperations after surgery (odds ratio 7.5 in UKHeFT). The 2023 Cochrane review found low-certainty evidence of a modest functional benefit and less chronic pain with surgery. Non-operative care is a legitimate first-line option; make it a shared decision.",
+      "refs": [
+        "griffin2014",
+        "buckley2002",
+        "lewis2023"
+      ]
+    },
+    {
+      "text": "Who gains from fixation (Buckley subgroups, secondary analysis): patients not on workers' compensation, under about 29 years, women, light workload, Böhler angle 0-14 degrees at injury, and those in whom anatomic reduction or a step-off of 2 mm or less was achieved. Operate only if you can reliably restore the facet to within 2 mm.",
+      "refs": [
+        "buckley2002"
+      ]
+    },
+    {
+      "text": "Wound risk: diabetes (relative risk 3.4), open fracture (2.8) and smoking independently raised wound complications after extensile ORIF, and risk was cumulative. In patients with several risk factors, prefer non-operative care or a minimally invasive technique. Serious infection after extensile ORIF was 1.8% closed vs 7.7% open in compliant patients in an expert series.",
+      "refs": [
+        "folk1999",
+        "benirschke2004"
+      ]
+    },
+    {
+      "text": "Timing: the extensile lateral approach needs a positive wrinkle sign and resolved blisters, often 10-14 days after injury. The sinus tarsi and percutaneous techniques can proceed earlier and are easiest before about 7-10 days, while fragments are still mobile. Early STA fixation (within 3 days) did not raise soft-tissue complications in one cohort. One multicentre cohort found more superficial infections when surgery was within 2 days. The evidence on timing is observational and conflicting.",
+      "refs": [
+        "aosr-ela",
+        "rayes2023",
+        "kayali2026",
+        "deboer2018"
+      ]
+    },
+    {
+      "text": "Emergency: a displaced tongue-type fragment that threatens the posterior heel skin needs same-day reduction (percutaneous joystick and screws, or at least plantarflexion splinting and urgent fixation). About a fifth of tongue-type fractures present with posterior skin compromise, and tongue-type fractures carry more local wound complications.",
+      "refs": [
+        "gardner2008",
+        "deboer2018"
+      ]
+    },
+    {
+      "text": "Approach choice: across 14 RCTs (n=1367), minimally invasive techniques (sinus tarsi or percutaneous) had about six-fold fewer wound complications than the extensile lateral approach (GRADE high), better functional scores and equivalent Böhler and Gissane angles. A 2024 meta-analysis (21 studies) and a 2025 RCT of 186 fractures agree. One RCT restored calcaneal width better with ELA. Reserve ELA for delayed, very comminuted or revision cases.",
+      "refs": [
+        "purdie2025",
+        "attenasio2024",
+        "fadle2025",
+        "park2021"
+      ]
+    },
+    {
+      "text": "Percutaneous vs sinus tarsi: in Sanders II-III, closed percutaneous reduction had fewer complications than STA with similar function, but residual width was greater (2026 meta-analysis of mainly level III studies). A 2026 systematic review of RCTs and controlled trials found fewer severe complications than ORIF (moderate-high risk of bias). Percutaneous fixation suits tongue-type and simple joint-depression fractures; it is weaker when the facet is comminuted.",
+      "refs": [
+        "desa2026",
+        "wilmsen2026"
+      ]
+    },
+    {
+      "text": "Sanders IV: choose between ORIF and ORIF with primary subtalar arthrodesis. The only RCT (n=31, underpowered) found no difference, with faster return to weight-bearing after fusion. Systematic reviews report fusion rates of 94-100% and similar function. Base the choice on comminution, patient demand and soft tissues.",
+      "refs": [
+        "buckley2014",
+        "almeida2022",
+        "giuliani2026"
+      ]
+    },
+    {
+      "text": "Open calcaneal fractures (usually a medial wound): antibiotics, urgent debridement and staged fixation once the wound allows. Complication rates are high (about 21% pooled) and rise with wound grade. Use limited internal fixation or percutaneous fixation, and avoid an extensile flap through compromised skin.",
+      "refs": [
+        "spierings2019",
+        "benirschke2004"
+      ]
+    }
+  ],
+  "approaches": [
+    {
+      "id": "sinus-tarsi",
+      "name": "Sinus tarsi (minimally invasive lateral) approach",
+      "when": "Default operative approach for Sanders II and III, especially joint-depression patterns, ideally within 7-10 days. Also for patients with soft-tissue risk factors. It can be extended if exposure is insufficient.",
+      "position": "Lateral decubitus, operative side up, foot on a bump so the hindfoot is horizontal; radiolucent table; thigh tourniquet. C-arm from the opposite side, set up so true lateral, axial (Harris) and Broden views are all available before draping.",
+      "incision": "3-5 cm straight incision from just below the tip of the lateral malleolus toward the base of the 4th metatarsal, over the angle of Gissane and posterior facet (mark it under fluoroscopy). The peroneal tendons lie inferior and posterior.",
+      "interval": "No internervous plane. Dissect bluntly above the peroneal tendon sheath into the sinus tarsi. Remove the fat pad and reflect part of the extensor digitorum brevis origin to see the posterior facet and anterior process. Open the subtalar capsule. Elevate the lateral wall subperiosteally with a Cobb passed beneath the peroneal tendons, keeping their sheath closed. If extending proximally, leave the deep superior peroneal retinaculum intact.",
+      "atRisk": [
+        {
+          "key": "sural_nerve_right",
+          "why": "Crosses below and behind the incision toward the lateral foot. It is caught by the inferior retractor or posterior stab incisions. Retract bluntly and keep tuberosity stab incisions away from its course."
+        },
+        {
+          "key": "fibularis_brevis_muscle_right",
+          "why": "The peroneal tendons (brevis and longus) run just inferior to the window. Elevate the lateral wall beneath them without opening the sheath. Often subluxed by the fracture; check stability after reduction."
+        },
+        {
+          "key": "intermediate_dorsal_cutaneous_nerve_of_foot_right",
+          "why": "This superficial fibular branch may cross the distal end of an incision aimed at the 4th metatarsal. Find and protect it if you extend distally."
+        },
+        {
+          "key": "calcaneal_branches_of_fibular_artery_right",
+          "why": "The lateral calcaneal artery supplies the lateral heel skin. Endangered if the incision is extended proximally through the deep superior peroneal retinaculum."
+        },
+        {
+          "key": "calcaneofibular_ligament_right",
+          "why": "Lies deep to the peroneal tendons over the lateral wall. Preserve it while elevating and seating a plate."
+        }
+      ],
+      "steps": [
+        "Insert a 5 mm Schanz or threaded pin transversely into the tuberosity. Pull it plantar and distal, then out of varus into slight valgus, to restore height and length. Temporarily pin the tuberosity to the sustentacular (constant) fragment with 1.6 mm K-wires.",
+        "Under direct vision, remove loose chondral debris and elevate the depressed posterior facet fragments against the talus, working medial to lateral onto the sustentacular fragment. Hold them with subchondral K-wires.",
+        "Lag the facet with one or two 2.7-3.5 mm screws placed just under the subchondral bone, aimed into the sustentaculum, and confirm their length on the axial view.",
+        "Push the lateral wall back in to decompress the subfibular space. Check the anterior process and calcaneocuboid joint.",
+        "Fix with a low-profile sinus tarsi or percutaneous calcaneal plate slid along the lateral wall, with at least one screw each in the tuberosity, the subchondral facet and the anterior process. Alternatively, use cannulated screws from the tuberosity to the anterior process and to the sustentaculum through stab incisions.",
+        "Close in layers. Consider leaving nylon sutures in for more than 2 weeks."
+      ],
+      "implants": [
+        "Sinus tarsi or percutaneous anatomic calcaneal plate (locking or non-locking)",
+        "2.7 or 3.5 mm lag screws into the sustentaculum",
+        "4.0-6.5 mm cannulated screws from the tuberosity",
+        "Bone graft rarely needed: no loss of reduction without graft or locked plates in a 10-20-year series"
+      ],
+      "checks": [
+        "Broden views (10-40 degrees): posterior facet congruent, step and gap 2 mm or less",
+        "Lateral: Böhler angle restored toward the uninjured side (adult normal roughly 20-40 degrees, mean about 32); Gissane angle restored (reported normal ranges vary, about 100-145 degrees); heel height restored, no double density",
+        "Axial (Harris): tuberosity out of varus (neutral to slight valgus), width restored, screw tips not beyond the medial sustentacular cortex",
+        "AP foot: calcaneocuboid joint congruent, screws out of the joint"
+      ],
+      "refs": [
+        "aosr-sta",
+        "rayes2023",
+        "purdie2025",
+        "fadle2025",
+        "sanders2014",
+        "buckley2002",
+        "keskin2026",
+        "nooijen2021"
+      ]
+    },
+    {
+      "id": "extensile-lateral",
+      "name": "Extensile lateral (L-shaped) approach",
+      "when": "Complex Sanders III-IV, late presentation (consolidating fracture beyond about 2-3 weeks), malunion, or when wider exposure of the body and calcaneocuboid joint is needed. Only with a positive wrinkle sign. Avoid in smokers, diabetics and open fractures where possible.",
+      "position": "Lateral decubitus on a bean bag with the operative leg on a padded ramp and the contralateral leg below and behind. Thigh tourniquet; C-arm for lateral, axial and Broden views.",
+      "incision": "L-shaped. The vertical limb runs midway between the posterior fibula and the lateral border of the Achilles tendon (never anterior to the Achilles) and curves toward the posterior midline proximally. The horizontal limb runs along the junction of the lateral and plantar skin toward the base of the 5th metatarsal, stopping short of the calcaneocuboid joint, below the bruising. Join the limbs with a gentle curve, not a sharp angle.",
+      "interval": "Cut straight to bone at the corner. Raise a full-thickness subperiosteal flap containing the sural nerve, peroneal tendons, calcaneofibular ligament and inferior peroneal retinaculum, splitting the abductor digiti minimi along its fibres. Continue to the subtalar joint and anterior process. Use no-touch retraction with sutures or a self-retainer on the periosteum; avoid K-wire retractors into the fibula, which can injure the flap artery.",
+      "atRisk": [
+        {
+          "key": "calcaneal_branches_of_fibular_artery_right",
+          "why": "The lateral calcaneal artery, terminal branch of the fibular artery, is the main supply of the flap and runs close to the vertical limb. Keep the vertical limb posterior and the dissection strictly subperiosteal. A bulging lateral wall pushes the plane superficially. Apical necrosis follows if the artery is damaged."
+        },
+        {
+          "key": "sural_nerve_right",
+          "why": "Crosses the proximal end of the vertical limb and the distal horizontal limb. Curving the vertical limb toward the midline and keeping the nerve inside the flap protects it. Sural neuritis remains a recognised complication."
+        },
+        {
+          "key": "fibularis_longus_muscle_right",
+          "why": "The peroneal tendons are lifted inside the flap. Do not open the sheath, and check for missed peroneal dislocation before closure."
+        },
+        {
+          "key": "calcaneofibular_ligament_right",
+          "why": "Elevated with the flap off the lateral wall. Keep it in continuity so lateral ankle stability is preserved."
+        },
+        {
+          "key": "abductor_digiti_minimi_of_foot_right",
+          "why": "Split along its fibres in the horizontal limb. Repair its fascia during the deep closure layer."
+        }
+      ],
+      "steps": [
+        "Raise the flap and hold it with no-touch retraction. Hinge or remove the blown-out lateral wall to expose the depressed facet.",
+        "Pass a Schanz pin into the tuberosity and use traction and valgus to restore height, length and alignment against the sustentacular fragment. Hold with K-wires.",
+        "Reduce the posterior facet fragments onto the sustentacular fragment and lag them with 2.7-3.5 mm subchondral screws into the sustentaculum.",
+        "Reduce the anterior process and calcaneocuboid joint, then replace the lateral wall.",
+        "Apply a lateral perimeter plate, with screws in the tuberosity, the subchondral thalamic portion and the anterior process. Keep the implant clear of the flap apex.",
+        "Close in two layers: absorbable deep fascia, then tension-free skin (for example Allgöwer-Donati). A drain is optional. Keep the foot splinted and elevated."
+      ],
+      "implants": [
+        "Lateral calcaneal perimeter plate, 2.7 or 3.5 mm, locking or non-locking",
+        "2.7 or 3.5 mm lag screws into the sustentaculum",
+        "Bone graft or substitute optional; not needed for long-term maintenance in Sanders' series"
+      ],
+      "checks": [
+        "Broden views: posterior facet step and gap 2 mm or less",
+        "Lateral: Böhler angle (roughly 20-40 degrees, matched to the uninjured side) and Gissane angle (about 100-145 degrees) restored; calcaneocuboid joint reduced",
+        "Axial: varus corrected, width restored, sustentacular screws not prominent medially",
+        "Postoperative CT if facet reduction is uncertain"
+      ],
+      "refs": [
+        "aosr-ela",
+        "benirschke2004",
+        "sanders2014",
+        "folk1999",
+        "buckley2002",
+        "nooijen2021"
+      ]
+    },
+    {
+      "id": "percutaneous-screws",
+      "name": "Percutaneous (closed) reduction and screw fixation",
+      "when": "Tongue-type fractures (Essex-Lopresti), including urgently for posterior skin threat. Also simple Sanders II and some III joint-depression fractures, and poor soft-tissue hosts. Convert to sinus tarsi if the facet will not reduce.",
+      "position": "Lateral decubitus (or prone) on a radiolucent table, foot free; tourniquet optional. Fluoroscopy is essential: lateral, axial and Broden views obtainable without moving the leg.",
+      "incision": "Stab incisions only. One is posterosuperior on the tuberosity, lateral to the Achilles insertion, for the joystick pin into the tongue fragment. Further posterior and plantar heel stabs are used for screws, and a small lateral stab under the facet if a punch or elevator is needed.",
+      "interval": "None. Spread bluntly down to bone through each stab. Use drill sleeves to protect soft tissue.",
+      "atRisk": [
+        {
+          "key": "sural_nerve_right",
+          "why": "Runs posterolateral at the heel. Lateral and posterior stab incisions and pins can transect or tether it, so place them by blunt dissection."
+        },
+        {
+          "key": "tibial_nerve_right",
+          "why": "Its medial calcaneal branches and the plantar nerves lie medial to the tuberosity. Pins or screws exiting the medial cortex endanger them; check length on the axial view."
+        },
+        {
+          "key": "flexor_hallucis_longus_right",
+          "why": "Runs beneath the sustentaculum tali. Over-long screws aimed at the sustentaculum irritate or tether it."
+        },
+        {
+          "key": "posterior_tibial_artery_right",
+          "why": "Lies with the tibial nerve medially. Avoid drilling through the medial wall."
+        }
+      ],
+      "steps": [
+        "Insert a Steinmann or Schanz pin into the tongue fragment from posterosuperior, parallel to its long axis.",
+        "With the knee flexed, lever the pin plantarward while plantarflexing the forefoot (Essex-Lopresti manoeuvre) to rotate the facet back under the talus. Apply medial-lateral compression to the heel to restore width.",
+        "Confirm reduction on Broden and lateral views. For joint-depression patterns, elevate the facet with a punch through a lateral stab.",
+        "Fix with two cannulated 6.5 mm (or 4.0-7.3 mm) screws from the posterior tuberosity: one to the anterior process, one under the posterior facet. Add subchondral screws from lateral into the sustentaculum if needed.",
+        "Countersink the screw heads to limit heel irritation."
+      ],
+      "implants": [
+        "Cannulated screws 4.0-7.3 mm (6.5 mm in Tornetta's series)",
+        "Steinmann pins or K-wires (removed at 10-12 weeks if used as definitive fixation)",
+        "Calcaneal intramedullary nails are an emerging alternative; comparative evidence is still early"
+      ],
+      "checks": [
+        "Lateral: tongue fragment and facet reduced, Böhler angle restored (roughly 20-40 degrees); Gissane angle restored",
+        "Broden views: facet step 2 mm or less",
+        "Axial: varus corrected, width acceptable (residual width is the known weakness of closed reduction), screw tips within the medial cortex",
+        "Posterior heel skin no longer tented after reduction"
+      ],
+      "refs": [
+        "tornetta1998",
+        "essexlopresti1952",
+        "desa2026",
+        "wilmsen2026",
+        "gardner2008"
+      ]
+    },
+    {
+      "id": "primary-subtalar-arthrodesis",
+      "name": "Primary subtalar arthrodesis (with restoration of calcaneal shape)",
+      "when": "Sanders IV with an unreconstructable posterior facet, or as ORIF plus fusion when comminution is severe. Usually done through a sinus tarsi window; use the extensile approach if the body also needs open reduction.",
+      "position": "Lateral decubitus (or prone for posterior screws), thigh tourniquet, C-arm for lateral, axial and ankle mortise views.",
+      "incision": "Sinus tarsi incision from below the tip of the fibula toward the base of the 4th metatarsal, plus 1-2 posterior-plantar heel stab incisions for the fusion screws. Use the extensile L-incision when combined ORIF of the body is required.",
+      "interval": "As for the sinus tarsi approach: above the peroneal sheath, through the sinus tarsi fat pad and EDB origin to the posterior facet. The posterior stabs are blunt to bone, lateral to the plantar fascia origin.",
+      "atRisk": [
+        {
+          "key": "sural_nerve_right",
+          "why": "At risk inferior to the sinus tarsi window and at posterolateral heel stabs. Keep heel stab incisions central or medial to its course."
+        },
+        {
+          "key": "fibularis_brevis_muscle_right",
+          "why": "Peroneal tendons lie just below the window and are compressed by a lateral wall left blown out. Decompress the wall before fusing."
+        },
+        {
+          "key": "flexor_hallucis_longus_right",
+          "why": "Lies beneath the sustentaculum and posteromedial talus. Medial joint preparation and over-long screws can injure it."
+        },
+        {
+          "key": "tibial_nerve_right",
+          "why": "Its medial calcaneal branches lie at the medial heel. Start screws centrally on the plantar-posterior tuberosity and keep them inside the talus."
+        }
+      ],
+      "steps": [
+        "Restore calcaneal height, length, width and heel alignment first: Schanz pin traction and valgus, lateral wall reduction, plus a plate if the body is fractured. Fusing a collapsed heel in situ leaves a horizontal talus and anterior ankle impingement.",
+        "Excise the remaining cartilage from the comminuted posterior facet and the talar undersurface, and fenestrate the subchondral bone.",
+        "Pack the gaps with autograft from the comminuted fragments (or iliac crest) to keep height.",
+        "Position the hindfoot in about 5 degrees of valgus and hold with guide wires from the posterior-plantar tuberosity into the talar body and neck.",
+        "Insert two large cannulated screws (6.5-8 mm) with compression, countersunk, with tips in the talus and clear of the ankle and talonavicular joints."
+      ],
+      "implants": [
+        "Two cannulated compression screws, 6.5-8 mm, tuberosity to talus",
+        "Lateral calcaneal or sinus tarsi plate if the body is fixed at the same time",
+        "Autograft from fragments or iliac crest; substitutes as an alternative"
+      ],
+      "checks": [
+        "Lateral: calcaneal height and Böhler angle restored toward the other side, talar declination normal (talus not horizontal), screws within the talus",
+        "Axial: hindfoot in about 5 degrees of valgus, width restored, no lateral wall impingement under the fibula",
+        "Mortise view: no screw in the ankle joint"
+      ],
+      "refs": [
+        "buckley2014",
+        "almeida2022",
+        "giuliani2026",
+        "sanders1993"
+      ]
+    }
+  ],
+  "after": {
+    "weightBearing": "Splint in neutral for about 2 weeks until the wound has healed, then a removable boot. Non-weight-bearing or touch weight-bearing for 6-8 weeks after ORIF is the common pragmatic regimen (10 weeks after ORIF vs 6 weeks after primary fusion in the Canadian Sanders IV RCT). A systematic review found no worse radiological or functional outcome when partial weight-bearing started before 6 weeks (low-quality data).",
+    "rehab": "Elevate strictly until the wound is sealed. Start active ankle and subtalar motion at about 2-3 weeks. Provide thromboprophylaxis per local policy and support smoking cessation. Progress to gait and proprioceptive physiotherapy after weight-bearing. Return to low-impact sport from about 4 months and full activity by about 6 months in the STA technique series.",
+    "followUp": "Wound review at 10-14 days; nylon sutures may stay longer than 2 weeks if healing is slow. Lateral and axial radiographs at about 2, 6 and 12 weeks. CT if facet congruity is in doubt. Lateral radiograph angles did not correlate with patient-reported outcome after healing, so limit late radiographs to symptomatic patients.",
+    "complications": [
+      "Wound dehiscence or apical flap necrosis (mainly after ELA: 11% needed local wound care in Sanders' series), superficial infection (about 14% after surgery, Cochrane), deep infection or osteomyelitis",
+      "Post-traumatic subtalar arthritis needing fusion (19% of type II vs 47% of type III at 10-20 years after ELA ORIF)",
+      "Sural neuritis, peroneal tendon irritation, missed peroneal dislocation",
+      "Loss of reduction or malunion: varus, loss of height with anterior ankle impingement, lateral wall subfibular impingement",
+      "Prominent heel screws (the commonest complaint after STA in one cohort), implant removal",
+      "Foot compartment syndrome with late claw toes; complex regional pain syndrome; amputation after deep infection (rare)"
+    ],
+    "pitfalls": [
+      "Operating through swollen or blistered skin via an extensile approach. Wait for the wrinkle sign, or use a minimally invasive technique.",
+      "Missing a tongue-type fracture tenting the posterior skin. It needs same-day reduction, not a splint and a review in 2 weeks.",
+      "Accepting residual varus or height loss: restore tuberosity alignment and height before fixing the facet, and confirm on the axial view.",
+      "Over-long sustentacular screws irritating FHL or the medial neurovascular bundle. Check on the axial view.",
+      "K-wire retraction into the fibula during ELA, which can damage the lateral calcaneal artery.",
+      "Fusing a collapsed calcaneus in situ in Sanders IV. Restore its shape first.",
+      "Over-reading angles: Böhler and Gissane angles help confirm reduction but correlate poorly with outcome. Facet congruity and hindfoot alignment matter more."
+    ],
+    "refs": [
+      "deboer2018wb",
+      "buckley2014",
+      "rayes2023",
+      "nooijen2021",
+      "sanders2014",
+      "lewis2023",
+      "kayali2026",
+      "gardner2008",
+      "aosr-ela"
+    ]
+  },
+  "refs": [
+    {
+      "id": "sanders1993",
+      "cite": "Sanders R, Fortin P, DiPasquale T, Walling A. Operative treatment in 120 displaced intraarticular calcaneal fractures. Results using a prognostic computed tomography scan classification. Clin Orthop Relat Res 1993;(290):87-95.",
+      "year": 1993,
+      "kind": "classification",
+      "url": "https://doi.org/10.1097/00003086-199305000-00012"
+    },
+    {
+      "id": "essexlopresti1952",
+      "cite": "Essex-Lopresti P. The mechanism, reduction technique, and results in fractures of the os calcis. Br J Surg 1952;39(157):395-419.",
+      "year": 1952,
+      "kind": "classification",
+      "url": "https://doi.org/10.1002/bjs.18003915704"
+    },
+    {
+      "id": "sanders2014",
+      "cite": "Sanders R, Vaupel ZM, Erdogan M, Downes K. Operative treatment of displaced intraarticular calcaneal fractures: long-term (10-20 years) results in 108 fractures using a prognostic CT classification. J Orthop Trauma 2014;28(10):551-563.",
+      "year": 2014,
+      "kind": "cohort",
+      "url": "https://doi.org/10.1097/BOT.0000000000000169"
+    },
+    {
+      "id": "buckley2002",
+      "cite": "Buckley R, Tough S, McCormack R, Pate G, Leighton R, Petrie D, Galpin R. Operative compared with nonoperative treatment of displaced intra-articular calcaneal fractures: a prospective, randomized, controlled multicenter trial. J Bone Joint Surg Am 2002;84(10):1733-1744.",
+      "year": 2002,
+      "kind": "rct",
+      "url": "https://doi.org/10.2106/00004623-200210000-00001"
+    },
+    {
+      "id": "griffin2014",
+      "cite": "Griffin D, Parsons N, Shaw E, et al. Operative versus non-operative treatment for closed, displaced, intra-articular fractures of the calcaneus: randomised controlled trial (UK Heel Fracture Trial). BMJ 2014;349:g4483.",
+      "year": 2014,
+      "kind": "rct",
+      "url": "https://doi.org/10.1136/bmj.g4483"
+    },
+    {
+      "id": "lewis2023",
+      "cite": "Lewis SR, Pritchard MW, Solomon JL, Griffin XL, Bruce J. Surgical versus non-surgical interventions for displaced intra-articular calcaneal fractures. Cochrane Database Syst Rev 2023;11:CD008628.",
+      "year": 2023,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1002/14651858.CD008628.pub3"
+    },
+    {
+      "id": "purdie2025",
+      "cite": "Purdie SD, Hoskins N, Sumarlie RJ, et al. Minimally invasive surgical techniques compared to an extensile lateral approach in the management of displaced intra-articular calcaneal fractures. A systematic review and meta-analysis of randomised controlled trials. Foot Ankle Surg 2025;31(6):473-485.",
+      "year": 2025,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1016/j.fas.2025.02.012"
+    },
+    {
+      "id": "attenasio2024",
+      "cite": "Attenasio A, Heiman E, Hong IS, et al. Postoperative wound complications in extensile lateral approach versus sinus tarsi approach for calcaneal fractures: are we improving? Updated meta-analysis of recent literature. Injury 2024;55(6):111560.",
+      "year": 2024,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1016/j.injury.2024.111560"
+    },
+    {
+      "id": "fadle2025",
+      "cite": "Fadle AA, Khalifa AA, Shehata PM, El-Adly W, Osman AE. Extensible lateral approach versus sinus tarsi approach for Sanders type II and III calcaneal fractures osteosynthesis: a randomized controlled trial of 186 fractures. J Orthop Surg Res 2025;20(1):8.",
+      "year": 2025,
+      "kind": "rct",
+      "url": "https://doi.org/10.1186/s13018-024-05345-z"
+    },
+    {
+      "id": "park2021",
+      "cite": "Park CH, Yan H, Park J. Randomized comparative study between extensile lateral and sinus tarsi approaches for the treatment of Sanders type 2 calcaneal fracture. Bone Joint J 2021;103-B(2):286-293.",
+      "year": 2021,
+      "kind": "rct",
+      "url": "https://doi.org/10.1302/0301-620X.103B.BJJ-2020-1313.R1"
+    },
+    {
+      "id": "desa2026",
+      "cite": "de Sa R, Durand-Hill M, Sivanadarajah N, Kwok I, Mushtaq N. Closed percutaneous reduction versus mini-open sinus tarsi approach for fixation of displaced intra-articular calcaneal fractures: a systematic review and meta-analysis. Eur J Orthop Surg Traumatol 2026;36(1):423.",
+      "year": 2026,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1007/s00590-026-04992-8"
+    },
+    {
+      "id": "wilmsen2026",
+      "cite": "Wilmsen L, Neubert A, Deichsel A, et al. Percutaneous screw osteosynthesis for the treatment of intra-articular displaced calcaneus fractures. Eur J Trauma Emerg Surg 2026;52.",
+      "year": 2026,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1007/s00068-026-03098-4"
+    },
+    {
+      "id": "buckley2014",
+      "cite": "Buckley R, Leighton R, Sanders D, et al. Open reduction and internal fixation compared with ORIF and primary subtalar arthrodesis for treatment of Sanders type IV calcaneal fractures: a randomized multicenter trial. J Orthop Trauma 2014;28(10):577-583.",
+      "year": 2014,
+      "kind": "rct",
+      "url": "https://doi.org/10.1097/BOT.0000000000000191"
+    },
+    {
+      "id": "almeida2022",
+      "cite": "Almeida JF, Vale C, Gonzalez T, Gomes TM, Oliva XM. Osteosynthesis or primary arthrodesis for displaced intra-articular calcaneus fractures Sanders type IV - a systematic review. Foot Ankle Surg 2022;28(3):281-287.",
+      "year": 2022,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1016/j.fas.2021.04.006"
+    },
+    {
+      "id": "giuliani2026",
+      "cite": "Giuliani A, Calori S, Singlitico A, et al. Primary subtalar arthrodesis in displaced intra-articular calcaneal fracture: a systematic review. Musculoskelet Surg 2026;110(1):11-20.",
+      "year": 2026,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1007/s12306-025-00901-0"
+    },
+    {
+      "id": "folk1999",
+      "cite": "Folk JW, Starr AJ, Early JS. Early wound complications of operative treatment of calcaneus fractures: analysis of 190 fractures. J Orthop Trauma 1999;13(5):369-372.",
+      "year": 1999,
+      "kind": "cohort",
+      "url": "https://doi.org/10.1097/00005131-199906000-00008"
+    },
+    {
+      "id": "benirschke2004",
+      "cite": "Benirschke SK, Kramer PA. Wound healing complications in closed and open calcaneal fractures. J Orthop Trauma 2004;18(1):1-6.",
+      "year": 2004,
+      "kind": "cohort",
+      "url": "https://doi.org/10.1097/00005131-200401000-00001"
+    },
+    {
+      "id": "gardner2008",
+      "cite": "Gardner MJ, Nork SE, Barei DP, Kramer PA, Sangeorzan BJ, Benirschke SK. Secondary soft tissue compromise in tongue-type calcaneus fractures. J Orthop Trauma 2008;22(7):439-445.",
+      "year": 2008,
+      "kind": "cohort",
+      "url": "https://doi.org/10.1097/BOT.0b013e31817ace7e"
+    },
+    {
+      "id": "deboer2018",
+      "cite": "De Boer AS, Van Lieshout EMM, Van 't Land F, et al. Soft tissue complications and timing of surgery in patients with a tongue-type displaced intra-articular calcaneal fracture: an international retrospective cohort study. Injury 2018;49(2):425-429.",
+      "year": 2018,
+      "kind": "cohort",
+      "url": "https://doi.org/10.1016/j.injury.2017.12.008"
+    },
+    {
+      "id": "deboer2018wb",
+      "cite": "De Boer AS, Van Lieshout EMM, Van Moolenbroek G, Den Hartog D, Verhofstad MHJ. The effect of time to post-operative weightbearing on functional and clinical outcomes in adults with a displaced intra-articular calcaneal fracture; a systematic review and pooled analysis. Injury 2018;49(4):743-752.",
+      "year": 2018,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1016/j.injury.2018.02.021"
+    },
+    {
+      "id": "kayali2026",
+      "cite": "Kayali C, Uzakgider M, Suer O, Eyceyurt RS, Celebi F, Karaarslan AA. Is early fixation of intra-articular calcaneal fractures via the sinus tarsi approach safe? J Am Podiatr Med Assoc 2026;116(5):71.",
+      "year": 2026,
+      "kind": "cohort",
+      "url": "https://doi.org/10.3390/japma116050071"
+    },
+    {
+      "id": "yavuz2026",
+      "cite": "Yavuz U, Buyukkuscu MO, Kocabiyik A, et al. Postoperative hindfoot alignment after sinus tarsi versus extensile lateral approach for Sanders type III-IV calcaneal fractures. Foot Ankle Surg 2026 (online ahead of print).",
+      "year": 2026,
+      "kind": "cohort",
+      "url": "https://doi.org/10.1016/j.fas.2026.09.011"
+    },
+    {
+      "id": "spierings2019",
+      "cite": "Spierings KE, Min M, Nooijen LE, Swords MP, Schepers T. Managing the open calcaneal fracture: a systematic review. Foot Ankle Surg 2019;25(6):707-713.",
+      "year": 2019,
+      "kind": "meta-analysis",
+      "url": "https://doi.org/10.1016/j.fas.2018.10.005"
+    },
+    {
+      "id": "tornetta1998",
+      "cite": "Tornetta P 3rd. The Essex-Lopresti reduction for calcaneal fractures revisited. J Orthop Trauma 1998;12(7):469-473.",
+      "year": 1998,
+      "kind": "technique",
+      "url": "https://doi.org/10.1097/00005131-199809000-00007"
+    },
+    {
+      "id": "rayes2023",
+      "cite": "Rayes J, Sharplin P, Maalouf P, Willms S, et al. A stepwise minimally invasive sinus tarsi approach to open reduction and internal fixation of displaced intra-articular calcaneal fractures: technique tip. Foot Ankle Int 2023;44(6):565-573.",
+      "year": 2023,
+      "kind": "technique",
+      "url": "https://doi.org/10.1177/10711007231165765"
+    },
+    {
+      "id": "nooijen2021",
+      "cite": "Nooijen LE, Spierings KE, Sanders FRK, Dingemans SA, Halm JA, Schepers T. Determining the correlation between lateral radiograph morphology and the outcome following surgically treated intra-articular calcaneal fractures. Foot Ankle Spec 2021;14(2):105-113.",
+      "year": 2021,
+      "kind": "cohort",
+      "url": "https://doi.org/10.1177/1938640019897220"
+    },
+    {
+      "id": "keskin2026",
+      "cite": "Keskin A, Aygun T, Yigitbas EY, Aytekin K. Calcaneal morphometry in children and adults: normative values of the Bohler and Gissane angles in a Turkish population. Pak J Med Sci 2026;42(10):2804-2808.",
+      "year": 2026,
+      "kind": "cohort",
+      "url": "https://doi.org/10.12669/pjms.42.10.20198"
+    },
+    {
+      "id": "aosr-sta",
+      "cite": "AO Foundation. AO Surgery Reference: Calcaneus (adult trauma), sinus tarsi approach.",
+      "year": 2026,
+      "kind": "technique",
+      "url": "https://surgeryreference.aofoundation.org/orthopedic-trauma/adult-trauma/calcaneous/approach/sinus-tarsi-approach"
+    },
+    {
+      "id": "aosr-ela",
+      "cite": "AO Foundation. AO Surgery Reference: Calcaneus (adult trauma), extended lateral approach.",
+      "year": 2026,
+      "kind": "technique",
+      "url": "https://surgeryreference.aofoundation.org/orthopedic-trauma/adult-trauma/calcaneous/approach/extended-lateral-approach"
+    }
+  ],
+  "reviewed": "2026-11"
+}

@@ -1,0 +1,424 @@
+{
+  "id": "plateau",
+  "title": {
+    "en": "Tibial plateau fractures",
+    "de": "Tibiakopffrakturen",
+    "es": "Fracturas de la meseta tibial",
+    "ar": "كسور الهضبة الظنبوبية",
+    "fr": "Fractures du plateau tibial",
+    "it": "Fratture del piatto tibiale",
+    "nl": "Tibiaplateaufracturen"
+  },
+  "classification": {
+    "name": "Schatzker",
+    "basis": "Schatzker (1979) is read on the AP knee radiograph: which condyle is involved (lateral I-III, medial IV, both V-VI) and whether the lateral fragment is split, depressed or both; VI adds a metaphyseal-diaphyseal dissociation. Plain films underestimate the pattern, so read every operative case on CT. On axial CT at the plateau, Luo's three-column concept divides the plateau into lateral, medial and posterior columns by lines from the centre between the tibial spines to the tibial tuberosity, the anterior fibular head and the posteromedial ridge; each fractured column, especially a posterior fragment invisible on the AP view, is planned for its own approach and buttress. Kfuri and Schatzker (2018) revisited the system on CT: the original six types are kept, a virtual equator splits each condyle into anterior and posterior halves, and modifiers record where the main fracture planes lie and the injury mechanism (varus/valgus, flexion/extension), which tells you where the buttress must sit.",
+    "refs": ["schatzker1979", "luo2010", "kfuri2018"]
+  },
+  "types": [
+    {
+      "code": "I",
+      "title": {
+        "en": "Lateral split",
+        "de": "Laterale Spaltfraktur",
+        "es": "Fractura en cuña lateral (separación)",
+        "ar": "كسر انشطاري جانبي",
+        "fr": "Fracture-séparation latérale",
+        "it": "Frattura a cuneo laterale (separazione)",
+        "nl": "Laterale splijtfractuur"
+      },
+      "summary": "Wedge split of the lateral condyle without articular depression, typically in young dense bone. The lateral meniscus can be torn or trapped in the fracture line.",
+      "management": "either",
+      "recommendation": "Undisplaced and stable: brace and early motion with protected weight bearing. Displaced or widened: closed or arthroscopy-assisted reduction with a large reduction clamp and percutaneous lag screws (add a buttress/antiglide plate if the distal apex is unstable or bone is poor); look for an incarcerated meniscus if it will not reduce.",
+      "refs": ["schatzker1979", "gardner2005", "jiang2021", "tay2024"],
+      "approach": "arthroscopic-percutaneous"
+    },
+    {
+      "code": "II",
+      "title": {
+        "en": "Lateral split-depression",
+        "de": "Laterale Spalt-Impressionsfraktur",
+        "es": "Fractura en cuña-hundimiento lateral",
+        "ar": "كسر انشطاري انخسافي جانبي",
+        "fr": "Fracture-séparation-enfoncement latérale",
+        "it": "Frattura a cuneo-affondamento laterale",
+        "nl": "Laterale splijt-impressiefractuur"
+      },
+      "summary": "Lateral split with depression of the adjacent articular surface; the commonest pattern, usually a valgus injury.",
+      "management": "op",
+      "recommendation": "Operate when articular displacement or condylar widening is significant: anterolateral submeniscal approach, open the split like a book, elevate the depressed fragments en bloc from below, hold with subchondral raft screws, fill the void and buttress with a lateral plate. Synthetic void fillers (calcium phosphate cement) are at least as good as iliac autograft for subsidence and avoid donor-site morbidity.",
+      "refs": ["russell2008", "cooper2022", "cochrane2024", "assink2023"],
+      "approach": "anterolateral"
+    },
+    {
+      "code": "III",
+      "title": {
+        "en": "Lateral pure depression",
+        "de": "Laterale reine Impressionsfraktur",
+        "es": "Hundimiento lateral puro",
+        "ar": "انخساف جانبي صرف",
+        "fr": "Enfoncement latéral pur",
+        "it": "Affondamento laterale puro",
+        "nl": "Zuivere laterale impressiefractuur"
+      },
+      "summary": "Central depression of the lateral plateau with an intact lateral cortical rim, usually low-energy in osteoporotic bone. On MRI almost every case has a cortical split, so true pure depression is rare.",
+      "management": "either",
+      "recommendation": "Minimal depression in a stable knee: nonoperative with early motion. Significant depression or instability: elevate through a small metaphyseal cortical window with a bone tamp under fluoroscopy or arthroscopy, support with percutaneous raft screws and fill the void with cement or substitute; open the joint only if you cannot see or reduce it.",
+      "refs": ["gardner2005", "singleton2017", "russell2008", "jiang2021"],
+      "approach": "arthroscopic-percutaneous"
+    },
+    {
+      "code": "IV",
+      "title": {
+        "en": "Medial plateau fracture",
+        "de": "Mediale Tibiakopffraktur",
+        "es": "Fractura de la meseta medial",
+        "ar": "كسر الهضبة الإنسية",
+        "fr": "Fracture du plateau médial",
+        "it": "Frattura del piatto mediale",
+        "nl": "Mediale plateaufractuur"
+      },
+      "summary": "Split and/or depression of the medial condyle, often with a posteromedial coronal fragment; a high-energy varus injury that behaves like a knee dislocation (fracture-dislocation) with ligament, vascular and peroneal nerve injury.",
+      "management": "op",
+      "recommendation": "Treat as a knee-dislocation equivalent: check ABI and compartments first, span if the knee is subluxed or the soft tissue is poor. Fix with a posteromedial approach and an antiglide/buttress plate placed at the apex of the posteromedial fragment; compartment syndrome is especially frequent in medial fracture-dislocations.",
+      "refs": ["stark2009", "mills2004", "galla2003", "luo2010"],
+      "approach": "posteromedial"
+    },
+    {
+      "code": "V",
+      "title": {
+        "en": "Bicondylar fracture",
+        "de": "Bikondyläre Tibiakopffraktur",
+        "es": "Fractura bicondílea",
+        "ar": "كسر ثنائي اللقمة",
+        "fr": "Fracture bitubérositaire",
+        "it": "Frattura bicondilica",
+        "nl": "Bicondylaire fractuur"
+      },
+      "summary": "Both condyles fractured with the metaphysis still continuous with the shaft (inverted-Y); the medial component is often a posteromedial fragment.",
+      "management": "op",
+      "recommendation": "Stage with a spanning fixator when the soft tissue is swollen or blistered, then fix each displaced column through separate incisions: anterolateral for the lateral articular surface and posteromedial antiglide plate for the medial fragment. A ring fixator with limited internal fixation is an evidence-based alternative with fewer reoperations.",
+      "refs": ["cots2006", "barei2006", "egol2005", "luo2010"],
+      "approach": "dual-incision"
+    },
+    {
+      "code": "VI",
+      "title": {
+        "en": "Metaphyseal-diaphyseal dissociation",
+        "de": "Tibiakopffraktur mit metaphysär-diaphysärer Dissoziation",
+        "es": "Fractura con disociación metafiso-diafisaria",
+        "ar": "كسر مع انفصال كردوسي-جدلي",
+        "fr": "Fracture avec disjonction métaphyso-diaphysaire",
+        "it": "Frattura con dissociazione metafiso-diafisaria",
+        "nl": "Fractuur met metafysair-diafysaire dissociatie"
+      },
+      "summary": "Plateau fracture with a transverse or oblique metaphyseal fracture that separates the articular block from the shaft; highest-energy pattern with the highest compartment syndrome and wound complication rates.",
+      "management": "op",
+      "recommendation": "Default to damage control: knee-spanning external fixation on the day of injury, CT in the frame, compartment watch, then definitive fixation (dual plating or ring fixation) once the skin wrinkles. Early definitive ORIF within 72 hours can be safe in selected fractures with good soft tissue, but that evidence is retrospective.",
+      "refs": ["egol2005", "stark2009", "cots2006", "chhabu2026", "lutnick2026"],
+      "approach": "staged-exfix-orif"
+    }
+  ],
+  "workup": [
+    "AP, lateral and a plateau view (AP tilted about 10 degrees caudal to run parallel to the posterior slope); add traction films or repeat imaging in the spanning frame.",
+    "CT with coronal, sagittal and 3D reconstructions for every operative case: map each column (Luo), the posteromedial and posterolateral fragments, depth and area of depression, and plan the approach from it. In staged cases scan after the spanning fixator is on.",
+    "Soft tissue: open wounds, fracture blisters (clear vs haemorrhagic), skin wrinkle sign, degloving; these decide timing and incision placement.",
+    "Compartments: hourly documented assessment in high-energy patterns (IV-VI), before and after a spanning frame; measure pressures if the exam is unreliable (delta pressure below 30 mmHg = high risk).",
+    "Vascular: pulses and ankle-brachial index in medial fracture-dislocations and bicondylar injuries; ABI below 0.90 needs CT angiography and vascular review.",
+    "Peroneal nerve function (dorsiflexion, first web space sensation) documented before any surgery.",
+    "MRI selectively (or arthroscopy at surgery): lateral meniscus pathology, cruciate and collateral injuries are present in most operative fractures and an incarcerated meniscus blocks reduction."
+  ],
+  "decide": [
+    {
+      "text": "Nonoperative (hinged brace, early ROM, protected weight bearing) suits undisplaced or minimally displaced fractures in a knee that is stable to varus/valgus stress in extension and correctly aligned, and patients unfit for surgery. Most displaced fractures are operated; there is no plateau-specific BOA (BOAST) standard, and the Cochrane review finds no RCT evidence that settles the best fixation method.",
+      "refs": ["cochrane2024", "aosr"]
+    },
+    {
+      "text": "Displacement matters: residual articular incongruity above 4 mm and coronal or sagittal malalignment raise the risk of later TKA (14% at a mean 6.5 years), while 2 to 4 mm residual step or gap did not increase it compared with under 2 mm. Pre-operative CT gap above 8.5 mm or step-off above 6 mm independently predicted TKA. Smaller residual depression (under 2.5 mm) gave better function in a small cohort.",
+      "refs": ["assink2023", "singleton2017"]
+    },
+    {
+      "text": "Timing: high-energy bicondylar and medial fracture-dislocation patterns with swelling or blisters are spanned on the day of admission and fixed when the soft tissue allows (staged protocol: 5% deep infection). A recent multicentre retrospective series found acute ORIF within 72 hours safe in selected bicondylar fractures with fewer complications, but selection bias is likely; base timing on the skin, not the calendar.",
+      "refs": ["egol2005", "lutnick2026"]
+    },
+    {
+      "text": "Bicondylar fractures: ORIF with medial and lateral plates and limited open reduction with a circular fixator gave similar reduction and 2-year function in the only multicentre RCT (COTS), but ORIF had more deep infections (18%) and more unplanned reoperations (37 vs 16). A small 2026 RCT (40 patients, Schatzker IV-VI) again found similar function with earlier weight bearing in the Ilizarov group. Choose by soft tissue, patient and team experience.",
+      "refs": ["cots2006", "chhabu2026", "cochrane2024"]
+    },
+    {
+      "text": "Compartment syndrome: incidence about 18% in Schatzker VI and 53% in medial fracture-dislocations treated with temporary spanning fixation, most diagnosed after frame placement. Monitor through the first 48 hours after spanning and after definitive surgery; decompress urgently on the diagnosis with two-incision four-compartment fasciotomy (BOAST 10, updated 2025).",
+      "refs": ["stark2009", "boast10", "mcqueen1996"]
+    },
+    {
+      "text": "Void filling: no filler is mandatory, but when a metaphyseal void is left after elevation, synthetic substitutes (calcium phosphate cement and others) match autograft for articular depression with less blood loss and shorter surgery; one RCT showed less subsidence with calcium phosphate cement than iliac crest graft. Overall RCT certainty is very low.",
+      "refs": ["russell2008", "cooper2022", "cochrane2024"]
+    },
+    {
+      "text": "Infection prophylaxis: in high-risk plateau and pilon fractures, 1 g intrawound vancomycin powder at definitive fixation reduced gram-positive deep infection (overall 6.4% vs 9.8%, P = .06; METRC VANCO); adding tobramycin powder did not help further (TOBRA 2026).",
+      "refs": ["vanco2021", "tobra2026"]
+    },
+    {
+      "text": "Arthroscopy-assisted reduction and percutaneous fixation for lateral split, split-depression and depression patterns: meta-analyses of mostly non-randomised studies show equal radiological reduction and complications, with better function and shorter stay in one 2021 analysis but no significant clinical difference in a larger 2024 analysis. It adds diagnosis and treatment of meniscal injury.",
+      "refs": ["jiang2021", "tay2024"]
+    }
+  ],
+  "approaches": [
+    {
+      "id": "anterolateral",
+      "name": "Anterolateral approach with submeniscal arthrotomy",
+      "when": "Lateral split-depression (II), lateral condyle of bicondylar fractures (V, VI); open depression elevation in III when percutaneous reduction fails.",
+      "position": "Supine on a radiolucent table, bump under the ipsilateral hip, knee flexed about 30 degrees over a radiolucent triangle; thigh tourniquet; C-arm from the opposite side, check AP, plateau view and lateral before prepping.",
+      "incision": "Curved (hockey-stick) or straight longitudinal incision from just proximal to the lateral femoral epicondyle, over Gerdy's tubercle, then distally about 1 cm lateral to the tibial crest, as far as the plate needs.",
+      "interval": "No true internervous plane. Split the iliotibial band in line with its fibres or release it from Gerdy's tubercle; elevate the tibialis anterior origin subperiosteally from the lateral proximal tibia. Submeniscal arthrotomy: incise the meniscotibial (coronary) ligament horizontally, tag and lift the lateral meniscus to see the articular surface.",
+      "atRisk": [
+        {"key": "lateral_meniscus_right", "why": "Divided at the coronary attachment for the submeniscal view and often torn or incarcerated in the split; tag it with sutures, repair peripheral tears and reattach it to the plate or capsule at closure."},
+        {"key": "iliotibial_tract_right", "why": "Split or elevated from Gerdy's tubercle for exposure; repair it to restore lateral stability and cover the plate."},
+        {"key": "common_fibular_nerve_right", "why": "Winds round the fibular neck just posterior-inferior to the operative field; avoid posterior retractors over the fibular neck and posterolateral dissection at that level."},
+        {"key": "anterior_tibial_artery_right", "why": "Passes forward through the interosseous membrane a few centimetres below the joint and runs on it next to the lateral tibia; distal plate screws and bicortical drilling can injure it, so use percutaneous insertion through stab incisions with blunt spreading down to bone."},
+        {"key": "inferior_lateral_genicular_artery_right", "why": "Runs along the lateral joint line deep to the fibular collateral ligament, divided or coagulated during the arthrotomy."}
+      ],
+      "steps": [
+        "Arthrotomy below the meniscus, wash out haematoma and inspect the articular surface and meniscus.",
+        "Open the lateral split like a book (hinge on its distal periosteum) or make a metaphyseal cortical window in III.",
+        "Elevate the depressed articular fragments en bloc with a curved tamp from below, overreducing slightly against the femoral condyle as a template; temporary K-wires.",
+        "Close the split with a large pointed reduction clamp and confirm surface and condylar width on fluoroscopy.",
+        "Place 3.5 mm subchondral raft screws just under the elevated fragments (through or outside the plate).",
+        "Fill the metaphyseal void with calcium phosphate cement or another substitute (or graft).",
+        "Apply the lateral buttress or locking plate; repair the meniscus and coronary ligament, then the iliotibial band."
+      ],
+      "implants": [
+        "3.5 mm anatomic proximal lateral tibial buttress/locking plate (L or rim plate)",
+        "3.5 mm raft screws; 6.5/7.3 mm cannulated lag screws with washers for pure splits",
+        "Calcium phosphate cement or other synthetic void filler; iliac crest autograft is an alternative"
+      ],
+      "checks": [
+        "Plateau-view AP and lateral: articular step-off and gap under 2 mm as the target; over 4 mm residual is associated with later TKA.",
+        "Condylar width: lateral cortex of the tibial condyle in line with the femoral condyle on AP, no residual widening compared with the other side.",
+        "Coronal alignment: MPTA about 87 degrees (normal 85 to 90).",
+        "Sagittal alignment: PPTA about 81 degrees (posterior slope about 9 degrees); sagittal malalignment carried the highest TKA risk in Assink 2023.",
+        "No screws in the joint: rotate the C-arm and use the plateau view; raft screws immediately subchondral."
+      ],
+      "refs": ["aosr", "russell2008", "cooper2022", "assink2023", "paley2002"]
+    },
+    {
+      "id": "posteromedial",
+      "name": "Posteromedial approach (modified Lobenhoffer / direct dorsal)",
+      "when": "Medial condyle fractures (IV), the posteromedial fragment of bicondylar fractures (V, VI), posterior column of Luo.",
+      "position": "Supine with the leg in figure-of-four (hip abducted and externally rotated) for combination with an anterolateral approach, or prone (original Lobenhoffer direct dorsal approach) for large posteromedial fracture-dislocations, where knee extension helps reduce the fragment. Thigh tourniquet, C-arm from the opposite side.",
+      "incision": "Supine: longitudinal incision along the posteromedial border of the proximal tibia, from the joint line distally. Prone: longitudinal or slightly curved incision over the medial border of the medial head of the gastrocnemius.",
+      "interval": "Between the medial head of the gastrocnemius (retracted posterolaterally, protecting the popliteal vessels and tibial nerve) and the pes anserinus and semimembranosus (retracted anteriorly). Elevate the popliteus subperiosteally from the posterior tibia to see the posteromedial apex; leave the superficial MCL intact.",
+      "atRisk": [
+        {"key": "saphenous_nerve_right", "why": "Runs with the great saphenous vein in the subcutaneous tissue at the posteromedial knee; identify and retract them anteriorly with the skin flap. The infrapatellar branch crosses distally and is often cut (anteromedial numbness)."},
+        {"key": "great_saphenous_vein_right", "why": "Lies in the skin flap along the posteromedial border; retract with the saphenous nerve."},
+        {"key": "popliteal_artery_right", "why": "Lies just lateral to the medial gastrocnemius deep to the popliteus; keep retractors on bone, retract the gastrocnemius rather than dissect lateral to it, and stay subperiosteal under popliteus."},
+        {"key": "tibial_nerve_right", "why": "Runs with the popliteal vessels posterior to popliteus; protected by the medial gastrocnemius head when it is retracted laterally."},
+        {"key": "medial_head_of_gastrocnemius_right", "why": "The posterior wall of the interval; retracting it laterally protects the neurovascular bundle, so do not detach it unless exposure demands."},
+        {"key": "semimembranosus_muscle_right", "why": "Inserts on the posteromedial corner; retract or partly elevate, then repair, as it is a dynamic posteromedial stabiliser."},
+        {"key": "superficial_part_of_tibial_collateral_ligament_right", "why": "Anterior border of the exposure; leave it attached to keep medial stability."}
+      ],
+      "steps": [
+        "Expose the apex of the posteromedial fragment (the distal spike) subperiosteally beneath popliteus.",
+        "Reduce the fragment at its apex with a pointed clamp or ball-spike, using knee extension (and valgus) to tension the posterior capsule.",
+        "Temporary K-wires, then confirm on lateral and AP fluoroscopy that the articular surface and metaphyseal cortex are anatomically aligned.",
+        "Apply an antiglide/buttress plate with the first screw just distal to the apex so the plate compresses the fragment as it is tightened.",
+        "Add screws in the proximal holes; in bicondylar fractures fix the medial side first to provide a stable reference for the lateral reduction."
+      ],
+      "implants": [
+        "3.5 mm posteromedial anatomic plate, one-third tubular or small T-plate in antiglide mode",
+        "3.5 mm cortical screws; locking not essential for a buttress"
+      ],
+      "checks": [
+        "Lateral view: posterior cortex continuous and posterior tibial slope restored (PPTA about 81 degrees).",
+        "AP view: medial articular step under 2 mm; MPTA about 87 degrees, no varus.",
+        "Plate apex buttress sits at the distal spike of the fragment."
+      ],
+      "refs": ["galla2003", "luo2010", "barei2006", "paley2002"]
+    },
+    {
+      "id": "posterolateral",
+      "name": "Posterolateral approach (Frosch; Carlson)",
+      "when": "Isolated posterolateral depression or split fragments that cannot be reached or buttressed from the front (posterior part of the lateral column / posterior column in Luo); posterior shearing bicondylar fractures (Carlson, prone).",
+      "position": "Lateral decubitus or prone (Frosch); prone for Carlson's combined posterior bicondylar exposure. Thigh tourniquet, C-arm from the opposite side; check true lateral and AP before draping.",
+      "incision": "Frosch: one posterolateral incision along the posterior border of the iliotibial band to the fibular head, giving a lateral arthrotomy window anterior to the fibular collateral ligament and a posterolateral window behind it, without fibular osteotomy. Carlson: longitudinal posterolateral incision with the patient prone.",
+      "interval": "Identify and protect the common fibular nerve behind the biceps tendon first. Posterolateral window: between the lateral head of the gastrocnemius (retracted medially) and the biceps/fibular head (laterally), elevating soleus and popliteus from the posterior tibia. Lateral window: arthrotomy anterior to the fibular collateral ligament for direct visual control of the articular reduction.",
+      "atRisk": [
+        {"key": "common_fibular_nerve_right", "why": "Lies behind the biceps tendon and crosses the fibular neck; dissect it free and protect it with a loop for the whole procedure."},
+        {"key": "anterior_tibial_artery_right", "why": "Passes through the interosseous membrane a short distance below the joint and limits distal exposure in the posterolateral window; stay subperiosteal and do not extend the dissection distally without seeing it."},
+        {"key": "inferior_lateral_genicular_artery_right", "why": "Crosses the posterolateral corner near the joint line; ligate it if it limits exposure."},
+        {"key": "fibular_collateral_ligament_right", "why": "Separates the two windows; keep it and the popliteofibular ligament intact (no fibular osteotomy) to preserve posterolateral stability."},
+        {"key": "popliteus_muscle_right", "why": "Elevated from the posterior tibia to expose the fragment; the tendon and popliteofibular complex should be preserved."},
+        {"key": "lateral_head_of_gastrocnemius_right", "why": "Retracted medially to protect the popliteal vessels and tibial nerve; excessive retraction stretches the bundle."}
+      ],
+      "steps": [
+        "Free and protect the common fibular nerve.",
+        "Develop the posterolateral window and expose the posterolateral fragment subperiosteally.",
+        "Lateral arthrotomy anterior to the fibular collateral ligament to view the joint surface.",
+        "Elevate the depressed posterolateral fragment from below and hold with K-wires; fill the void.",
+        "Buttress with a small posterolateral plate or rim plate; confirm on the lateral view."
+      ],
+      "implants": [
+        "2.7 or 3.5 mm small T/L buttress plate or posterolateral rim plate",
+        "Raft screws from anterior or lateral; synthetic void filler"
+      ],
+      "checks": [
+        "True lateral: posterolateral articular surface restored, no posterior step; PPTA about 81 degrees.",
+        "AP: lateral articular step under 2 mm and no screws intra-articular.",
+        "Peroneal nerve intact on waking (document)."
+      ],
+      "refs": ["frosch2010", "carlson2005", "luo2010", "paley2002"]
+    },
+    {
+      "id": "dual-incision",
+      "name": "Dual incision: anterolateral plus posteromedial",
+      "when": "Bicondylar fractures (V, VI) with a displaced medial or posteromedial fragment, once the soft tissue allows.",
+      "position": "Supine on a radiolucent table; posteromedial work in figure-of-four, anterolateral with a bump under the hip and the knee over a triangle. Some surgeons do the posteromedial side prone first, then turn supine. Thigh tourniquet, C-arm from the opposite side; a femoral distractor helps restore length.",
+      "incision": "Posteromedial longitudinal incision along the posteromedial tibial border and a separate anterolateral incision as above, keeping a wide skin bridge; avoid a single midline incision with large flaps.",
+      "interval": "Posteromedial: between medial head of gastrocnemius and pes anserinus/semimembranosus. Anterolateral: through the iliotibial band and below tibialis anterior with a submeniscal arthrotomy.",
+      "atRisk": [
+        {"key": "popliteal_artery_right", "why": "At risk posteriorly from retractors, drills and long screws aimed medial to lateral; use measured short screws and keep posteromedial retractors on bone."},
+        {"key": "common_fibular_nerve_right", "why": "At risk laterally and from lateral-to-medial screws exiting posterolaterally; check screw length."},
+        {"key": "saphenous_nerve_right", "why": "In the posteromedial skin flap with the great saphenous vein."},
+        {"key": "lateral_meniscus_right", "why": "Lifted for the submeniscal arthrotomy; repair at closure."},
+        {"key": "anterior_tibial_artery_right", "why": "At risk from distal lateral plate screws and percutaneous diaphyseal fixation in VI."}
+      ],
+      "steps": [
+        "Restore length and alignment first (femoral distractor or the spanning frame kept on during surgery).",
+        "Posteromedial approach: reduce the medial/posteromedial fragment to the shaft and buttress it, converting the fracture to a lateral-type injury with a stable medial reference.",
+        "Anterolateral approach: open the lateral split, elevate the depressed articular segment against the femoral condyle, raft screws, void filler.",
+        "Reduce the lateral condyle to the medial column and the shaft; lateral plate (locked in VI), with diaphyseal screws through stab incisions.",
+        "Fluoroscopic check of alignment and joint line; close both incisions without tension, repair meniscus and iliotibial band."
+      ],
+      "implants": [
+        "3.5 mm posteromedial buttress plate plus 3.5 mm lateral anatomic locking plate",
+        "Raft screws, synthetic void filler; long lateral locking plate inserted submuscularly for metaphyseal-diaphyseal extension"
+      ],
+      "checks": [
+        "Articular step and gap under 2 mm (over 4 mm residual increases TKA risk).",
+        "MPTA about 87 degrees and PPTA about 81 degrees; check the mechanical axis with a cable or the bovie cord from hip to ankle.",
+        "Condylar width restored, tibial condyles in line with the femoral condyles on AP; rotation matched to the other leg.",
+        "Medial and lateral screws do not collide or penetrate the joint; posterior screw tips not prominent."
+      ],
+      "refs": ["barei2006", "luo2010", "cots2006", "assink2023", "paley2002"]
+    },
+    {
+      "id": "staged-exfix-orif",
+      "name": "Staged knee-spanning external fixation, then definitive ORIF or ring fixation",
+      "when": "High-energy bicondylar fractures (V, VI), medial fracture-dislocations (IV) and any pattern with swelling, blisters, open wounds, compartment syndrome, vascular injury or polytrauma.",
+      "position": "Supine on a radiolucent table, no tourniquet; C-arm from the opposite side. Definitive stage as for the chosen approaches, or supine for a ring fixator.",
+      "incision": "Stab incisions for pins: two anterior or anterolateral femoral pins well proximal to the suprapatellar pouch and two anteromedial tibial pins distal to where the definitive plates will end.",
+      "interval": "Pins through stab incisions with blunt dissection to bone and drill sleeves; no exposure of the fracture at stage one.",
+      "atRisk": [
+        {"key": "suprapatellar_bursa_right", "why": "Femoral pins placed too distally enter the knee joint through the suprapatellar pouch and contaminate it; stay proximal to its upper limit."},
+        {"key": "anterior_tibial_artery_right", "why": "Lateral tibial pins can injure it; tibial pins go anteromedial on the subcutaneous surface."},
+        {"key": "common_fibular_nerve_right", "why": "Stretched by uncorrected varus and compressed by bandages at the fibular neck; check and document function after frame application."},
+        {"key": "popliteal_artery_right", "why": "Traction and reduction can unmask or worsen arterial injury; recheck pulses and ABI after the frame is on."}
+      ],
+      "steps": [
+        "Apply the frame on the day of injury: pins in femur and tibia away from future incisions, restore length and alignment by ligamentotaxis, knee in slight flexion, joint reduced.",
+        "Check pulses, ABI, compartments and peroneal nerve after the frame; keep the foot free so the leg can be examined, and monitor compartments for at least 48 hours.",
+        "CT in the frame to plan columns and approaches.",
+        "Debride open wounds; elevate; wait for the wrinkle sign and epithelialised blisters.",
+        "Definitive fixation: dual incision plating, or limited open/percutaneous articular screws with a circular fixator when the soft tissue remains poor.",
+        "Consider 1 g intrawound vancomycin powder at definitive fixation in high-risk fractures."
+      ],
+      "implants": [
+        "5 or 6 mm Schanz pins, two in femur and two in tibia, bar-to-bar construct",
+        "Definitive: dual plates, or hybrid/circular fixator with tensioned wires plus percutaneous lag screws"
+      ],
+      "checks": [
+        "After spanning: knee reduced (no subluxation), length restored, coronal and sagittal alignment close to normal on AP and lateral.",
+        "Pin sites outside the zones of the planned plates and incisions.",
+        "After definitive fixation: articular step and gap under 2 mm, MPTA about 87 degrees, PPTA about 81 degrees, condylar width restored."
+      ],
+      "refs": ["egol2005", "stark2009", "cots2006", "vanco2021", "lutnick2026"]
+    },
+    {
+      "id": "arthroscopic-percutaneous",
+      "name": "Arthroscopy-assisted (or fluoroscopic) reduction and percutaneous fixation",
+      "when": "Lateral split (I), pure depression (III) and simple split-depression (II) in low-energy injuries with good skin; also to treat meniscal pathology.",
+      "position": "Supine, leg free or in a holder allowing full flexion, thigh tourniquet; arthroscopy tower on the opposite side and C-arm from the opposite side or the foot end.",
+      "incision": "Standard anterolateral and anteromedial portals; a 2 cm incision over the anteromedial or anterolateral metaphysis for the cortical window and tamp; stab incisions for lateral cannulated screws.",
+      "interval": "Percutaneous: cortical window through the metaphysis below the depressed fragment, without an arthrotomy.",
+      "atRisk": [
+        {"key": "lateral_meniscus_right", "why": "Often torn or trapped in the split; reduce it out of the fracture and repair it arthroscopically."},
+        {"key": "infrapatellar_branch_of_saphenous_nerve_right", "why": "Crosses the anteromedial portal and medial window sites; use vertical incisions and blunt dissection."},
+        {"key": "popliteal_artery_right", "why": "Guidewires and drills from the tamp tract or lateral-to-medial screws can breach the posterior cortex; check the lateral view before advancing."},
+        {"key": "saphenous_nerve_right", "why": "Lateral-to-medial screws that exit medially can irritate it; use the correct length."}
+      ],
+      "steps": [
+        "Diagnostic arthroscopy with low-pressure or gravity inflow; wash out haematoma and fat, assess the meniscus and ligaments.",
+        "Under C-arm, ream a cortical window and pass a curved tamp below the depressed fragment; elevate en bloc until flush under the scope.",
+        "Reduce any split with a large pointed clamp through stab incisions.",
+        "Place two or three subchondral cannulated raft screws parallel to the joint, or a percutaneous plate if the rim is weak.",
+        "Fill the void through the window with injectable calcium phosphate cement or substitute.",
+        "Repair meniscal tears; palpate the calf and thigh before leaving theatre."
+      ],
+      "implants": [
+        "6.5 or 7.3 mm cannulated screws with washers (or 3.5 mm raft screws)",
+        "Injectable calcium phosphate cement or other synthetic filler",
+        "Optional percutaneous lateral buttress plate"
+      ],
+      "checks": [
+        "Arthroscopic and plateau-view fluoroscopic step under 2 mm.",
+        "Condylar width restored; screws subchondral and not intra-articular.",
+        "Calf soft after arthroscopy (fluid extravasation)."
+      ],
+      "refs": ["jiang2021", "tay2024", "russell2008", "gardner2005"]
+    }
+  ],
+  "after": {
+    "weightBearing": "Traditionally touch-down or partial weight bearing for 6 to 12 weeks. An RCT in Schatzker I-IV after ORIF (45 analysed) found immediate weight bearing as tolerated gave better function at 6 months with no difference in CT or radiographic subsidence; it was small and excluded bicondylar fractures. In bicondylar fractures keep loading protected until bridging is seen; ring fixation allows earlier loading.",
+    "rehab": "Early active and passive knee motion from day 1 (aim for 90 degrees by 4 to 6 weeks), quadriceps and straight-leg raising, hinged brace if ligaments are injured or fixation is tenuous; VTE prophylaxis per local protocol.",
+    "followUp": "Radiographs (AP, plateau view, lateral) at 2, 6 and 12 weeks for subsidence, then at 6 and 12 months; long-leg standing film when weight bearing to check the mechanical axis. Long term, warn about post-traumatic arthritis: 14% had TKA at a mean 6.5 years.",
+    "complications": [
+      "Deep infection and wound breakdown (18% after dual-plate ORIF in the COTS trial; 5% with a staged protocol)",
+      "Acute compartment syndrome (18% in Schatzker VI, 53% in medial fracture-dislocations after spanning)",
+      "Loss of reduction and articular subsidence, especially in osteoporotic depression fractures",
+      "Knee stiffness and arthrofibrosis",
+      "Varus or valgus collapse and malunion in coronal or sagittal plane",
+      "Post-traumatic osteoarthritis and conversion to TKA",
+      "Common fibular nerve palsy; popliteal artery injury in medial fracture-dislocations",
+      "Metaphyseal-diaphyseal nonunion in VI"
+    ],
+    "pitfalls": [
+      "Planning from plain films alone: the posteromedial and posterolateral fragments are seen on CT; buttress each displaced column from its own side.",
+      "A lateral locking plate alone does not reliably hold a displaced posteromedial fragment; reduce and buttress it directly through a posteromedial incision.",
+      "Ignoring sagittal alignment: loss of posterior slope or posterior column collapse carried the highest TKA risk; check the true lateral, not only the AP.",
+      "Missing compartment syndrome after a spanning frame, especially in medial fracture-dislocations; all three missed cases in one series had frames that held the foot, so make sure the leg can be examined.",
+      "Placing pins where the definitive plates and incisions will go; a single midline incision with large flaps over swollen skin.",
+      "Leaving the meniscus trapped in a split or not repairing it after a submeniscal arthrotomy.",
+      "Unrecognised popliteal artery injury in a medial fracture-dislocation: measure the ABI."
+    ],
+    "refs": ["ibrahim2025", "chhabu2026", "cots2006", "egol2005", "stark2009", "assink2023", "luo2010", "mills2004"]
+  },
+  "refs": [
+    {"id": "schatzker1979", "cite": "Schatzker J, McBroom R, Bruce D. The tibial plateau fracture. The Toronto experience 1968-1975. Clin Orthop Relat Res 1979;(138):94-104.", "year": 1979, "kind": "classification", "url": "https://pubmed.ncbi.nlm.nih.gov/445923/"},
+    {"id": "kfuri2018", "cite": "Kfuri M, Schatzker J. Revisiting the Schatzker classification of tibial plateau fractures. Injury 2018;49(12):2252-2263.", "year": 2018, "kind": "classification", "url": "https://doi.org/10.1016/j.injury.2018.11.010"},
+    {"id": "luo2010", "cite": "Luo CF, Sun H, Zhang B, Zeng BF. Three-column fixation for complex tibial plateau fractures. J Orthop Trauma 2010;24(11):683-692.", "year": 2010, "kind": "classification", "url": "https://doi.org/10.1097/BOT.0b013e3181d436f3"},
+    {"id": "gardner2005", "cite": "Gardner MJ, Yacoubian S, Geller D, et al. The incidence of soft tissue injury in operative tibial plateau fractures: a magnetic resonance imaging analysis of 103 patients. J Orthop Trauma 2005;19(2):79-84.", "year": 2005, "kind": "cohort", "url": "https://doi.org/10.1097/00005131-200502000-00002"},
+    {"id": "mills2004", "cite": "Mills WJ, Barei DP, McNair P. The value of the ankle-brachial index for diagnosing arterial injury after knee dislocation: a prospective study. J Trauma 2004;56(6):1261-1265.", "year": 2004, "kind": "cohort", "url": "https://doi.org/10.1097/01.ta.0000068995.63201.0b"},
+    {"id": "stark2009", "cite": "Stark E, Stucken C, Trainer G, Tornetta P 3rd. Compartment syndrome in Schatzker type VI plateau fractures and medial condylar fracture-dislocations treated with temporary external fixation. J Orthop Trauma 2009;23(7):502-506.", "year": 2009, "kind": "cohort", "url": "https://doi.org/10.1097/BOT.0b013e3181a18235"},
+    {"id": "mcqueen1996", "cite": "McQueen MM, Court-Brown CM. Compartment monitoring in tibial fractures. The pressure threshold for decompression. J Bone Joint Surg Br 1996;78(1):99-104.", "year": 1996, "kind": "cohort", "url": "https://doi.org/10.1302/0301-620X.78B1.0780099"},
+    {"id": "boast10", "cite": "British Orthopaedic Association, BAPRAS. BOASt: Diagnosis and management of compartment syndrome of the extremities. 2014, updated July 2025.", "year": 2025, "kind": "guideline", "url": "https://www.boa.ac.uk/resource/boast-10-pdf.html"},
+    {"id": "cots2006", "cite": "Canadian Orthopaedic Trauma Society. Open reduction and internal fixation compared with circular fixator application for bicondylar tibial plateau fractures. Results of a multicenter, prospective, randomized clinical trial. J Bone Joint Surg Am 2006;88(12):2613-2623.", "year": 2006, "kind": "rct", "url": "https://doi.org/10.2106/JBJS.E.01416"},
+    {"id": "chhabu2026", "cite": "Chhabu MA, ElGebeily MA, Hemida MA, et al. Ilizarov external fixation versus open reduction and internal fixation for complex tibial plateau fractures: a prospective randomised comparative study. Int Orthop 2026;50(1):263-271.", "year": 2026, "kind": "rct", "url": "https://doi.org/10.1007/s00264-025-06679-x"},
+    {"id": "egol2005", "cite": "Egol KA, Tejwani NC, Capla EL, Wolinsky PL, Koval KJ. Staged management of high-energy proximal tibia fractures (OTA types 41): the results of a prospective, standardized protocol. J Orthop Trauma 2005;19(7):448-455.", "year": 2005, "kind": "cohort", "url": "https://doi.org/10.1097/01.bot.0000171881.11205.80"},
+    {"id": "lutnick2026", "cite": "Lutnick E, Ghanem D, Raja HM, et al. Complications in acute versus delayed definitive fixation of bicondylar tibial plateau fractures. Orthopedics 2026 (epub Oct 22):1-9.", "year": 2026, "kind": "cohort", "url": "https://doi.org/10.3928/01477447-20260904-01"},
+    {"id": "barei2006", "cite": "Barei DP, Nork SE, Mills WJ, Coles CP, Henley MB, Benirschke SK. Functional outcomes of severe bicondylar tibial plateau fractures treated with dual incisions and medial and lateral plates. J Bone Joint Surg Am 2006;88(8):1713-1721.", "year": 2006, "kind": "cohort", "url": "https://doi.org/10.2106/JBJS.E.00907"},
+    {"id": "galla2003", "cite": "Galla M, Lobenhoffer P. The direct, dorsal approach to the treatment of unstable tibial posteromedial fracture-dislocations [German]. Unfallchirurg 2003;106(3):241-247.", "year": 2003, "kind": "technique", "url": "https://doi.org/10.1007/s00113-002-0554-9"},
+    {"id": "frosch2010", "cite": "Frosch KH, Balcarek P, Walde T, Stürmer KM. A new posterolateral approach without fibula osteotomy for the treatment of tibial plateau fractures. J Orthop Trauma 2010;24(8):515-520.", "year": 2010, "kind": "technique", "url": "https://doi.org/10.1097/BOT.0b013e3181e5e17d"},
+    {"id": "carlson2005", "cite": "Carlson DA. Posterior bicondylar tibial plateau fractures. J Orthop Trauma 2005;19(2):73-78.", "year": 2005, "kind": "technique", "url": "https://doi.org/10.1097/00005131-200502000-00001"},
+    {"id": "russell2008", "cite": "Russell TA, Leighton RK; Alpha-BSM Tibial Plateau Fracture Study Group. Comparison of autogenous bone graft and endothermic calcium phosphate cement for defect augmentation in tibial plateau fractures. A multicenter, prospective, randomized study. J Bone Joint Surg Am 2008;90(10):2057-2061.", "year": 2008, "kind": "rct", "url": "https://doi.org/10.2106/JBJS.G.01191"},
+    {"id": "cooper2022", "cite": "Cooper GM, Kennedy MJ, Jamal B, Shields DW. Autologous versus synthetic bone grafts for the surgical management of tibial plateau fractures: a systematic review and meta-analysis of randomized controlled trials. Bone Jt Open 2022;3(3):218-228.", "year": 2022, "kind": "meta-analysis", "url": "https://doi.org/10.1302/2633-1462.33.BJO-2021-0195.R1"},
+    {"id": "cochrane2024", "cite": "Smith TO, Casey L, McNamara IR, Hing CB. Surgical fixation methods for tibial plateau fractures. Cochrane Database Syst Rev 2024;8:CD009679.", "year": 2024, "kind": "meta-analysis", "url": "https://doi.org/10.1002/14651858.CD009679.pub3"},
+    {"id": "jiang2021", "cite": "Jiang L, Chen E, Huang L, Wang C. Arthroscopy-assisted reduction percutaneous internal fixation versus open reduction internal fixation for tibial plateau fracture: a systematic review and meta-analysis. Orthop J Sports Med 2021;9(12):23259671211027838.", "year": 2021, "kind": "meta-analysis", "url": "https://doi.org/10.1177/23259671211027838"},
+    {"id": "tay2024", "cite": "Tay ST, Chen MZ, Chan YS, Kuo LT. The efficacy of arthroscopy-assisted versus stand-alone open reduction and internal fixation for treating tibial plateau fracture: a systematic review and meta-analysis. BMC Musculoskelet Disord 2024;25(1):865.", "year": 2024, "kind": "meta-analysis", "url": "https://doi.org/10.1186/s12891-024-07958-1"},
+    {"id": "vanco2021", "cite": "Major Extremity Trauma Research Consortium (METRC), O'Toole RV, Joshi M, et al. Effect of intrawound vancomycin powder in operatively treated high-risk tibia fractures: a randomized clinical trial. JAMA Surg 2021;156(5):e207259.", "year": 2021, "kind": "rct", "url": "https://doi.org/10.1001/jamasurg.2020.7259"},
+    {"id": "tobra2026", "cite": "Major Extremity Trauma Research Consortium (METRC), O'Toole RV, O'Hara NN, et al. Intrawound tobramycin plus vancomycin to prevent surgical site infection in tibial fractures: the TOBRA randomized clinical trial. JAMA 2026;335(18):1586-1595.", "year": 2026, "kind": "rct", "url": "https://doi.org/10.1001/jama.2026.4023"},
+    {"id": "ibrahim2025", "cite": "Ibrahim MA, Moustafa MMA, Brismée JM, et al. Immediate weight-bearing after tibial plateau fractures internal fixation results in better clinical outcomes with similar radiological outcomes: a randomized clinical trial. Int Orthop 2025;49(5):1245-1253.", "year": 2025, "kind": "rct", "url": "https://doi.org/10.1007/s00264-025-06443-1"},
+    {"id": "assink2023", "cite": "Assink N, El Moumni M, Kraeima J, et al. Radiographic predictors of conversion to total knee arthroplasty after tibial plateau fracture surgery: results in a large multicenter cohort. J Bone Joint Surg Am 2023;105(16):1237-1245.", "year": 2023, "kind": "cohort", "url": "https://doi.org/10.2106/JBJS.22.00500"},
+    {"id": "singleton2017", "cite": "Singleton N, Sahakian V, Muir D. Outcome after tibial plateau fracture: how important is restoration of articular congruity? J Orthop Trauma 2017;31(3):158-163.", "year": 2017, "kind": "cohort", "url": "https://doi.org/10.1097/BOT.0000000000000762"},
+    {"id": "paley2002", "cite": "Paley D. Principles of Deformity Correction. Berlin: Springer; 2002.", "year": 2002, "kind": "technique", "url": "https://doi.org/10.1007/978-3-642-59373-4"},
+    {"id": "aosr", "cite": "Barei D, Baumgaertner M (eds). AO Surgery Reference: Proximal tibia. AO Foundation; accessed 2026-11.", "year": 2026, "kind": "technique", "url": "https://surgeryreference.aofoundation.org/orthopedic-trauma/adult-trauma/proximal-tibia"}
+  ],
+  "reviewed": "2026-11"
+}
