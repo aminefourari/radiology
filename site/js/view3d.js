@@ -239,7 +239,7 @@ export function createView3d(container, before) {
   }
 
   return {
-    canvas, addSystem, setPlane, reset(box) { frameBox(box); requestRender(); }, setVisibility, select, pick, centerOn, project,
+    canvas, scene, group, camera, controls, requestRender, addSystem, setPlane, reset(box) { frameBox(box); requestRender(); }, setVisibility, select, pick, centerOn, project,
     has: (key) => meshes.has(key),
     onChange(cb) { changed = cb; },
     show(on) { canvas.hidden = !on; if (on) resize(); },

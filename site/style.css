@@ -523,3 +523,63 @@ figcaption { font-size: 11px; color: var(--muted); text-align: center; margin-to
 .win-text p { margin: 0; }
 .fluid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; padding: 10px; }
 .fluid-grid label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+
+/* fracture & operation atlas */
+body.fx-page { max-width: 1320px; }
+.fx-pick { display: flex; flex-wrap: wrap; gap: 6px; }
+.fx-status { color: var(--muted); }
+.fx { margin-top: 12px; display: grid; gap: 12px; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  grid-template-areas: "view sec" "view types" "detail detail"; }
+.fx[hidden] { display: none; }
+.fx-3d { grid-area: view; display: flex; flex-direction: column; }
+.fx-sec { grid-area: sec; }
+.fx-types { grid-area: types; }
+.fx-detail { grid-area: detail; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 0; }
+.fx-tools { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-inline-start: auto; }
+.fx-tools input { width: 110px; accent-color: var(--active); }
+.fx-view { position: relative; flex: 1; min-height: min(62svh, 560px); background: #000; }
+.fx-view canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.fx-legend { border-top: 1px solid var(--line); min-height: 34px; }
+.fx-key { display: inline-flex; align-items: center; gap: 6px; font-family: var(--sans); }
+.fx-key i { width: 12px; height: 12px; border-radius: 3px; }
+.fx-svg { display: block; width: 100%; aspect-ratio: 1; background: #000; }
+.fx-svg path { stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.fx-svg .ctx { fill: #565b61; stroke: #c9ccd0; stroke-width: 1.2; }
+.fx-svg .bone { fill: #8d8f92; }
+.fx-svg .outline { fill: none; stroke: #f2f2f2; stroke-width: 1.2; stroke-dasharray: 3 3; opacity: 0.7; }
+.fx-svg .frag { fill: color-mix(in srgb, var(--c) 55%, #8d8f92); stroke: #f2f2f2; stroke-width: 1.8; }
+.fx-svg .mark { fill: var(--muted); font-family: var(--mono); }
+.fx-type-list { list-style: none; margin: 0; padding: 6px; display: grid; gap: 4px; max-height: 340px; overflow-y: auto; }
+.fx-type { width: 100%; display: grid; grid-template-columns: minmax(3em, max-content) 1fr auto; gap: 8px; align-items: center; text-align: start;
+  background: none; border: 1px solid transparent; border-radius: 8px; padding: 6px 8px; cursor: pointer; font-family: var(--sans); }
+.fx-type:hover { border-color: var(--line); }
+.fx-type[aria-pressed="true"] { border-color: var(--active); background: color-mix(in srgb, var(--active) 8%, var(--panel)); }
+.fx-type b { font-family: var(--mono); color: var(--active); }
+.fx-badge { font: 11px var(--mono); padding: 1px 7px; border-radius: 99px; border: 1px solid; white-space: nowrap; }
+.fx-badge.op { color: #f08a6a; }
+.fx-badge.nonop { color: #6ac9a0; }
+.fx-badge.either { color: #c9b46a; }
+.fx-body { padding: 12px 16px; border-top: 1px solid var(--line); font-family: var(--sans); line-height: 1.55; }
+.fx-body h3 { margin: 0 0 8px; font: 500 14px var(--mono); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.fx-body h4 { margin: 12px 0 4px; font: 500 12px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.fx-body ul, .fx-body ol { margin: 4px 0; padding-inline-start: 20px; }
+.fx-body li { margin: 3px 0; }
+.fx-body p { margin: 6px 0; }
+.fx-rec { border-inline-start: 3px solid var(--active); padding-inline-start: 10px; }
+.fx-cites { display: inline-flex; gap: 3px; vertical-align: 1px; }
+.fx-cite { font: 10px var(--mono); padding: 0 5px; border-radius: 5px; border: 1px solid var(--line); background: var(--ground); color: var(--muted); cursor: pointer; }
+.fx-cite:hover { color: var(--active); border-color: var(--active); }
+.fx-aps { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.fx-hint, .fx-note { color: var(--muted); }
+.fx-risk b { color: #f2d24b; }
+.fx-refs { font-size: 13px; }
+.fx-refs li { padding: 2px 4px; border-radius: 6px; }
+.fx-refs li.flash { animation: fx-flash 1.6s; }
+@keyframes fx-flash { from { background: color-mix(in srgb, var(--active) 30%, transparent); } to { background: transparent; } }
+.fx-kind { font: 10px var(--mono); padding: 0 5px; border-radius: 5px; border: 1px solid var(--line); color: var(--muted); text-transform: uppercase; }
+.fx-kind.guideline { color: #6ac9a0; border-color: #6ac9a0; }
+.fx-kind.rct, .fx-kind.meta-analysis { color: #7fb4f0; border-color: #7fb4f0; }
+@media (max-width: 820px) {
+  .fx { grid-template-columns: minmax(0, 1fr); grid-template-areas: "view" "types" "sec" "detail"; }
+  .fx-view { min-height: 58svh; }
+}

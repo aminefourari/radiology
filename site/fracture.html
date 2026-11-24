@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fractures &amp; operations</title>
+<meta name="description" content="Fracture classifications drawn on real 3D bones, with cited, current management, surgical approaches, structures at risk and fixation steps. Educational use only.">
+<meta name="theme-color" content="#0f141b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<script type="module" src="js/fractureapp.js"></script>
+</head>
+<body class="fx-page">
+<header class="top">
+  <div class="brand">
+    <h1><a href="./" data-t="fx.title">Fractures &amp; operations</a></h1>
+  </div>
+  <nav id="fx-pick" class="fx-pick" aria-label="Fracture" data-t-aria="fx.pick"></nav>
+  <div class="top-actions">
+    <select id="lang-select" aria-label="Language" data-t-aria="lang.label"></select>
+  </div>
+</header>
+
+<p id="status" class="fx-status" data-t="fx.loading">Loading the bones…</p>
+
+<main class="fx" hidden>
+  <section class="card fx-3d">
+    <div class="pane-head">
+      <h2 id="fx-class"></h2>
+      <span class="fx-tools">
+        <label class="window"><span data-t="fx.reduced">Reduced</span>
+          <input type="range" id="fx-disp" min="0" max="100" value="100" aria-label="Displacement" data-t-aria="fx.displacement">
+          <span data-t="fx.displaced">Displaced</span></label>
+        <button id="fx-play" class="btn small" type="button" aria-pressed="false" data-t="fx.play">▶ Types</button>
+        <button id="fx-reset" class="btn small" type="button" data-t="fx.resetView">Reset view</button>
+      </span>
+    </div>
+    <div id="fx-view" class="fx-view"></div>
+    <div class="pane-foot fx-legend" id="fx-legend"></div>
+  </section>
+
+  <section class="card fx-sec">
+    <div class="pane-head"><h2 id="fx-sec-title" data-t="fx.section">Section</h2></div>
+    <svg id="fx-svg" class="fx-svg" role="img" aria-labelledby="fx-sec-title"></svg>
+  </section>
+
+  <section class="card fx-types">
+    <div class="pane-head"><h2 data-t="fx.types">Types</h2></div>
+    <ol id="fx-types" class="fx-type-list"></ol>
+  </section>
+
+  <section class="card fx-detail">
+    <div id="fx-type-detail" class="fx-body"></div>
+    <div class="fx-body">
+      <h3 data-t="fx.workup">Work-up</h3>
+      <ul id="fx-workup"></ul>
+      <h3 data-t="fx.decide">Decision</h3>
+      <ul id="fx-decide"></ul>
+    </div>
+    <div class="fx-body">
+      <h3 data-t="fx.approach">Approach &amp; fixation</h3>
+      <div id="fx-aps" class="fx-aps" role="radiogroup" aria-label="Approach" data-t-aria="fx.approach"></div>
+      <div id="fx-ap"></div>
+    </div>
+    <div class="fx-body">
+      <h3 data-t="fx.after">Aftercare</h3>
+      <div id="fx-after"></div>
+    </div>
+    <div class="fx-body">
+      <h3 data-t="fx.refs">References</h3>
+      <ol id="fx-refs" class="fx-refs"></ol>
+      <p class="fx-note"><span id="fx-reviewed"></span> <span data-t="fx.disclaimer">Educational summary of published guidance — check your local protocols and the primary sources before operating.</span></p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p data-t="home.disclaimer">Educational use only — not for diagnosis.</p>
+  <p data-t="fx.credits">3D bones: Z-Anatomy (CC BY-SA 4.0) from BodyParts3D (DBCLS). Code: MIT.</p>
+</footer>
+</body>
+</html>
