@@ -158,7 +158,8 @@ function syncControls() {
   $("vector-on").checked = st.vector;
   $("speed").value = String(st.speed);
   $("lead-pickers").hidden = st.mode !== "closeup";
-  $("pick-label").textContent = `${localized(byKey[st.rhythm].title, st.lang)} · ${t("heart.search", { n: rhythms.length })}`;
+  $("pick-label").textContent = localized(byKey[st.rhythm].title, st.lang);
+  $("pick-count").textContent = t("heart.search", { n: rhythms.length });
   if (st.compare) $("pick2-label").textContent = localized(byKey[st.compare].title, st.lang);
 }
 
@@ -451,7 +452,7 @@ function renderAp() {
   const key = `${JSON.stringify(current.a.model)}|${t0}|${st.lang}`;
   if (ui.apCache.get("key") === key && box.childElementCount) return;
   ui.apCache.set("key", key);
-  const W = 120, H = 34, y = (mv) => ((20 - mv) / 110) * H, x = (ms) => ((ms - t0) / (t1 - t0)) * W;
+  const W = 120, H = 76, y = (mv) => ((20 - mv) / 110) * H, x = (ms) => ((ms - t0) / (t1 - t0)) * W;
   ui.apCursors = [];
   box.replaceChildren(...SITES.map(([lm, label], i) => {
     const pts = apCurve(sim, heart.json.landmarks[lm], t0, t1);
@@ -510,26 +511,25 @@ function renderLegend() {
   const items = st.colour === "time"
     ? [h("li", { class: "time-scale" }, h("i", { style: `background: linear-gradient(90deg, ${[0, 50, 100, 160].map((m) => `rgb(${timeColour(m).join(",")})`).join(",")})` }),
         h("span", {}, `0–${TIME_SPAN} ${t("heart.legend.ms")}`))]
-    : [["rest", "heart.legend.rest"], ["front", "heart.legend.front"], ["plateau", "heart.legend.plateau"], ["repol", "heart.legend.repol"], ["cs", "heart.conduction"]]
+    : [["rest", "heart.legend.rest"], ["front", "heart.legend.front"], ["plateau", "heart.legend.plateau"], ["repol", "heart.legend.repol"]]
       .map(([c, k]) => h("li", {}, h("i", { class: `lg-${c}` }), h("span", {}, t(k))));
   $("legend").replaceChildren(...items);
 }
 
-// Educational panel: why, what it looks like, takeaways, and a real tracing where the atlas has one.
+// Educational panel, one card per rhythm: why, what it looks like, takeaways and a real tracing where the atlas has one.
 function renderText() {
-  $("rhythm-title").textContent = sides().map((s) => localized(byKey[current[s].key].title, st.lang)).join(" vs ");
-  $("why").replaceChildren(...sides().flatMap((side) => {
+  $("why").replaceChildren(...sides().map((side) => {
     const r = byKey[current[side].key];
     const english = st.lang !== "en" && !r.why[st.lang];
     const list = (tag, x) => h(tag, {}, ...localized(x, st.lang).map((s) => h("li", {}, s)));
-    return [
+    return h("article", { class: "reading-card" },
       h("h2", {}, st.compare ? `${side.toUpperCase()} · ` : "", localized(r.title, st.lang)),
       english ? h("p", { class: "muted small" }, t("heart.textEn")) : "",
-      h("h3", {}, t("heart.why")), list("ol", r.why),
-      h("h3", {}, t("heart.looks")), list("ul", r.looks),
-      h("h3", {}, t("heart.takeaways")), list("ul", r.takeaways),
-      r.atlasEcg != null ? h("a", { class: "btn see", href: `ecg.html#ecg=${r.atlasEcg}` }, t("heart.see")) : h("p", { class: "muted" }, t("heart.noatlas")),
-    ];
+      h("div", { class: "cols" },
+        h("section", {}, h("h3", {}, t("heart.why")), list("ol", r.why)),
+        h("section", {}, h("h3", {}, t("heart.looks")), list("ul", r.looks)),
+        h("section", {}, h("h3", {}, t("heart.takeaways")), list("ul", r.takeaways),
+          r.atlasEcg != null ? h("a", { class: "btn see", href: `ecg.html#ecg=${r.atlasEcg}` }, t("heart.see")) : h("p", { class: "muted" }, t("heart.noatlas")))));
   }));
 }
 

@@ -15,10 +15,14 @@
 <script type="module" src="js/heartapp.js"></script>
 </head>
 <body class="heart-page">
-<header class="top">
+<header class="top heart-top">
   <div class="brand">
     <h1><a href="./" data-t="heart.title">How the ECG is made</a></h1>
-    <p id="rhythm-title" class="case-title"></p>
+  </div>
+  <div class="rhythm-bar">
+    <button id="pick" class="btn picker-btn" type="button"><span class="picker-icon" aria-hidden="true">⌕</span> <span id="pick-label"></span> <span id="pick-count" class="pick-count"></span></button>
+    <label class="check"><input type="checkbox" id="compare-on"> <span data-t="heart.compare">Compare</span></label>
+    <button id="pick2" class="btn picker-btn b" type="button" hidden><span class="tag">B</span> <span id="pick2-label"></span></button>
   </div>
   <div class="top-actions">
     <a class="btn" href="ecg.html" data-t="ecg.title">ECG Atlas</a>
@@ -26,92 +30,95 @@
   </div>
 </header>
 
-<section class="controls">
-  <button id="pick" class="btn picker-btn" type="button"><span class="picker-icon" aria-hidden="true">⌕</span> <span id="pick-label"></span></button>
-  <label class="check"><input type="checkbox" id="compare-on"> <span data-t="heart.compare">Compare</span></label>
-  <button id="pick2" class="btn picker-btn b" type="button" hidden><span class="tag">B</span> <span id="pick2-label"></span></button>
-  <div id="mode" class="segmented" role="radiogroup" aria-label="Tracing" data-t-aria="heart.mode">
-    <button class="btn small" role="radio" data-v="closeup" data-t="heart.mode.closeup">Close-up</button>
-    <button class="btn small" role="radio" data-v="strip" data-t="heart.mode.strip">Rhythm strip</button>
-    <button class="btn small" role="radio" data-v="12" data-t="heart.mode.12">12-lead</button>
-  </div>
-  <label class="check"><input type="checkbox" id="ladder-on" checked> <span data-t="heart.ladderToggle">Ladder</span></label>
-</section>
+<main class="hs">
+  <section class="card heart-card" aria-label="Heart" data-t-aria="heart.heart">
+    <div class="pane-head">
+      <div id="heart-mode" class="segmented" role="radiogroup" aria-label="Heart" data-t-aria="heart.heart">
+        <button class="btn small" role="radio" data-v="slice" data-t="heart.heart.slice">Slice</button>
+        <button class="btn small" role="radio" data-v="3d" data-t="heart.heart.3d">3D</button>
+        <button class="btn small" role="radio" data-v="torso" data-t="heart.heart.torso">Torso</button>
+      </div>
+      <div id="section" class="segmented" role="radiogroup" aria-label="Section" data-t-aria="heart.section">
+        <button class="btn small" role="radio" data-v="outside" data-t="heart.section.outside">Outside</button>
+        <button class="btn small" role="radio" data-v="4ch" data-t="heart.section.4ch">Four-chamber</button>
+        <button class="btn small" role="radio" data-v="sax" data-t="heart.section.sax">Short axis</button>
+      </div>
+      <label id="level-wrap" class="window"><span data-t="heart.level">Level</span><input id="level" type="range" min="0" max="1" step="0.02"></label>
+    </div>
+    <div id="heart-stage" class="heart-stage">
+      <div id="stage-a" class="stage-layer"></div>
+      <div id="stage-b" class="stage-layer b" hidden></div>
+      <div id="split" class="split" hidden role="slider" tabindex="0" aria-label="Split" data-t-aria="heart.split" aria-valuemin="0" aria-valuemax="100"><span></span></div>
+      <span id="tag-a" class="stage-tag" hidden>A</span><span id="tag-b" class="stage-tag b" hidden>B</span>
+    </div>
+    <div class="pane-foot">
+      <ul id="legend" class="legend"></ul>
+      <div id="colour" class="segmented" role="radiogroup" aria-label="Colour" data-t-aria="heart.colour">
+        <button class="btn small" role="radio" data-v="state" data-t="heart.colour.state">Electrical state</button>
+        <button class="btn small" role="radio" data-v="time" data-t="heart.colour.time">Activation time</button>
+      </div>
+      <label class="check"><input type="checkbox" id="conduction-on" checked> <i class="sw lg-cs" aria-hidden="true"></i><span data-t="heart.conduction">Conduction system</span></label>
+      <label class="check"><input type="checkbox" id="vector-on" checked> <span data-t="heart.vector">Heart vector</span></label>
+    </div>
+  </section>
 
-<div class="heart-grid">
-  <div class="heart-main">
-    <div class="trace-card">
+  <section class="card trace-card" aria-label="Tracing" data-t-aria="heart.mode">
+    <div class="pane-head">
+      <div id="mode" class="segmented" role="radiogroup" aria-label="Tracing" data-t-aria="heart.mode">
+        <button class="btn small" role="radio" data-v="closeup" data-t="heart.mode.closeup">Close-up</button>
+        <button class="btn small" role="radio" data-v="strip" data-t="heart.mode.strip">Rhythm strip</button>
+        <button class="btn small" role="radio" data-v="12" data-t="heart.mode.12">12-lead</button>
+      </div>
+      <label class="check"><input type="checkbox" id="ladder-on" checked> <span data-t="heart.ladderToggle">Ladder</span></label>
       <div id="lead-pickers" class="lead-pickers" dir="ltr"></div>
-      <div id="paper" class="paper" dir="ltr">
-        <svg id="trace" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ECG" data-t-aria="heart.mode"></svg>
-        <svg id="ladder" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ladder diagram" data-t-aria="heart.ladder"></svg>
-      </div>
-      <div class="trace-foot">
-        <span id="scale" class="scale"></span>
-        <div id="waves" class="wave-toggles" role="group" aria-label="Waves" data-t-aria="ecg.waves" dir="ltr">
-          <button class="btn small w-P" aria-pressed="false" data-k="P">P</button>
-          <button class="btn small w-PR" aria-pressed="false" data-k="PR">PR</button>
-          <button class="btn small w-QRS" aria-pressed="false" data-k="QRS">QRS</button>
-          <button class="btn small w-ST" aria-pressed="false" data-k="ST">ST</button>
-          <button class="btn small w-T" aria-pressed="false" data-k="T">T</button>
-        </div>
+    </div>
+    <div id="paper" class="paper" dir="ltr">
+      <svg id="trace" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ECG" data-t-aria="heart.mode"></svg>
+      <svg id="ladder" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ladder diagram" data-t-aria="heart.ladder"></svg>
+    </div>
+    <div class="pane-foot">
+      <span id="scale" class="scale"></span>
+      <div id="waves" class="wave-toggles" role="group" aria-label="Waves" data-t-aria="ecg.waves" dir="ltr">
+        <button class="btn small w-P" aria-pressed="false" data-k="P">P</button>
+        <button class="btn small w-PR" aria-pressed="false" data-k="PR">PR</button>
+        <button class="btn small w-QRS" aria-pressed="false" data-k="QRS">QRS</button>
+        <button class="btn small w-ST" aria-pressed="false" data-k="ST">ST</button>
+        <button class="btn small w-T" aria-pressed="false" data-k="T">T</button>
       </div>
     </div>
+  </section>
 
-    <div class="playbar" dir="ltr">
-      <button id="play" class="btn" aria-pressed="false">Play</button>
-      <button id="replay" class="btn" data-t="heart.replay">Replay</button>
-      <input id="scrub" type="range" min="0" step="1" value="0" aria-label="Time" data-t-aria="heart.time">
-      <span id="clock" class="clock"></span>
-      <label class="window"><span data-t="heart.speed">Speed</span>
-        <select id="speed"><option value="0.1">0.1×</option><option value="0.2">0.2×</option><option value="0.5">0.5×</option><option value="1">1×</option></select>
-      </label>
-    </div>
+  <div class="now">
     <p id="since" class="since"></p>
     <p id="caption" class="caption" aria-live="polite"></p>
-
-    <section class="heart-card">
-      <div class="pane-head">
-        <div id="heart-mode" class="segmented" role="radiogroup" aria-label="Heart" data-t-aria="heart.heart">
-          <button class="btn small" role="radio" data-v="slice" data-t="heart.heart.slice">Slice</button>
-          <button class="btn small" role="radio" data-v="3d" data-t="heart.heart.3d">3D</button>
-          <button class="btn small" role="radio" data-v="torso" data-t="heart.heart.torso">Torso</button>
-        </div>
-        <div id="section" class="segmented" role="radiogroup" aria-label="Section" data-t-aria="heart.section">
-          <button class="btn small" role="radio" data-v="outside" data-t="heart.section.outside">Outside</button>
-          <button class="btn small" role="radio" data-v="4ch" data-t="heart.section.4ch">Four-chamber</button>
-          <button class="btn small" role="radio" data-v="sax" data-t="heart.section.sax">Short axis</button>
-        </div>
-        <label id="level-wrap" class="window"><span data-t="heart.level">Level</span><input id="level" type="range" min="0" max="1" step="0.02"></label>
-        <div id="colour" class="segmented" role="radiogroup" aria-label="Colour" data-t-aria="heart.colour">
-          <button class="btn small" role="radio" data-v="state" data-t="heart.colour.state">Electrical state</button>
-          <button class="btn small" role="radio" data-v="time" data-t="heart.colour.time">Activation time</button>
-        </div>
-        <label class="check"><input type="checkbox" id="conduction-on" checked> <span data-t="heart.conduction">Conduction system</span></label>
-        <label class="check"><input type="checkbox" id="vector-on" checked> <span data-t="heart.vector">Heart vector</span></label>
-      </div>
-      <div class="heart-body">
-        <div id="heart-stage" class="heart-stage">
-          <div id="stage-a" class="stage-layer"></div>
-          <div id="stage-b" class="stage-layer b" hidden></div>
-          <div id="split" class="split" hidden role="slider" tabindex="0" aria-label="Split" data-t-aria="heart.split" aria-valuemin="0" aria-valuemax="100"><span></span></div>
-          <span id="tag-a" class="stage-tag" hidden>A</span><span id="tag-b" class="stage-tag b" hidden>B</span>
-        </div>
-        <div class="heart-side">
-          <ul id="legend" class="legend"></ul>
-          <h3 class="side-h" data-t="heart.ap">Action potentials</h3>
-          <div id="ap" class="ap-plots" dir="ltr"></div>
-          <div class="vectors" dir="ltr">
-            <figure><svg id="vec-frontal" viewBox="-60 -60 120 120"></svg><figcaption data-t="heart.frontal">Frontal plane</figcaption></figure>
-            <figure><svg id="vec-horizontal" viewBox="-60 -60 120 120"></svg><figcaption data-t="heart.horizontal">Horizontal plane</figcaption></figure>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
+</main>
 
-  <aside id="why" class="reading why"></aside>
+<div class="playbar" dir="ltr">
+  <button id="play" class="btn play" aria-pressed="false">Play</button>
+  <button id="replay" class="btn" data-t="heart.replay">Replay</button>
+  <input id="scrub" type="range" min="0" step="1" value="0" aria-label="Time" data-t-aria="heart.time">
+  <span id="clock" class="clock"></span>
+  <label class="window"><span data-t="heart.speed">Speed</span>
+    <select id="speed"><option value="0.1">0.1×</option><option value="0.2">0.2×</option><option value="0.5">0.5×</option><option value="1">1×</option></select>
+  </label>
 </div>
+
+<section class="instruments">
+  <div class="inst">
+    <h3 class="side-h" data-t="heart.ap">Action potentials</h3>
+    <div id="ap" class="tiles ap-plots" dir="ltr"></div>
+  </div>
+  <div class="inst">
+    <h3 class="side-h" data-t="heart.vector">Heart vector</h3>
+    <div class="tiles vectors" dir="ltr">
+      <figure><figcaption data-t="heart.frontal">Frontal plane</figcaption><svg id="vec-frontal" viewBox="-60 -60 120 120"></svg></figure>
+      <figure><figcaption data-t="heart.horizontal">Horizontal plane</figcaption><svg id="vec-horizontal" viewBox="-60 -60 120 120"></svg></figure>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="why"></section>
 
 <dialog id="picker" class="picker"></dialog>
 

@@ -251,6 +251,8 @@
  "heart.cs.lpf": "Posterieure fascikel",
  "heart.cs.purkinje": "Purkinjevezels",
  "heart.cs.accessory": "Accessoire baan",
+ "heart.valve.mitral": "Mitralisklep",
+ "heart.valve.tricuspid": "Tricuspidalisklep",
  "heart.ch.ra": "RA",
  "heart.ch.la": "LA",
  "heart.ch.rv": "RV",

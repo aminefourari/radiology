@@ -32,14 +32,19 @@ export function apCurve(sim, v, t0, t1, step = 2) {
 // anterior → down, seen from below as in the textbook V1–V6 diagram). Units: mV (lead gain).
 const project = (sim, i, plane) => (plane === "frontal" ? [-sim.vectors[i * 3], sim.vectors[i * 3 + 2]] : [-sim.vectors[i * 3], -sim.vectors[i * 3 + 1]]);
 
-// The loop traced since the start of the current beat (the latest QRS, or P if no QRS yet), up to t.
-export function vectorLoop(sim, t, plane, gain = 1) {
-  const n = sim.duration;
-  const ti = Math.max(0, Math.min(n - 1, Math.floor(t)));
+// Where the current beat's vector loop starts at ms ti: the latest QRS (for 600 ms after it), else the latest P.
+export function beatStart(sim, ti) {
   let start = 0;
   for (const e of sim.events) if ((e.type === "QRS" || e.type === "P") && e.t0 <= ti && e.t0 > start) start = e.type === "QRS" ? e.t0 : Math.max(start, e.t0);
   const qrs = sim.events.filter((e) => e.type === "QRS" && e.t0 <= ti).at(-1);
   if (qrs && ti - qrs.t0 < 600) start = qrs.t0;
+  return start;
+}
+// The loop traced since the start of the current beat, up to t.
+export function vectorLoop(sim, t, plane, gain = 1) {
+  const n = sim.duration;
+  const ti = Math.max(0, Math.min(n - 1, Math.floor(t)));
+  const start = beatStart(sim, ti);
   const loop = [];
   for (let i = Math.floor(start); i <= ti; i += 2) loop.push(project(sim, i, plane).map((x) => x * gain));
   return { loop, now: project(sim, ti, plane).map((x) => x * gain) };

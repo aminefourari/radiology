@@ -294,25 +294,63 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .wave-toggles .btn[aria-pressed="true"] { border-color: var(--c); color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--panel)); }
 #ecg-select { max-width: 100%; min-width: 0; }
 
-/* How the ECG is made (heart.html) */
+/* How the ECG is made (heart.html): the heart and the tracing side by side, one sticky play bar under them,
+   then the action potentials, heart vector and reading. */
 :root {
-  --heart-rest: #c98b7f; --heart-front: #fff3a8; --heart-plateau: #e8a23c; --heart-repol: #5d8fd6;
-  --heart-line: #d9d4c8; --heart-electrode: #4fd1e8; --heart-blood: #f4e6e2; --heart-outline: #3a2a2a;
+  --heart-rest: #d4918a; --heart-front: #ffe14d; --heart-plateau: #f08f3c; --heart-repol: #5b8de6;
+  --heart-line: #d9d4c8; --heart-electrode: #4fd1e8; --heart-blood: #f6e9e6; --heart-ring: #dccbb1;
   --heart-card: #fbf7f2; --heart-ink: #1d232b;
 }
-.heart-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); gap: 14px; align-items: start; margin-top: 12px; }
-.heart-main { min-width: 0; }
+/* Width follows the viewport height so the heart, the tracing, the caption and the play bar share the first screen. */
+body.heart-page { max-width: clamp(960px, calc((100svh - 330px) * 2.15 + 46px), 1320px); }
+.heart-page .check { margin: 0; }
+.heart-page .segmented { gap: 0; padding: 2px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ground); }
+.heart-page .segmented .btn { border: 0; border-radius: 8px; background: none; min-height: 28px; }
+.heart-page .segmented .btn[aria-checked="true"] { background: color-mix(in srgb, var(--active) 16%, var(--panel)); color: var(--active); }
+
+/* header: title · rhythm picker(s) · links */
+.heart-top { flex-wrap: nowrap; }
+.heart-top .brand { flex: none; white-space: nowrap; }
+.heart-top .top-actions { flex: none; flex-wrap: nowrap; }
+.rhythm-bar:has(#pick2:not([hidden])) .pick-count { display: none; }
+.rhythm-bar { flex: 1 1 auto; min-width: 0; display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
 .picker-btn[hidden] { display: none; }
-.picker-btn { display: inline-flex; gap: 8px; align-items: center; max-width: 100%; text-align: start; }
+.picker-btn { display: inline-flex; gap: 8px; align-items: center; max-width: 100%; min-width: 0; text-align: start; }
 .picker-btn #pick-label, .picker-btn #pick2-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#pick { font: 600 15px var(--sans); border-color: color-mix(in srgb, var(--active) 45%, var(--line)); }
+.pick-count { flex: none; font: 12px var(--mono); color: var(--muted); }
 .picker-icon { font-size: 16px; color: var(--active); }
 .tag { display: inline-grid; place-content: center; min-width: 1.6em; padding: 0 4px; border-radius: 6px; background: #6a7bd6; color: #fff; font-size: 11px; }
-.trace-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; background: var(--panel); }
+
+/* heart | tracing, with the caption under the tracing */
+.hs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); grid-template-rows: auto 1fr; grid-template-areas: "heart trace" "heart now"; gap: 12px 14px; align-items: start; margin-top: 12px; }
+.card { min-width: 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--panel); }
+.heart-card { grid-area: heart; position: sticky; top: 8px; background: var(--heart-card); }
+.trace-card { grid-area: trace; }
+.pane-head, .pane-foot { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 7px 10px; font-size: 12px; color: var(--muted); background: var(--panel); }
+.pane-head { border-bottom: 1px solid var(--line); }
+.pane-foot { border-top: 1px solid var(--line); }
+.pane-head [hidden] { display: none; }
+.pane-head .window input { width: 110px; accent-color: var(--active); }
 .lead-pickers[hidden] { display: none; }
-.lead-pickers { display: flex; gap: 6px; margin-bottom: 6px; }
-.lead-pickers select { min-height: 30px; padding: 2px 8px; }
-.trace-foot { display: flex; flex-wrap: wrap; gap: 8px 14px; justify-content: space-between; align-items: center; margin-top: 6px; }
-.scale { font-size: 12px; color: var(--muted); }
+.lead-pickers { display: flex; gap: 6px; margin-inline-start: auto; }
+.lead-pickers select { min-height: 30px; padding: 2px 4px; font-size: 12px; }
+.trace-card .pane-foot { justify-content: space-between; }
+.scale { font: 12px var(--sans); color: var(--muted); }
+.heart-card .legend { flex-basis: 100%; font-family: var(--sans); }
+.pane-foot .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+
+.now { grid-area: now; min-width: 0; padding: 10px 14px; background: var(--panel); border: 1px solid var(--line); border-inline-start: 3px solid var(--active); border-radius: var(--radius); }
+.since { margin: 0; font: 600 14px var(--sans); color: var(--active); min-height: 1.4em; white-space: pre-wrap; font-variant-numeric: tabular-nums; }
+.caption { margin: 4px 0 0; min-height: 2.9em; font-family: var(--sans); white-space: pre-line; }
+
+/* play bar: stays at the bottom of the screen while the page scrolls */
+.playbar { position: sticky; bottom: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin-top: 12px; padding: 8px 0 max(8px, env(safe-area-inset-bottom)); background: var(--ground); border-top: 1px solid var(--line); }
+.playbar .play { min-width: 80px; border-color: var(--active); color: var(--active); }
+.playbar input[type="range"] { flex: 1; min-width: 140px; accent-color: var(--active); }
+.clock { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+/* tracing and ladder */
 #trace .marks .mark { font: 600 3px var(--mono); text-anchor: middle; fill: #333; }
 #trace .marks .w-P { fill: #2f6fd1; } #trace .marks .w-QRS { fill: #c73636; } #trace .marks .w-T { fill: #2e8f53; }
 #trace .tag { font: 600 3.4px var(--mono); fill: #6a7bd6; }
@@ -329,38 +367,38 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 #trace .cursor, #ladder .cursor { stroke: #1565c0; stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
 #trace .w-PR { fill: #7a4fd1; }
 .wave-toggles .w-PR { --c: #a483f0; }
-.playbar { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin-top: 10px; }
-.playbar input[type="range"] { flex: 1; min-width: 140px; accent-color: var(--active); }
-.clock { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; white-space: nowrap; }
-.since { margin: 8px 0 0; font: 600 15px var(--sans); color: var(--active); min-height: 1.4em; white-space: pre-wrap; }
-.caption { min-height: 2.9em; margin: 6px 0 0; padding: 8px 12px; border-inline-start: 3px solid var(--active); background: var(--panel); border-radius: 0 var(--radius) var(--radius) 0; font-family: var(--sans); white-space: pre-line; }
-.heart-card { margin-top: 12px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--panel); }
-.pane-head { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; padding: 6px 8px; font-size: 12px; color: var(--muted); background: var(--ground); border-bottom: 1px solid var(--line); }
-.pane-head [hidden] { display: none; }
-.pane-head .window input { width: 110px; accent-color: var(--active); }
-.heart-body { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(220px, 1fr); gap: 10px; padding: 10px; }
-.heart-stage { position: relative; aspect-ratio: 1; background: var(--heart-card); border-radius: 12px; overflow: hidden; touch-action: none; }
+
+/* heart stage */
+.heart-stage { position: relative; aspect-ratio: 1; background: var(--heart-card); overflow: hidden; touch-action: none; }
 .stage-layer { position: absolute; inset: 0; background: var(--heart-card); }
 .stage-layer[hidden] { display: none; }
 .stage-layer canvas { display: block; width: 100%; height: 100%; }
 .schematic { position: absolute; inset: 0; }
 .schematic canvas, .schematic-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.schematic canvas { filter: drop-shadow(0 6px 14px rgb(120 60 50 / 0.18)); }
 .schematic-svg { overflow: visible; font-family: var(--sans); }
-.schematic-svg .chamber { font: 600 7px var(--sans); fill: #5b3a36; text-anchor: middle; dominant-baseline: middle; opacity: 0.8; }
-.schematic-svg .cs-seg { stroke: #8a7f70; stroke-width: 1.4; stroke-linecap: round; }
+.schematic-svg .chamber { font: 600 8px var(--sans); fill: #8a5048; opacity: 0.4; letter-spacing: 0.06em; text-anchor: middle; dominant-baseline: middle; }
+.schematic-svg .cs-halo line { stroke: #fff; stroke-width: 2.8; stroke-linecap: round; opacity: 0.8; }
+.schematic-svg .cs-seg { stroke: #9a8a78; stroke-width: 1.3; stroke-linecap: round; }
 .schematic-svg .cs-seg.ap { stroke-dasharray: 2 1.5; }
-.schematic-svg .cs-node { fill: #8a7f70; stroke: #fff; stroke-width: 0.4; }
-.schematic-svg .cs-node.purk { stroke: none; }
-.schematic-svg [data-s="lit"] { stroke: #f2c400; fill: #f2c400; }
-.schematic-svg .cs-seg[data-s="lit"] { stroke-width: 2.4; }
-.schematic-svg [data-s="done"] { stroke: #d08a1e; fill: #d08a1e; }
-.schematic-svg .cs-label { font-size: 3.6px; fill: var(--heart-ink); paint-order: stroke; stroke: var(--heart-card); stroke-width: 1.2px; }
-.schematic-svg .cut { font: 700 9px var(--sans); fill: #d12f2f; text-anchor: middle; dominant-baseline: middle; }
-.schematic-svg .cut-label { font: 600 3.8px var(--sans); fill: #d12f2f; paint-order: stroke; stroke: var(--heart-card); stroke-width: 1.2px; }
-.schematic-svg .sites circle { fill: #1d232b; stroke: #fff; stroke-width: 0.6; }
+.schematic-svg .cs-node { fill: #9a8a78; stroke: #fff; stroke-width: 0.6; }
+.schematic-svg .cs-node.purk { stroke: none; opacity: 0.7; }
+.schematic-svg [data-s="lit"] { stroke: #ffc400; fill: #ffc400; opacity: 1; }
+.schematic-svg .cs-seg[data-s="lit"] { stroke-width: 2.2; }
+.schematic-svg [data-s="done"] { stroke: #e07f26; fill: #e07f26; }
+.schematic-svg .cs-label { font: 500 3.5px var(--sans); fill: #2b2f36; paint-order: stroke; stroke: rgb(255 255 255 / 0.85); stroke-width: 1.1px; stroke-linejoin: round; }
+.schematic-svg .cut { font: 700 9px var(--sans); fill: #d12f2f; text-anchor: middle; dominant-baseline: middle; paint-order: stroke; stroke: #fff; stroke-width: 1.2px; }
+.schematic-svg .cut-label { font: 600 3.8px var(--sans); fill: #d12f2f; paint-order: stroke; stroke: rgb(255 255 255 / 0.85); stroke-width: 1.2px; }
+.schematic-svg .sites circle { fill: #1d232b; stroke: #fff; stroke-width: 0.7; }
 .schematic-svg .sites text { font: 700 4.2px var(--sans); fill: #fff; text-anchor: middle; dominant-baseline: central; }
-.schematic-svg .front-arrow { stroke: #1d232b; stroke-width: 1.6; }
-.schematic-svg marker path { fill: #1d232b; }
+/* valve leaflets: light flaps with a dark edge (the reverse of the conduction lines' dark core and white halo) */
+.schematic-svg .leaflet-edge { fill: none; stroke: #a1845a; stroke-width: 2.7; stroke-linecap: round; }
+.schematic-svg .leaflet { fill: none; stroke: #fbf4e6; stroke-width: 1.3; stroke-linecap: round; }
+.schematic-svg .valve-label { fill: #6d5a40; }
+.schematic-svg .hv-trail { fill: none; stroke: #c73636; stroke-width: 0.9; stroke-linejoin: round; stroke-linecap: round; opacity: 0.75; }
+.schematic-svg .hv-halo { fill: #fff; stroke: #fff; stroke-width: 2.4; stroke-linejoin: round; opacity: 0.9; }
+.schematic-svg .hv-arrow { fill: #1d232b; stroke: #1d232b; stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+.schematic-svg .hv-origin { fill: #1d232b; stroke: #fff; stroke-width: 0.5; }
 .schematic-svg .note { font-size: 3.2px; fill: #6b6f75; }
 .split { position: absolute; top: 0; bottom: 0; width: 24px; margin-inline-start: -12px; cursor: ew-resize; touch-action: none; z-index: 3; }
 .split[hidden] { display: none; }
@@ -371,38 +409,46 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .stage-tag[hidden] { display: none; }
 .stage-tag { padding: 1px 7px; border-radius: 6px; background: #6a7bd6; color: #fff; font: 600 12px var(--mono); }
 .loading-msg { position: absolute; inset: 0; display: grid; place-content: center; margin: 0; padding: 16px; color: #555; text-align: center; font-family: var(--sans); }
-.heart-side { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
-.side-h { margin: 4px 0 0; font-size: 12px; font-weight: 500; color: var(--muted); }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 0; padding: 0; list-style: none; font-size: 12px; color: var(--muted); }
 .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-inline-end: 6px; vertical-align: -1px; }
 .legend .time-scale i { width: 90px; }
 .lg-front { background: var(--heart-front); } .lg-plateau { background: var(--heart-plateau); }
 .lg-repol { background: var(--heart-repol); } .lg-rest { background: var(--heart-rest); } .lg-cs { background: #f2c400; }
-.ap-plots figure { margin: 0 0 4px; }
-.ap-plots figcaption { font-size: 12px; color: var(--muted); }
-.ap-plots figcaption b { display: inline-grid; place-content: center; width: 16px; height: 16px; border-radius: 50%; background: #1d232b; color: #fff; font-size: 10px; border: 1px solid #fff; }
-.ap { display: block; width: 100%; height: auto; background: var(--heart-card); border-radius: 6px; }
-.ap path { fill: none; stroke: #1d232b; stroke-width: 1; vector-effect: non-scaling-stroke; }
+
+/* action potentials and heart vector: a row of instrument tiles */
+.instruments { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 14px; margin-top: 8px; }
+.side-h { margin: 0 0 6px; font-size: 12px; font-weight: 500; color: var(--muted); }
+.tiles { display: grid; gap: 8px; }
+.ap-plots { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.vectors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.tiles figure { margin: 0; padding: 8px; display: flex; flex-direction: column; gap: 4px; background: var(--heart-card); border-radius: 10px; }
+.tiles figcaption { font-size: 12px; color: #555; }
+.ap-plots figcaption b { display: inline-grid; place-content: center; width: 16px; height: 16px; border-radius: 50%; background: #1d232b; color: #fff; font-size: 10px; }
+.ap { display: block; width: 100%; height: auto; }
+.ap path { fill: none; stroke: #1d232b; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
 .ap .zero { stroke: #ccc; stroke-dasharray: 2 2; vector-effect: non-scaling-stroke; }
-.ap .mv { font: 4px var(--mono); fill: #777; text-anchor: end; }
+.ap .mv { font: 5.5px var(--mono); fill: #777; text-anchor: end; }
 .ap .cursor { stroke: #1565c0; vector-effect: non-scaling-stroke; }
-.vectors { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.vectors figure { margin: 0; text-align: center; }
-.vectors figcaption { font-size: 11px; color: var(--muted); }
-.vectors svg { width: 100%; height: auto; background: var(--heart-card); border-radius: 8px; overflow: visible; }
+.vectors svg { width: 100%; height: auto; max-height: 132px; overflow: visible; }
 .vectors .ring { fill: none; stroke: #ddd; }
 .vectors .axes line { stroke: #c5c0b8; stroke-width: 0.6; }
-.vectors .axes text { font: 6px var(--mono); fill: #555; text-anchor: middle; dominant-baseline: middle; }
+.vectors .axes text { font: 7.5px var(--mono); fill: #555; text-anchor: middle; dominant-baseline: middle; }
 .vectors .loop { fill: none; stroke: #c73636; stroke-width: 1.2; }
 .vectors .vec { stroke: #1d232b; stroke-width: 2; }
 .vectors marker path { fill: #1d232b; }
-.why { font-family: var(--sans); }
-.why h2 { font-size: 15px; margin-top: 4px; }
-.why h2 + .small { margin: 2px 0 0; font-size: 12px; }
-.why h3 { margin: 14px 0 4px; font-size: 12px; font-weight: 500; color: var(--muted); }
+
+/* reading: why · what it looks like · takeaways, one card per rhythm */
+.why { display: grid; gap: 14px; margin-top: 18px; font-family: var(--sans); }
+.reading-card { padding: 14px 18px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+.reading-card h2 { font-size: 17px; font-weight: 600; color: var(--text); }
+.reading-card .cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 4px 32px; }
+.reading-card h3 { margin: 12px 0 6px; font-size: 12px; font-weight: 600; color: var(--muted); }
 .why ol, .why ul { margin: 0; padding-inline-start: 1.3em; }
 .why li { margin: 6px 0; }
-.why .see { display: inline-block; margin: 14px 0 18px; text-decoration: none; }
+.why .muted { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+.why .see { margin-top: 14px; text-decoration: none; }
+
+/* rhythm picker dialog */
 .picker { width: min(560px, 94vw); max-height: 84vh; padding: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--text); }
 .picker::backdrop { background: rgb(0 0 0 / 0.55); }
 .picker-head { display: flex; gap: 8px; padding: 10px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); }
@@ -412,8 +458,24 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .picker-row { display: block; width: 100%; text-align: start; padding: 7px 10px; border: 0; border-radius: 8px; background: none; cursor: pointer; }
 .picker-row:hover, .picker-row.active { background: color-mix(in srgb, var(--active) 18%, var(--panel)); }
 .picker-row[aria-selected="true"] { font-weight: 600; color: var(--active); }
-@media (max-width: 900px) { .heart-grid { grid-template-columns: 1fr; } }
+
+@media (max-width: 900px) {
+  .heart-top { flex-wrap: wrap; }
+  .rhythm-bar { order: 3; flex-basis: 100%; }
+  .hs { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "heart" "now" "trace"; }
+  .heart-card { position: static; }
+  .heart-stage { width: min(100%, 56svh); margin-inline: auto; }
+  .instruments { grid-template-columns: minmax(0, 1fr); }
+  .reading-card .cols { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 700px) {
-  .heart-body { grid-template-columns: 1fr; }
   .picker { width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; }
+}
+@media (max-width: 600px) {
+  .heart-top { gap: 8px; }
+  .pick-count { display: none; }
+  #pick { flex: 1; }
+  .ap-plots { grid-template-columns: minmax(0, 1fr); }
+  .ap-plots svg { max-height: 110px; }
+  .playbar input[type="range"] { order: -1; flex-basis: 100%; }
 }
