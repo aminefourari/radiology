@@ -9,7 +9,7 @@
    "see": "Liver on the upper part of the screen, right kidney below it, and between them a thin bright line: the hepatorenal space (Morison's pouch). The diaphragm and lung sit toward the head side (screen left). Free fluid shows as a black stripe between liver and kidney, often first at the liver's inferior tip.",
    "mistakes": "Rib shadows: slide to an intercostal space or rotate the marker slightly toward the back so the probe lies along the ribs. Too anterior shows bowel gas instead of kidney. Always sweep (fan) through the whole kidney and look at the liver tip and the diaphragm too.",
    "depth": 160,
-   "target": { "zMm": 290, "theta": -115, "rock": 0, "fan": 0, "rot": 0 },
+   "target": { "zMm": 300, "theta": -90, "rock": 0, "fan": 0, "rot": 330 },
    "landmarks": [ { "keys": ["liver"], "minFrac": 0.08 }, { "keys": ["kidney_right"], "minFrac": 0.08 } ],
    "fluidSite": 1
   },

@@ -4,13 +4,13 @@ import { REPO_URL } from "./report.js";
 import { decodeMaybeGzip, loadCase } from "./volume.js";
 import { poseFrame, samplePlane } from "./usgeom.js";
 import { bodyOutline, frontSilhouette, skinPoint } from "./usbody.js";
-import { FAN, depthTicks, makeTissueLUT, renderFan, scanConvert, scanMap } from "./usrender.js";
+import { FAN, depthTicks, labelMeanHU, makeTissueLUT, renderFan, scanConvert, scanMap } from "./usrender.js";
 import { closeness, fanContents, viewFound } from "./uswindows.js";
 import { clampEchoState, formatEchoHash, parseEchoHash } from "./echostate.js";
 
 const $ = (id) => document.getElementById(id);
 const ORGANS = ["liver", "spleen", "kidney_right", "kidney_left", "urinary_bladder", "gallbladder"];
-let st, langs, windows, vol, meta, outline, sil, lut, tissues, idByKey, byId;
+let st, langs, windows, vol, meta, outline, sil, lut, parenchyma, huRef, tissues, idByKey, byId;
 let usMap = null, refMap = null, frontImg = null, dirty = true, anim = null, hashTimer = 0;
 const polar = new Uint8Array(FAN.lines * FAN.samples), polarLabels = new Uint8Array(FAN.lines * FAN.samples);
 
@@ -31,7 +31,8 @@ async function start() {
   ]);
   meta = c.meta;
   vol = { ct: c.ct, labels: c.labels, fluid: new Uint8Array(fluidBuf), dims: meta.dims, spacing: meta.spacing };
-  ({ lut } = makeTissueLUT(tissues, meta.structures));
+  ({ lut, parenchyma } = makeTissueLUT(tissues, meta.structures));
+  huRef = labelMeanHU(vol.ct, vol.labels);
   idByKey = Object.fromEntries(meta.structures.map((s) => [s.key, s.id]));
   byId = Object.fromEntries(meta.structures.map((s) => [s.id, s]));
   outline = bodyOutline(vol.ct, vol.dims, vol.spacing);
@@ -174,7 +175,7 @@ function loop(now) {
 
 function draw() {
   const f = frame(), w = win();
-  renderFan(vol, f, { depthMm: st.depth, gainDb: st.gain, amounts: amounts(), lut, tissues }, polar, st.labels ? polarLabels : null);
+  renderFan(vol, f, { depthMm: st.depth, gainDb: st.gain, amounts: amounts(), lut, parenchyma, huRef, tissues }, polar, st.labels ? polarLabels : null);
   const us = $("us"), ctx = us.getContext("2d");
   if (!usMap || usMap.depthMm !== st.depth) usMap = scanMap(st.depth, us.width, us.height);
   const img = ctx.createImageData(us.width, us.height);

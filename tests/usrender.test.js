@@ -2,11 +2,11 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { poseFrame } from "../site/js/usgeom.js";
-import { FAN, depthTicks, fanRay, makeTissueLUT, renderFan, scanConvert, scanMap, speckle } from "../site/js/usrender.js";
+import { FAN, depthTicks, fanRay, labelMeanHU, makeTissueLUT, renderFan, scanConvert, scanMap, speckle } from "../site/js/usrender.js";
 
 const tissues = JSON.parse(readFileSync(new URL("../site/echo/tissues.json", import.meta.url)));
-const structures = [{ id: 1, key: "liver" }, { id: 2, key: "rib_right_5" }];
-const { lut } = makeTissueLUT(tissues, structures);
+const structures = [{ id: 1, key: "liver" }, { id: 2, key: "rib_right_5" }, { id: 3, key: "kidney_right" }];
+const { lut, parenchyma } = makeTissueLUT(tissues, structures);
 
 // 201 × 121 × 81 mm box of liver (1 mm voxels); probe on the anterior face (y = 120) pointing down −y.
 const dims = [201, 121, 81], spacing = [1, 1, 1];
@@ -18,7 +18,7 @@ function fill(arr, [x0, x1], [y0, y1], [z0, z1], v) {
   for (let z = z0; z < z1; z++) for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) arr[z * dims[0] * dims[1] + y * dims[0] + x] = v;
 }
 const frame = poseFrame({ p: [100, 120, 40], n: [0, -1, 0] }, { rock: 0, fan: 0, rot: 0 });
-const opts = (o = {}) => ({ depthMm: 120, gainDb: 0, amounts: [0, 0, 0, 0, 0], lut, tissues, ...o });
+const opts = (o = {}) => ({ depthMm: 120, gainDb: 0, amounts: [0, 0, 0, 0, 0], lut, parenchyma, tissues, ...o });
 const render = (vol, o) => renderFan(vol, frame, opts(o), new Uint8Array(FAN.lines * FAN.samples));
 const CENTER = FAN.lines / 2, EDGE = 40;
 function mean(out, line, d0, d1, depth = 120) {
@@ -158,4 +158,80 @@ test("depthTicks places each cm tick at its depth for any depth setting", () => 
       assert.ok(frac > 0 && frac <= 1.0001, `${depth}: ${cm} cm at ${frac}`);
     }
   }
+});
+
+
+// ---- realism: scatterer speckle, beam point-spread, vessels and fat inside organs from the CT ----
+
+const huRef = (v) => labelMeanHU(v.ct, v.labels);
+
+test("labelMeanHU is the mean HU of each label", () => {
+  const v = box();
+  fill(v.labels, [0, 201], [0, 60], [0, 81], 3);
+  fill(v.ct, [0, 201], [0, 60], [0, 81], 100);
+  const m = labelMeanHU(v.ct, v.labels);
+  assert.equal(m[1], 40);
+  assert.equal(m[3], 100);
+});
+
+test("a contrast-filled vessel inside an organ renders black", () => {
+  const v = box();
+  fill(v.ct, [0, 201], [70, 80], [36, 45], 170); // 10 mm tube running along x, under the centre line
+  const out = render(v, { huRef: huRef(v) });
+  assert.ok(mean(out, CENTER, 42, 48) < 0.35 * mean(out, CENTER, 20, 35), `${mean(out, CENTER, 42, 48)} vs ${mean(out, CENTER, 20, 35)}`);
+});
+
+test("fat inside an organ (renal sinus) renders brighter than the organ", () => {
+  const v = box(3);
+  fill(v.ct, [0, 201], [70, 80], [30, 51], -90);
+  const out = render(v, { huRef: huRef(v) });
+  assert.ok(mean(out, CENTER, 42, 48) > mean(out, CENTER, 20, 35) + 15);
+});
+
+function stats(out, lines, d0, d1) {
+  const v = [];
+  for (const i of lines) for (let k = 0; k < FAN.samples; k++) {
+    const d = ((k + 0.5) * 120) / FAN.samples;
+    if (d >= d0 && d < d1) v.push(out[i * FAN.samples + k]);
+  }
+  const m = v.reduce((s, x) => s + x, 0) / v.length;
+  return { m, sd: Math.sqrt(v.reduce((s, x) => s + (x - m) ** 2, 0) / v.length) };
+}
+
+test("speckle has a real scanner's spread: below raw Rayleigh (5.6 dB) after speckle reduction, but not smoothed flat", () => {
+  const out = render(box());
+  const { sd } = stats(out, [80, 90, 100, 110], 30, 60);
+  const sdDb = (sd / 255) * 60; // DR = 60 dB
+  assert.ok(sdDb > 2.5 && sdDb < 5.6, `${sdDb.toFixed(2)} dB`);
+});
+
+test("speckle grains are wider across the beam than along it", () => {
+  const out = render(box());
+  const corr = (di, dk) => {
+    let sxy = 0, sxx = 0, syy = 0;
+    const { m } = stats(out, [80, 90, 100], 40, 70);
+    for (let i = 80; i < 110; i++) for (let k = 130; k < 220; k++) {
+      const a = out[i * FAN.samples + k] - m, b = out[(i + di) * FAN.samples + k + dk] - m;
+      sxy += a * b; sxx += a * a; syy += b * b;
+    }
+    return sxy / Math.sqrt(sxx * syy);
+  };
+  // at ~55 mm one line is ~0.6 mm apart and one sample 0.31 mm: compare equal distances (~0.6 mm)
+  assert.ok(corr(1, 0) > corr(0, 2) + 0.1, `lateral ${corr(1, 0).toFixed(2)} axial ${corr(0, 2).toFixed(2)}`);
+});
+
+test("fat deep in the body is brighter than fat just under the skin", () => {
+  const v = box(0);
+  fill(v.ct, [0, 201], [0, 121], [0, 81], -90);
+  const out = render(v);
+  assert.ok(mean(out, CENTER, 50, 70) > mean(out, CENTER, 8, 20) + 10, `${mean(out, CENTER, 50, 70)} vs ${mean(out, CENTER, 8, 20)}`);
+});
+
+test("deep gas: reverberations and dirty shadow stay dimmer than the gas line", () => {
+  const v = box();
+  fill(v.ct, [70, 131], [28, 30], [0, 81], -1000); // gas at ~91 mm
+  fill(v.labels, [70, 131], [28, 30], [0, 81], 0);
+  const out = render(v);
+  assert.ok(peak(out, CENTER, 89, 94) > 200, "gas line");
+  assert.ok(mean(out, CENTER, 96, 118) < 0.6 * peak(out, CENTER, 89, 94), `${mean(out, CENTER, 96, 118)}`);
 });
