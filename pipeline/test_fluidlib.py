@@ -121,3 +121,9 @@ def test_splenic_wrap_stays_on_the_lateral_side(out):
     sx = np.nonzero(masks["spleen"])[0].mean()
     kx = np.nonzero(masks["kidney_left"])[0]
     assert len(xs) and (xs <= max(sx, kx.max()) + 5).all()  # lateral = toward the patient's left = smaller x
+
+
+def test_pelvic_fluid_leaves_the_bladder_wall(out):
+    _, masks, f = out
+    idx = np.nonzero(f // 4 == 3)
+    assert not near(masks["urinary_bladder"], idx, 2.9).any()  # ~3 mm wall: a bright line between urine and fluid

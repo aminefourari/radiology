@@ -11,7 +11,7 @@ SITES = ["morison", "splenorenal", "pelvis", "pericardium"]
 
 # Band widths in mm, tuned by eye on s0739-trunk (see make_fluid.py).
 PAIR_SMALL, PAIR_LARGE = 5.0, 12.0
-PELVIS_SMALL, PELVIS_LARGE = 5.0, 14.0
+PELVIS_WALL, PELVIS_SMALL, PELVIS_LARGE = 3.0, 8.0, 16.0  # the bladder mask is urine; leave its wall
 PERI_SMALL, PERI_LARGE = 3.0, 10.0
 
 
@@ -68,7 +68,8 @@ def fluid_map(ct, masks, spacing_mm, sex):
     by = np.nonzero(bl)[1].mean()
     db = _dist(bl, sp)
     behind = yy < by
-    put(3, (db <= PELVIS_SMALL) & behind, (db <= PELVIS_LARGE) & behind)
+    wall = db >= PELVIS_WALL
+    put(3, (db <= PELVIS_SMALL) & behind & wall, (db <= PELVIS_LARGE) & behind & wall)
 
     heart = _solid(masks["heart"], sp)
     dh = _dist(heart, sp)
