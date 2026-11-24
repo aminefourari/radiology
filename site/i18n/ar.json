@@ -251,6 +251,8 @@
  "heart.cs.lpf": "الحزيمة الخلفية",
  "heart.cs.purkinje": "ألياف بركنجي",
  "heart.cs.accessory": "مسار إضافي",
+ "heart.valve.mitral": "الصمام التاجي",
+ "heart.valve.tricuspid": "الصمام ثلاثي الشرفات",
  "heart.ch.ra": "أ.ي",
  "heart.ch.la": "أ.س",
  "heart.ch.rv": "ب.ي",

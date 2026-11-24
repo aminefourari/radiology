@@ -168,6 +168,14 @@ A row that can't pass is cut and listed in the PR. The picker shows the shipped 
   this model, so the teaching feature (positive inferior flutter waves) can't be shown.
 - The NSR axis criterion is the clinical normal (−30° to +90°). The heart gives about +16°.
 
+**Changed 2026-11-24 (anatomy):** the LV was cut at its widest, so its base overhung a much narrower LA. It now
+narrows over its top 24 mm to 0.75 × its width at the mitral ring (`SHAPE.base`, `SHAPE.ring`), so the atria sit
+on the ventricles. That removed late superior forces and pushed LAFB to −40°. The orientation and territory search
+was rerun: `frontal` 41° → 36° and `lafBias` −0.13 → −0.3 give LAFB −50° (as before), NSR +14° and LBBB −49°, and
+every rhythm still passes. The fibrous ring in the AV gap and the mitral and tricuspid valves are drawn on the
+schematic only (`gapAt`, `valveHinges`). The simulation sees nothing in the gap. The leaflets shut 20 ms after QRS
+onset and reopen 60 ms after the T wave. That timing is mechanics, shown for orientation, not simulated.
+
 Duplicate checks: an escape *rhythm* (27, 62) is the whole strip, while a single escape *beat* ends a pause (5).
 Complete block (38, 39) has sinus P waves; the escape rhythms have none.
 

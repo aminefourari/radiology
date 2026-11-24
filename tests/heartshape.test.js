@@ -54,7 +54,21 @@ test("tissueAt: cavities inside, walls around, nothing in the AV gap", () => {
   assert.deepEqual(tissueAt([0, 0, 1.5]), { wall: -1, cavity: -1 });
 });
 
-import { planeProject, sectionPlane, slicePlane, surface } from "../site/js/heartshape.js";
+import { planeProject, sectionPlane, slicePlane, surface, valveHinges } from "../site/js/heartshape.js";
+
+test("the LV narrows to the mitral ring: the LA sits on it instead of a wider ventricular shelf", () => {
+  assert.equal(tissueAt([-25, 0, -40]).wall, 3, "mid LV free wall");
+  assert.equal(tissueAt([-30, 0, -1]).wall, -1, "no LV wall that far out at the base");
+});
+
+test("four-chamber slice cuts both AV valves; the short axis cuts neither", () => {
+  const v = valveHinges(sectionPlane("4ch")), width = (k) => Math.hypot(v[k][1][0] - v[k][0][0], v[k][1][1] - v[k][0][1]);
+  assert.ok(width("mitral") > 25 && width("mitral") < 42, `mitral ${width("mitral")} mm`);
+  assert.ok(width("tricuspid") > 20 && width("tricuspid") < 45, `tricuspid ${width("tricuspid")} mm`);
+  assert.deepEqual(valveHinges(sectionPlane("sax", 0.5)), {});
+  const m = slicePlane(grid, sectionPlane("4ch"), 160);
+  assert.ok(m.ring.some((x) => x > 0), "fibrous ring drawn in the AV gap");
+});
 
 test("four-chamber slice: every mapped pixel is a wall voxel, and all four chambers appear", () => {
   const pl = sectionPlane("4ch"), m = slicePlane(grid, pl, 160);

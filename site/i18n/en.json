@@ -251,6 +251,8 @@
  "heart.cs.lpf": "Posterior fascicle",
  "heart.cs.purkinje": "Purkinje fibres",
  "heart.cs.accessory": "Accessory pathway",
+ "heart.valve.mitral": "Mitral valve",
+ "heart.valve.tricuspid": "Tricuspid valve",
  "heart.ch.ra": "RA",
  "heart.ch.la": "LA",
  "heart.ch.rv": "RV",

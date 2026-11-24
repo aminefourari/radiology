@@ -251,6 +251,8 @@
  "heart.cs.lpf": "Fascicule postérieur",
  "heart.cs.purkinje": "Fibres de Purkinje",
  "heart.cs.accessory": "Voie accessoire",
+ "heart.valve.mitral": "Valve mitrale",
+ "heart.valve.tricuspid": "Valve tricuspide",
  "heart.ch.ra": "OD",
  "heart.ch.la": "OG",
  "heart.ch.rv": "VD",

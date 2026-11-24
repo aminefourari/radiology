@@ -251,6 +251,8 @@
  "heart.cs.lpf": "Posteriorer Faszikel",
  "heart.cs.purkinje": "Purkinje-Fasern",
  "heart.cs.accessory": "Akzessorische Bahn",
+ "heart.valve.mitral": "Mitralklappe",
+ "heart.valve.tricuspid": "Trikuspidalklappe",
  "heart.ch.ra": "RA",
  "heart.ch.la": "LA",
  "heart.ch.rv": "RV",

@@ -7,28 +7,33 @@
 export const VOXEL = 2;
 export const SHAPE = {
   lv: { c: [0, 0, 0], endo: [24, 24, 68], epi: [34, 34, 80] },
+  // The LV narrows over its top `base` mm to `ring` × its width at the mitral ring, so the LA sits on it.
+  base: 24, ring: 0.75,
   rv: { c: [24, 6, 0], endo: [40, 24, 62], wall: 5 },
   ra: { c: [50, 0, 20], endo: [20, 18, 26], wall: 3.5 },
   la: { c: [4, -4, 20], endo: [24, 20, 24], wall: 3.5 },
   avGap: 3,
   // Orientation: long axis (base → apex) at `frontal`° on the hexaxial circle (0 = patient left, 90 = inferior),
   // tilted `tilt`° forward, then turned `roll`° about itself; the right heart faces right and forward.
-  frontal: 41, tilt: 23, roll: 2, septum: [0.8, 0.5, -0.3],
+  frontal: 36, tilt: 23, roll: 2, septum: [0.8, 0.5, -0.3],
   // Purkinje territories in the LV cross-section, by angle from the septum (local +u) towards anterior (+v): the left
   // septal fibres within ±septalDeg of the septum; the anterior fascicle's where cos(angle − split) > lafBias; the
   // posterior fascicle's the rest.
-  septalDeg: 0, split: 91, lafBias: -0.13, rvSeptalTop: -39, rvSeptalMaxV: 99, rvPurkinjeTop: -12,
+  septalDeg: 0, split: 91, lafBias: -0.3, rvSeptalTop: -39, rvSeptalMaxV: 99, rvPurkinjeTop: -12,
 };
 
 const add = (a, b) => a.map((x, i) => x + b[i]);
 const q = (p, c, s) => Math.hypot((p[0] - c[0]) / s[0], (p[1] - c[1]) / s[1], (p[2] - c[2]) / s[2]);
 const grow = (s, d) => s.map((x) => x + d);
+const lvTaper = (w, S) => { const f = Math.max(0, (w - S.lv.c[2] + S.base) / S.base); return 1 - (1 - S.ring) * f * f; };
+// Normalised distance from the LV centre for LV semi-axes s, with the basal taper applied.
+const qlv = (p, s, S) => { const k = lvTaper(p[2], S); return q(p, S.lv.c, [s[0] * k, s[1] * k, s[2]]); };
 
 // What is at a local point: { wall: chamber id or -1, cavity: chamber id or -1 }.
 export function tissueAt(p, S = SHAPE) {
   const [, , w] = p;
   if (w <= 0) {
-    const lvEndo = q(p, S.lv.c, S.lv.endo), lvEpi = q(p, S.lv.c, S.lv.epi);
+    const lvEndo = qlv(p, S.lv.endo, S), lvEpi = qlv(p, S.lv.epi, S);
     if (lvEndo < 1) return { wall: -1, cavity: 3 };
     if (lvEpi < 1) return { wall: 3, cavity: -1 };
     if (q(p, S.rv.c, S.rv.endo) < 1) return { wall: -1, cavity: 2 };
@@ -112,7 +117,7 @@ export function buildHeart(S = SHAPE) {
   // Directions in the LV cross-section (u, v): superior-anterior (where the anterior fascicle goes) and lateral.
   const supUV = [Math.cos((S.split * Math.PI) / 180), Math.sin((S.split * Math.PI) / 180)];
   const onEndo = (dir, w, out = 1.5) => {
-    const r = S.lv.endo[0] * Math.sqrt(Math.max(0, 1 - ((w - S.lv.c[2]) / S.lv.endo[2]) ** 2)) + out;
+    const r = S.lv.endo[0] * lvTaper(w, S) * Math.sqrt(Math.max(0, 1 - ((w - S.lv.c[2]) / S.lv.endo[2]) ** 2)) + out;
     return [dir[0] * r, dir[1] * r, w];
   };
   const rot = (d, deg) => { const a = (deg * Math.PI) / 180; return [d[0] * Math.cos(a) - d[1] * Math.sin(a), d[0] * Math.sin(a) + d[1] * Math.cos(a)]; };
@@ -142,7 +147,7 @@ export function buildHeart(S = SHAPE) {
   const purkinje = new Array(n).fill(-1);
   for (let v = 0; v < n; v++) {
     const p = local[v];
-    if (chamber[v] === 3 && p[2] < -8 && q(p, S.lv.c, grow(S.lv.endo, 3)) < 1) {
+    if (chamber[v] === 3 && p[2] < -8 && qlv(p, grow(S.lv.endo, 3), S) < 1) {
       const d = norm([p[0], p[1]]);
       purkinje[v] = d[0] > Math.cos((S.septalDeg * Math.PI) / 180) && p[2] > -50 ? 0 : d[0] * supUV[0] + d[1] * supUV[1] > S.lafBias ? 1 : 2;
     } else if (p[2] < S.rvPurkinjeTop && ((chamber[v] === 2 && q(p, S.rv.c, grow(S.rv.endo, 2.5)) < 1) || (chamber[v] === 3 && p[2] < S.rvSeptalTop && p[1] < S.rvSeptalMaxV && q(p, S.rv.c, grow(S.rv.endo, 2.5)) < 1))) {
@@ -256,27 +261,58 @@ export const planePoint = (pl, x, y) => [0, 1, 2].map((k) => pl.origin[k] + x * 
 // Local point → screen mm (the out-of-plane part is dropped: a projection).
 export const planeProject = (pl, p) => { const d = p.map((x, k) => x - pl.origin[k]); return [dot(d, pl.ex), dot(d, pl.ey)]; };
 
+// What fills the AV gap (0 < w < avGap) at a local point: "valve" where an atrium opens into its own ventricle, "ring"
+// (the fibrous skeleton that insulates atria from ventricles) where either side is wall or the cavities don't match,
+// null outside the heart or the gap. Drawing only: the simulation sees nothing here.
+export function gapAt(p, S = SHAPE) {
+  if (p[2] <= 0 || p[2] >= S.avGap) return null;
+  const below = tissueAt([p[0], p[1], 0], S), above = tissueAt([p[0], p[1], S.avGap], S);
+  if (below.cavity >= 0 && above.cavity >= 0 && below.cavity === above.cavity + 2) return "valve";
+  return below.wall >= 0 || above.wall >= 0 || below.cavity >= 0 || above.cavity >= 0 ? "ring" : null;
+}
+
+// Where a section plane cuts the mitral and tricuspid orifices, as { mitral: [[x, y], [x, y]], tricuspid: … } in screen
+// mm (planeProject coordinates), each pair ordered along x. A valve the plane misses is absent.
+export function valveHinges(pl, S = SHAPE) {
+  const out = {}, runs = { mitral: [], tricuspid: [] }, w = S.avGap / 2;
+  if (Math.abs(pl.ey[2]) < 1e-6) return out;
+  for (let x = -pl.half; x <= pl.half; x += 0.25) {
+    const y = (w - pl.origin[2] - x * pl.ex[2]) / pl.ey[2], p = planePoint(pl, x, y);
+    if (gapAt(p, S) === "valve") runs[tissueAt([p[0], p[1], 0], S).cavity === 3 ? "mitral" : "tricuspid"].push([x, y]);
+  }
+  for (const k in runs) if (runs[k].length > 1) out[k] = [runs[k][0], runs[k].at(-1)];
+  return out;
+}
+
 // Pixel maps for one slice drawn at size × size px: wall voxel per pixel (-1 none), wall coverage (anti-aliasing),
-// cavity chamber + 1 (0 none) and outline strength, from 2×2 subsamples of the analytic shape.
+// cavity chamber + 1 (0 none; valve orifices count as their ventricle), blood, fibrous-ring and wall-or-cavity-or-ring
+// coverage, and outline strength, from 2×2 subsamples of the analytic shape.
 export function slicePlane(grid, pl, size, S = SHAPE) {
   const n = size * size, mmPerPx = (2 * pl.half) / size;
-  const node = new Int32Array(n).fill(-1), alpha = new Float32Array(n), cavity = new Uint8Array(n), edge = new Float32Array(n);
+  const node = new Int32Array(n).fill(-1), alpha = new Float32Array(n), blood = new Float32Array(n), ring = new Float32Array(n);
+  const inside = new Float32Array(n), cavity = new Uint8Array(n), edge = new Float32Array(n);
   const sub = [[-0.25, -0.25], [0.25, -0.25], [-0.25, 0.25], [0.25, 0.25]];
   for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) {
     const i = py * size + px;
     const x = (px + 0.5) * mmPerPx - pl.half, y = (py + 0.5) * mmPerPx - pl.half;
-    let wall = 0, cav = 0, cavId = 0;
+    let wall = 0, cav = 0, cavId = 0, rg = 0;
     const kinds = new Set();
     for (const [sx, sy] of sub) {
-      const t = tissueAt(planePoint(pl, x + sx * mmPerPx, y + sy * mmPerPx), S);
-      if (t.wall >= 0) { wall++; kinds.add("w"); } else if (t.cavity >= 0) { cav++; cavId = t.cavity + 1; kinds.add(`c${t.cavity}`); } else kinds.add("o");
+      const p = planePoint(pl, x + sx * mmPerPx, y + sy * mmPerPx), t = tissueAt(p, S);
+      if (t.wall >= 0) { wall++; kinds.add("w"); continue; }
+      if (t.cavity >= 0) { cav++; cavId = t.cavity + 1; kinds.add(`c${t.cavity}`); continue; }
+      const gap = gapAt(p, S);
+      if (gap === "valve") { cav++; cavId = tissueAt([p[0], p[1], 0], S).cavity + 1; kinds.add("v"); } else if (gap === "ring") { rg++; kinds.add("r"); } else kinds.add("o");
     }
     alpha[i] = wall / 4;
+    blood[i] = cav / 4;
+    ring[i] = rg / 4;
+    inside[i] = (wall + cav + rg) / 4;
     if (cav) cavity[i] = cavId;
     if (kinds.size > 1) edge[i] = 1;
     if (wall) node[i] = nearestVoxel(grid, planePoint(pl, x, y));
   }
-  return { size, mmPerPx, node, alpha, cavity, edge };
+  return { size, mmPerPx, node, alpha, blood, ring, inside, cavity, edge };
 }
 
 // Surface for 3D: naive surface nets on the wall occupancy (box-blurred), vertices in RAS, each with its nearest voxel.
