@@ -13,7 +13,6 @@ const REF = 0.25;        // echo amplitude shown as full white at 0 dB gain
 const DR = 50;           // displayed dynamic range, dB
 const REVERB = 0.5;      // each reverberation's amplitude relative to the one before
 const DIRTY = 0.004;     // low-level "dirty" shadow under gas
-const COUPLING_MM = 3;   // air this close to the skin is gel, not gas
 const GAS_HU = -300, BONE_HU = 300;
 
 export function makeTissueLUT(tissues, structures) {
@@ -70,7 +69,7 @@ export function renderFan(vol, frame, { depthMm, gainDb = 0, amounts, lut, tissu
   for (let i = 0; i < lines; i++) {
     const { origin: o, dir } = fanRay(frame, i, lines);
     const lin = all.subarray(i * samples, (i + 1) * samples);
-    let I = 1, zPrev = -1, gasAt = -1, gasE = 0;
+    let I = 1, zPrev = -1, gasAt = -1, gasE = 0, touched = false; // touched: the line has reached the body
     for (let k = 0; k < samples; k++) {
       const d = sampleDepth(k, depthMm);
       const x = o[0] + d * dir[0], y = o[1] + d * dir[1], z = o[2] + d * dir[2];
@@ -81,7 +80,9 @@ export function renderFan(vol, frame, { depthMm, gainDb = 0, amounts, lut, tissu
       const fv = fluid ? nearest(fluid, dims, spacing, x, y, z) : 0;
       let t = null;
       if (fv && (fv & 3) <= (amounts[fv >> 2] || 0)) t = FL;
-      else if (hu < GAS_HU) { if (d < COUPLING_MM) t = SOFT; else { t = GAS; gas = true; } }
+      // Air before the line first meets the body is the gel between the curved probe face and the skin.
+      else if (hu < GAS_HU) { if (!touched) t = FL; else { t = GAS; gas = true; } }
+      if (hu >= GAS_HU) touched = true;
       if (!t) {
         lab = nearest(labels, dims, spacing, x, y, z);
         if (lut[lab * 4] >= 0) t = lutT[lab];
@@ -162,4 +163,13 @@ export function scanConvert(polar, map, rgba) {
     rgba[q + 3] = 255;
   }
   return rgba;
+}
+
+// Depth scale: one tick every 2 cm, as a fraction of the image height (same geometry as scanMap).
+export function depthTicks(depthMm, W, H) {
+  const half = ((FAN.sectorDeg / 2) * Math.PI) / 180, R = FAN.radiusMm;
+  const top = R * Math.cos(half), mmPerPx = Math.max((2 * (R + depthMm) * Math.sin(half)) / W, (R + depthMm - top) / H);
+  const out = [];
+  for (let cm = 2; cm * 10 <= depthMm; cm += 2) out.push({ cm, frac: (R + cm * 10 - top) / mmPerPx / H });
+  return out;
 }

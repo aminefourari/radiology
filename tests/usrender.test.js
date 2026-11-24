@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { poseFrame } from "../site/js/usgeom.js";
-import { FAN, fanRay, makeTissueLUT, renderFan, scanConvert, scanMap, speckle } from "../site/js/usrender.js";
+import { FAN, depthTicks, fanRay, makeTissueLUT, renderFan, scanConvert, scanMap, speckle } from "../site/js/usrender.js";
 
 const tissues = JSON.parse(readFileSync(new URL("../site/echo/tissues.json", import.meta.url)));
 const structures = [{ id: 1, key: "liver" }, { id: 2, key: "rib_right_5" }];
@@ -136,4 +136,26 @@ test("lateral resolution: speckle correlates between neighbouring lines, not dis
   };
   assert.ok(corr(CENTER, CENTER + 1) > 0.4, `${corr(CENTER, CENTER + 1)}`);
   assert.ok(Math.abs(corr(CENTER, CENTER + 12)) < 0.2, `${corr(CENTER, CENTER + 12)}`);
+});
+
+test("air between the curved probe face and the skin is gel: edge lines still image the tissue", () => {
+  // Same tissue box, but with 20 mm of air above the skin inside the grid (as on a real body).
+  const D = [201, 141, 81], n = D[0] * D[1] * D[2];
+  const v = { ct: new Int16Array(n).fill(40), labels: new Uint8Array(n).fill(1), fluid: new Uint8Array(n), dims: D, spacing };
+  for (let z = 0; z < D[2]; z++) for (let y = 121; y < D[1]; y++) for (let x = 0; x < D[0]; x++) v.ct[z * D[0] * D[1] + y * D[0] + x] = -1000;
+  const out = renderFan(v, frame, opts(), new Uint8Array(FAN.lines * FAN.samples));
+  // line 0 leans 30° toward +z, so it leaves the 81 mm box past ~30 mm: look at 12–25 mm
+  assert.ok(mean(out, 0, 12, 25) > 100, `edge line ${mean(out, 0, 12, 25)}`);
+  assert.ok(mean(out, 0, 12, 25) > 0.7 * mean(out, CENTER, 12, 25));
+});
+
+test("depthTicks places each cm tick at its depth for any depth setting", () => {
+  for (const depth of [80, 160, 240]) {
+    const map = scanMap(depth, 640, 440), ticks = depthTicks(depth, 640, 440);
+    assert.equal(ticks.length, Math.floor(depth / 20));
+    for (const { cm, frac } of ticks) {
+      assert.ok(Math.abs(frac * 440 - (FAN.radiusMm + cm * 10 - map.topMm) / map.mmPerPx) < 1e-6);
+      assert.ok(frac > 0 && frac <= 1.0001, `${depth}: ${cm} cm at ${frac}`);
+    }
+  }
 });

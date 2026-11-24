@@ -4,7 +4,7 @@ import { REPO_URL } from "./report.js";
 import { decodeMaybeGzip, loadCase } from "./volume.js";
 import { poseFrame, samplePlane } from "./usgeom.js";
 import { bodyOutline, frontSilhouette, skinPoint } from "./usbody.js";
-import { FAN, makeTissueLUT, renderFan, scanConvert, scanMap } from "./usrender.js";
+import { FAN, depthTicks, makeTissueLUT, renderFan, scanConvert, scanMap } from "./usrender.js";
 import { closeness, fanContents, viewFound } from "./uswindows.js";
 import { clampEchoState, formatEchoHash, parseEchoHash } from "./echostate.js";
 
@@ -141,9 +141,8 @@ function syncControls() {
   $("sim-badge").hidden = !st.fluid.some((v) => v > 0);
   $("win-title").textContent = w.title[st.lang] || w.title.en;
   for (const k of ["where", "see", "mistakes"]) $(`t-${k}`).textContent = w[k];
-  const ticks = [];
-  for (let cm = 2; cm * 10 <= st.depth; cm += 2) ticks.push(`<span style="top:${pxForDepth(cm * 10)}%">${cm}</span>`);
-  $("depth-scale").innerHTML = ticks.join("");
+  const us = $("us");
+  $("depth-scale").innerHTML = depthTicks(st.depth, us.width, us.height).map(({ cm, frac }) => `<span style="top:${frac * 100}%">${cm}</span>`).join("");
 }
 
 // ---- probe animation ("Show me") ----
@@ -196,11 +195,6 @@ function draw() {
 function dirWord([x, y, z]) {
   const a = [Math.abs(x), Math.abs(y), Math.abs(z)], i = a.indexOf(Math.max(...a));
   return [x > 0 ? "right" : "left", y > 0 ? "ant" : "post", z > 0 ? "head" : "feet"][i];
-}
-
-function pxForDepth(mm) {
-  const m = usMap || scanMap(st.depth, 640, 440);
-  return ((FAN.radiusMm + mm - m.topMm) / m.mmPerPx / 440) * 100;
 }
 
 // Structure outlines and names in the fan, from the label volume (nearest sample per pixel).
