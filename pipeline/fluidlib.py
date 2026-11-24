@@ -59,8 +59,9 @@ def fluid_map(ct, masks, spacing_mm, sex):
     s, l = pair("spleen", "kidney_left")
     sx, sy, sz = [c.mean() for c in np.nonzero(masks["spleen"])]
     # Left subphrenic space: the lateral half of the spleen, above or behind it.
-    wrap = (_dist(masks["spleen"], sp) <= PAIR_LARGE) & (xx >= sx) & ((zz >= sz) | (yy <= sy))
-    lateral = xx >= min(sx, np.nonzero(masks["kidney_left"])[0].min())  # not medially into the lesser sac
+    wrap = (_dist(masks["spleen"], sp) <= PAIR_LARGE) & (xx <= sx) & ((zz >= sz) | (yy <= sy))
+    # RAS: +x is the patient's right, so the left side's lateral direction is smaller x.
+    lateral = xx <= max(sx, np.nonzero(masks["kidney_left"])[0].max())  # not medially into the lesser sac
     put(2, s & lateral, (l | wrap) & lateral)
 
     bl = masks["urinary_bladder"]

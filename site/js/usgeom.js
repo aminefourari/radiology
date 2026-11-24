@@ -1,5 +1,5 @@
 // Ultrasound geometry: sampling a volume at world positions, and the probe's frame. DOM-free.
-// World = mm in the case grid: pos = index * spacing (RAS+, x = patient left, y = anterior, z = superior).
+// World = mm in the case grid: pos = index * spacing (RAS+: x = patient's right, y = anterior, z = superior).
 // Volumes are flat [z][y][x], dims = [X, Y, Z].
 
 export function trilinear(vol, [X, Y, Z], [sx, sy, sz], x, y, z, outside) {
@@ -52,7 +52,7 @@ export function poseFrame({ p, n }, { rock = 0, fan = 0, rot = 0 }) {
   let b = norm(n);
   let m = [-b[2] * b[0], -b[2] * b[1], 1 - b[2] * b[2]];
   m = Math.hypot(...m) < 1e-6 ? [0, 1, 0] : norm(m); // a beam straight up or down has no "head" direction
-  m = rotate(m, b, rot);
+  m = rotate(m, b, -rot); // +rot: head → patient's right (+x) for an anterior probe
   let e = cross(b, m);
   [b, m] = [rotate(b, e, rock), rotate(m, e, rock)];
   [b, e] = [rotate(b, m, -fan), rotate(e, m, -fan)];

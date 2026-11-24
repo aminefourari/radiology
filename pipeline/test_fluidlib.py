@@ -11,10 +11,11 @@ def phantom():
     ct = np.full((80, 60, 80), -1000, np.int16)
     ct[2:78, 2:58, 2:78] = 40
     blocks = {
-        "liver": np.s_[10:30, 25:45, 45:65],
-        "kidney_right": np.s_[12:24, 20:32, 30:41],  # 4 mm gap below the liver
-        "spleen": np.s_[55:70, 25:40, 45:60],
-        "kidney_left": np.s_[52:64, 20:32, 30:41],
+        # RAS: +x is the patient's right, so the liver sits at large x and the spleen at small x.
+        "liver": np.s_[50:70, 25:45, 45:65],
+        "kidney_right": np.s_[56:68, 20:32, 30:41],  # 4 mm gap below the liver
+        "spleen": np.s_[10:25, 25:40, 45:60],
+        "kidney_left": np.s_[16:28, 20:32, 30:41],
         "urinary_bladder": np.s_[35:45, 30:40, 5:15],
         "heart": np.s_[33:48, 35:50, 66:76],
         "lung": np.s_[49:60, 35:50, 62:78],
@@ -119,4 +120,4 @@ def test_splenic_wrap_stays_on_the_lateral_side(out):
     xs = np.nonzero(f // 4 == 2)[0]
     sx = np.nonzero(masks["spleen"])[0].mean()
     kx = np.nonzero(masks["kidney_left"])[0]
-    assert (xs >= min(sx, kx.min()) - 5).all()
+    assert len(xs) and (xs <= max(sx, kx.max()) + 5).all()  # lateral = toward the patient's left = smaller x

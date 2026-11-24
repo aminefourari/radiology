@@ -36,12 +36,12 @@ test("poseFrame with zero angles: b = n, m = +z, e = b × m", () => {
   close(f.p, [10, 20, 30]);
   close(f.b, [0, -1, 0]);
   close(f.m, [0, 0, 1]);
-  close(f.e, [-1, 0, 0]);
+  close(f.e, [-1, 0, 0]); // b × m: the patient's left
 });
 
-test("rot 90 turns the marker to the patient's right (-x) on an anterior probe", () => {
+test("rot 90 turns the marker to the patient's right (+x in RAS) on an anterior probe", () => {
   const f = poseFrame(anterior, { rock: 0, fan: 0, rot: 90 });
-  close(f.m, [-1, 0, 0]);
+  close(f.m, [1, 0, 0]);
   close(f.b, [0, -1, 0]);
 });
 

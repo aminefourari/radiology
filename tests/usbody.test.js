@@ -24,16 +24,16 @@ test("radius matches the ellipse within one voxel at θ = 0, ±90, 180", () => {
   }
 });
 
-test("theta +90 is the patient's left (larger x), 0 is anterior (larger y)", () => {
-  assert.ok(skinPoint(outline, 10, 90).p[0] > 300);
-  assert.ok(skinPoint(outline, 10, -90).p[0] < 40);
+test("theta +90 is the patient's left (smaller x: RAS +x = right), 0 is anterior (larger y)", () => {
+  assert.ok(skinPoint(outline, 10, 90).p[0] < 40);
+  assert.ok(skinPoint(outline, 10, -90).p[0] > 300);
   assert.ok(skinPoint(outline, 10, 0).p[1] > 210);
 });
 
-test("inward normal at the anterior midline is [0,-1,0]; at the left flank [-1,0,0]", () => {
+test("inward normal at the anterior midline is [0,-1,0]; at the left flank [+1,0,0]", () => {
   const a = skinPoint(outline, 10, 0).n, l = skinPoint(outline, 10, 90).n;
   assert.ok(a[1] < -0.99 && Math.abs(a[2]) < 0.05, `${a}`);
-  assert.ok(l[0] < -0.99, `${l}`);
+  assert.ok(l[0] > 0.99, `${l}`);
   assert.ok(Math.abs(Math.hypot(...a) - 1) < 1e-9);
 });
 
@@ -47,6 +47,6 @@ test("skinPoint clamps a zMm above or below the body and never returns NaN", () 
 
 test("front silhouette gives the body's x extent per slice", () => {
   const f = frontSilhouette(outline);
-  assert.ok(Math.abs(f.left[2] - 320) <= 2.5 && Math.abs(f.right[2] - 20) <= 2.5, `${f.left[2]} ${f.right[2]}`);
+  assert.ok(Math.abs(f.left[2] - 20) <= 2.5 && Math.abs(f.right[2] - 320) <= 2.5, `${f.left[2]} ${f.right[2]}`);
   assert.equal(f.left[0], 0);
 });

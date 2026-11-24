@@ -1,5 +1,5 @@
 // The body's skin surface, for placing the probe. DOM-free.
-// θ (degrees) goes round the body seen from the feet: 0 = anterior midline, +90 = patient's LEFT flank,
+// RAS: +x is the patient's RIGHT. θ (degrees) goes round the body seen from the feet: 0 = anterior midline, +90 = patient's LEFT flank,
 // −90 = patient's RIGHT flank, ±180 = back. World = mm in the case grid (pos = index * spacing).
 
 const BODY_HU = -500;
@@ -40,7 +40,7 @@ export function bodyOutline(ct, [X, Y, Z], [sx, sy, sz], nTheta = 180) {
     cx[z] = mx * sx; cy[z] = my * sy;
     const maxR = Math.hypot(X, Y);
     for (let k = 0; k < nTheta; k++) {
-      const t = ((-180 + (k * 360) / nTheta) * Math.PI) / 180, dx = Math.sin(t), dy = Math.cos(t);
+      const t = ((-180 + (k * 360) / nTheta) * Math.PI) / 180, dx = -Math.sin(t), dy = Math.cos(t); // +θ toward the patient's left = −x
       let last = 0;
       for (let r = 0; r < maxR; r += 0.5) {
         const ix = Math.round(mx + (dx * r)), iy = Math.round(my + (dy * r) * (sx / sy));
@@ -73,7 +73,7 @@ function point(o, iz, theta) {
   const k0 = Math.floor(f) % o.nTheta, k1 = (k0 + 1) % o.nTheta, w = f - Math.floor(f);
   const rr = o.r[iz * o.nTheta + k0] * (1 - w) + o.r[iz * o.nTheta + k1] * w;
   const t = (theta * Math.PI) / 180;
-  return [o.cx[iz] + rr * Math.sin(t), o.cy[iz] + rr * Math.cos(t), iz * o.step];
+  return [o.cx[iz] - rr * Math.sin(t), o.cy[iz] + rr * Math.cos(t), iz * o.step];
 }
 
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
@@ -93,7 +93,7 @@ export function skinPoint(o, zMm, theta) {
   return { p, n, zMm: iz * o.step };
 }
 
-// x extent of the body per slice, in mm: left = patient's left (largest x), right = patient's right.
+// x extent of the body per slice, in mm: left = patient's left (smallest x in RAS), right = patient's right.
 export function frontSilhouette(o) {
   const Z = o.cx.length, left = new Float32Array(Z), right = new Float32Array(Z), z = new Float32Array(Z);
   for (let iz = 0; iz < Z; iz++) {
@@ -104,7 +104,7 @@ export function frontSilhouette(o) {
       const x = point(o, iz, -180 + (k * 360) / o.nTheta)[0];
       lo = Math.min(lo, x); hi = Math.max(hi, x);
     }
-    left[iz] = hi; right[iz] = lo;
+    left[iz] = lo; right[iz] = hi;
   }
   return { z, left, right };
 }
